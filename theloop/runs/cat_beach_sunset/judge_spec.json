@@ -1,0 +1,46 @@
+{
+  "run_id": "cat_beach_sunset",
+  "adapter": "svg",
+  "max_iters": 3,
+  "score_threshold": 0.85,
+  "visual_judge": {
+    "enabled": true,
+    "fallback_to_ascii": false,
+    "merge_strategy": "visual_authoritative",
+    "svg_fix_format": "exact"
+  },
+  "criteria": [
+    {
+      "id": "cat_silhouette",
+      "description": "Cute cat sitting serenely on the sand with distinct ears, tail curve, posture and golden eyes or rim lighting looking toward the horizon.",
+      "look_for": "Cat body, head, triangular ears, curved tail, paws, facial features/eyes or silhouette, facing the sunset.",
+      "weight": 1.5,
+      "visual_threshold": 0.85,
+      "blocking": true
+    },
+    {
+      "id": "sunset_sky_ocean",
+      "description": "Vibrant sunset sky with multi-stop gradient (deep navy to warm violet, coral, golden orange) transitioning into calm ocean with sun reflection.",
+      "look_for": "Multi-colored sky gradient, horizon line, ocean with glistening water reflection, glowing sun near the horizon.",
+      "weight": 1.2,
+      "visual_threshold": 0.85,
+      "blocking": true
+    },
+    {
+      "id": "beach_foreground",
+      "description": "Warm sandy beach in the foreground with gentle contours, shoreline meeting the ocean, subtle texture or gentle waves.",
+      "look_for": "Sandy ground layer with warm golden/tan tones, transition line between wet sand and water.",
+      "weight": 1.0,
+      "visual_threshold": 0.80,
+      "blocking": true
+    },
+    {
+      "id": "atmosphere_details",
+      "description": "Atmospheric evening details such as distant flying birds, faint evening stars in the upper sky, and radiant sun glow.",
+      "look_for": "Silhouetted birds in flight, subtle stars/sparkles in twilight sky, sun halo glow.",
+      "weight": 0.8,
+      "visual_threshold": 0.80,
+      "blocking": false
+    }
+  ]
+}

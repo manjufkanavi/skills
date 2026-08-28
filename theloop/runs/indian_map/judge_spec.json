@@ -1,0 +1,54 @@
+{
+  "run_id": "indian_map",
+  "adapter": "svg",
+  "max_iters": 5,
+  "score_threshold": 0.75,
+  "visual_judge": {
+    "enabled": true,
+    "fallback_to_ascii": false,
+    "merge_strategy": "visual_authoritative",
+    "svg_fix_format": "exact"
+  },
+  "criteria": [
+    {
+      "id": "shape",
+      "description": "Recognizable outline of India — broad northern Himalayan region, narrowing neck (Delhi/UP), broad Deccan plateau tapering to Kanyakumari point",
+      "look_for": "India's distinctive trident-like shape with wide north and pointed south",
+      "weight": 2.0,
+      "visual_threshold": 0.80,
+      "blocking": true
+    },
+    {
+      "id": "state_borders",
+      "description": "Visible internal state/province boundaries dividing the map into distinct regions",
+      "look_for": "Lines or color differences that separate the map into multiple regions",
+      "weight": 1.0,
+      "visual_threshold": 0.60,
+      "blocking": false
+    },
+    {
+      "id": "labels",
+      "description": "At least 5 major cities or states labeled (e.g. Delhi, Mumbai, Kolkata, Chennai, Bangalore, Hyderabad, Kerala, etc.)",
+      "look_for": "Text labels positioned near their geographic locations on the map",
+      "weight": 1.5,
+      "visual_threshold": 0.65,
+      "blocking": false
+    },
+    {
+      "id": "colors",
+      "description": "Distinct, visually appealing color scheme — regions colored differently or gradient that makes the map visually attractive",
+      "look_for": "Multiple distinct colors, not a single flat color",
+      "weight": 1.0,
+      "visual_threshold": 0.60,
+      "blocking": false
+    },
+    {
+      "id": "title",
+      "description": "Clear title 'India' or 'भारत' visible at top of the map",
+      "look_for": "Text reading 'India' or 'भारत' at the top",
+      "weight": 0.8,
+      "visual_threshold": 0.70,
+      "blocking": false
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+# pip-installable ethical-hacking tools.
+# Installed inside the isolated venv (~/.venvs/pentest) — never on the host machine.
+httpx
+whatweb
+wafw00f
+theHarvester
+wfuzz
+webinspect
+dnsenum
+paramspider
+medusa-ng
+bandit
+semgrep
+whois

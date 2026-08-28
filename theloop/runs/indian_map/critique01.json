@@ -1,0 +1,86 @@
+{
+  "run_id": "indian_map",
+  "iteration": 1,
+  "judge_mode": "visual",
+  "merge_strategy": "visual_authoritative",
+  "svg_fix_format": "exact",
+  "timestamp": "2026-08-23T00:00:00Z",
+  "png_path": "runs/indian_map/iter01.png",
+  "overall_score": 0.81,
+  "weighted_score": 0.82,
+  "global_threshold": 0.75,
+  "global_threshold_met": true,
+  "delivery_blocked_by": [],
+  "should_deliver": true,
+  "criteria": [
+    {
+      "id": "shape",
+      "description": "Recognizable outline of India — broad northern Himalayan region, narrowing neck (Delhi/UP), broad Deccan plateau tapering to Kanyakumari point",
+      "final_score": 0.85,
+      "visual_score": 0.85,
+      "ascii_score": null,
+      "weight": 2.0,
+      "visual_threshold": 0.80,
+      "threshold_met": true,
+      "blocking": true,
+      "visual_observations": "India outline is highly recognizable with broad northern Himalayan region, narrow neck, and pointed southern peninsula.",
+      "svg_fixes": []
+    },
+    {
+      "id": "state_borders",
+      "description": "Visible internal state/province boundaries dividing the map into distinct regions",
+      "final_score": 0.72,
+      "visual_score": 0.72,
+      "ascii_score": null,
+      "weight": 1.0,
+      "visual_threshold": 0.60,
+      "threshold_met": true,
+      "blocking": false,
+      "visual_observations": "State boundaries visible as colored regions with purple borders; some borders between adjacent states could be more distinct.",
+      "svg_fixes": [
+        "Change stroke-width from 1.5 to 2.5 on all state border <path> elements to make boundaries more visible"
+      ]
+    },
+    {
+      "id": "labels",
+      "description": "At least 5 major cities or states labeled (e.g. Delhi, Mumbai, Kolkata, Chennai, Bangalore, Hyderabad, Kerala, etc.)",
+      "final_score": 0.80,
+      "visual_score": 0.80,
+      "ascii_score": null,
+      "weight": 1.5,
+      "visual_threshold": 0.65,
+      "threshold_met": true,
+      "blocking": false,
+      "visual_observations": "18 state labels and 10 city labels clearly visible with good placement and contrast against dark background.",
+      "svg_fixes": []
+    },
+    {
+      "id": "colors",
+      "description": "Distinct, visually appealing color scheme — regions colored differently or gradient that makes the map visually attractive",
+      "final_score": 0.78,
+      "visual_score": 0.78,
+      "ascii_score": null,
+      "weight": 1.0,
+      "visual_threshold": 0.60,
+      "threshold_met": true,
+      "blocking": false,
+      "visual_observations": "Dark blue color scheme with 4 distinct region colors, red accent borders, and gradient background - visually appealing and cohesive.",
+      "svg_fixes": []
+    },
+    {
+      "id": "title",
+      "description": "Clear title India or Bharat visible at top of the map",
+      "final_score": 0.90,
+      "visual_score": 0.90,
+      "ascii_score": null,
+      "weight": 0.8,
+      "visual_threshold": 0.70,
+      "threshold_met": true,
+      "blocking": false,
+      "visual_observations": "Title India / Bharat clearly visible in red pill-shaped banner at top center with white bold text.",
+      "svg_fixes": []
+    }
+  ],
+  "priority_fixes": [],
+  "next_iter_directive": "DELIVER — all thresholds met."
+}

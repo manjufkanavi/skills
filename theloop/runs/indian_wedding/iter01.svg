@@ -1,0 +1,310 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650">
+  <defs>
+    <!-- Sky gradient: warm dusk -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0533"/>
+      <stop offset="40%" stop-color="#7B2D8B"/>
+      <stop offset="75%" stop-color="#E8621A"/>
+      <stop offset="100%" stop-color="#F5B942"/>
+    </linearGradient>
+    <!-- Ground gradient -->
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B0000"/>
+      <stop offset="100%" stop-color="#4a0000"/>
+    </linearGradient>
+    <!-- Mandap canopy gradient -->
+    <linearGradient id="canopy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C8102E"/>
+      <stop offset="50%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#C8102E"/>
+    </linearGradient>
+    <!-- Gold shimmer -->
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#FFA500"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+    <!-- Bride saree gradient -->
+    <linearGradient id="saree" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C8102E"/>
+      <stop offset="100%" stop-color="#8B0000"/>
+    </linearGradient>
+    <!-- Groom sherwani gradient -->
+    <linearGradient id="sherwani" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1C3A1C"/>
+      <stop offset="100%" stop-color="#0A1F0A"/>
+    </linearGradient>
+    <!-- Diya glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Marigold pattern -->
+    <pattern id="marigold-border" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="8" fill="#FF8C00" opacity="0.9"/>
+      <circle cx="15" cy="15" r="5" fill="#FFD700"/>
+      <circle cx="15" cy="15" r="2" fill="#FF4500"/>
+    </pattern>
+  </defs>
+
+  <!-- === BACKGROUND === -->
+  <rect width="900" height="650" fill="url(#sky)"/>
+
+  <!-- Stars -->
+  <g fill="white" opacity="0.6">
+    <circle cx="80" cy="40" r="1.5"/><circle cx="150" cy="25" r="1"/><circle cx="230" cy="55" r="1.5"/>
+    <circle cx="320" cy="20" r="1"/><circle cx="400" cy="45" r="1.5"/><circle cx="500" cy="15" r="1"/>
+    <circle cx="600" cy="35" r="1.5"/><circle cx="700" cy="50" r="1"/><circle cx="800" cy="22" r="1.5"/>
+    <circle cx="860" cy="60" r="1"/><circle cx="50" cy="80" r="1"/><circle cx="750" cy="80" r="1.5"/>
+  </g>
+
+  <!-- Full moon -->
+  <circle cx="800" cy="70" r="45" fill="#FFF8DC" opacity="0.9"/>
+  <circle cx="800" cy="70" r="43" fill="#FFFACD" opacity="0.6"/>
+
+  <!-- === GROUND PLATFORM === -->
+  <rect x="0" y="490" width="900" height="160" fill="url(#ground)"/>
+
+  <!-- === RANGOLI (ground decorative pattern) === -->
+  <g transform="translate(450,510)">
+    <!-- Outer petals -->
+    <g fill="#FF6347" opacity="0.85">
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="20" transform="rotate(315)"/>
+    </g>
+    <!-- Mid ring petals -->
+    <g fill="#FFD700" opacity="0.9">
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(22.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(67.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(112.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(157.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(202.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(247.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(292.5)"/>
+      <ellipse cx="0" cy="-20" rx="7" ry="13" transform="rotate(337.5)"/>
+    </g>
+    <circle cx="0" cy="0" r="10" fill="#FF4500"/>
+    <circle cx="0" cy="0" r="5" fill="#FFD700"/>
+  </g>
+
+  <!-- === MANDAP PILLARS (4 columns) === -->
+  <!-- Left pair -->
+  <rect x="175" y="200" width="28" height="300" fill="url(#gold)" rx="4"/>
+  <rect x="260" y="200" width="28" height="300" fill="url(#gold)" rx="4"/>
+  <!-- Right pair -->
+  <rect x="612" y="200" width="28" height="300" fill="url(#gold)" rx="4"/>
+  <rect x="697" y="200" width="28" height="300" fill="url(#gold)" rx="4"/>
+
+  <!-- Pillar capitals (ornamental tops) -->
+  <g fill="#DAA520">
+    <polygon points="175,200 203,200 195,185 183,180 171,185" />
+    <polygon points="260,200 288,200 280,185 274,180 266,185" />
+    <polygon points="612,200 640,200 632,185 626,180 618,185" />
+    <polygon points="697,200 725,200 717,185 711,180 703,185" />
+  </g>
+
+  <!-- === MANDAP CANOPY === -->
+  <!-- Main canopy drape -->
+  <path d="M165,185 Q450,130 735,185 L730,230 Q450,175 170,230 Z" fill="url(#canopy)" opacity="0.95"/>
+  <!-- Canopy fringe -->
+  <g fill="#FFD700">
+    <path d="M165,230 Q200,245 235,230 Q270,245 305,230 Q340,245 375,230 Q410,245 445,230 Q480,245 515,230 Q550,245 585,230 Q620,245 655,230 Q690,245 725,230 L730,240 Q695,255 660,240 Q625,255 590,240 Q555,255 520,240 Q485,255 450,240 Q415,255 380,240 Q345,255 310,240 Q275,255 240,240 Q205,255 170,240 Z"/>
+  </g>
+
+  <!-- Canopy top ridge decoration -->
+  <path d="M200,185 Q450,140 700,185" stroke="#FFD700" stroke-width="4" fill="none"/>
+  <!-- Decorative border on canopy -->
+  <rect x="165" y="185" width="570" height="8" fill="url(#marigold-border)" opacity="0.7"/>
+
+  <!-- === MARIGOLD GARLAND STRINGS === -->
+  <!-- String 1: left to center -->
+  <path d="M189,200 Q320,300 450,260" stroke="#FF8C00" stroke-width="0" fill="none"/>
+  <g>
+    <!-- Marigold clusters along garland left-->
+    <circle cx="220" cy="240" r="8" fill="#FF8C00"/><circle cx="220" cy="240" r="5" fill="#FFD700"/>
+    <circle cx="260" cy="255" r="8" fill="#FF6347"/><circle cx="260" cy="255" r="5" fill="#FFD700"/>
+    <circle cx="300" cy="262" r="8" fill="#FF8C00"/><circle cx="300" cy="262" r="5" fill="#FFD700"/>
+    <circle cx="340" cy="263" r="8" fill="#FF6347"/><circle cx="340" cy="263" r="5" fill="#FFD700"/>
+    <circle cx="380" cy="260" r="8" fill="#FF8C00"/><circle cx="380" cy="260" r="5" fill="#FFD700"/>
+    <circle cx="420" cy="253" r="8" fill="#FF6347"/><circle cx="420" cy="253" r="5" fill="#FFD700"/>
+    <!-- Garland right -->
+    <circle cx="460" cy="253" r="8" fill="#FF8C00"/><circle cx="460" cy="253" r="5" fill="#FFD700"/>
+    <circle cx="500" cy="258" r="8" fill="#FF6347"/><circle cx="500" cy="258" r="5" fill="#FFD700"/>
+    <circle cx="540" cy="263" r="8" fill="#FF8C00"/><circle cx="540" cy="263" r="5" fill="#FFD700"/>
+    <circle cx="580" cy="261" r="8" fill="#FF6347"/><circle cx="580" cy="261" r="5" fill="#FFD700"/>
+    <circle cx="620" cy="254" r="8" fill="#FF8C00"/><circle cx="620" cy="254" r="5" fill="#FFD700"/>
+    <circle cx="660" cy="242" r="8" fill="#FF6347"/><circle cx="660" cy="242" r="5" fill="#FFD700"/>
+  </g>
+
+  <!-- String lines connecting garlands -->
+  <path d="M220,240 Q340,265 450,258 Q570,265 660,242" stroke="#4a7c59" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- === SACRED FIRE (Havan Kund) === -->
+  <!-- Fire pit base -->
+  <rect x="395" y="440" width="110" height="55" fill="#8B4513" rx="5"/>
+  <rect x="400" y="445" width="100" height="45" fill="#4a2208" rx="3"/>
+  <!-- Sacred fire flames -->
+  <g filter="url(#glow)">
+    <ellipse cx="450" cy="440" rx="18" ry="30" fill="#FF4500" opacity="0.9"/>
+    <ellipse cx="435" cy="445" rx="12" ry="22" fill="#FF6347" opacity="0.85"/>
+    <ellipse cx="465" cy="445" rx="12" ry="22" fill="#FF8C00" opacity="0.85"/>
+    <ellipse cx="450" cy="430" rx="10" ry="20" fill="#FFD700" opacity="0.9"/>
+    <ellipse cx="445" cy="425" rx="6" ry="14" fill="#FFFACD" opacity="0.8"/>
+    <ellipse cx="455" cy="425" rx="6" ry="14" fill="#FFFACD" opacity="0.8"/>
+    <ellipse cx="450" cy="418" rx="4" ry="10" fill="white" opacity="0.7"/>
+  </g>
+  <!-- Havan kund rim decoration -->
+  <rect x="393" y="437" width="114" height="8" fill="#DAA520" rx="2"/>
+
+  <!-- === BRIDE === -->
+  <!-- Bride body (lehenga/saree): right of fire -->
+  <!-- Skirt / lehenga -->
+  <path d="M490,490 L540,490 L555,370 L475,370 Z" fill="url(#saree)"/>
+  <!-- Gold border on lehenga -->
+  <path d="M490,490 L540,490" stroke="#FFD700" stroke-width="3"/>
+  <path d="M478,400 Q515,395 552,400" stroke="#FFD700" stroke-width="2" fill="none"/>
+  <path d="M476,420 Q515,415 554,420" stroke="#FFD700" stroke-width="2" fill="none"/>
+  <path d="M475,440 Q515,435 555,440" stroke="#FFD700" stroke-width="2" fill="none"/>
+  <path d="M475,460 Q515,455 555,460" stroke="#FFD700" stroke-width="2" fill="none"/>
+  <!-- Blouse / choli -->
+  <rect x="484" y="340" width="56" height="35" fill="#8B0000" rx="3"/>
+  <!-- Gold blouse border -->
+  <rect x="484" y="340" width="56" height="4" fill="#FFD700" rx="2"/>
+  <rect x="484" y="371" width="56" height="4" fill="#FFD700" rx="2"/>
+  <!-- Dupatta / veil -->
+  <path d="M484,340 Q460,310 445,350 Q440,380 450,400" stroke="#C8102E" stroke-width="12" fill="none" opacity="0.7"/>
+  <!-- Neck and head -->
+  <ellipse cx="512" cy="330" rx="14" ry="18" fill="#D2A679"/>
+  <!-- Hair (bun with flowers) -->
+  <ellipse cx="512" cy="315" rx="16" ry="12" fill="#1a0000"/>
+  <!-- Maang tikka (forehead jewel) -->
+  <circle cx="512" cy="320" r="4" fill="#FFD700"/>
+  <circle cx="512" cy="320" r="2" fill="#C8102E"/>
+  <!-- Nath (nose ring) -->
+  <circle cx="519" cy="334" r="3" fill="none" stroke="#FFD700" stroke-width="1.5"/>
+  <!-- Bangles -->
+  <g stroke="#FFD700" stroke-width="2" fill="none">
+    <circle cx="484" cy="358" r="6"/>
+    <circle cx="484" cy="366" r="6"/>
+    <circle cx="540" cy="358" r="6"/>
+    <circle cx="540" cy="366" r="6"/>
+  </g>
+  <!-- Flower in hair -->
+  <circle cx="500" cy="310" r="5" fill="#FF8C00"/>
+  <circle cx="500" cy="310" r="3" fill="#FFD700"/>
+
+  <!-- === GROOM === -->
+  <!-- Groom body (sherwani): left of fire -->
+  <!-- Sherwani coat -->
+  <path d="M345,490 L390,490 L395,355 L340,355 Z" fill="url(#sherwani)"/>
+  <!-- Gold buttons on sherwani -->
+  <g fill="#FFD700">
+    <circle cx="368" cy="370" r="3"/>
+    <circle cx="368" cy="385" r="3"/>
+    <circle cx="368" cy="400" r="3"/>
+    <circle cx="368" cy="415" r="3"/>
+    <circle cx="368" cy="430" r="3"/>
+  </g>
+  <!-- Gold sherwani border -->
+  <path d="M340,355 L395,355" stroke="#FFD700" stroke-width="3"/>
+  <path d="M345,490 L390,490" stroke="#FFD700" stroke-width="3"/>
+  <!-- Collar -->
+  <path d="M353,355 L368,345 L383,355" fill="#1C3A1C" stroke="#FFD700" stroke-width="1.5"/>
+  <!-- Dhoti / churidar (lower) -->
+  <rect x="346" y="455" width="44" height="35" fill="#F5F5DC"/>
+  <!-- Neck and head -->
+  <ellipse cx="368" cy="335" rx="14" ry="18" fill="#C68642"/>
+  <!-- Hair / turban (safa/pagri) -->
+  <path d="M352,322 Q368,308 384,322 Q390,328 386,338 L350,338 Q346,328 352,322 Z" fill="#FFD700"/>
+  <!-- Turban band -->
+  <path d="M350,330 Q368,322 386,330" stroke="#C8102E" stroke-width="3" fill="none"/>
+  <!-- Turban jewel -->
+  <circle cx="368" cy="315" r="5" fill="#C8102E"/>
+  <circle cx="368" cy="315" r="3" fill="#FFD700"/>
+  <!-- Kalgi (turban plume) -->
+  <path d="M381,308 Q390,290 382,275 Q378,285 375,295" fill="#FFD700" opacity="0.9"/>
+  <circle cx="381" cy="308" r="4" fill="#DAA520"/>
+  <!-- Mala (garland) around neck -->
+  <path d="M354,355 Q368,368 382,355" stroke="#FF8C00" stroke-width="4" fill="none"/>
+
+  <!-- === PANDIT (priest) silhouette === -->
+  <ellipse cx="450" cy="398" rx="10" ry="14" fill="#D2A679"/>
+  <rect x="442" y="412" width="20" height="30" fill="#FFF5E1"/>
+  <!-- Dhoti -->
+  <path d="M442,442 L435,490 L465,490 L458,442 Z" fill="#FFF5E1"/>
+  <!-- Sacred thread -->
+  <path d="M442,415 Q430,430 438,445" stroke="#FFD700" stroke-width="1.5" fill="none"/>
+
+  <!-- === DIYAS (oil lamps) === -->
+  <g filter="url(#glow)">
+    <!-- Diya left 1 -->
+    <ellipse cx="230" cy="495" rx="14" ry="6" fill="#DAA520"/>
+    <ellipse cx="230" cy="492" rx="10" ry="4" fill="#8B4513"/>
+    <ellipse cx="230" cy="478" rx="4" ry="10" fill="#FF8C00" opacity="0.9"/>
+    <ellipse cx="230" cy="474" rx="2.5" ry="6" fill="#FFD700"/>
+    <!-- Diya left 2 -->
+    <ellipse cx="280" cy="498" rx="14" ry="6" fill="#DAA520"/>
+    <ellipse cx="280" cy="495" rx="10" ry="4" fill="#8B4513"/>
+    <ellipse cx="280" cy="481" rx="4" ry="10" fill="#FF8C00" opacity="0.9"/>
+    <ellipse cx="280" cy="477" rx="2.5" ry="6" fill="#FFD700"/>
+    <!-- Diya right 1 -->
+    <ellipse cx="620" cy="495" rx="14" ry="6" fill="#DAA520"/>
+    <ellipse cx="620" cy="492" rx="10" ry="4" fill="#8B4513"/>
+    <ellipse cx="620" cy="478" rx="4" ry="10" fill="#FF8C00" opacity="0.9"/>
+    <ellipse cx="620" cy="474" rx="2.5" ry="6" fill="#FFD700"/>
+    <!-- Diya right 2 -->
+    <ellipse cx="670" cy="498" rx="14" ry="6" fill="#DAA520"/>
+    <ellipse cx="670" cy="495" rx="10" ry="4" fill="#8B4513"/>
+    <ellipse cx="670" cy="481" rx="4" ry="10" fill="#FF8C00" opacity="0.9"/>
+    <ellipse cx="670" cy="477" rx="2.5" ry="6" fill="#FFD700"/>
+  </g>
+
+  <!-- === STRING LIGHTS (toran) across top === -->
+  <path d="M170,180 Q340,165 510,180 Q680,165 730,180" stroke="#FFD700" stroke-width="1.5" fill="none" stroke-dasharray="4,6"/>
+  <!-- Light bulbs -->
+  <g fill="#FFD700" opacity="0.9">
+    <circle cx="210" cy="178" r="4"/><circle cx="250" cy="172" r="4"/><circle cx="290" cy="170" r="4"/>
+    <circle cx="330" cy="169" r="4"/><circle cx="370" cy="170" r="4"/><circle cx="410" cy="172" r="4"/>
+    <circle cx="450" cy="175" r="4"/><circle cx="490" cy="172" r="4"/><circle cx="530" cy="170" r="4"/>
+    <circle cx="570" cy="169" r="4"/><circle cx="610" cy="170" r="4"/><circle cx="650" cy="172" r="4"/>
+    <circle cx="690" cy="175" r="4"/>
+  </g>
+
+  <!-- === FLORAL ARCH DECORATIONS on pillars === -->
+  <!-- Left pillar flowers -->
+  <g>
+    <circle cx="189" cy="280" r="8" fill="#FF6347"/><circle cx="189" cy="280" r="4" fill="#FFD700"/>
+    <circle cx="189" cy="310" r="8" fill="#FF8C00"/><circle cx="189" cy="310" r="4" fill="#FFD700"/>
+    <circle cx="189" cy="340" r="8" fill="#FF6347"/><circle cx="189" cy="340" r="4" fill="#FFD700"/>
+    <circle cx="189" cy="370" r="8" fill="#FF8C00"/><circle cx="189" cy="370" r="4" fill="#FFD700"/>
+    <circle cx="189" cy="400" r="8" fill="#FF6347"/><circle cx="189" cy="400" r="4" fill="#FFD700"/>
+    <!-- Inner left pillar -->
+    <circle cx="274" cy="285" r="7" fill="#FF8C00"/><circle cx="274" cy="285" r="3.5" fill="#FFD700"/>
+    <circle cx="274" cy="315" r="7" fill="#FF6347"/><circle cx="274" cy="315" r="3.5" fill="#FFD700"/>
+    <circle cx="274" cy="345" r="7" fill="#FF8C00"/><circle cx="274" cy="345" r="3.5" fill="#FFD700"/>
+    <circle cx="274" cy="375" r="7" fill="#FF6347"/><circle cx="274" cy="375" r="3.5" fill="#FFD700"/>
+    <!-- Right outer pillar -->
+    <circle cx="711" cy="280" r="8" fill="#FF6347"/><circle cx="711" cy="280" r="4" fill="#FFD700"/>
+    <circle cx="711" cy="310" r="8" fill="#FF8C00"/><circle cx="711" cy="310" r="4" fill="#FFD700"/>
+    <circle cx="711" cy="340" r="8" fill="#FF6347"/><circle cx="711" cy="340" r="4" fill="#FFD700"/>
+    <circle cx="711" cy="370" r="8" fill="#FF8C00"/><circle cx="711" cy="370" r="4" fill="#FFD700"/>
+    <circle cx="711" cy="400" r="8" fill="#FF6347"/><circle cx="711" cy="400" r="4" fill="#FFD700"/>
+    <!-- Inner right pillar -->
+    <circle cx="626" cy="285" r="7" fill="#FF8C00"/><circle cx="626" cy="285" r="3.5" fill="#FFD700"/>
+    <circle cx="626" cy="315" r="7" fill="#FF6347"/><circle cx="626" cy="315" r="3.5" fill="#FFD700"/>
+    <circle cx="626" cy="345" r="7" fill="#FF8C00"/><circle cx="626" cy="345" r="3.5" fill="#FFD700"/>
+    <circle cx="626" cy="375" r="7" fill="#FF6347"/><circle cx="626" cy="375" r="3.5" fill="#FFD700"/>
+  </g>
+
+  <!-- === CAPTION === -->
+  <text x="450" y="620" font-family="Georgia, serif" font-size="22" fill="#FFD700"
+        text-anchor="middle" font-weight="bold" letter-spacing="3">✨ SHUBH VIVAH ✨</text>
+  <text x="450" y="642" font-family="Georgia, serif" font-size="13" fill="#FFA07A"
+        text-anchor="middle" letter-spacing="2">An Indian Wedding</text>
+</svg>

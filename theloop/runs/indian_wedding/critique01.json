@@ -1,0 +1,123 @@
+{
+  "run_id": "indian_wedding",
+  "iteration": 1,
+  "judge_mode": "visual",
+  "merge_strategy": "visual_authoritative",
+  "svg_fix_format": "exact",
+  "timestamp": "2026-08-22T17:41:47Z",
+  "png_path": "runs/indian_wedding/iter01.png",
+  "overall_score": 0.692,
+  "weighted_score": 0.6871,
+  "global_threshold": 0.85,
+  "global_threshold_met": false,
+  "delivery_blocked_by": [
+    "mandap",
+    "bride_groom",
+    "sacred_fire",
+    "festive_decor"
+  ],
+  "should_deliver": false,
+  "criteria": [
+    {
+      "id": "mandap",
+      "description": "Elaborate 4-pillar wedding Mandap with gold pillars, royal canopy arches, and draped fabric.",
+      "final_score": 0.72,
+      "visual_score": 0.72,
+      "weight": 1.2,
+      "visual_threshold": 0.85,
+      "threshold_met": false,
+      "blocking": true,
+      "visual_observations": "Four pillars and canopy are present but look flat and blocky with minimal architectural detailing and drape folds.",
+      "svg_fixes": [
+        "Add <path d='...' fill='url(#gold)'> ornate curved architraves and tiered capitals atop pillars",
+        "Add flowing red and silk-gold draped curtains <path d='...' fill='url(#curtain)'> flanking the outer pillars",
+        "Add multi-layered floral marigold and jasmine garlands <path d='...' stroke='#FFA500'> cascading from canopy"
+      ],
+      "ascii_score": null
+    },
+    {
+      "id": "bride_groom",
+      "description": "Bride & Groom in traditional royal Indian wedding attire with clear silhouettes and detailed ornaments.",
+      "final_score": 0.65,
+      "visual_score": 0.65,
+      "weight": 1.5,
+      "visual_threshold": 0.85,
+      "threshold_met": false,
+      "blocking": true,
+      "visual_observations": "Figures are overly geometric and abstract cylinders lacking bridal jewelry, realistic folds, varmalas, and expressive silhouettes.",
+      "svg_fixes": [
+        "Add detailed groom safa/turban with pleated folds <path d='...' fill='#DAA520'/> and ruby kalgi feather <path d='...' fill='#DC143C'/>",
+        "Add ornate bride lehenga with zardozi embroidery <path d='...' stroke='#FFD700' stroke-width='2'/> and sheer red dupatta veil",
+        "Add varmala floral garlands <g id='varmala'> around both the bride and groom necks connecting gracefully",
+        "Add bride maang tikka <circle cx='512' cy='320' r='5' fill='#FFD700'/> and multi-strand pearl necklaces <ellipse rx='18' ry='12' fill='none' stroke='#FFF' stroke-width='2'/>"
+      ],
+      "ascii_score": null
+    },
+    {
+      "id": "sacred_fire",
+      "description": "Sacred Hawan/Agni Kund fire pit placed between the couple with radiant fire glow.",
+      "final_score": 0.6,
+      "visual_score": 0.6,
+      "weight": 1.0,
+      "visual_threshold": 0.8,
+      "threshold_met": false,
+      "blocking": true,
+      "visual_observations": "Fire pit is obscure and looks like an ambiguous white pillar rather than a stepped copper Hawan Kund with layered glowing flames.",
+      "svg_fixes": [
+        "Replace center shape with a stepped copper Hawan Kund <polygon points='400,480 500,480 480,450 420,450' fill='#B87333'/>",
+        "Add dynamic layered flame paths <path d='M450,390 Q430,420 440,450 Q460,450 470,420 Z' fill='#FF4500'/> and inner gold flame <path d='...' fill='#FFD700'/> with glow filter"
+      ],
+      "ascii_score": null
+    },
+    {
+      "id": "festive_decor",
+      "description": "Rich festive Indian wedding ambiance including rangoli, glowing diyas, marigold torans, and celestial night sky.",
+      "final_score": 0.74,
+      "visual_score": 0.74,
+      "weight": 1.0,
+      "visual_threshold": 0.8,
+      "threshold_met": false,
+      "blocking": true,
+      "visual_observations": "Basic rangoli and a few diyas are present, but background needs warmer festive ambient glow, hanging lanterns, and richer floor petals.",
+      "svg_fixes": [
+        "Add hanging brass temple bells and lanterns <g id='lanterns'> from mandap ceiling",
+        "Add glowing diyas with radial gradient halos <circle cx='...' cy='...' r='25' fill='url(#diyaGlow)'/>",
+        "Add scattered rose petals <ellipse rx='6' ry='3' fill='#C8102E'/> across the stage floor"
+      ],
+      "ascii_score": null
+    },
+    {
+      "id": "typography",
+      "description": "Celebratory wedding banner text 'SHUBH VIVAH' with elegant typography and ornamental symbols.",
+      "final_score": 0.75,
+      "visual_score": 0.75,
+      "weight": 0.8,
+      "visual_threshold": 0.8,
+      "threshold_met": false,
+      "blocking": false,
+      "visual_observations": "Text is readable but simple brackets can be replaced by traditional Kalash or Paisley motifs with gold shine.",
+      "svg_fixes": [
+        "Add decorative paisley/kalash ornament paths <path d='...' fill='#FFD700'/> flanking 'SHUBH VIVAH'",
+        "Change font-family to 'Cinzel', 'Georgia', serif with letter-spacing='6px' and gold gradient fill"
+      ],
+      "ascii_score": null
+    }
+  ],
+  "priority_fixes": [
+    "[mandap] Add <path d='...' fill='url(#gold)'> ornate curved architraves and tiered capitals atop pillars",
+    "[mandap] Add flowing red and silk-gold draped curtains <path d='...' fill='url(#curtain)'> flanking the outer pillars",
+    "[mandap] Add multi-layered floral marigold and jasmine garlands <path d='...' stroke='#FFA500'> cascading from canopy",
+    "[bride_groom] Add detailed groom safa/turban with pleated folds <path d='...' fill='#DAA520'/> and ruby kalgi feather <path d='...' fill='#DC143C'/>",
+    "[bride_groom] Add ornate bride lehenga with zardozi embroidery <path d='...' stroke='#FFD700' stroke-width='2'/> and sheer red dupatta veil",
+    "[bride_groom] Add varmala floral garlands <g id='varmala'> around both the bride and groom necks connecting gracefully",
+    "[bride_groom] Add bride maang tikka <circle cx='512' cy='320' r='5' fill='#FFD700'/> and multi-strand pearl necklaces <ellipse rx='18' ry='12' fill='none' stroke='#FFF' stroke-width='2'/>",
+    "[sacred_fire] Replace center shape with a stepped copper Hawan Kund <polygon points='400,480 500,480 480,450 420,450' fill='#B87333'/>",
+    "[sacred_fire] Add dynamic layered flame paths <path d='M450,390 Q430,420 440,450 Q460,450 470,420 Z' fill='#FF4500'/> and inner gold flame <path d='...' fill='#FFD700'/> with glow filter",
+    "[festive_decor] Add hanging brass temple bells and lanterns <g id='lanterns'> from mandap ceiling",
+    "[festive_decor] Add glowing diyas with radial gradient halos <circle cx='...' cy='...' r='25' fill='url(#diyaGlow)'/>",
+    "[festive_decor] Add scattered rose petals <ellipse rx='6' ry='3' fill='#C8102E'/> across the stage floor",
+    "[typography] Add decorative paisley/kalash ornament paths <path d='...' fill='#FFD700'/> flanking 'SHUBH VIVAH'",
+    "[typography] Change font-family to 'Cinzel', 'Georgia', serif with letter-spacing='6px' and gold gradient fill"
+  ],
+  "next_iter_directive": "CONTINUE \u2014 apply svg_fixes for: mandap, bride_groom, sacred_fire, festive_decor."
+}

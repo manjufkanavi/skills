@@ -1,0 +1,59 @@
+# Chat Infrastructure: Ollama + Open WebUI via Docker Compose
+# Deploy: docker compose -f docker-compose-chat-infrastructure.yml up -d
+# NOTE: DEFAULT_ADMIN_EMAIL/PASSWORD create admin on first boot only
+name: iacgenie-chat
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    environment:
+      OLLAMA_NUM_THREADS: "4"
+      OLLAMA_HOST: "0.0.0.0:11434"
+      OLLAMA_ORIGINS: "*"
+      OLLAMA_KEEP_ALIVE: "-1"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - chat_net
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    ports:
+      - "4000:8080"
+    user: "0:0"
+    depends_on:
+      - ollama
+    environment:
+      OLLAMA_BASE_URL: "http://ollama:11434"
+      USE_OLLAMA_DOCKER: "false"
+      ENABLE_SIGNUP: "false"
+      DEFAULT_ADMIN_EMAIL: "admin@iacgenie.com"
+      DEFAULT_ADMIN_PASSWORD: "SecureAdmin@2026"
+      PORT: "8080"
+      ENV: "prod"
+      USE_CUDA_DOCKER: "false"
+      USE_SLIM_DOCKER: "false"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - chat_net
+
+networks:
+  chat_net:
+    driver: bridge
+
+volumes:
+  ollama_models:

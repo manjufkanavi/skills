@@ -1,0 +1,7 @@
+.DS_Store
+.usage.json
+.bundled_manifest
+.curator_state
+
+# Large model file (>100MB GitHub limit)
+voice-bridge/assets/kokoro/model.onnx

@@ -1,0 +1,21 @@
+{
+  "title": "Video title shown in the video header",
+  "theme": "purple",
+  "duration_per_scene": 5.0,
+  "transition_duration": 1.0,
+  "narration_voice": "af_bella",
+  "narration_speed": 0.95,
+  "scenes": [
+    {
+      "title": "Scene title (large text, centered)",
+      "subtitle": "Supporting subtitle (smaller, below title)",
+      "bullets": [
+        "Bullet point 1",
+        "Bullet point 2",
+        "Bullet point 3"
+      ],
+      "accent": "#7c3aed",
+      "narration": "Full spoken narration text. Kokoro TTS converts this to voice. Keep it natural — write as if speaking to someone. Aim for 40-80 words per scene (roughly 15-30 seconds of speech at 0.95x speed)."
+    }
+  ]
+}

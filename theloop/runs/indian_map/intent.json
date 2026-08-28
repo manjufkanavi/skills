@@ -1,0 +1,76 @@
+{
+  "viewBox": "0 0 800 850",
+  "gradients": [
+    {"id": "bg", "type": "linear", "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+     "stops": [{"offset": 0, "color": "#1a1a2e"}, {"offset": 1, "color": "#16213e"}]}
+  ],
+  "shapes": [
+    {"type": "rect", "id": "bg", "x": 0, "y": 0, "width": 800, "height": 850, "fill": "url(#bg)"},
+
+    {"type": "rect", "id": "title_bg", "x": 200, "y": 12, "width": 400, "height": 40, "rx": 20, "fill": "#e94560", "opacity": 0.9},
+    {"type": "text", "id": "title_text", "x": 400, "y": 38, "size": 28, "text": "India / भारत", "fill": "#ffffff", "text-anchor": "middle", "font-weight": "bold", "dominant-baseline": "middle"},
+
+    {"type": "path", "id": "india_outline", "d": "M 120,55 L 160,38 L 210,32 L 260,40 L 310,48 L 360,42 L 410,50 L 460,55 L 510,62 L 560,75 L 600,95 L 620,140 L 630,190 L 640,240 L 645,290 L 638,340 L 628,380 L 618,420 L 605,460 L 595,500 L 585,540 L 575,570 L 565,600 L 555,620 L 540,645 L 525,665 L 510,680 L 495,695 L 478,710 L 460,725 L 445,735 L 430,742 L 415,745 L 400,740 L 385,728 L 370,715 L 355,700 L 340,685 L 325,670 L 310,655 L 295,640 L 280,625 L 265,610 L 250,595 L 235,575 L 225,550 L 218,525 L 212,500 L 208,475 L 205,450 L 200,420 L 195,390 L 188,360 L 180,330 L 172,300 L 165,270 L 158,240 L 150,210 L 142,180 L 135,150 L 128,120 L 122,85 Z", "fill": "#0f3460", "stroke": "#e94560", "stroke-width": 3, "opacity": 0.95},
+
+    {"type": "path", "id": "gujarat", "d": "M 120,55 L 128,120 L 135,150 L 142,180 L 150,210 L 158,240 L 165,270 L 172,300 L 180,330 L 188,360 L 195,390 L 200,420 L 205,450 L 210,430 L 215,400 L 218,370 L 220,340 L 222,310 L 225,280 L 228,250 L 230,220 L 232,190 L 235,160 L 240,130 L 245,100 L 250,70 L 210,32 L 160,38 Z", "fill": "#16213e", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "rajasthan", "d": "M 160,38 L 210,32 L 250,70 L 245,100 L 240,130 L 235,160 L 232,190 L 230,220 L 228,250 L 225,280 L 222,310 L 220,340 L 218,370 L 215,400 L 210,430 L 205,450 L 200,420 L 195,390 L 188,360 L 180,330 L 172,300 L 165,270 L 158,240 L 150,210 L 142,180 L 135,150 L 128,120 L 120,55 L 160,38 Z", "fill": "#1a3a5c", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "haryana_delhi", "d": "M 310,48 L 360,42 L 410,50 L 415,70 L 410,90 L 400,105 L 390,115 L 380,120 L 370,118 L 360,110 L 350,100 L 340,90 L 330,80 L 320,70 L 310,60 Z", "fill": "#0f3460", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "himachal", "d": "M 260,40 L 310,48 L 320,70 L 330,80 L 340,90 L 350,100 L 360,110 L 370,118 L 360,130 L 340,140 L 320,145 L 300,140 L 280,130 L 260,115 L 245,100 L 250,70 Z", "fill": "#1b4372", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "uttar_pradesh", "d": "M 360,42 L 410,50 L 460,55 L 510,62 L 500,80 L 490,100 L 480,120 L 470,140 L 460,155 L 440,165 L 420,170 L 400,165 L 380,155 L 370,145 L 360,130 L 370,118 L 380,120 L 390,115 L 400,105 L 410,90 L 415,70 L 410,50 Z", "fill": "#16213e", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "bihar", "d": "M 510,62 L 560,75 L 570,95 L 575,115 L 570,135 L 560,150 L 540,160 L 520,165 L 500,160 L 490,150 L 480,140 L 470,140 L 480,120 L 490,100 L 500,80 Z", "fill": "#0f3460", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "west_bengal", "d": "M 560,75 L 600,95 L 620,140 L 630,190 L 625,230 L 615,270 L 600,300 L 580,320 L 560,330 L 545,325 L 530,315 L 520,300 L 515,280 L 515,260 L 520,240 L 530,220 L 540,200 L 545,180 L 545,160 L 560,150 L 570,135 L 575,115 L 570,95 Z", "fill": "#1a3a5c", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "odisha", "d": "M 580,320 L 600,300 L 615,270 L 625,230 L 630,190 L 635,230 L 638,270 L 640,310 L 638,350 L 630,380 L 618,400 L 605,410 L 590,415 L 575,410 L 565,400 L 555,385 L 550,365 L 550,345 L 555,330 L 560,330 Z", "fill": "#16213e", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "andhra", "d": "M 618,400 L 630,380 L 638,350 L 640,310 L 635,350 L 632,390 L 628,430 L 622,470 L 615,510 L 605,540 L 595,560 L 585,570 L 575,570 L 578,540 L 582,510 L 588,480 L 595,450 L 605,425 Z", "fill": "#1b4372", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "tamil_nadu", "d": "M 575,570 L 585,570 L 595,560 L 605,540 L 615,510 L 622,470 L 618,500 L 612,530 L 605,560 L 595,590 L 585,615 L 575,635 L 565,650 L 555,660 L 545,665 L 535,660 L 525,650 L 520,635 L 518,615 L 520,595 L 525,575 L 535,560 L 545,550 L 555,545 L 565,548 L 570,558 Z", "fill": "#0f3460", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "karnataka", "d": "M 460,420 L 490,410 L 520,405 L 550,400 L 575,400 L 585,410 L 595,425 L 605,445 L 610,470 L 608,500 L 600,530 L 590,555 L 578,575 L 565,590 L 550,600 L 535,605 L 520,605 L 505,600 L 490,590 L 478,575 L 468,555 L 460,530 L 455,505 L 452,480 L 452,455 L 455,435 Z", "fill": "#1a3a5c", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "maharashtra", "d": "M 280,330 L 310,320 L 340,310 L 370,305 L 400,300 L 430,298 L 455,300 L 475,305 L 490,315 L 500,330 L 505,350 L 505,370 L 500,390 L 490,410 L 475,425 L 460,420 L 455,435 L 452,455 L 452,480 L 455,505 L 450,490 L 445,470 L 438,450 L 428,435 L 415,425 L 400,418 L 385,415 L 370,415 L 355,418 L 340,422 L 325,428 L 310,435 L 295,440 L 282,438 L 270,430 L 260,418 L 252,400 L 248,380 L 248,360 L 250,340 L 258,325 L 270,315 Z", "fill": "#16213e", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "goa_kerala", "d": "M 248,380 L 252,400 L 260,418 L 270,430 L 282,438 L 295,440 L 310,435 L 320,450 L 328,470 L 332,495 L 330,520 L 325,545 L 318,565 L 310,580 L 300,590 L 290,595 L 280,595 L 270,590 L 262,580 L 255,565 L 250,545 L 248,520 L 250,495 L 255,470 L 262,448 L 260,418 L 252,400 L 248,380 Z", "fill": "#1b4372", "stroke": "#533483", "stroke-width": 1.5},
+    {"type": "path", "id": "assam", "d": "M 560,75 L 600,95 L 620,140 L 630,190 L 640,240 L 650,280 L 655,320 L 652,360 L 645,400 L 635,430 L 622,450 L 615,440 L 610,420 L 608,395 L 605,365 L 600,335 L 595,305 L 590,275 L 588,245 L 588,215 L 590,185 L 595,155 L 600,125 L 595,100 Z", "fill": "#0f3460", "stroke": "#533483", "stroke-width": 1.5},
+
+    {"type": "text", "id": "lbl_kashmir", "x": 180, "y": 22, "size": 10, "text": "J&K", "fill": "#e8e8e8", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_ladakh", "x": 260, "y": 25, "size": 9, "text": "Ladakh", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_gujarat", "x": 155, "y": 200, "size": 11, "text": "Gujarat", "fill": "#e0e0e0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_rajasthan", "x": 195, "y": 250, "size": 12, "text": "Rajasthan", "fill": "#e8e8e8", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_hp", "x": 310, "y": 90, "size": 10, "text": "Himachal", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_haryana", "x": 365, "y": 85, "size": 9, "text": "Haryana", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_delhi", "x": 395, "y": 72, "size": 9, "text": "Delhi", "fill": "#ff6b6b", "text-anchor": "middle", "font-weight": "bold"},
+    {"type": "text", "id": "lbl_up", "x": 440, "y": 115, "size": 12, "text": "Uttar Pradesh", "fill": "#e0e0e0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_bihar", "x": 530, "y": 125, "size": 11, "text": "Bihar", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_wb", "x": 590, "y": 220, "size": 11, "text": "West Bengal", "fill": "#e0e0e0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_odisha", "x": 595, "y": 350, "size": 11, "text": "Odisha", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_assam", "x": 630, "y": 270, "size": 11, "text": "Assam", "fill": "#e0e0e0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_maharashtra", "x": 380, "y": 370, "size": 13, "text": "Maharashtra", "fill": "#e8e8e8", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_andhra", "x": 600, "y": 460, "size": 11, "text": "Andhra", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_karnataka", "x": 530, "y": 500, "size": 12, "text": "Karnataka", "fill": "#e0e0e0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_tamil_nadu", "x": 570, "y": 610, "size": 12, "text": "Tamil Nadu", "fill": "#e8e8e8", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_kerala", "x": 275, "y": 500, "size": 11, "text": "Kerala", "fill": "#d0d0d0", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_goa", "x": 295, "y": 455, "size": 9, "text": "Goa", "fill": "#d0d0d0", "text-anchor": "middle"},
+
+    {"type": "circle", "id": "city_delhi", "cx": 395, "cy": 72, "r": 4, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_mumbai", "cx": 340, "cy": 380, "r": 3.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_kolkata", "cx": 600, "cy": 260, "r": 3.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_chennai", "cx": 580, "cy": 540, "r": 3.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_bangalore", "cx": 510, "cy": 545, "r": 3.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_hyderabad", "cx": 500, "cy": 455, "r": 3.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_kochi", "cx": 275, "cy": 555, "r": 2.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_pune", "cx": 355, "cy": 400, "r": 2.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_ahmedabad", "cx": 210, "cy": 310, "r": 2.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+    {"type": "circle", "id": "city_bhopal", "cx": 440, "cy": 250, "r": 2.5, "fill": "#ff6b6b", "stroke": "#ffffff", "stroke-width": 1},
+
+    {"type": "text", "id": "lbl_mumbai", "x": 340, "y": 395, "size": 9, "text": "Mumbai", "fill": "#ffffff", "text-anchor": "middle"},
+    {"type": "text", "id": "lbl_kolkata", "x": 615, "y": 260, "size": 9, "text": "Kolkata", "fill": "#ffffff", "text-anchor": "start"},
+    {"type": "text", "id": "lbl_chennai", "x": 592, "y": 540, "size": 9, "text": "Chennai", "fill": "#ffffff", "text-anchor": "start"},
+    {"type": "text", "id": "lbl_bangalore", "x": 520, "y": 545, "size": 9, "text": "Bangalore", "fill": "#ffffff", "text-anchor": "start"},
+    {"type": "text", "id": "lbl_hyderabad", "x": 512, "y": 455, "size": 9, "text": "Hyderabad", "fill": "#ffffff", "text-anchor": "start"},
+
+    {"type": "text", "id": "ocean_indian", "x": 400, "y": 790, "size": 16, "text": "Indian Ocean", "fill": "#334155", "text-anchor": "middle", "font-style": "italic", "opacity": 0.7},
+    {"type": "text", "id": "ocean_bay", "x": 680, "y": 350, "size": 14, "text": "Bay of", "fill": "#334155", "text-anchor": "middle", "font-style": "italic", "opacity": 0.7},
+    {"type": "text", "id": "ocean_bay2", "x": 680, "y": 368, "size": 14, "text": "Bengal", "fill": "#334155", "text-anchor": "middle", "font-style": "italic", "opacity": 0.7},
+    {"type": "text", "id": "ocean_arab", "x": 80, "y": 350, "size": 14, "text": "Arabian", "fill": "#334155", "text-anchor": "middle", "font-style": "italic", "opacity": 0.7},
+    {"type": "text", "id": "ocean_arab2", "x": 80, "y": 368, "size": 14, "text": "Sea", "fill": "#334155", "text-anchor": "middle", "font-style": "italic", "opacity": 0.7},
+
+    {"type": "text", "id": "compass", "x": 750, "y": 30, "size": 14, "text": "N", "fill": "#e94560", "text-anchor": "middle", "font-weight": "bold"},
+    {"type": "line", "id": "compass_n", "x1": 750, "y1": 35, "x2": 750, "y2": 55, "stroke": "#e94560", "stroke-width": 2},
+    {"type": "line", "id": "compass_s", "x1": 750, "y1": 55, "x2": 750, "y2": 65, "stroke": "#e94560", "stroke-width": 1, "opacity": 0.5}
+  ]
+}

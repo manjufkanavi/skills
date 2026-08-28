@@ -1,0 +1,31 @@
+{
+  "title": "infographic-show demo",
+  "theme": "purple",
+  "duration_per_scene": 4.5,
+  "transition_duration": 0.9,
+  "narration_voice": "af_bella",
+  "narration_speed": 1.0,
+  "scenes": [
+    {
+      "type": "svg",
+      "title": "infographic-show",
+      "subtitle": "theloop-based infographic videos",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920\" height=\"1080\">\n  <defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n    <stop offset=\"0%\" style=\"stop-color:#1a0a2e\"/><stop offset=\"100%\" style=\"stop-color:#3d1e6d\"/>\n  </linearGradient></defs>\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#bg)\"/>\n  <circle cx=\"220\" cy=\"160\" r=\"320\" fill=\"#7c3aed\" opacity=\"0.25\"/>\n  <circle cx=\"1700\" cy=\"920\" r=\"260\" fill=\"#8b5cf6\" opacity=\"0.18\"/>\n  <rect x=\"80\" y=\"46\" width=\"90\" height=\"5\" fill=\"#7c3aed\" rx=\"2\"/>\n  <text x=\"960\" y=\"470\" font-family=\"'Helvetica Neue',Helvetica,Arial\" font-size=\"76\" fill=\"#ffffff\" font-weight=\"800\" text-anchor=\"middle\">infographic-show</text>\n  <rect x=\"760\" y=\"542\" width=\"400\" height=\"5\" fill=\"#7c3aed\" rx=\"2\"/>\n  <text x=\"960\" y=\"624\" font-family=\"'Helvetica Neue',Helvetica,Arial\" font-size=\"34\" fill=\"#c4b5fd\" text-anchor=\"middle\">theloop-based infographic videos</text>\n  \n  <text x=\"1855\" y=\"1050\" font-family=\"Helvetica\" font-size=\"22\" fill=\"#c4b5fd\" text-anchor=\"end\">01 / 03 / 03</text>\n</svg>",
+      "narration": "This is infographic show. It builds narrated videos from SVG scene cards using an in-model closed loop."
+    },
+    {
+      "type": "svg",
+      "title": "In-model closed loop",
+      "subtitle": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920\" height=\"1080\">\n  <defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n    <stop offset=\"0%\" style=\"stop-color:#1a0a2e\"/><stop offset=\"100%\" style=\"stop-color:#3d1e6d\"/>\n  </linearGradient></defs>\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#bg)\"/>\n  <circle cx=\"220\" cy=\"160\" r=\"320\" fill=\"#7c3aed\" opacity=\"0.25\"/>\n  <circle cx=\"1700\" cy=\"920\" r=\"260\" fill=\"#8b5cf6\" opacity=\"0.18\"/>\n  <rect x=\"80\" y=\"46\" width=\"90\" height=\"5\" fill=\"#7c3aed\" rx=\"2\"/>\n  <text x=\"960\" y=\"470\" font-family=\"'Helvetica Neue',Helvetica,Arial\" font-size=\"76\" fill=\"#ffffff\" font-weight=\"800\" text-anchor=\"middle\">In-model closed loop</text>\n  <rect x=\"760\" y=\"542\" width=\"400\" height=\"5\" fill=\"#7c3aed\" rx=\"2\"/>\n  <text x=\"960\" y=\"624\" font-family=\"'Helvetica Neue',Helvetica,Arial\" font-size=\"34\" fill=\"#c4b5fd\" text-anchor=\"middle\">plan, write, render, judge, refine</text>\n  <rect x=\"660\" y=\"380\" width=\"24\" height=\"24\" fill=\"#8b5cf6\" rx=\"12\"/>\n  <text x=\"705\" y=\"397\" font-family=\"Helvetica\" font-size=\"30\" fill=\"#e9d5ff\">plan the scene</text>\n  <rect x=\"660\" y=\"470\" width=\"24\" height=\"24\" fill=\"#8b5cf6\" rx=\"12\"/>\n  <text x=\"705\" y=\"487\" font-family=\"Helvetica\" font-size=\"30\" fill=\"#e9d5ff\">write the SVG</text>\n  <rect x=\"660\" y=\"560\" width=\"24\" height=\"24\" fill=\"#8b5cf6\" rx=\"12\"/>\n  <text x=\"705\" y=\"577\" font-family=\"Helvetica\" font-size=\"30\" fill=\"#e9d5ff\">render and judge</text>\n  <rect x=\"660\" y=\"650\" width=\"24\" height=\"24\" fill=\"#8b5cf6\" rx=\"12\"/>\n  <text x=\"705\" y=\"667\" font-family=\"Helvetica\" font-size=\"30\" fill=\"#e9d5ff\">refine until it passes</text>\n  <text x=\"1855\" y=\"1050\" font-family=\"Helvetica\" font-size=\"22\" fill=\"#c4b5fd\" text-anchor=\"end\">02 / 03 / 03</text>\n</svg>",
+      "narration": "Instead of external image models, each scene is generated and refined by a closed in-model loop until it meets the spec."
+    },
+    {
+      "type": "svg",
+      "title": "To Telegram",
+      "subtitle": "SVG cards, narration, and a stitched MP4",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920\" height=\"1080\">\n  <defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n    <stop offset=\"0%\" style=\"stop-color:#1a0a2e\"/><stop offset=\"100%\" style=\"stop-color:#3d1e6d\"/>\n  </linearGradient></defs>\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#bg)\"/>\n  <circle cx=\"220\" cy=\"160\" r=\"320\" fill=\"#7c3aed\" opacity=\"0.25\"/>\n  <circle cx=\"1700\" cy=\"920\" r=\"260\" fill=\"#8b5cf6\" opacity=\"0.18\"/>\n  <rect x=\"80\" y=\"46\" width=\"90\" height=\"5\" fill=\"#7c3aed\" rx=\"2\"/>\n  <text x=\"960\" y=\"470\" font-family=\"'Helvetica Neue',Helvetica,Arial\" font-size=\"76\" fill=\"#ffffff\" font-weight=\"800\" text-anchor=\"middle\">To Telegram</text>\n  <rect x=\"760\" y=\"542\" width=\"400\" height=\"5\" fill=\"#7c3aed\" rx=\"2\"/>\n  <text x=\"960\" y=\"624\" font-family=\"'Helvetica Neue',Helvetica,Arial\" font-size=\"34\" fill=\"#c4b5fd\" text-anchor=\"middle\">SVG cards, narration, and a stitched MP4</text>\n  \n  <text x=\"1855\" y=\"1050\" font-family=\"Helvetica\" font-size=\"22\" fill=\"#c4b5fd\" text-anchor=\"end\">03 / 03 / 03</text>\n</svg>",
+      "narration": "Finally the SVGs are rasterized, narrated with Kokoro, stitched with ffmpeg, and sent to you on Telegram."
+    }
+  ]
+}

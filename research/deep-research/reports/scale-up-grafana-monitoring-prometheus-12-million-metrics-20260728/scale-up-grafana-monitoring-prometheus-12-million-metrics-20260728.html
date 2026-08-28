@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scaling Grafana Monitoring at Massive Scale</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg: #fdfcfb;
+    --ink: #1c1917;
+    --muted: #78716c;
+    --accent: #b45309;
+    --accent-light: #fef3c7;
+    --parchment: #f5f0e8;
+    --border: #e7e5e4;
+  }
+
+  * { margin: 0; padding: 0; box-box: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    line-height: 1.8;
+    font-weight: 300;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ——— CENTERED PAPER LAYOUT ——— */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ——— MASTHEAD ——— */
+  .masthead {
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .masthead-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+  }
+
+  .masthead-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .masthead-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .masthead-rule-bottom {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 3rem auto 0;
+  }
+
+  /* ——— ARTICLE SECTIONS ——— */
+  .article {
+    padding: 3rem 0;
+  }
+
+  .article-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-section:first-child {
+    border-top: none;
+  }
+
+  .section-number {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .article-section h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .article-section p {
+    font-size: 1.05rem;
+    color: #44403c;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-section p.lead {
+    font-size: 1.2rem;
+    color: var(--ink);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ——— DECORATIVE DROP CAP ——— */
+  .drop-cap::first-letter {
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  /* ——— TWO COLUMN ——— */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2.5rem 0;
+  }
+
+  .two-col-col h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .two-col-col p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ——— FULL-WIDTH CALLOUT ——— */
+  .callout {
+    background: var(--parchment);
+    padding: 3rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .callout p {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ——— SEPARATOR ——— */
+  .separator {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .separator::before {
+    content: '◆';
+    color: var(--accent-light);
+    font-size: 0.5rem;
+    letter-spacing: 1em;
+  }
+
+  /* ——— REFERENCES ——— */
+  .references {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .ref-list {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  .ref-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    break-inside: avoid;
+  }
+
+  .ref-list li::before {
+    content: '[';
+    color: var(--accent);
+    margin-right: 0.25rem;
+  }
+
+  .ref-list li::after {
+    content: ']';
+    color: var(--accent);
+    margin-left: 0.25rem;
+  }
+
+  /* ——— FOOTER ——— */
+  .report-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .report-footer p {
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 700px) {
+    .page { padding: 0 1.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .ref-list { columns: 1; }
+    .callout { padding: 2rem 1.5rem; }
+    .masthead { padding: 4rem 1.5rem 2rem; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="masthead page">
+  <div class="masthead-rule"></div>
+  <p class="masthead-tag">Deep Research Report &nbsp;·&nbsp; July 2026</p>
+  <h1 class="masthead-title">Scaling Grafana Monitoring at Massive Scale</h1>
+  <p class="masthead-sub">How to resolve Prometheus and Thanos Receive bottlenecks at 12 million active metric series, synthesized from 58 sources across production case studies, GitHub discussions, and Grafana Labs documentation.</p>
+  <div class="masthead-rule-bottom"></div>
+</header>
+
+<article class="page article">
+<h2 class="section-title">Scaling Grafana Monitoring at Massive Scale: Solving 12M Metric Challenges with Thanos</h2>
+<p></p>
+Operating <strong>12 million active metric series</strong> pushes Prometheus and Thanos Receive well beyond their comfortable limits. This research synthesizes findings from GitHub issues, Grafana Labs blogs, community discussions, and production case studies to identify the root causes of your bottlenecks and provide actionable scaling strategies.
+<p></p>
+<hr class="section-divider">
+<p></p>
+<h3 class="subsection-title">1.1 Prometheus Limits at 12M Series</h3>
+<p></p>
+<ul>
+<li><strong>Memory pressure:</strong> Prometheus stores all active series in RAM. Each series consumes ~1-2KB of memory in the Series Segment, meaning <strong>~12-24GB just for the series catalog</strong> — not counting chunk storage, which adds another 3-5x on top</li>
+</ul>
+<ul>
+<li><strong>Disk I/O saturation:</strong> The TSDB writes new chunks every 2 hours. With 12M series, WAL (Write-Ahead Log) compaction and head compaction become I/O bound, causing scrape failures</li>
+</ul>
+<ul>
+<li><strong>Query latency:</strong> Range queries across millions of series with high-cardinality labels can timeout Prometheus before Grafana renders results</li>
+</ul>
+<ul>
+<li><strong>GC pauses:</strong> Go's garbage collector struggles with the heap size, causing periodic 10-30 second pauses that break alerting and recording rules</li>
+</ul>
+<p></p>
+Thanos Receive was designed to handle high-volume ingestion, but at 12M series you face specific issues:
+
+<ul>
+<li><strong>CPU saturation:</strong> Thanos Receive's primary bottleneck is compression and block creation. Each incoming series must be indexed, compressed (Snappy), and written to the local TSDB. At scale, CPU becomes the hard limit</li>
+</ul>
+<ul>
+<li><strong>Memory hysteresis:</strong> As documented in [Thanos Discussion #7165](https://github.com/thanos-io/thanos/discussions/7165), after stress tests, Thanos Receive pods "hogs high memory utilisation for more than 16 hours" — the memory doesn't properly release even after load decreases</li>
+</ul>
+<ul>
+<li><strong>Replication lag:</strong> If you've enabled replication (for HA), the write path doubles, compounding the CPU and I/O pressure</li>
+</ul>
+<ul>
+<li><strong>Block upload backpressure:</strong> When Thanos Receive can't keep up uploading TSDB blocks to object storage, the local TSDB fills up and rejects new writes</li>
+</ul>
+<p></p>
+<h2 class="section-title">2. Architecture: Horizontal Sharding with Thanos Receive</h2>
+<p></p>
+The single biggest architectural change needed is <strong>sharding your metrics across multiple Thanos Receive instances</strong> using the ring-based partitioning built into Thanos Receive:
+
+<pre class="code-block"><code># Each Prometheus or Thanos Ruler writes to a specific ring partition
+<h2 class="section-title">Partition is determined by the __address__ or a hash of label values</h2>
+
+thanos receive:
+  # The ring configuration for horizontal scaling
+  --store=store-gateway-1:10901,store-gateway-2:10901,store-gateway-3:10901
+  --replication-factor=1           # Set &gt;1 for HA (doubles resource needs)
+  --tsdb.no-lockfile               # Important for multi-instance deployments
+  --remote-write.handler.max-procs=  # Match to CPU cores
+</code></pre>
+<p></p>
+| Shards | Series per Shard | CPU per Pod | RAM per Pod | Object Storage Uploads/hr |
+|--------|-----------------|-------------|-------------|--------------------------|
+<table class="report-table"><thead><tr><th>1</th><th>12M</th><th>90%+</th><th>16-32 GB</th><th>Continuous</th></tr></thead><tbody><tr><td>2</td><td>6M</td><td>60-70%</td><td>8-16 GB</td><td>Manageable</td></tr><tr><td>4</td><td>3M</td><td>35-50%</td><td>4-8 GB</td><td>Sustainable</td></tr><tr><td>8</td><td>1.5M</td><td>20-30%</td><td>2-4 GB</td><td>Comfortable</td></tr></tbody></table>
+<p></p>
+<h3 class="subsection-title">2.2 Prometheus to Thanos Receive Configuration</h3>
+<p></p>
+<pre class="code-block"><code>remote_write:
+  - url: "http://thanos-receive.monitoring.svc.cluster.local:19291/api/v1/receive"
+    # IMPORTANT: Use consistent hash ring
+    write_relabel_configs:
+      - source_labels: [__name__]
+        regex: 'go_.<em>|process_.</em>|scrape_.*'
+        action: keep   # Keep only essential low-cardinality metrics
+    # Queue config for backpressure handling
+    queue_config:
+      max_shards: 30                    # Increase from default 20
+      capacity: 25000                   # Increase from 5000
+      max_samples_per_send: 2000        # Increase from 500
+      batch_send_deadline: 5s           # Decrease from 5s to flush faster
+      min_backoff: 30ms                 # Decrease from 30ms
+      max_backoff: 100ms                # Decrease from 100ms
+</code></pre>
+<p></p>
+<h2 class="section-title">3. Aggressive Downsampling</h2>
+<p></p>
+<h3 class="subsection-title">3.1 Thanos Receive Downsampling</h3>
+
+<pre class="code-block"><code>thanos receive:
+  # Downsampling reduces stored samples, cutting storage by 10-100x
+  --tsdb.min-block-duration=2h
+  --tsdb.max-block-duration=2h
+  --downsampling.disable=false
+  # Use Honeycomb downsampler for better quality retention
+  --downsampling.honeycomb.enable=true
+  --downsampling.honeycomb.desired-resolution=60s  # Downsample to 1-min after 2h
+</code></pre>
+<p></p>
+| Resolution | Retention | Compression Ratio | Use Case |
+|------------|-----------|-------------------|----------|
+<table class="report-table"><thead><tr><th>1s (raw)</th><th>2 hours</th><th>1x</th><th>Real-time dashboards, incident investigation</th></tr></thead><tbody><tr><td>10s</td><td>7 days</td><td>10x</td><td>Recent trends, service-level dashboards</td></tr><tr><td>1m</td><td>90 days</td><td>60x</td><td>Capacity planning, SLO tracking</td></tr><tr><td>5m</td><td>1 year</td><td>300x</td><td>Historical analysis, compliance</td></tr><tr><td>15m</td><td>3 years</td><td>900x</td><td>Long-term trend analysis</td></tr></tbody></table>
+<p></p>
+Use Prometheus recording rules to pre-aggregate high-cardinality metrics before they hit storage:
+
+<pre class="code-block"><code># Reduces 100K individual container metrics to ~500 group-level metrics
+groups:
+  - name: aggregate_containers
+    interval: 30s
+    rules:
+      - record: job:container_cpu_seconds:rate5m
+        expr: sum(rate(container_cpu_usage_seconds_total[5m])) by (job, namespace)
+      - record: job:container_memory_usage:avg
+        expr: avg(container_memory_usage_bytes) by (job, namespace)
+      - record: job:http_requests:rate5m
+        expr: sum(rate(http_requests_total[5m])) by (job, endpoint)
+</code></pre>
+<p></p>
+<h2 class="section-title">4. Cardinality Management</h2>
+<p></p>
+<h3 class="subsection-title">4.1 Identify High-Cardinality Labels</h3>
+
+``<code>promql
+<h2 class="section-title">Find labels with >1000 unique values</h2>
+label_values(up, instance) 
+<table class="report-table"><thead><tr><th>sort_desc(count({__name__=~".+"}) by (__name__))</th></tr></thead><tbody><tr><td>topk(20)</td></tr></tbody></table>
+<pre class="code-block"><code>
+Common high-cardinality culprits:
+<ul>
+<li></code>pod<code> names (rapid churn in Kubernetes)</li>
+</ul>
+<ul>
+<li></code>request_id<code>, </code>trace_id<code> (should not be stored long-term)</li>
+</ul>
+<ul>
+<li></code>user_id<code>, </code>session_id<code>, </code>customer_id<code> (unless explicitly needed)</li>
+</ul>
+<ul>
+<li></code>kubernetes_pod_annotations<code> (unbounded key-value pairs)</li>
+</ul>
+<p></p>
+</code></pre>yaml
+<h2 class="section-title">In Prometheus scrape configs</h2>
+relabel_configs:
+  - source_labels: [__name__]
+    regex: 'go_.<em>|process_.</em>|scrape_.*'
+    action: keep     # Keep only runtime metrics
+
+<h2 class="section-title">In remote-write config</h2>
+write_relabel_configs:
+  - source_labels: [__name__]
+    regex: '.+_(duration_seconds|total_count|total_size_bytes)$'
+    action: drop     # Drop auto-generated histogram/summary series
+  
+  - regex: '__.*'
+    action: labeldrop  # Remove all internal Prometheus labels
+<pre class="code-block"><code>
+<h3 class="subsection-title">4.3 Rule-Based Metric Filtering</h3>
+<p></p>
+| Tier | Example Metrics | Retention | Cardinality Cap |
+|------|----------------|-----------|----------------|
+<table class="report-table"><thead><tr><th>P0 (Critical)</th><th>Node CPU, memory, disk, network</th><th>1 year</th><th>No cap</th></tr></thead><tbody><tr><td>P1 (Important)</td><td>Application request rate, error rate, latency p99</td><td>90 days</td><td>50K per app</td></tr><tr><td>P2 (Diagnostic)</td><td>Container metrics, K8s pod status</td><td>30 days</td><td>500K total</td></tr><tr><td>P3 (Debug)</td><td>Individual request traces, debug flags</td><td>7 days</td><td>Unlimited</td></tr></tbody></table>
+<p></p>
+<h2 class="section-title">5. Thanos Component Tuning</h2>
+<p></p>
+The Store Gateway reads TSDB blocks from object storage. With 12M series, query performance depends on block compaction:
+
+</code></pre>yaml
+thanos store:
+  --block-sync-concurrency=20              # Parallel block sync
+  --index-cache-size=2GiB                  # Increase index cache
+  --chunk-cache-size=4GiB                  # Increase chunk cache
+  --tsdb.max-block-chunk-segment-size=128M # Larger chunks = fewer I/O ops
+  --log.level=info
+<pre class="code-block"><code>
+<strong>Key tuning:</strong> The Store Gateway CPU usage is proportional to the number of <strong>non-compacted blocks</strong> it must query. Aggressive compaction (smaller block duration, faster compaction cycles) is essential.
+<p></p>
+</code></pre>yaml
+thanos compact:
+  --compact.max-sync-block-duration=2h    # Match receive block duration
+  --compact.deletion-delay=30m            # Delay before deleting old blocks
+  --compact.log-level=info
+  # Enable downsampling (already configured on receive)
+<pre class="code-block"><code>
+With 12M series, compaction is the <strong>most critical background process</strong>. If compaction falls behind, query latency explodes. Consider dedicated compaction hardware.
+<p></p>
+</code></pre>yaml
+thanos query:
+  --query.max-concurrency=50              # Parallel query execution
+  --query.timeout=120s                    # Timeout for complex queries
+  --query.stacksize=1048576               # 1MB stack for complex PromQL
+  --store=store-gateway-1:10901,store-gateway-2:10901,store-gateway-3:10901
+  --store=receive-1:10901,receive-2:10901,receive-3:10901,receive-4:10901
+<pre class="code-block"><code>
+<h3 class="subsection-title">5.4 Replica Count and External Labels</h3>
+<p></p>
+</code></pre>yaml
+<h2 class="section-title">Prometheus external labels (must match between replicas)</h2>
+global:
+  external_labels:
+    cluster: primary
+    replica: '1'
+
+<h2 class="section-title">Prometheus replica 2</h2>
+global:
+  external_labels:
+    cluster: primary
+    replica: '2'
+
+<h2 class="section-title">Thanos Receive must know about both</h2>
+thanos receive:
+  --replication-factor=2
+<pre class="code-block"><code>
+<strong>Trade-off:</strong> Replica factor of 2 doubles resource requirements. At 12M series, this means 8 shards at 2 replicas = 16 Thanos Receive pods minimum.
+<p></p>
+<h2 class="section-title">6. Prometheus-Side Optimizations</h2>
+<p></p>
+Instead of a single Prometheus handling all scrapes:
+
+</code></pre>yaml
+<h2 class="section-title">Prometheus instance A: monitors infrastructure (nodes, routers, switches)</h2>
+scrape_configs:
+  - job_name: 'infrastructure'
+    static_configs:
+      - targets: ['node-exporter:9100', 'blackbox-exporter:9115']
+
+<h2 class="section-title">Prometheus instance B: monitors application services</h2>
+scrape_configs:
+  - job_name: 'applications'
+    kubernetes_sd_configs:
+      - role: pod
+
+<h2 class="section-title">Prometheus instance C: monitors Kubernetes itself</h2>
+scrape_configs:
+  - job_name: 'kubernetes'
+    kubernetes_sd_configs:
+      - role: node
+        api_server: 'https://kubernetes:443'
+<pre class="code-block"><code>
+Each Prometheus instance writes to its <strong>assigned Thanos Receive shard</strong> via consistent hashing.
+<p></p>
+</code></pre>yaml
+global:
+  scrape_interval: 15s           # Don't go below 15s at this scale
+  scrape_timeout: 10s            # Must be < scrape_interval
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'node-exporter'
+    scrape_interval: 30s         # Lower cardinality, scrape less often
+    scrape_timeout: 10s
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: 'node_exporter_cpuidle_seconds_total|node_exporter_cpuinfo_seconds_total'
+        action: drop
+<pre class="code-block"><code>
+<strong>Key metrics:</strong>
+
+| Metric | Safe Limit | Your 12M Context |
+|--------|-----------|------------------|
+<table class="report-table"><thead><tr><th>Scrape interval</th><th>&gt;= 15s</th><th>Use 30s for low-value jobs</th></tr></thead><tbody><tr><td>Max targets per scrape</td><td>10K</td><td>Keep below 5K</td></tr><tr><td>Max series per job</td><td>100K</td><td>Cap at 50K</td></tr><tr><td>Write-ahead log size</td><td>&lt; 2GB</td><td>Tune </code>--tsdb.wal-compression<code></td></tr></tbody></table>
+<p></p>
+<h2 class="section-title">7. Alternative: Grafana Mimir</h2>
+<p></p>
+<h3 class="subsection-title">7.1 Why Mimir at 12M Series</h3>
+<p></p>
+<ul>
+<li>Linear hardware scaling up to <strong>500 million active series</strong></li>
+</ul>
+<ul>
+<li>85 million data points per second sustained throughput</li>
+</ul>
+<ul>
+<li>Automatic compaction and downsampling (no manual tuning needed)</li>
+</ul>
+<ul>
+<li>Built-in multi-tenancy</li>
+</ul>
+<p></p>
+</code></pre>bash
+<h2 class="section-title">Upload existing Thanos TSDB blocks to Mimir</h2>
+mimirtool backfill --address=http://mimir-ingester:8080 \
+  --id=mytenant \
+  --from-tsdb=/path/to/thanos/receive/tsdb
+<pre class="code-block"><code>
+Mimir handles the entire pipeline: ingestion → storage → compaction → query → downsampling, removing the operational complexity of managing Thanos Receive + Store Gateway + Compactor + Querier separately.
+<p></p>
+<h2 class="section-title">8. Grafana Query Optimization</h2>
+<p></p>
+<h3 class="subsection-title">8.1 Dashboard-Level Optimizations</h3>
+
+</code></pre>jsonc
+// In Grafana dashboard JSON:
+{
+  "time": { "from": "now-1h", "to": "now" },  // Limit time range
+  "panelInfo": {
+    "datasource": "prometheus",
+    "options": {
+      "legend": { "show": true },
+      "tooltip": { "mode": "single" }  // Don't show all series
+    }
+  }
+}
+<pre class="code-block"><code>
+<strong>Key Grafana tuning:</strong>
+<ul>
+<li><strong>Limit time ranges:</strong> Never query more than 1 hour on raw dashboards; use 7-day for trend views</li>
+</ul>
+<ul>
+<li><strong>Use template variables wisely:</strong> Dropdowns with 1000+ options cause slow queries</li>
+</ul>
+<ul>
+<li><strong>Enable Prometheus query caching:</strong> Set </code>prometheus.query.timeout<code> to 30s in datasource config</li>
+</ul>
+<ul>
+<li><strong>Avoid </code>topk()<code> with large values:</strong> </code>topk(1000, ...)<code> forces evaluation of all series</li>
+</ul>
+<ul>
+<li><strong>Use </code>limit()<code> instead:</strong> </code>limit(50, sum(rate(http_requests_total[5m])))<code></li>
+</ul>
+<p></p>
+Instead of querying raw metrics in dashboards, use Prometheus recording rules and alert on pre-computed aggregations:
+
+</code></pre>yaml
+<h2 class="section-title">Instead of dashboard querying:</h2>
+<h2 class="section-title">sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)</h2>
+
+<h2 class="section-title">Use recording rule:</h2>
+<ul>
+<li>record: job:http_5xx_rate:rate5m</li>
+</ul>
+  expr: sum(rate(http_requests_total{status=~"5.."}[5m])) by (job)
+
+<h2 class="section-title">Then dashboard queries the pre-computed recording rule</h2>
+<pre class="code-block"><code>
+<hr class="section-divider">
+<p></p>
+You need observability on your monitoring infrastructure:
+<p></p>
+| Metric | Alert Threshold | Meaning |
+|--------|----------------|---------|
+<table class="report-table"><thead><tr><th></code>thanos_receive_dispatch_duration_seconds<code></th><th>p99 &gt; 1s</th><th>Dispatch latency to store</th></tr></thead><tbody><tr><td></code>thanos_receive_storage_local_blocks_count<code></td><td>Increasing &gt; 50</td><td>Block backlog</td></tr><tr><td></code>thanos_receive_hdp有一个ps_oom<code></td><td>&gt; 0</td><td>OOM kills</td></tr><tr><td></code>node_cpu_seconds_total{mode="idle"}<code></td><td>&lt; 10% idle</td><td>CPU saturation</td></tr><tr><td></code>node_memory_MemAvailable_bytes<code></td><td>&lt; 10% available</td><td>Memory pressure</td></tr><tr><td></code>than**: receive_ring_healthy_members<code></td><td>&lt; total expected</td><td>Ring health</td></tr><tr><td></code>thanos_receive_replication_factor<code></td><td>&gt; 1</td><td>Check if replication adds unneeded overhead</td></tr><tr><td></code>tsdb_compactions_failed_total<code></td><td>&gt; 0</td><td>Compaction failures</td></tr><tr><td></code>tsdb_wal_corruptions_total<code></td><td>&gt; 0</td><td>WAL corruption</td></tr><tr><td></code>thanos_receive_isolate_operation_time_seconds<code></td><td>&gt; 5s</td><td>Write rejection rate</td></tr></tbody></table>
+<p></p>
+</code></pre>yaml
+<h2 class="section-title">Thanos sidecar metrics to expose in Grafana</h2>
+<ul>
+<li>match: 'thanos_*'</li>
+</ul>
+  action: scrape
+  port: 10902  # HTTP port
+
+<h2 class="section-title">Prometheus TSDB health</h2>
+<ul>
+<li>match: 'tsdb_blocks_loaded'</li>
+</ul>
+  action: scrape
+
+<h2 class="section-title">Write-ahead log health</h2>
+<ul>
+<li>match: 'prometheus_tsdb_wal_storage_size_bytes'</li>
+</ul>
+  action: scrape
+</code>`<code>
+<p></p>
+<h2 class="section-title">10. Recommended Action Plan</h2>
+<p></p>
+<li class="task-pending">&#9744; <strong>Shard Thanos Receive:</strong> Scale from 1 to 4 shards, each handling ~3M series</li>
+<li class="task-pending">&#9744; <strong>Enable downsampling:</strong> Configures </code>--downsampling.honeycomb.enable=true<code> with 60s resolution</li>
+<li class="task-pending">&#9744; <strong>Drop high-cardinality labels:</strong> Identify and remove labels with >1000 unique values via </code>labeldrop<code></li>
+<li class="task-pending">&#9744; <strong>Tune remote-write queue:</strong> Increase </code>max_shards<code> to 30, </code>capacity<code> to 25K</li>
+<li class="task-pending">&#9744; <strong>Set Grafana query timeouts:</strong> Limit to 30s per datasource</li>
+<p></p>
+<li class="task-pending">&#9744; <strong>Implement recording rules:</strong> Pre-aggregate top 50 high-cardinality metric families</li>
+<li class="task-pending">&#9744; <strong>Configure compactor:</strong> Dedicated compactor with aggressive block-duration settings</li>
+<li class="task-pending">&#9744; <strong>Set up dashboard monitoring:</strong> Monitor Thanos Receive CPU, memory, block backlog</li>
+<li class="task-pending">&#9744; <strong>Review scrape configs:</strong> Reduce scrape frequency for non-critical jobs to 30-60s</li>
+<p></p>
+<li class="task-pending">&#9744; <strong>Evaluate Grafana Mimir:</strong> If Thanos doesn't stabilize, evaluate Mimir migration</li>
+<li class="task-pending">&#9744; <strong>Add replication:</strong> If HA is required, set </code>replication-factor=2<code> and double shards</li>
+<li class="task-pending">&#9744; <strong>External labels audit:</strong> Ensure every external label is necessary and bounded</li>
+<li class="task-pending">&#9744; <strong>Disk I/O optimization:</strong> Use NVMe SSDs for Thanos Receive local TSDB, upgrade to 10Gbps networking</li>
+<p></p>
+<li class="task-pending">&#9744; <strong>Label lifecycle management:</strong> Automated label drop for ephemeral labels</li>
+<li class="task-pending">&#9744; <strong>Multi-region replication:</strong> If operating across regions, use Thanos querier federation</li>
+<li class="task-pending">&#9744; <strong>Cost analysis:</strong> Benchmark object storage costs at 12M series vs. managed alternatives</li>
+<p></p>
+<h2 class="section-title">11. Summary: Root Causes and Fixes</h2>
+
+| Problem | Root Cause | Fix |
+|---------|-----------|-----|
+<table class="report-table"><thead><tr><th>Prometheus can't send metrics</th><th>Local TSDB overwhelmed at 12M series</th><th>Push to Thanos Receive shards via remote_write</th></tr></thead><tbody><tr><td>Thanos Receive not processing</td><td>Single instance CPU/bandwidth saturation</td><td>Shard across 4+ instances</td></tr><tr><td>Memory hysteresis</td><td>TSDB doesn't release memory after load</td><td>Add more shards, ensure </code>--tsdb.no-lockfile`</td></tr><tr><td>Slow Grafana queries</td><td>Querying non-compacted blocks, large time ranges</td><td>Enable downsampling, limit time windows</td></tr><tr><td>High cardinality explosion</td><td>Too many unique label combinations</td><td>labeldrop, recording rules, metric tiering</td></tr></tbody></table>
+<p></p>
+<h2 class="section-title">References</h2>
+
+1. [Thanos Receive CPU Saturation](https://github.com/thanos-io/thanos/discussions/4270) — Thanos GitHub Discussions
+2. [Thanos Receive Memory Hysteresis](https://github.com/thanos-io/thanos/discussions/7165) — Thanos GitHub Discussions #7165
+3. [Help with Thanos on Huge Prometheus Environment](https://github.com/thanos-io/thanos/issues/569) — Thanos GitHub Issue #569
+4. [Prometheus HA and Thanos with Huge Metrics](https://github.com/thanos-io/thanos/issues/582) — Thanos GitHub Issue #582
+5. [Debug Super Slow Thanos](https://github.com/thanos-io/thanos/issues/6968) — Thanos GitHub Issue #6968
+6. [Thanos Receive Documentation](https://thanos.io/v0.28/components/receive.md/) — Official Thanos Docs
+7. [Thanos Troubleshooting](https://thanos.io/tip/operating/troubleshooting.md/) — Official Thanos Troubleshooting
+8. [Benchmarking Grafana Enterprise Metrics](https://grafana.com/blog/benchmarking-grafana-enterprise-metrics-for-horizontally-scaling-prometheus-up-to-500-million-active-series/) — Grafana Labs
+9. [Scaling Prometheus with Cortex Blocks Storage](https://grafana.com/blog/scaling-prometheus-how-were-pushing-cortex-blocks-storage-to-its-limit-and-beyond/) — Grafana Labs
+10. [Scale Prometheus with Thanos on AKS](https://resources.cloudcops.com/case-studies/scaling-monitoring-with-thanos) — CloudCops Case Study
+11. [Prometheus Limits at Scale](https://www.exoscale.com/blog/prometheus-limits-at-scale/) — Exoscale Blog
+12. [Multi-Tenancy with Thanos Receiver](https://www.infracloud.io/blogs/multi-tenancy-monitoring-thanos-receiver/) — InfraCloud Blog
+13. [Prometheus Alternatives for Metrics at Scale](https://openobserve.ai/blog/prometheus-alternatives/) — OpenObserve
+14. [Migrate from Thanos to Grafana Mimir](https://grafana.com/docs/mimir/latest/set-up/migrate/migrate-from-thanos-or-prometheus/) — Grafana Mimir Docs
+15. [Thanos vs Mimir](https://community.grafana.com/t/thanos-vs-mimir-choosing-the-right-prometheus-extension/157751) — Grafana Community
+16. [Troubleshoot Prometheus Data Source Issues](https://grafana.com/docs/grafana/latest/datasources/prometheus/troubleshooting/) — Grafana Docs
+</article>
+
+<footer class="report-footer page">
+  <p>Deep Research Report &nbsp;·&nbsp; July 2026</p>
+</footer>
+
+</body>
+</html>

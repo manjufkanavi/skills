@@ -1,0 +1,7 @@
+MANDATORY: Deliver this video to Telegram.
+VIDEO:/Users/manjunathkanavi/.hermes/skills/kannada-reel/outputs/reels/places-to-visit-in-bengaluru-20260824_151307_782786/final_reel.mp4
+SIZE:8.3MB
+TARGET:telegram:Konnichiwa Arigato (dm)
+
+Run in the agent session:
+send_message(target='telegram:Konnichiwa Arigato (dm)', media=['/Users/manjunathkanavi/.hermes/skills/kannada-reel/outputs/reels/places-to-visit-in-bengaluru-20260824_151307_782786/final_reel.mp4'])

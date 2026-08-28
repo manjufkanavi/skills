@@ -1,0 +1,59 @@
+{
+  "title": "How to Become a Better Person",
+  "theme": "emerald",
+  "duration_per_scene": 5.0,
+  "transition_duration": 0.9,
+  "narration_voice": "af_bella",
+  "narration_speed": 1.0,
+  "scenes": [
+    {
+      "title": "What it actually means",
+      "subtitle": "Well-being is more than feeling good",
+      "accent": "#6366f1",
+      "bullets": ["Meaning in life", "Positive relationships", "Deep engagement"],
+      "narration": "Becoming a better person isn't just about feeling happy. Research shows real well-being combines meaning, strong relationships, and deep engagement with life."
+    },
+    {
+      "title": "How it unfolds over time",
+      "subtitle": "Character forms over a lifetime",
+      "accent": "#14b8a6",
+      "bullets": ["Personality shapes habits", "Growth is gradual", "Change is possible"],
+      "narration": "You don't become better overnight. Personality and character evolve gradually, through the small, repeated choices you make over the years."
+    },
+    {
+      "title": "What makes it work",
+      "subtitle": "An eight-month study proves it works",
+      "accent": "#f59e0b",
+      "bullets": ["Gratitude boosts mood", "Optimism improves health", "Practice daily"],
+      "narration": "An eight-month study found that regularly practicing gratitude and optimism measurably increased well-being. Small daily practices create real, lasting change."
+    },
+    {
+      "title": "The things that mediate it",
+      "subtitle": "Two factors that buffer the hard times",
+      "accent": "#f43f5e",
+      "bullets": ["Meaning in life", "Social support", "Purpose buffers stress"],
+      "narration": "What makes it stick? A sense of meaning in life, and strong social support. When you feel connected and purposeful, you handle setbacks far better."
+    },
+    {
+      "title": "How to apply it",
+      "subtitle": "Systems beat motivation",
+      "accent": "#0ea5e9",
+      "bullets": ["Stack good habits", "Design your environment", "Consistency wins"],
+      "narration": "The best version of yourself isn't found in motivation — it's built through discipline and habits. Design your environment so the good choices become automatic."
+    },
+    {
+      "title": "Where it's heading",
+      "subtitle": "Keep learning, stay resilient",
+      "accent": "#a855f7",
+      "bullets": ["Growth mindset", "Resilience", "Adaptability"],
+      "narration": "The future belongs to the learners. Cultivate a growth mindset and resilience. Setbacks become feedback, and adaptation becomes second nature."
+    },
+    {
+      "title": "What experts agree on",
+      "subtitle": "Good character predicts well-being",
+      "accent": "#10b981",
+      "bullets": ["Integrity", "Kindness", "Self-discipline"],
+      "narration": "Experts agree: good character — integrity, kindness, and self-discipline — predicts lasting well-being. Becoming better isn't a feeling, it's a way of living."
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "_comment": "judge_spec_template.json — contract for theloop dual-judge runs. Copy and customise for your artifact.",
+
+  "run_id": "my_run",
+  "adapter": "svg",
+  "max_iters": 5,
+  "score_threshold": 0.80,
+
+  "visual_judge": {
+    "enabled": true,
+    "fallback_to_ascii": true,
+    "merge_strategy": "visual_authoritative",
+    "svg_fix_format": "exact"
+  },
+
+  "criteria": [
+    {
+      "id": "criterion_1",
+      "description": "Short description of what must appear in the artifact.",
+      "look_for": "Concrete visual cue: shape, colour, position, label, size, contrast, etc.",
+      "weight": 1.0,
+      "visual_threshold": 0.80,
+      "blocking": true
+    },
+    {
+      "id": "criterion_2",
+      "description": "Another criterion.",
+      "look_for": "What to look for when viewing the rendered PNG.",
+      "weight": 1.0,
+      "visual_threshold": 0.75,
+      "blocking": true
+    },
+    {
+      "id": "criterion_soft",
+      "description": "A nice-to-have criterion that should not block delivery.",
+      "look_for": "What to look for.",
+      "weight": 0.5,
+      "visual_threshold": 0.70,
+      "blocking": false
+    }
+  ],
+
+  "_schema": {
+    "run_id": "string — unique snake_case identifier, used in critique.json filenames",
+    "adapter": "svg | web | doc",
+    "max_iters": "int — hard budget; loop stops here regardless of score",
+    "score_threshold": "float 0-1 — global average threshold; ALL criteria averages must reach this AND all blocking per-criterion thresholds must be met",
+
+    "visual_judge.enabled": "bool — if false, skip visual judge and use ASCII only",
+    "visual_judge.fallback_to_ascii": "bool — if vision unavailable, run ascii_view.py and pass scores with --ascii-fallback",
+    "visual_judge.merge_strategy": "'visual_authoritative' — final_score = visual_score; ascii_score stored as audit only",
+    "visual_judge.svg_fix_format": "'exact' — svg_fixes entries must include element name + attribute + value; vague instructions are dropped with a warning",
+
+    "criteria[].id": "string — unique snake_case identifier, matches critique.json and response JSON",
+    "criteria[].description": "string — human-readable criterion shown in the inspection prompt",
+    "criteria[].look_for": "string — explicit visual inspection hint: what element, colour, position, label to look for in the PNG",
+    "criteria[].weight": "float — relative weight for weighted_score computation; default 1.0",
+    "criteria[].visual_threshold": "float 0-1 — per-criterion pass bar; must be met for delivery when blocking=true",
+    "criteria[].blocking": "bool — true (default): delivery blocked when final_score < visual_threshold; false: soft-fail, flagged but not blocking"
+  },
+
+  "_critique_response_schema_visual": {
+    "_comment": "JSON the model pipes into --ingest after viewing the PNG (vision mode).",
+    "criteria": [
+      {
+        "id": "must match a criteria[].id above",
+        "visual_score": "float 0-1 — strict; 1.0 is rare",
+        "visual_observations": "one sentence: exactly what you see for this criterion in the rendered PNG",
+        "svg_fixes": [
+          "Exact SVG edit — must include element name + attribute + value.",
+          "Example: \"Add <circle cx='512' cy='320' r='6' fill='#FFD700'/> for maang tikka\"",
+          "Example: \"Change stroke-width from 2 to 5 on all <circle stroke='#FFD700'>\"",
+          "Empty list [] if visual_score >= visual_threshold"
+        ]
+      }
+    ]
+  },
+
+  "_critique_response_schema_ascii_fallback": {
+    "_comment": "JSON the model pipes into --ingest --ascii-fallback (vision unavailable).",
+    "criteria": [
+      {
+        "id": "must match a criteria[].id above",
+        "ascii_score": "float 0-1",
+        "ascii_observations": "one sentence: what you infer from the ASCII luminance map",
+        "svg_fixes": ["exact SVG edit, or [] if passing"]
+      }
+    ]
+  }
+}

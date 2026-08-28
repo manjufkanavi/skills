@@ -1,0 +1,71 @@
+{
+  "run_id": "cat_beach_sunset",
+  "iteration": 2,
+  "judge_mode": "visual",
+  "merge_strategy": "visual_authoritative",
+  "svg_fix_format": "exact",
+  "timestamp": "2026-08-22T17:51:58Z",
+  "png_path": "runs/cat_beach_sunset/iter02.png",
+  "overall_score": 0.905,
+  "weighted_score": 0.9044,
+  "global_threshold": 0.85,
+  "global_threshold_met": true,
+  "delivery_blocked_by": [],
+  "should_deliver": true,
+  "criteria": [
+    {
+      "id": "cat_silhouette",
+      "description": "Cute cat sitting serenely on the sand with distinct ears, tail curve, posture and golden eyes or rim lighting looking toward the horizon.",
+      "final_score": 0.9,
+      "visual_score": 0.9,
+      "weight": 1.5,
+      "visual_threshold": 0.85,
+      "threshold_met": true,
+      "blocking": true,
+      "visual_observations": "Cat is now seated gracefully with back to viewer, pointed ears upright, elegant curled tail on the left, and a vibrant golden rim light glowing on its head and spine looking directly at the sunset.",
+      "svg_fixes": [],
+      "ascii_score": null
+    },
+    {
+      "id": "sunset_sky_ocean",
+      "description": "Vibrant sunset sky with multi-stop gradient (deep navy to warm violet, coral, golden orange) transitioning into calm ocean with sun reflection.",
+      "final_score": 0.92,
+      "visual_score": 0.92,
+      "weight": 1.2,
+      "visual_threshold": 0.85,
+      "threshold_met": true,
+      "blocking": true,
+      "visual_observations": "Multi-stop sunset sky gradient beautifully melts into the deep ocean with vivid golden reflection and glowing sun.",
+      "svg_fixes": [],
+      "ascii_score": null
+    },
+    {
+      "id": "beach_foreground",
+      "description": "Warm sandy beach in the foreground with gentle contours, shoreline meeting the ocean, subtle texture or gentle waves.",
+      "final_score": 0.88,
+      "visual_score": 0.88,
+      "weight": 1.0,
+      "visual_threshold": 0.8,
+      "threshold_met": true,
+      "blocking": true,
+      "visual_observations": "Warm sand dunes with foam shoreline and subtle natural sea grass accents frame the scene cleanly.",
+      "svg_fixes": [],
+      "ascii_score": null
+    },
+    {
+      "id": "atmosphere_details",
+      "description": "Atmospheric evening details such as distant flying birds, faint evening stars in the upper sky, and radiant sun glow.",
+      "final_score": 0.92,
+      "visual_score": 0.92,
+      "weight": 0.8,
+      "visual_threshold": 0.8,
+      "threshold_met": true,
+      "blocking": false,
+      "visual_observations": "Flock of silhouettes birds, gentle stars in upper dusk sky, and concentric sun glow give strong evening atmosphere.",
+      "svg_fixes": [],
+      "ascii_score": null
+    }
+  ],
+  "priority_fixes": [],
+  "next_iter_directive": "DELIVER \u2014 all thresholds met."
+}

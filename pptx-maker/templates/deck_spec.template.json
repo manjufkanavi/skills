@@ -1,0 +1,35 @@
+{
+  "theme": {
+    "bg": "#0B1420",
+    "panel": "#12212E",
+    "accent": "#12B5C1",
+    "accent2": "#F5B642",
+    "text": "#F1F5F9",
+    "muted": "#94A3B8",
+    "title_font": "Calibri",
+    "body_font": "Calibri"
+  },
+  "slides": [
+    {
+      "type": "title",
+      "num": "1",
+      "kicker": "KICKER",
+      "title": "Deck title",
+      "subtitle": "One-line subtitle",
+      "footers": ["Author", "Org", "Date"]
+    },
+    {
+      "type": "bullets",
+      "num": "01",
+      "kicker": "SECTION",
+      "title": "Slide title",
+      "items": ["First point", "Second point", "Third point"],
+      "size": 18,
+      "gap": 14,
+      "anim": {
+        "title": { "effect": "fade", "trigger": "after", "order": 2 },
+        "items": { "effect": "fly", "trigger": "after", "order_base": 3 }
+      }
+    }
+  ]
+}

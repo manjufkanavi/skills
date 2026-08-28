@@ -1,0 +1,139 @@
+{
+  "viewBox": "0 0 800 600",
+  "gradients": [
+    {
+      "id": "skyGrad",
+      "type": "linear",
+      "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+      "stops": [
+        {"offset": 0.0, "color": "#0d1b2a"},
+        {"offset": 0.35, "color": "#28385e"},
+        {"offset": 0.60, "color": "#6d3d63"},
+        {"offset": 0.78, "color": "#c85250"},
+        {"offset": 0.92, "color": "#f28e2b"},
+        {"offset": 1.0, "color": "#fed166"}
+      ]
+    },
+    {
+      "id": "sunGlow",
+      "type": "radial",
+      "cx": 0.5, "cy": 0.5, "r": 0.5,
+      "stops": [
+        {"offset": 0.0, "color": "#fff2a8", "opacity": 0.8},
+        {"offset": 0.4, "color": "#ffaa3b", "opacity": 0.45},
+        {"offset": 0.8, "color": "#f36838", "opacity": 0.15},
+        {"offset": 1.0, "color": "#e05353", "opacity": 0.0}
+      ]
+    },
+    {
+      "id": "sunCore",
+      "type": "radial",
+      "cx": 0.5, "cy": 0.5, "r": 0.5,
+      "stops": [
+        {"offset": 0.0, "color": "#ffffff"},
+        {"offset": 0.6, "color": "#fff3b0"},
+        {"offset": 1.0, "color": "#ff9e00"}
+      ]
+    },
+    {
+      "id": "oceanGrad",
+      "type": "linear",
+      "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+      "stops": [
+        {"offset": 0.0, "color": "#183a54"},
+        {"offset": 0.5, "color": "#1d536e"},
+        {"offset": 1.0, "color": "#2a7f8e"}
+      ]
+    },
+    {
+      "id": "sunShimmer",
+      "type": "linear",
+      "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+      "stops": [
+        {"offset": 0.0, "color": "#ffe49e", "opacity": 0.75},
+        {"offset": 0.5, "color": "#ffaa3b", "opacity": 0.4},
+        {"offset": 1.0, "color": "#f36838", "opacity": 0.1}
+      ]
+    },
+    {
+      "id": "sandGrad",
+      "type": "linear",
+      "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+      "stops": [
+        {"offset": 0.0, "color": "#a87844"},
+        {"offset": 0.4, "color": "#cc9959"},
+        {"offset": 0.8, "color": "#e0b677"},
+        {"offset": 1.0, "color": "#f1d49e"}
+      ]
+    },
+    {
+      "id": "cloudGrad1",
+      "type": "linear",
+      "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+      "stops": [
+        {"offset": 0.0, "color": "#ffd166", "opacity": 0.45},
+        {"offset": 1.0, "color": "#a44a6f", "opacity": 0.15}
+      ]
+    }
+  ],
+  "shapes": [
+    {"type": "rect", "id": "sky", "x": 0, "y": 0, "width": 800, "height": 340, "fill": "url(#skyGrad)"},
+    {"type": "circle", "id": "star1", "cx": 100, "cy": 50, "r": 2.0, "fill": "#ffffff", "opacity": 0.9},
+    {"type": "circle", "id": "star2", "cx": 180, "cy": 35, "r": 1.5, "fill": "#ffffff", "opacity": 0.75},
+    {"type": "circle", "id": "star3", "cx": 280, "cy": 65, "r": 1.8, "fill": "#ffffff", "opacity": 0.85},
+    {"type": "circle", "id": "star4", "cx": 650, "cy": 45, "r": 2.0, "fill": "#ffffff", "opacity": 0.9},
+    {"type": "circle", "id": "star5", "cx": 730, "cy": 75, "r": 1.5, "fill": "#ffffff", "opacity": 0.7},
+
+    {"type": "ellipse", "id": "cloud1", "cx": 180, "cy": 170, "rx": 130, "ry": 18, "fill": "url(#cloudGrad1)"},
+    {"type": "ellipse", "id": "cloud2", "cx": 620, "cy": 190, "rx": 150, "ry": 22, "fill": "url(#cloudGrad1)"},
+    {"type": "ellipse", "id": "cloud3", "cx": 340, "cy": 220, "rx": 100, "ry": 14, "fill": "url(#cloudGrad1)"},
+
+    {"type": "circle", "id": "sunHalo", "cx": 480, "cy": 300, "r": 160, "fill": "url(#sunGlow)"},
+    {"type": "circle", "id": "sun", "cx": 480, "cy": 300, "r": 55, "fill": "url(#sunCore)"},
+
+    {"type": "path", "id": "bird1", "stroke": "#281b39", "stroke-width": 2.5, "fill": "none", "d": "M160,130 Q172,120 184,130 Q196,120 208,130"},
+    {"type": "path", "id": "bird2", "stroke": "#281b39", "stroke-width": 2.2, "fill": "none", "d": "M220,150 Q230,142 240,150 Q250,142 260,150"},
+    {"type": "path", "id": "bird3", "stroke": "#281b39", "stroke-width": 1.8, "fill": "none", "d": "M275,135 Q283,128 291,135 Q299,128 307,135"},
+
+    {"type": "rect", "id": "ocean", "x": 0, "y": 340, "width": 800, "height": 95, "fill": "url(#oceanGrad)"},
+
+    {"type": "path", "id": "shimmerBeam", "d": "M445,340 L515,340 L555,435 L405,435 Z", "fill": "url(#sunShimmer)"},
+    {"type": "path", "id": "wave1", "stroke": "#ffe49e", "stroke-width": 2.0, "opacity": 0.8, "fill": "none", "d": "M430,355 Q480,350 530,355"},
+    {"type": "path", "id": "wave2", "stroke": "#ffaa3b", "stroke-width": 2.2, "opacity": 0.75, "fill": "none", "d": "M415,375 Q480,370 545,375"},
+    {"type": "path", "id": "wave3", "stroke": "#ffe49e", "stroke-width": 2.5, "opacity": 0.85, "fill": "none", "d": "M395,400 Q480,394 565,400"},
+    {"type": "path", "id": "wave4", "stroke": "#fff3b0", "stroke-width": 3.0, "opacity": 0.9, "fill": "none", "d": "M380,425 Q480,418 580,425"},
+
+    {"type": "path", "id": "oceanFoam", "stroke": "#e2f1f8", "stroke-width": 4.0, "opacity": 0.85, "fill": "none", "d": "M0,436 Q200,430 400,436 T800,436"},
+
+    {"type": "path", "id": "beachSand", "d": "M0,435 Q300,430 800,435 L800,600 L0,600 Z", "fill": "url(#sandGrad)"},
+    {"type": "path", "id": "sandDuneShadow", "d": "M0,490 Q250,470 550,520 Q700,545 800,530 L800,600 L0,600 Z", "fill": "#c59453", "opacity": 0.35},
+
+    {"type": "ellipse", "id": "catGroundShadow", "cx": 275, "cy": 562, "rx": 65, "ry": 18, "fill": "#5e3e20", "opacity": 0.45},
+
+    {"type": "path", "id": "catTail", "stroke": "#130e1e", "stroke-width": 14, "stroke-linecap": "round", "fill": "none",
+     "d": "M250,555 C205,565 175,535 185,495 C190,475 208,475 212,495"},
+
+    {"type": "path", "id": "catTailHighlight", "stroke": "#ffaa3b", "stroke-width": 2.5, "stroke-linecap": "round", "opacity": 0.6, "fill": "none",
+     "d": "M248,553 C208,563 178,535 187,497"},
+
+    {"type": "path", "id": "catBody", "d": "M235,560 C230,510 240,460 262,430 C276,410 295,415 304,440 C318,475 322,525 315,560 C300,566 250,566 235,560 Z", "fill": "#130e1e"},
+
+    {"type": "circle", "id": "catHead", "cx": 278, "cy": 405, "r": 28, "fill": "#130e1e"},
+
+    {"type": "polygon", "id": "earL", "points": "256,396 268,396 260,370", "fill": "#130e1e"},
+    {"type": "polygon", "id": "earR", "points": "286,396 298,396 292,370", "fill": "#130e1e"},
+    {"type": "polygon", "id": "earInL", "points": "259,394 266,394 262,376", "fill": "#2c2138"},
+    {"type": "polygon", "id": "earInR", "points": "288,394 295,394 292,376", "fill": "#ffb703", "opacity": 0.4},
+
+    {"type": "path", "id": "catSunsetGlow", "stroke": "#ffd166", "stroke-width": 3.0, "stroke-linecap": "round", "opacity": 0.9, "fill": "none",
+     "d": "M292,370 Q299,395 302,410 Q315,445 320,490 Q322,530 315,560"},
+
+    {"type": "path", "id": "catHeadRimGlow", "stroke": "#ffe49e", "stroke-width": 2.5, "stroke-linecap": "round", "opacity": 0.85, "fill": "none",
+     "d": "M288,377 C298,382 305,395 304,410"},
+
+    {"type": "path", "id": "grass1", "stroke": "#42281a", "stroke-width": 2.0, "fill": "none",
+     "d": "M80,600 Q95,540 85,505 M85,600 Q105,535 110,515 M90,600 Q120,550 135,530"},
+    {"type": "path", "id": "grass2", "stroke": "#42281a", "stroke-width": 2.0, "fill": "none",
+     "d": "M710,600 Q695,540 700,510 M720,600 Q710,530 690,518 M730,600 Q740,545 745,525"}
+  ]
+}

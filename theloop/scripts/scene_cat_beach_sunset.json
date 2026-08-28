@@ -1,0 +1,86 @@
+{
+  "viewBox": "0 0 800 600",
+  "gradients": [
+    {"id": "sky", "type": "linear", "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+     "stops": [
+       {"offset": 0.0, "color": "#121d38"},
+       {"offset": 0.45, "color": "#2f4068"},
+       {"offset": 0.72, "color": "#e26a53"},
+       {"offset": 0.92, "color": "#ff9e59"},
+       {"offset": 1.0, "color": "#ffd166"}
+     ]},
+    {"id": "ocean", "type": "linear", "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+     "stops": [
+       {"offset": 0.0, "color": "#0e2a4a"},
+       {"offset": 0.5, "color": "#1b6ca2"},
+       {"offset": 1.0, "color": "#35a9c9"}
+     ]},
+    {"id": "sand", "type": "linear", "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+     "stops": [
+       {"offset": 0.0, "color": "#c79a63"},
+       {"offset": 0.6, "color": "#e6c088"},
+       {"offset": 1.0, "color": "#f4deaa"}
+     ]},
+    {"id": "sunfill", "type": "radial", "cx": 0.5, "cy": 0.5, "r": 0.5,
+     "stops": [
+       {"offset": 0.0, "color": "#fff7db"},
+       {"offset": 0.6, "color": "#ffcf4d"},
+       {"offset": 1.0, "color": "#ff7d00"}
+     ]},
+    {"id": "sun glow", "type": "radial", "cx": 0.5, "cy": 0.5, "r": 0.5,
+     "stops": [
+       {"offset": 0.0, "color": "#ffcf4d", "opacity": 0.45},
+       {"offset": 1.0, "color": "#ff7d00", "opacity": 0.0}
+     ]},
+    {"id": "reflection", "type": "linear", "x1": 0, "y1": 0, "x2": 0, "y2": 1,
+     "stops": [
+       {"offset": 0.0, "color": "#ffd166", "opacity": 0.7},
+       {"offset": 1.0, "color": "#ff9e59", "opacity": 0.1}
+     ]}
+  ],
+  "shapes": [
+    {"type": "rect", "id": "sky",   "x": 0,   "y": 0,   "width": 800, "height": 332, "fill": "url(#sky)"},
+    {"type": "rect", "id": "ocean", "x": 0,   "y": 332, "width": 800, "height": 92,  "fill": "url(#ocean)"},
+    {"type": "rect", "id": "beach", "x": 0,   "y": 424, "width": 800, "height": 176, "fill": "url(#sand)"},
+
+    {"type": "circle", "id": "sunhalo", "cx": 560, "cy": 300, "r": 150, "fill": "url(#sun glow)"},
+    {"type": "circle", "id": "sun",     "cx": 560, "cy": 300, "r": 74,  "fill": "url(#sunfill)"},
+
+    {"type": "rect", "id": "refl", "x": 512, "y": 334, "width": 96, "height": 90, "fill": "url(#reflection)"},
+
+    {"type": "circle", "id": "star1", "cx": 120, "cy": 70,  "r": 2.2, "fill": "#ffffff", "opacity": 0.9},
+    {"type": "circle", "id": "star2", "cx": 230, "cy": 48,  "r": 1.6, "fill": "#ffffff", "opacity": 0.7},
+    {"type": "circle", "id": "star3", "cx": 330, "cy": 92,  "r": 1.9, "fill": "#ffffff", "opacity": 0.8},
+    {"type": "circle", "id": "star4", "cx": 690, "cy": 60,  "r": 2.0, "fill": "#ffffff", "opacity": 0.85},
+    {"type": "circle", "id": "star5", "cx": 720, "cy": 120, "r": 1.5, "fill": "#ffffff", "opacity": 0.6},
+
+    {"type": "path", "id": "bird1", "stroke": "#20304f", "stroke-width": 3, "fill": "none",
+     "d": "M150,150 Q162,140 174,150 Q186,140 198,150"},
+    {"type": "path", "id": "bird2", "stroke": "#20304f", "stroke-width": 2.5, "fill": "none",
+     "d": "M210,180 Q220,172 230,180 Q240,172 250,180"},
+
+    {"type": "path", "id": "tail", "stroke": "#1c1327", "stroke-width": 22, "fill": "none",
+     "stroke-linecap": "round",
+     "d": "M424,522 C476,524 492,468 460,444 C440,428 422,446 438,466"},
+
+    {"type": "ellipse", "id": "catbody", "cx": 356, "cy": 504, "rx": 62, "ry": 56, "fill": "#1c1327"},
+    {"type": "path", "id": "chest", "fill": "#2c2140",
+     "d": "M322,470 C322,520 340,540 360,540 C380,540 392,520 392,470 C392,452 376,444 360,444 C344,444 322,452 322,470 Z"},
+
+    {"type": "circle", "id": "head", "cx": 322, "cy": 446, "r": 42, "fill": "#1c1327"},
+    {"type": "polygon", "id": "earL", "points": "300,426 316,426 306,400", "fill": "#1c1327"},
+    {"type": "polygon", "id": "earR", "points": "332,426 348,426 338,400", "fill": "#1c1327"},
+    {"type": "polygon", "id": "earInL", "points": "304,422 313,422 308,408", "fill": "#4a3a5e"},
+    {"type": "polygon", "id": "earInR", "points": "334,422 344,422 339,408", "fill": "#4a3a5e"},
+
+    {"type": "ellipse", "id": "paws", "cx": 352, "cy": 548, "rx": 40, "ry": 12, "fill": "#1c1327"},
+
+    {"type": "circle", "id": "eyeL", "cx": 306, "cy": 444, "r": 5.2, "fill": "#ffd166"},
+    {"type": "circle", "id": "eyeR", "cx": 338, "cy": 444, "r": 5.2, "fill": "#ffd166"},
+    {"type": "circle", "id": "eyeLh", "cx": 304, "cy": 442, "r": 1.6, "fill": "#ffffff"},
+    {"type": "circle", "id": "eyeRh", "cx": 336, "cy": 442, "r": 1.6, "fill": "#ffffff"},
+    {"type": "path", "id": "nose", "fill": "#8a4a5a", "d": "M316,458 L328,458 L322,464 Z"},
+    {"type": "path", "id": "whisk", "stroke": "#3a2f4a", "stroke-width": 1.2, "fill": "none",
+     "d": "M300,460 L268,454 M300,464 L270,462 M344,460 L376,454 M344,464 L374,462"}
+  ]
+}

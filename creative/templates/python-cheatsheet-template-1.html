@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Mastery Cheat Sheet — Template 1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --accent: #6366f1;
+    --accent-light: #eef2ff;
+    --border: #e2e8f0;
+    --code-bg: #0f172a;
+    --code-text: #e2e8f0;
+    --tag-bg: #f1f5f9;
+    --tag-text: #475569;
+    --problem-bg: #faf5ff;
+    --problem-border: #a78bfa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  header h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .meta span {
+    background: var(--tag-bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  .section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-number {
+    background: var(--accent);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .section h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+
+  .usage {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 0.8rem 1rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    color: #4338ca;
+  }
+
+  .code-block {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .code-block::before {
+    content: 'Python';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .code-keyword { color: #c084fc; }
+  .code-string { color: #38bdf8; }
+  .code-comment { color: #64748b; font-style: italic; }
+  .code-func { color: #86efac; }
+  .code-num { color: #fbbf24; }
+
+  .problems {
+    background: var(--problem-bg);
+    border: 1px solid var(--problem-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .problems h4 {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    color: #6b21a8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .problem {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #ddd6fe;
+  }
+
+  .problem:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .problem h5 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+    color: #5b21b6;
+  }
+
+  .problem p {
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+  }
+
+  .hint {
+    font-size: 0.82rem;
+    color: #7c3aed;
+    font-style: italic;
+  }
+
+  @media print {
+    body { padding: 1rem; background: white; }
+    .section { box-shadow: none; border: 1px solid #e2e8f0; page-break-inside: avoid; }
+    .code-block { background: #0f172a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Python Mastery Cheat Sheet</h1>
+  <p>From Syntax to Advanced Patterns — Quick Reference & Practice</p>
+  <div class="meta">
+    <span>📘 Beginner → Advanced</span>
+    <span>🧠 2 Problems per Section</span>
+    <span>🎯 Interview Ready</span>
+  </div>
+</header>
+
+<!-- TEMPLATE SECTION EXAMPLE -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <h2>Section Title</h2>
+  </div>
+  <div class="usage">
+    <strong>Usage:</strong> One-line explanation of when and why to use this concept.
+  </div>
+  <div class="code-block">
+<span class="code-keyword">def</span> <span class="code-func">example</span>(arg):
+    <span class="code-comment"># Programming example goes here</span>
+    result = arg * <span class="code-num">2</span>
+    <span class="code-keyword">return</span> result
+  </div>
+  <div class="problems">
+    <h4>🧩 Practice Problems</h4>
+    <div class="problem">
+      <h5>Problem 1</h5>
+      <p>State the problem statement clearly here.</p>
+      <p class="hint">💡 Hint: Mention key concept or approach</p>
+    </div>
+    <div class="problem">
+      <h5>Problem 2</h5>
+      <p>State the second problem statement here.</p>
+      <p class="hint">💡 Hint: Mention key concept or approach</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add more sections following the same structure -->
+
+</body>
+</html>

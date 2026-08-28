@@ -1,0 +1,66 @@
+# Docker Compose Service Template
+
+# Usage: Copy this template, fill in the blanks, and add to your docker-compose file.
+# Location: ~/docker/iacgenie/docker-compose.<product>.yml
+
+version: "3.8"
+
+services:
+  # =====================
+  # <SERVICE_NAME>
+  # =====================
+  <service_name>:
+    build:
+      context: ./<service_dir>
+      dockerfile: Dockerfile
+    container_name: iacgenie_<service_name>
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:<HOST_PORT>:<CONTAINER_PORT>"
+    environment:
+      # Database (shared PostgreSQL)
+      - DATABASE_URL=postgresql+asyncpg://lightsrp:${PG_ROOT_PASSWORD}@iacgenie_postgres:5432/lightsrp
+      # MinIO (shared)
+      - MINIO_ENDPOINT=iacgenie_minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINI...Y}
+      # Keycloak OIDC
+      - KEYCLOAK_URL=http://iacgenie_keycloak:8080
+      - KEYCLOAK_REALM=iacgenie
+      - KEYCLOAK_CLIENT_ID=<client_name>
+      - KEYCLOAK_CLIENT_SECRET=${<CLI...>}
+      # Auth Wrapper
+      - AUTH_WRAPPER_URL=http:/...96
+      # Ollama (host-level)
+      - OLLAMA_URL=http://127.0.0.1:11434
+      - OLLAMA_MODEL=qwen2.5:0.5b
+      # Internal API key (for n8n callbacks)
+      - API_SECRET=${<API...>}
+      # App-specific
+      - MAX_FILE_SIZE_MB=10
+      - ALLOWED_ORIGINS=https://<domain>.iacgenie.com
+    depends_on:
+      n8n:
+        condition: service_healthy
+    networks:
+      - iacgenie-backend
+    deploy:
+      resources:
+        limits:
+          memory: "512m"
+          cpus: "0.5"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:<CONTAINER_PORT>/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+networks:
+  iacgenie-backend:
+    external: true
+    name: iacgenie_iacgenie-backend

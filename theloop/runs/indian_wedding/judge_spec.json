@@ -1,0 +1,54 @@
+{
+  "run_id": "indian_wedding",
+  "adapter": "svg",
+  "max_iters": 4,
+  "score_threshold": 0.85,
+  "visual_judge": {
+    "enabled": true,
+    "fallback_to_ascii": false,
+    "merge_strategy": "visual_authoritative",
+    "svg_fix_format": "exact"
+  },
+  "criteria": [
+    {
+      "id": "mandap",
+      "description": "Elaborate 4-pillar wedding Mandap with gold pillars, royal canopy arches, and draped fabric.",
+      "look_for": "Distinct gold pillars, draped canopy with gradients, ornate archways, floral strings.",
+      "weight": 1.2,
+      "visual_threshold": 0.85,
+      "blocking": true
+    },
+    {
+      "id": "bride_groom",
+      "description": "Bride & Groom in traditional royal Indian wedding attire with clear silhouettes and detailed ornaments.",
+      "look_for": "Groom in sherwani with safa/turban, kalgi feather, pearl necklace; Bride in red & gold lehenga/dupatta, maang tikka, bangles, bridal jewelry; varmala garland.",
+      "weight": 1.5,
+      "visual_threshold": 0.85,
+      "blocking": true
+    },
+    {
+      "id": "sacred_fire",
+      "description": "Sacred Hawan/Agni Kund fire pit placed between the couple with radiant fire glow.",
+      "look_for": "Stepped brick/copper fire altar with layered yellow, orange, and red flames emitting warmth and light.",
+      "weight": 1.0,
+      "visual_threshold": 0.80,
+      "blocking": true
+    },
+    {
+      "id": "festive_decor",
+      "description": "Rich festive Indian wedding ambiance including rangoli, glowing diyas, marigold torans, and celestial night sky.",
+      "look_for": "Intricate symmetrical rangoli on the floor, lighted clay diyas with glow, marigold strings, glowing moon and stars.",
+      "weight": 1.0,
+      "visual_threshold": 0.80,
+      "blocking": true
+    },
+    {
+      "id": "typography",
+      "description": "Celebratory wedding banner text 'SHUBH VIVAH' with elegant typography and ornamental symbols.",
+      "look_for": "Gold serif text with Swastik/Kalash/Diya motifs or decorative brackets, well centered.",
+      "weight": 0.8,
+      "visual_threshold": 0.80,
+      "blocking": false
+    }
+  ]
+}

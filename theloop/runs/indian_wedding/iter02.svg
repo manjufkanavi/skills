@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700">
+  <defs>
+    <!-- Celestial Dusk Sky -->
+    <linearGradient id="nightSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f051d"/>
+      <stop offset="35%" stop-color="#2a0845"/>
+      <stop offset="65%" stop-color="#641b4d"/>
+      <stop offset="88%" stop-color="#a83232"/>
+      <stop offset="100%" stop-color="#e65c00"/>
+    </linearGradient>
+
+    <!-- Stage / Ground -->
+    <linearGradient id="stageFloor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#500808"/>
+      <stop offset="30%" stop-color="#3b0505"/>
+      <stop offset="100%" stop-color="#200000"/>
+    </linearGradient>
+
+    <!-- Royal Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe259"/>
+      <stop offset="35%" stop-color="#ffa751"/>
+      <stop offset="70%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+
+    <!-- Pillar Gold Gradient -->
+    <linearGradient id="pillarGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b8860b"/>
+      <stop offset="30%" stop-color="#ffd700"/>
+      <stop offset="60%" stop-color="#fff0aa"/>
+      <stop offset="85%" stop-color="#daa520"/>
+      <stop offset="100%" stop-color="#8b6508"/>
+    </linearGradient>
+
+    <!-- Silk Crimson Curtain Gradient -->
+    <linearGradient id="crimsonDrape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#800020"/>
+      <stop offset="30%" stop-color="#c41e3a"/>
+      <stop offset="70%" stop-color="#e0115f"/>
+      <stop offset="100%" stop-color="#4a0011"/>
+    </linearGradient>
+
+    <!-- Marigold Orange Gradient -->
+    <linearGradient id="marigoldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff4500"/>
+      <stop offset="50%" stop-color="#ff8c00"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+
+    <!-- Groom Sherwani Cream & Gold -->
+    <linearGradient id="sherwaniGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fdfbf7"/>
+      <stop offset="50%" stop-color="#f5eedc"/>
+      <stop offset="100%" stop-color="#e3d5b8"/>
+    </linearGradient>
+
+    <!-- Bride Red Velvet & Zardozi -->
+    <linearGradient id="lehengaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#990011"/>
+      <stop offset="40%" stop-color="#cc0022"/>
+      <stop offset="80%" stop-color="#b3001b"/>
+      <stop offset="100%" stop-color="#66000a"/>
+    </linearGradient>
+
+    <!-- Copper Kund -->
+    <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#803300"/>
+      <stop offset="40%" stop-color="#d35400"/>
+      <stop offset="70%" stop-color="#f39c12"/>
+      <stop offset="100%" stop-color="#6e2d00"/>
+    </linearGradient>
+
+    <!-- Sacred Fire Glow -->
+    <radialGradient id="fireGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffff99" stop-opacity="0.95"/>
+      <stop offset="25%" stop-color="#ffaa00" stop-opacity="0.75"/>
+      <stop offset="55%" stop-color="#ff3300" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ff0000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Diya Ambient Glow -->
+    <radialGradient id="diyaGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff5cc" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#ffb703" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#fb8500" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffb703" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Moon Glow -->
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="70%" stop-color="#fff9e6"/>
+      <stop offset="90%" stop-color="#ffecb3" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffd54f" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Subtle Glow Filter -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Heavy Fire Bloom Filter -->
+    <filter id="fireBloom" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ================= 1. SKY & CELESTIAL BACKGROUND ================= -->
+  <rect width="1000" height="700" fill="url(#nightSky)"/>
+
+  <!-- Twinkling Stars -->
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="65" cy="45" r="1.5"/><circle cx="120" cy="80" r="1"/><circle cx="185" cy="35" r="1.8"/>
+    <circle cx="240" cy="95" r="1.2"/><circle cx="310" cy="50" r="1.5"/><circle cx="380" cy="30" r="1"/>
+    <circle cx="450" cy="70" r="1.6"/><circle cx="530" cy="40" r="1.2"/><circle cx="610" cy="65" r="1.5"/>
+    <circle cx="690" cy="30" r="1.8"/><circle cx="760" cy="85" r="1"/><circle cx="830" cy="40" r="1.6"/>
+    <circle cx="920" cy="60" r="1.2"/><circle cx="880" cy="110" r="1.5"/><circle cx="140" cy="130" r="1.2"/>
+  </g>
+
+  <!-- Luminous Full Moon -->
+  <circle cx="860" cy="90" r="60" fill="url(#moonGlow)"/>
+  <circle cx="860" cy="90" r="42" fill="#fffdf0"/>
+
+  <!-- Hanging Fairy String Lights -->
+  <g stroke="#ffea75" stroke-width="1" opacity="0.85">
+    <path d="M 0,110 Q 130,155 260,120 Q 380,165 500,125 Q 620,165 740,120 Q 870,155 1000,110" fill="none"/>
+    <!-- Fairy Light Bulbs -->
+    <g fill="#fff3a8" filter="url(#softGlow)">
+      <circle cx="65" cy="140" r="3"/><circle cx="130" cy="155" r="3.5"/><circle cx="195" cy="140" r="3"/>
+      <circle cx="320" cy="152" r="3"/><circle cx="380" cy="165" r="3.5"/><circle cx="440" cy="150" r="3"/>
+      <circle cx="560" cy="150" r="3"/><circle cx="620" cy="165" r="3.5"/><circle cx="680" cy="152" r="3"/>
+      <circle cx="805" cy="140" r="3"/><circle cx="870" cy="155" r="3.5"/><circle cx="935" cy="140" r="3"/>
+    </g>
+  </g>
+
+  <!-- ================= 2. STAGE & RANGOLI FLOOR ================= -->
+  <rect x="0" y="500" width="1000" height="200" fill="url(#stageFloor)"/>
+  <!-- Gold Border Trim on Stage -->
+  <rect x="0" y="496" width="1000" height="6" fill="url(#goldGrad)"/>
+  <rect x="0" y="504" width="1000" height="2" fill="#ffb703" opacity="0.6"/>
+
+  <!-- Intricate Symmetrical Floor Rangoli -->
+  <g transform="translate(500, 565)">
+    <!-- Base Outer Flower Lotus -->
+    <g fill="#c41e3a" opacity="0.85">
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(30)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(150)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(210)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-45" rx="14" ry="32" transform="rotate(330)"/>
+    </g>
+    <!-- Mid Ring Marigold Petals -->
+    <g fill="#ff9900" opacity="0.95">
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(15)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(75)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(105)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(165)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(195)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(255)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(285)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(315)"/>
+      <ellipse cx="0" cy="-30" rx="10" ry="20" transform="rotate(345)"/>
+    </g>
+    <!-- Inner Radiant Gold Sun -->
+    <circle cx="0" cy="0" r="18" fill="#ffd700"/>
+    <circle cx="0" cy="0" r="10" fill="#e63946"/>
+    <circle cx="0" cy="0" r="4" fill="#ffffff"/>
+  </g>
+
+  <!-- Scattered Rose Petals on Floor -->
+  <g fill="#e60039" opacity="0.75">
+    <ellipse cx="280" cy="535" rx="7" ry="3.5" transform="rotate(25 280 535)"/>
+    <ellipse cx="330" cy="550" rx="6" ry="3" transform="rotate(-40 330 550)"/>
+    <ellipse cx="370" cy="525" rx="8" ry="4" transform="rotate(15 370 525)"/>
+    <ellipse cx="630" cy="530" rx="7" ry="3.5" transform="rotate(50 630 530)"/>
+    <ellipse cx="680" cy="548" rx="6" ry="3" transform="rotate(-20 680 548)"/>
+    <ellipse cx="720" cy="528" rx="8" ry="4" transform="rotate(35 720 528)"/>
+    <ellipse cx="440" cy="540" rx="6" ry="3" transform="rotate(-15 440 540)"/>
+    <ellipse cx="560" cy="542" rx="7" ry="3.5" transform="rotate(65 560 542)"/>
+  </g>
+
+  <!-- ================= 3. GRAND WEDDING MANDAP ARCHITECTURE ================= -->
+  <!-- Back Draped Fabric / Backdrop -->
+  <g opacity="0.9">
+    <!-- Left outer drape -->
+    <path d="M 120,170 Q 110,330 80,500 L 150,500 Q 165,330 160,170 Z" fill="url(#crimsonDrape)"/>
+    <path d="M 140,170 Q 130,330 110,500 L 160,500 Q 180,330 175,170 Z" fill="url(#marigoldGrad)" opacity="0.6"/>
+    <!-- Right outer drape -->
+    <path d="M 880,170 Q 890,330 920,500 L 850,500 Q 835,330 840,170 Z" fill="url(#crimsonDrape)"/>
+    <path d="M 860,170 Q 870,330 890,500 L 840,500 Q 820,330 825,170 Z" fill="url(#marigoldGrad)" opacity="0.6"/>
+  </g>
+
+  <!-- Mandap 4 Pillars (Two Left, Two Right in 3D Perspective) -->
+  <!-- Rear Left Pillar -->
+  <rect x="200" y="175" width="30" height="325" rx="5" fill="url(#pillarGold)" opacity="0.85"/>
+  <rect x="194" y="170" width="42" height="12" rx="3" fill="url(#goldGrad)"/>
+  <rect x="194" y="490" width="42" height="12" rx="3" fill="url(#goldGrad)"/>
+
+  <!-- Rear Right Pillar -->
+  <rect x="770" y="175" width="30" height="325" rx="5" fill="url(#pillarGold)" opacity="0.85"/>
+  <rect x="764" y="170" width="42" height="12" rx="3" fill="url(#goldGrad)"/>
+  <rect x="764" y="490" width="42" height="12" rx="3" fill="url(#goldGrad)"/>
+
+  <!-- Front Left Pillar -->
+  <g>
+    <rect x="140" y="160" width="40" height="340" rx="6" fill="url(#pillarGold)"/>
+    <!-- Pillar carvings / ornamental flutes -->
+    <line x1="150" y1="175" x2="150" y2="485" stroke="#996515" stroke-width="2"/>
+    <line x1="160" y1="175" x2="160" y2="485" stroke="#fff0aa" stroke-width="2"/>
+    <line x1="170" y1="175" x2="170" y2="485" stroke="#996515" stroke-width="2"/>
+    <!-- Capital & Pedestal -->
+    <path d="M 130,160 L 190,160 L 180,175 L 140,175 Z" fill="url(#goldGrad)"/>
+    <path d="M 132,150 L 188,150 L 190,160 L 130,160 Z" fill="#ffd700"/>
+    <rect x="130" y="490" width="60" height="14" rx="4" fill="url(#goldGrad)"/>
+  </g>
+
+  <!-- Front Right Pillar -->
+  <g>
+    <rect x="820" y="160" width="40" height="340" rx="6" fill="url(#pillarGold)"/>
+    <!-- Pillar carvings -->
+    <line x1="830" y1="175" x2="830" y2="485" stroke="#996515" stroke-width="2"/>
+    <line x1="840" y1="175" x2="840" y2="485" stroke="#fff0aa" stroke-width="2"/>
+    <line x1="850" y1="175" x2="850" y2="485" stroke="#996515" stroke-width="2"/>
+    <!-- Capital & Pedestal -->
+    <path d="M 810,160 L 870,160 L 860,175 L 820,175 Z" fill="url(#goldGrad)"/>
+    <path d="M 812,150 L 868,150 L 870,160 L 810,160 Z" fill="#ffd700"/>
+    <rect x="810" y="490" width="60" height="14" rx="4" fill="url(#goldGrad)"/>
+  </g>
+
+  <!-- Grand Ornate Canopy Archway -->
+  <!-- Top Royal Arch Beam -->
+  <path d="M 120,155 Q 500,90 880,155 L 870,185 Q 500,120 130,185 Z" fill="url(#goldGrad)"/>
+  <!-- Mughal Scalloped Arch underneath -->
+  <path d="M 140,180 Q 250,140 330,175 Q 410,135 500,165 Q 590,135 670,175 Q 750,140 860,180" fill="none" stroke="#d4af37" stroke-width="5"/>
+  <path d="M 140,185 Q 250,145 330,180 Q 410,140 500,170 Q 590,140 670,180 Q 750,145 860,185" fill="none" stroke="#ffeb3b" stroke-width="2"/>
+
+  <!-- Ornate Canopy Crown Crest -->
+  <g transform="translate(500, 105)" fill="url(#goldGrad)" filter="url(#softGlow)">
+    <path d="M 0,-25 Q 15,-10 20,10 Q 0,5 -20,10 Q -15,-10 0,-25 Z"/>
+    <circle cx="0" cy="-30" r="5" fill="#ff0044"/>
+    <circle cx="0" cy="0" r="6" fill="#e63946"/>
+  </g>
+
+  <!-- Flowing Marigold & Jasmine Garlands (Toran) -->
+  <g stroke-linecap="round">
+    <!-- Outer Marigold Swag -->
+    <path d="M 140,195 Q 320,245 500,205 Q 680,245 860,195" fill="none" stroke="#ff8c00" stroke-width="10" stroke-dasharray="8,5"/>
+    <path d="M 140,195 Q 320,245 500,205 Q 680,245 860,195" fill="none" stroke="#ffd700" stroke-width="6" stroke-dasharray="6,6"/>
+    <!-- Inner Jasmine Swag -->
+    <path d="M 160,205 Q 330,265 500,225 Q 670,265 840,205" fill="none" stroke="#ffffff" stroke-width="5" stroke-dasharray="5,4" opacity="0.9"/>
+
+    <!-- Cascading Flower Tassels from Arch -->
+    <g stroke="#ff7700" stroke-width="4" stroke-dasharray="4,4">
+      <line x1="240" y1="210" x2="240" y2="280"/><circle cx="240" cy="285" r="4" fill="#ffd700"/>
+      <line x1="330" y1="225" x2="330" y2="305"/><circle cx="330" cy="310" r="4" fill="#ffd700"/>
+      <line x1="420" y1="215" x2="420" y2="275"/><circle cx="420" cy="280" r="4" fill="#ffd700"/>
+      <line x1="580" y1="215" x2="580" y2="275"/><circle cx="580" cy="280" r="4" fill="#ffd700"/>
+      <line x1="670" y1="225" x2="670" y2="305"/><circle cx="670" cy="310" r="4" fill="#ffd700"/>
+      <line x1="760" y1="210" x2="760" y2="280"/><circle cx="760" cy="285" r="4" fill="#ffd700"/>
+    </g>
+  </g>
+
+  <!-- Hanging Brass Temple Bells & Lanterns -->
+  <g fill="url(#goldGrad)" stroke="#996515" stroke-width="1">
+    <!-- Left Bell -->
+    <line x1="285" y1="180" x2="285" y2="250" stroke="#ffd700" stroke-width="2"/>
+    <path d="M 275,250 Q 285,240 295,250 L 298,265 Q 285,268 272,265 Z"/>
+    <circle cx="285" cy="269" r="3" fill="#ffb703"/>
+
+    <!-- Center Lantern -->
+    <line x1="500" y1="165" x2="500" y2="230" stroke="#ffd700" stroke-width="2"/>
+    <polygon points="492,230 508,230 512,245 488,245" fill="url(#goldGrad)"/>
+    <rect x="490" y="245" width="20" height="22" fill="#fff3a8" filter="url(#softGlow)"/>
+    <polygon points="488,267 512,267 500,278" fill="url(#goldGrad)"/>
+
+    <!-- Right Bell -->
+    <line x1="715" y1="180" x2="715" y2="250" stroke="#ffd700" stroke-width="2"/>
+    <path d="M 705,250 Q 715,240 725,250 L 728,265 Q 715,268 702,265 Z"/>
+    <circle cx="715" cy="269" r="3" fill="#ffb703"/>
+  </g>
+
+  <!-- ================= 4. SACRED HAWAN KUND & RADIANT AGNI ================= -->
+  <g id="hawanKund">
+    <!-- Fire Pit Warm Glow Radial Area -->
+    <circle cx="500" cy="460" r="110" fill="url(#fireGlow)"/>
+
+    <!-- Stepped Copper/Brick Altar (Hawan Kund) -->
+    <!-- Base tier -->
+    <polygon points="420,505 580,505 565,488 435,488" fill="url(#copperGrad)"/>
+    <line x1="420" y1="505" x2="580" y2="505" stroke="#ffeaa7" stroke-width="1.5"/>
+    <!-- Mid tier -->
+    <polygon points="435,488 565,488 552,472 448,472" fill="url(#copperGrad)"/>
+    <line x1="435" y1="488" x2="565" y2="488" stroke="#f39c12" stroke-width="1.5"/>
+    <!-- Top inner pit -->
+    <polygon points="448,472 552,472 540,460 460,460" fill="#3d1400"/>
+    <polygon points="460,460 540,460 535,455 465,455" fill="#1f0a00"/>
+
+    <!-- Sacred Fire Wood logs -->
+    <line x1="465" y1="465" x2="535" y2="455" stroke="#5c2605" stroke-width="5" stroke-linecap="round"/>
+    <line x1="468" y1="456" x2="532" y2="466" stroke="#421a02" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Radiant Layered Agni (Fire Flames) with Bloom Filter -->
+    <g filter="url(#fireBloom)">
+      <!-- Outer Wild Crimson Flame -->
+      <path d="M 470,458 Q 450,420 480,390 Q 460,370 495,335 Q 515,365 510,395 Q 545,415 530,458 Z" fill="#ff2a00" opacity="0.9"/>
+      <!-- Mid Brilliant Orange Flame -->
+      <path d="M 478,458 Q 465,425 488,400 Q 482,380 500,352 Q 515,380 512,408 Q 532,425 522,458 Z" fill="#ff8000"/>
+      <!-- Inner Radiant Gold Core -->
+      <path d="M 486,458 Q 478,435 494,412 Q 492,398 500,375 Q 508,398 506,418 Q 518,435 514,458 Z" fill="#ffea00"/>
+      <!-- Pure White Hot Center -->
+      <path d="M 493,458 Q 490,442 498,428 Q 500,418 502,428 Q 508,442 507,458 Z" fill="#ffffff"/>
+
+      <!-- Rising Embers & Sacred Sparks -->
+      <circle cx="485" cy="325" r="2.5" fill="#fff59d"/>
+      <circle cx="515" cy="310" r="3" fill="#ffb300"/>
+      <circle cx="498" cy="290" r="2" fill="#fff"/>
+      <circle cx="525" cy="340" r="2" fill="#ff7043"/>
+      <circle cx="475" cy="355" r="2.5" fill="#ffa726"/>
+    </g>
+  </g>
+
+  <!-- ================= 5. REGAL GROOM & BRIDE ================= -->
+
+  <!-- == GROOM (Left of Fire) == -->
+  <g id="groom" transform="translate(340, 240)">
+    <!-- Groom Body / Royal Sherwani -->
+    <path d="M -35,130 L -45,260 L 25,260 L 25,130 Q -5,115 -35,130 Z" fill="url(#sherwaniGrad)"/>
+    <!-- Sherwani Gold Embroidery Trim & Front Placket -->
+    <line x1="-10" y1="125" x2="-10" y2="260" stroke="#d4af37" stroke-width="4"/>
+    <circle cx="-10" cy="145" r="3" fill="#800020"/>
+    <circle cx="-10" cy="165" r="3" fill="#800020"/>
+    <circle cx="-10" cy="185" r="3" fill="#800020"/>
+    <circle cx="-10" cy="205" r="3" fill="#800020"/>
+    <circle cx="-10" cy="225" r="3" fill="#800020"/>
+
+    <!-- Royal Emerald & Pearl Mala (Necklace) -->
+    <path d="M -30,135 Q -10,185 15,135" fill="none" stroke="#2e7d32" stroke-width="4" stroke-dasharray="4,2"/>
+    <path d="M -26,132 Q -10,165 10,132" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="3,1"/>
+    <!-- Royal Brocade Dupatta / Stole (Angavastram) draped over shoulder -->
+    <path d="M -38,130 Q -50,180 -42,260 L -30,260 Q -38,180 -28,130 Z" fill="url(#crimsonDrape)"/>
+    <path d="M -30,250 L -42,250" stroke="#ffd700" stroke-width="3"/>
+
+    <!-- Churidar Pants -->
+    <rect x="-40" y="260" width="22" height="40" fill="#fdfbf7" rx="3"/>
+    <rect x="0" y="260" width="22" height="40" fill="#fdfbf7" rx="3"/>
+    <!-- Mojari Footwear -->
+    <ellipse cx="-28" cy="298" rx="14" ry="5" fill="#8b5a2b"/>
+    <ellipse cx="12" cy="298" rx="14" ry="5" fill="#8b5a2b"/>
+
+    <!-- Groom Head & Face -->
+    <circle cx="-10" cy="95" r="22" fill="#d49b6a"/> <!-- Royal Indian complexion -->
+    <!-- Neatly Groomed Beard & Features -->
+    <path d="M -22,95 Q -22,115 -10,118 Q 2,115 2,95 Q -10,105 -22,95 Z" fill="#2c1a0e" opacity="0.85"/>
+    <path d="M -20,90 Q -10,88 0,90" fill="none" stroke="#1f1209" stroke-width="2"/> <!-- Eyes silhouette -->
+    <!-- Royal Safa (Turban) -->
+    <!-- Pleated Turban Dome -->
+    <path d="M -34,90 Q -35,55 -10,50 Q 15,55 14,90 Q -10,75 -34,90 Z" fill="#c41e3a"/>
+    <path d="M -32,82 Q -10,68 12,82" fill="none" stroke="#ffd700" stroke-width="3"/>
+    <path d="M -30,72 Q -10,60 10,72" fill="none" stroke="#ffd700" stroke-width="2.5"/>
+    <!-- Safa Band / Sarpech Base -->
+    <rect x="-33" y="84" width="47" height="8" rx="3" fill="url(#goldGrad)"/>
+    <!-- Kalgi Feather with Ruby Centerpiece -->
+    <path d="M -10,55 Q -18,25 -26,10 Q -12,25 -10,55" fill="url(#goldGrad)" filter="url(#softGlow)"/>
+    <circle cx="-10" cy="55" r="4" fill="#990000"/>
+    <circle cx="-10" cy="55" r="2" fill="#ffffff"/>
+  </g>
+
+  <!-- == BRIDE (Right of Fire) == -->
+  <g id="bride" transform="translate(660, 240)">
+    <!-- Royal Red & Gold Lehenga Skirt (Flared A-line with heavy embroidery) -->
+    <path d="M -25,160 L -55,260 L 35,260 L 15,160 Q -5,155 -25,160 Z" fill="url(#lehengaGrad)"/>
+    <!-- Zardozi Gold Border Embroidery at Hemline -->
+    <path d="M -54,248 Q -10,242 34,248 L 35,260 Q -10,254 -55,260 Z" fill="url(#goldGrad)"/>
+    <path d="M -50,235 Q -10,230 30,235" fill="none" stroke="#ffd700" stroke-width="2" stroke-dasharray="4,2"/>
+    <path d="M -45,220 Q -10,215 25,220" fill="none" stroke="#ffd700" stroke-width="2" stroke-dasharray="4,2"/>
+    <path d="M -40,200 Q -10,195 20,200" fill="none" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- Choli (Blouse) -->
+    <path d="M -25,130 L -30,165 L 18,165 L 15,130 Q -5,120 -25,130 Z" fill="#990011"/>
+    <!-- Gold Waist Belt (Kamarbandh) -->
+    <rect x="-27" y="160" width="46" height="6" rx="2" fill="url(#goldGrad)"/>
+
+    <!-- Bridal Chooda Bangles (Red & Ivory) -->
+    <!-- Left Hand Bangles -->
+    <g transform="translate(-32, 160)">
+      <rect x="0" y="0" width="6" height="18" fill="#c41e3a" rx="1"/>
+      <line x1="0" y1="4" x2="6" y2="4" stroke="#ffd700" stroke-width="1.5"/>
+      <line x1="0" y1="14" x2="6" y2="14" stroke="#ffd700" stroke-width="1.5"/>
+    </g>
+    <!-- Right Hand Bangles -->
+    <g transform="translate(18, 160)">
+      <rect x="0" y="0" width="6" height="18" fill="#c41e3a" rx="1"/>
+      <line x1="0" y1="4" x2="6" y2="4" stroke="#ffd700" stroke-width="1.5"/>
+      <line x1="0" y1="14" x2="6" y2="14" stroke="#ffd700" stroke-width="1.5"/>
+    </g>
+
+    <!-- Bride Head & Elegant Complexion -->
+    <circle cx="-5" cy="95" r="20" fill="#e0a97b"/>
+    <!-- Sleek Bridal Hair Bun (Juda) with Jasmine Gajra flowers -->
+    <circle cx="14" cy="92" r="12" fill="#1a0f08"/>
+    <circle cx="14" cy="92" r="13" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="3,2"/>
+
+    <!-- Facial Features Silhouette & Nath (Nose Ring) -->
+    <path d="M -15,92 Q -5,90 2,92" fill="none" stroke="#1f1209" stroke-width="2"/>
+    <circle cx="-16" cy="98" r="4" fill="none" stroke="#ffd700" stroke-width="1.5"/>
+    <line x1="-13" y1="96" x2="2" y2="90" stroke="#ffd700" stroke-width="1"/> <!-- Nath chain to ear -->
+
+    <!-- Ornate Bridal Jewelry -->
+    <!-- Maang Tikka (Forehead Jewel) -->
+    <line x1="-5" y1="75" x2="-5" y2="86" stroke="#ffd700" stroke-width="1.5"/>
+    <circle cx="-5" cy="87" r="4.5" fill="#ffd700" filter="url(#softGlow)"/>
+    <circle cx="-5" cy="87" r="2" fill="#c41e3a"/>
+    <!-- Kundan Choker & Rani Haar Necklace -->
+    <path d="M -20,122 Q -5,138 10,122" fill="none" stroke="#ffd700" stroke-width="5"/>
+    <path d="M -22,128 Q -5,152 12,128" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="3,1.5"/>
+
+    <!-- Sheer Shimmering Crimson Dupatta / Veil -->
+    <path d="M -10,75 Q -32,85 -42,160 Q -46,215 -35,270 L -18,270 Q -30,215 -25,160 Q -15,95 -8,75 Z" fill="url(#crimsonDrape)" opacity="0.65"/>
+    <path d="M -8,75 Q 18,80 32,150 Q 42,210 38,270 L 25,270 Q 30,210 20,150 Q 10,95 -6,75 Z" fill="url(#crimsonDrape)" opacity="0.65"/>
+    <!-- Gold Scalloped Dupatta Lace Border -->
+    <path d="M -42,160 Q -46,215 -35,270" fill="none" stroke="#ffd700" stroke-width="2.5"/>
+    <path d="M 32,150 Q 42,210 38,270" fill="none" stroke="#ffd700" stroke-width="2.5"/>
+  </g>
+
+  <!-- == VARMALA (Fresh Rose & Jasmine Garland Exchange) == -->
+  <g id="varmalaGarlands">
+    <!-- Groom's Varmala -->
+    <path d="M 315,370 Q 330,440 355,420 Q 375,380 350,370" fill="none" stroke="#c41e3a" stroke-width="7" stroke-dasharray="6,3"/>
+    <path d="M 315,370 Q 330,440 355,420 Q 375,380 350,370" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="3,3"/>
+    <circle cx="345" cy="425" r="6" fill="#ffd700"/>
+
+    <!-- Bride's Varmala -->
+    <path d="M 640,370 Q 655,440 675,420 Q 695,380 670,370" fill="none" stroke="#c41e3a" stroke-width="7" stroke-dasharray="6,3"/>
+    <path d="M 640,370 Q 655,440 675,420 Q 695,380 670,370" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="3,3"/>
+    <circle cx="665" cy="425" r="6" fill="#ffd700"/>
+
+    <!-- Sacred Gathbandhan Knot (Silk cloth connecting bride and groom) -->
+    <path d="M 310,480 Q 410,510 500,485 Q 580,510 635,480" fill="none" stroke="#c41e3a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 310,480 Q 410,510 500,485 Q 580,510 635,480" fill="none" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="4,4"/>
+  </g>
+
+  <!-- ================= 6. GLOWING CLAY DIYAS ALONG STAGE ================= -->
+  <g id="diyas">
+    <!-- Diya 1 (Far Left) -->
+    <g transform="translate(90, 492)">
+      <circle cx="0" cy="-5" r="22" fill="url(#diyaGlow)"/>
+      <ellipse cx="0" cy="0" rx="14" ry="6" fill="#a0522d"/>
+      <ellipse cx="0" cy="-1" rx="11" ry="4" fill="#cd853f"/>
+      <path d="M -3,-3 Q 0,-16 3,-3 Z" fill="#ffea00" filter="url(#softGlow)"/>
+      <circle cx="0" cy="-7" r="2" fill="#fff"/>
+    </g>
+
+    <!-- Diya 2 (Pillar Left) -->
+    <g transform="translate(160, 492)">
+      <circle cx="0" cy="-5" r="24" fill="url(#diyaGlow)"/>
+      <ellipse cx="0" cy="0" rx="15" ry="6" fill="#a0522d"/>
+      <ellipse cx="0" cy="-1" rx="12" ry="4" fill="#cd853f"/>
+      <path d="M -3,-3 Q 0,-18 3,-3 Z" fill="#ffea00" filter="url(#softGlow)"/>
+      <circle cx="0" cy="-8" r="2" fill="#fff"/>
+    </g>
+
+    <!-- Diya 3 (Kund Left) -->
+    <g transform="translate(390, 495)">
+      <circle cx="0" cy="-5" r="22" fill="url(#diyaGlow)"/>
+      <ellipse cx="0" cy="0" rx="13" ry="5" fill="#a0522d"/>
+      <ellipse cx="0" cy="-1" rx="10" ry="3.5" fill="#cd853f"/>
+      <path d="M -2.5,-3 Q 0,-15 2.5,-3 Z" fill="#ffea00" filter="url(#softGlow)"/>
+      <circle cx="0" cy="-6" r="1.5" fill="#fff"/>
+    </g>
+
+    <!-- Diya 4 (Kund Right) -->
+    <g transform="translate(610, 495)">
+      <circle cx="0" cy="-5" r="22" fill="url(#diyaGlow)"/>
+      <ellipse cx="0" cy="0" rx="13" ry="5" fill="#a0522d"/>
+      <ellipse cx="0" cy="-1" rx="10" ry="3.5" fill="#cd853f"/>
+      <path d="M -2.5,-3 Q 0,-15 2.5,-3 Z" fill="#ffea00" filter="url(#softGlow)"/>
+      <circle cx="0" cy="-6" r="1.5" fill="#fff"/>
+    </g>
+
+    <!-- Diya 5 (Pillar Right) -->
+    <g transform="translate(840, 492)">
+      <circle cx="0" cy="-5" r="24" fill="url(#diyaGlow)"/>
+      <ellipse cx="0" cy="0" rx="15" ry="6" fill="#a0522d"/>
+      <ellipse cx="0" cy="-1" rx="12" ry="4" fill="#cd853f"/>
+      <path d="M -3,-3 Q 0,-18 3,-3 Z" fill="#ffea00" filter="url(#softGlow)"/>
+      <circle cx="0" cy="-8" r="2" fill="#fff"/>
+    </g>
+
+    <!-- Diya 6 (Far Right) -->
+    <g transform="translate(910, 492)">
+      <circle cx="0" cy="-5" r="22" fill="url(#diyaGlow)"/>
+      <ellipse cx="0" cy="0" rx="14" ry="6" fill="#a0522d"/>
+      <ellipse cx="0" cy="-1" rx="11" ry="4" fill="#cd853f"/>
+      <path d="M -3,-3 Q 0,-16 3,-3 Z" fill="#ffea00" filter="url(#softGlow)"/>
+      <circle cx="0" cy="-7" r="2" fill="#fff"/>
+    </g>
+  </g>
+
+  <!-- ================= 7. CELEBRATORY ORNAMENTAL BANNER ================= -->
+  <g id="typography" transform="translate(500, 642)">
+    <!-- Decorative Paisley & Floral Flank Ornaments -->
+    <!-- Left Paisley Motif -->
+    <g transform="translate(-240, -12) scale(0.7)" fill="url(#goldGrad)" filter="url(#softGlow)">
+      <path d="M 0,0 C -15,-20 -35,-10 -30,10 C -25,25 0,25 0,0 Z"/>
+      <circle cx="-15" cy="5" r="3" fill="#c41e3a"/>
+      <circle cx="-35" cy="0" r="2" fill="#ffd700"/>
+    </g>
+    <!-- Right Paisley Motif -->
+    <g transform="translate(240, -12) scale(-0.7, 0.7)" fill="url(#goldGrad)" filter="url(#softGlow)">
+      <path d="M 0,0 C -15,-20 -35,-10 -30,10 C -25,25 0,25 0,0 Z"/>
+      <circle cx="-15" cy="5" r="3" fill="#c41e3a"/>
+      <circle cx="-35" cy="0" r="2" fill="#ffd700"/>
+    </g>
+
+    <!-- Decorative Gold Divider Lines -->
+    <line x1="-180" y1="-8" x2="-140" y2="-8" stroke="url(#goldGrad)" stroke-width="2"/>
+    <polygon points="-135,-8 -140,-11 -140,-5" fill="url(#goldGrad)"/>
+    <polygon points="135,-8 140,-11 140,-5" fill="url(#goldGrad)"/>
+    <line x1="140" y1="-8" x2="180" y2="-8" stroke="url(#goldGrad)" stroke-width="2"/>
+
+    <!-- Main Title: SHUBH VIVAH -->
+    <text x="0" y="0" text-anchor="middle" font-family="'Cinzel', 'Playfair Display', 'Georgia', serif" font-size="28" font-weight="bold" fill="url(#goldGrad)" letter-spacing="8" filter="url(#softGlow)">
+      ॐ SHUBH VIVAH ॐ
+    </text>
+
+    <!-- Subtitle: An Indian Wedding Celebration -->
+    <text x="0" y="24" text-anchor="middle" font-family="'Cinzel', 'Montserrat', 'Georgia', serif" font-size="14" font-weight="500" fill="#f5eedc" letter-spacing="4" opacity="0.9">
+      AN INDIAN WEDDING CELEBRATION
+    </text>
+  </g>
+</svg>

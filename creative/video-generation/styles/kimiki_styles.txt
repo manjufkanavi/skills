@@ -1,0 +1,26 @@
+1:Studio Ghibli hand-painted anime style, soft watercolor palette and gentle natural lighting
+2:Disney Pixar 3D CGI animation with glossy shading and warm cinematic light
+3:Classic Japanese cel anime style, flat colors and bold outlines with a nostalgic 90s feel
+4:Aardman claymation stop-motion style, tactile hand-sculpted clay figures
+5:Photorealistic cinematic film still with shallow depth of field and natural color grading
+6:Vintage 8mm film grain style, soft light leaks and faded 1970s colors
+7:Black and white film noir style, dramatic high contrast shadows
+8:Impressionist oil painting style with visible soft brushstrokes and dappled light
+9:Soft watercolor illustration, gentle color bleeds on textured paper
+10:Ukiyo-e Japanese woodblock print style, flat colors and bold outlines
+11:Pop art halftone dot style with vibrant flat colors and heavy ink lines
+12:Surrealist dreamlike style, impossible soft shapes and floating light
+13:Cubist geometric fragmented planes with refracted multiple angles
+14:Low-poly 3D faceted flat shading style, clean geometric shapes
+15:Neon synthwave vaporworld glow with grid lines and purple cyan light
+16:Cyberpunk neon-lit rainy street style, glowing signs and wet reflections
+17:Pixel art 8-bit retro game sprite style with crisp blocky detail
+18:Origami folded paper cutout style, crisp geometric creases and layered depth
+19:Sumi-e ink wash painting style, flowing monochrome brush strokes
+20:Dark fantasy concept art painterly style with dramatic rim light
+21:Steampunk brass Victorian industrial style, gears and copper accents
+22:Isometric 3D miniature diorama of a tiny detailed world
+23:Comic book graphic novel style with bold ink lines and halftone shading
+24:Bauhaus flat vector illustration style, geometric shapes and limited palette
+25:Pointillism dotted painting style with tiny specks of pure color
+26:Art Nouveau stained glass poster illustration style, flowing organic lines
