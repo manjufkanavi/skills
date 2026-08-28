@@ -1,0 +1,27 @@
+{
+  "name": "Arjun",
+  "species": "a young Indian student",
+  "appearance_age": 18,
+  "gender": "male",
+  "traits": ["happy", "ambitious", "smart"],
+  "motivation": "Driven by a deep love of learning and the desire to grow wiser every day",
+  "flaw_or_arc": "",
+  "body_proportions": "lean teenage build",
+  "face_shape": "round-ish face with a warm, friendly expression",
+  "eyes": {
+    "size": "normal-sized",
+    "color": "dark brown"
+  },
+  "hair_color_texture_style": "thick straight black hair",
+  "skin_tone": "warm medium-brown skin",
+  "relative_height": "5'5\" (average)",
+  "clothing": ["school uniform — white shirt and navy-blue shorts/pants"],
+  "palette": ["white", "navy blue"],
+  "signature_accessory": "",
+  "setting": "a softly lit school corridor or classroom, warm morning light",
+  "aspect_ratio": "4:5",
+  "render_intensity": 0.6,
+  "seed": 42,
+  "model": "flux2-klein-9b",
+  "video_model": ""
+}
