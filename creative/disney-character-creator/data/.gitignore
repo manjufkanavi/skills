@@ -1,0 +1,10 @@
+# Generated images are regenerable artifacts — keep the repo lean.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+
+# Python bytecode / caches.
+__pycache__/
+*.pyc
