@@ -1,0 +1,10 @@
+https://www.marktechpost.com/2026/07/21/cisco-foundation-ai-releases-antares-350m-and-1b-open-weight-models-that-localize-known-vulnerabilities-inside-real-codebases/
+https://github.com/WeiboAI/VibeThinker
+https://www.reddit.com/r/LocalLLaMA/comments/1u7u3ls/vibethinker3b_what_is_this_witchcraft_killing_it/
+https://huggingface.co/blog/AtlaAI/selene-1-mini
+https://www.trychroma.com/research/context-1
+https://www.datalab.to/blog/chandra-2
+https://huggingface.co/ornith-ai/Ornith-1.0-9B
+https://www.reddit.com/r/LocalLLaMA/comments/1mlsm8e/qwen_3_06b_beats_gpt5_in_simple_math/
+https://www.reddit.com/r/LocalLLaMA/comments/1pcia1t/deepseek_v32_speciale_dominates_my_math_bench/
+https://www.reddit.com/r/computervision/comments/1svx4zx/chandra_ocr_2_4b_opensource_model_hits_859_sota/

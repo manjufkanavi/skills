@@ -1,0 +1,14 @@
+https://www.helpnetsecurity.com/2026/07/21/cisco-antares-vulnerability-localization-released/
+https://wavect.io/blog/cisco-antares-local-vulnerability-localization/
+https://huggingface.co/fdtn-ai/antares-1b
+https://arxiv.org/html/2511.06221v1
+https://github.com/WeiboAI/VibeThinker
+https://www.reddit.com/r/LocalLLaMA/comments/1u7u3ls/vibethinker3b_what_is_this_witchcraft_killing_it/
+https://www.trychroma.com/research/context-1
+https://arxiv.org/html/2501.17195v1
+https://huggingface.co/blog/AtlaAI/selene-1-mini
+https://www.towardsdeeplearning.com/rip-commercial-ocr-an-open-source-model-just-topped-every-benchmark-351bf9d6be10
+https://www.llamaindex.ai/blog/document-ocr-is-not-getting-commoditized
+https://percipient.co/ai-models-perform-on-real-legal-work/
+https://www.haqq.ai/blog/ai-benchmark-100-real-legal-questions
+https://www.marktechpost.com/2026/07/21/cisco-foundation-ai-releases-antares-350m-and-1b-open-weight-models-that-localize-known-vulnerabilities-inside-real-codebases/

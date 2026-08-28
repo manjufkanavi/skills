@@ -1,0 +1,10 @@
+https://www.datalab.to/blog/chandra-2
+https://huggingface.co/datalab-to/chandra-ocr-2
+https://www.reddit.com/r/computervision/comments/1svx4zx/chandra_ocr_2_4b_opensource_model_hits_859_sota/
+https://huggingface.co/ornith-ai/Ornith-1.0-9B
+https://huggingface.co/Kwaipilot/KAT-Coder-V2.5-Dev/discussions/12
+https://www.reddit.com/r/LocalLLaMA/comments/1mlsm8e/qwen_3_06b_beats_gpt5_in_simple_math/
+https://benchlm.ai/blog/posts/best-llm-math
+https://www.reddit.com/r/LocalLLaMA/comments/1pcia1t/deepseek_v32_speciale_dominates_my_math_bench/
+https://mistral.ai/news/ocr-4/
+https://allenai.org/blog/olmocr-2

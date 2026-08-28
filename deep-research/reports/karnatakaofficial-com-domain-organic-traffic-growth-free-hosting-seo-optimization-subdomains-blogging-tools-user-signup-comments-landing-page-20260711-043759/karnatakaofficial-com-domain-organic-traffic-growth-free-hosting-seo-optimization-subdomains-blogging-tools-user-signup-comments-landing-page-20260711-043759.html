@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Karnatakaofficial.com — Complete Launch & Growth Guide</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --text: #e0e0e0;
+    --text2: #999;
+    --accent: #FF6B35;
+    --accent2: #138808;
+    --bullet: #FFD700;
+    --border: #1a1a2e;
+    --dot: #333;
+    --dot-active: #FF6B35;
+    --btn-bg: linear-gradient(135deg, #FF6B35, #FFD700);
+    --btn-text: #1a1a2e;
+    --title-h1: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);
+    --title-h2: #888;
+    --title-meta: #555;
+    --slide-h2: #FF6B35;
+    --li: #ccc;
+    --li-alt: #aaa;
+    --li-marker: #FFD700;
+    --controls-bg: rgba(10,10,15,0.95);
+    --theme-icon: "☀️";
+    --transition-speed: 0.5s;
+  }
+  .light {
+    --bg: #f5f5fa;
+    --bg2: #eeeef4;
+    --text: #1a1a2e;
+    --text2: #555;
+    --accent: #e55a28;
+    --accent2: #0f6d06;
+    --bullet: #d4b800;
+    --border: #d0d0dd;
+    --dot: #ccc;
+    --dot-active: #e55a28;
+    --btn-bg: linear-gradient(135deg, #e55a28, #d4b800);
+    --btn-text: #fff;
+    --title-h1: linear-gradient(135deg, #e55a28 0%, #d4b800 100%);
+    --title-h2: #666;
+    --title-meta: #888;
+    --slide-h2: #e55a28;
+    --li: #333;
+    --li-alt: #555;
+    --li-marker: #d4b800;
+    --controls-bg: rgba(245,245,250,0.95);
+    --theme-icon: "🌙";
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+  }
+  .presentation { height: 100vh; display: flex; flex-direction: column; }
+  .slides-container { flex: 1; position: relative; overflow: hidden; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: clamp(20px, 5vw, 60px) clamp(20px, 8vw, 80px);
+    opacity: 0;
+    transform: translateX(60px) scale(0.97);
+    transition: opacity var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+  .slide.prev {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.97);
+  }
+  .slide.active h2,
+  .slide.active li,
+  .slide.active table {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  .slide.active h2 { animation-delay: 0.1s; }
+  .slide.active li:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active li:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active li:nth-child(3) { animation-delay: 0.35s; }
+  .slide.active li:nth-child(4) { animation-delay: 0.45s; }
+  .slide.active li:nth-child(5) { animation-delay: 0.55s; }
+  .slide.active li:nth-child(n+6) { animation-delay: 0.65s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .title-slide h1 {
+    font-size: clamp(1.4rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    background: var(--title-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: clamp(8px, 2vh, 16px);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .title-slide h2 {
+    font-size: clamp(0.85rem, 2.2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--title-h2);
+    margin-bottom: clamp(12px, 3vh, 24px);
+    text-align: center;
+    max-width: 700px;
+  }
+  .title-slide .meta {
+    font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+    color: var(--title-meta);
+  }
+  .slide h2 {
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--slide-h2);
+    margin-bottom: clamp(12px, 2.5vh, 28px);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .slide ul {
+    list-style: none;
+    max-width: min(800px, 92vw);
+    width: 100%;
+  }
+  .slide li {
+    font-size: clamp(0.8rem, 1.8vw, 1.15rem);
+    line-height: 1.7;
+    padding: clamp(5px, 1vh, 10px) 0 clamp(5px, 1vh, 10px) 28px;
+    position: relative;
+    color: var(--li);
+  }
+  .slide li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--li-marker);
+    font-weight: bold;
+  }
+  .slide li:nth-child(even) { color: var(--li-alt); }
+  .slide code {
+    background: var(--bg2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--accent);
+  }
+  .slide pre {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: clamp(10px, 2vh, 20px);
+    max-width: min(800px, 92vw);
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 12px;
+  }
+  .slide pre code {
+    background: none;
+    padding: 0;
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    line-height: 1.6;
+  }
+  .slide table {
+    width: 100%;
+    max-width: min(800px, 92vw);
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: clamp(0.7rem, 1.4vw, 0.95rem);
+  }
+  .slide th, .slide td {
+    padding: clamp(6px, 1.2vh, 12px) clamp(8px, 1.5vw, 16px);
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .slide th {
+    background: var(--bg2);
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .slide td { color: var(--li); }
+  .slide tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: var(--btn-bg);
+    border: none;
+    color: var(--btn-text);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(255,107,53,0.3);
+  }
+  .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(255,107,53,0.5); }
+  .theme-toggle:active { transform: scale(0.95); }
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 2vw, 20px);
+    padding: clamp(10px, 2vh, 20px);
+    background: var(--controls-bg);
+    border-top: 1px solid var(--border);
+    transition: background var(--transition-speed) ease;
+  }
+  .controls button {
+    background: var(--btn-bg);
+    border: none;
+    color: var(--btn-text);
+    padding: clamp(6px, 1.2vh, 10px) clamp(12px, 2vw, 24px);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+    font-weight: 600;
+    transition: transform 0.2s;
+  }
+  .controls button:hover { transform: scale(1.05); }
+  .controls button:disabled { opacity: 0.3; cursor: default; transform: none; }
+  .progress { display: flex; gap: clamp(4px, 1vw, 6px); }
+  .progress-dot {
+    width: clamp(8px, 1vw, 10px);
+    height: clamp(8px, 1vw, 10px);
+    border-radius: 50%;
+    background: var(--dot);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .progress-dot.active { background: var(--dot-active); transform: scale(1.3); }
+  .slide-counter {
+    font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+    color: var(--text2);
+    min-width: clamp(40px, 6vw, 60px);
+    text-align: center;
+  }
+  .swipe-hint {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: var(--text2);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: fadeOut 3s ease 2s forwards;
+  }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @media (max-height: 500px) {
+    .slide { padding: 10px 20px; }
+    .slide li { padding: 4px 0 4px 24px; font-size: 0.8rem; }
+    .slide h2 { margin-bottom: 12px; }
+  }
+  @media (max-width: 400px) {
+    .slide li { font-size: 0.75rem; padding-left: 20px; }
+    .slide li::before { left: -2px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">☀️</button>
+<div class="presentation">
+  <div class="slides-container" id="slidesContainer">
+
+    <!-- Slide 0: Title -->
+    <section class="slide title-slide" data-index="0">
+      <h1>Karnatakaofficial.com</h1>
+      <h2>Complete Launch &amp; Growth Guide — Organic Traffic, Free Hosting, SEO, Subdomains, Tools &amp; More</h2>
+      <p class="meta">Pure Blogging Platform · Multi-Subdomain Architecture · Deep Research Report</p>
+    </section>
+
+    <!-- Slide 1: Executive Summary -->
+    <section class="slide" data-index="1">
+      <h2>Executive Summary</h2>
+      <ul>
+        <li>Karnatakaofficial.com is a new domain for a pure blogging platform with subdomain architecture</li>
+        <li>Organic traffic growth requires keyword research, quality content, and consistent SEO practices</li>
+        <li>Top 5 free hosts: GitHub Pages, Netlify, Vercel, Cloudflare Pages, Firebase</li>
+        <li>SEO is a marathon — focus on EEAT, topical authority, and content updates</li>
+        <li>Subdomains are treated as separate websites by Google — build authority independently</li>
+      </ul>
+    </section>
+
+    <!-- Slide 2: Organic Traffic Growth -->
+    <section class="slide" data-index="2">
+      <h2>1. Growing Organic Traffic</h2>
+      <ul>
+        <li><strong>Keyword research:</strong> Target Karnataka-specific long-tail keywords (500–5K searches/mo) using Ubersuggest, AnswerThePublic, Google Keyword Planner</li>
+        <li><strong>Content strategy:</strong> Publish 2,000+ word comprehensive articles, update existing content regularly, build topic clusters</li>
+        <li><strong>On-page SEO:</strong> Keyword in URL, H1, first 120 words, H2s, meta title/description, image alt text</li>
+        <li><strong>Off-page SEO:</strong> Natural backlinks through quality content, guest posting on Karnataka blogs, local directory listings</li>
+        <li><strong>Technical SEO:</strong> Google Search Console, Bing Webmaster Tools, mobile-friendly, fast load speed, SSL, clean URLs</li>
+        <li><strong>Diversify:</strong> Don't rely only on Google — explore Bing, DuckDuckGo, Pinterest, email newsletter</li>
+      </ul>
+    </section>
+
+    <!-- Slide 3: Free Hosting — Top 5 -->
+    <section class="slide" data-index="3">
+      <h2>2. Best Free Hosting Providers</h2>
+      <table>
+        <tr><th>Rank</th><th>Provider</th><th>Storage</th><th>Bandwidth</th><th>Custom Domain</th></tr>
+        <tr><td>1</td><td>GitHub Pages</td><td>Unlimited</td><td>Unlimited</td><td>✅</td></tr>
+        <tr><td>2</td><td>Netlify</td><td>100 GB/mo</td><td>100 GB/mo</td><td>✅</td></tr>
+        <tr><td>3</td><td>Vercel</td><td>—</td><td>1 TB/mo</td><td>✅</td></tr>
+        <tr><td>4</td><td>Cloudflare Pages</td><td>Unlimited</td><td>Unlimited</td><td>✅</td></tr>
+        <tr><td>5</td><td>Firebase Hosting</td><td>10 GB</td><td>360 MB/day</td><td>✅</td></tr>
+      </table>
+      <p style="margin-top:16px; font-size:clamp(0.7rem,1.4vw,0.9rem); color:var(--text2);">Recommendation: Netlify or Cloudflare Pages for static blogs; Firebase if you need Auth + Firestore for comments</p>
+    </section>
+
+    <!-- Slide 4: SEO Wiki — Foundation -->
+    <section class="slide" data-index="4">
+      <h2>3. SEO Wiki — Phase 1: Foundation</h2>
+      <ul>
+        <li><strong>Domain &amp; Hosting:</strong> Configure DNS, SSL, Google Search Console, Bing Webmaster Tools</li>
+        <li><strong>Technical:</strong> XML sitemap, robots.txt, canonical URLs, mobile-responsive design, Core Web Vitals</li>
+        <li><strong>Keyword Research:</strong> Brainstorm Karnataka topics → find related keywords → identify low-competition long-tails → group into clusters → map to pages</li>
+        <li><strong>Keyword Categories:</strong> Karnataka news, Bangalore tech, Karnataka tourism, Kannada culture, Karnataka food, Karnataka education, Karnataka festivals</li>
+      </ul>
+    </section>
+
+    <!-- Slide 5: SEO Wiki — Content -->
+    <section class="slide" data-index="5">
+      <h2>3. SEO Wiki — Phase 2: Content</h2>
+      <ul>
+        <li><strong>Article structure:</strong> H1 with keyword → intro in 120 words → H2s with related keywords → 2,000+ words → optimized images → internal links → FAQ section</li>
+        <li><strong>Content types:</strong> Listicles, guides, reviews, how-to, news/opinion, comparisons</li>
+        <li><strong>On-page checklist:</strong> Unique meta title (50–70 chars), meta description (150–160 chars), keyword in URL/H1/H2s, internal links (3–5), schema markup</li>
+        <li><strong>Off-page:</strong> Shareable infographics, guest posts, local directory listings, community engagement</li>
+        <li><strong>Monitoring:</strong> Google Search Console for impressions/CTR/position, Google Analytics for traffic sources, update old posts quarterly</li>
+      </ul>
+    </section>
+
+    <!-- Slide 6: SEO — Modern Best Practices -->
+    <section class="slide" data-index="6">
+      <h2>3. SEO Wiki — Modern Best Practices</h2>
+      <ul>
+        <li><strong>EEAT matters:</strong> Experience, Expertise, Authoritativeness, Trustworthiness — Google prioritizes content demonstrating these</li>
+        <li><strong>First-hand experience:</strong> Personal stories, photos, local insights that AI can't replicate</li>
+        <li><strong>Content updates:</strong> Updating old posts is the fastest way to gain traffic — refresh stats, expand sections, add FAQs</li>
+        <li><strong>Topic clusters:</strong> Cover related subjects within a niche to build topical authority</li>
+        <li><strong>Cornerstone content:</strong> Long definitive guides that serve as hubs for related articles</li>
+        <li><strong>Internal linking:</strong> Strategic links help search engines discover content and distribute authority</li>
+      </ul>
+    </section>
+
+    <!-- Slide 7: Subdomain Configuration -->
+    <section class="slide" data-index="7">
+      <h2>4. Subdomain Configuration</h2>
+      <ul>
+        <li><strong>DNS:</strong> Add wildcard A record or CNAME pointing to your hosting provider</li>
+        <li><strong>Netlify:</strong> Add subdomains in Domain management → handles wildcard automatically</li>
+        <li><strong>Vercel:</strong> Project settings → Domains → add each subdomain separately</li>
+        <li><strong>Cloudflare Pages:</strong> Pages → Settings → Domains → add root + subdomains</li>
+        <li><strong>GitHub Pages:</strong> Each subdomain needs separate repo + CNAME file</li>
+      </ul>
+      <p style="margin-top:12px; font-size:clamp(0.7rem,1.4vw,0.9rem); color:var(--text2);">Each subdomain is treated as a separate website by Google — build authority independently</p>
+    </section>
+
+    <!-- Slide 8: Subdomain Structure -->
+    <section class="slide" data-index="8">
+      <h2>4. Recommended Subdomain Structure</h2>
+      <ul>
+        <li><code>karnatakaofficial.com</code> — Landing page / About</li>
+        <li><code>blog.karnatakaofficial.com</code> — Main blog index</li>
+        <li><code>travel.karnatakaofficial.com</code> — Travel articles</li>
+        <li><code>food.karnatakaofficial.com</code> — Food &amp; cuisine</li>
+        <li><code>tech.karnatakaofficial.com</code> — Technology &amp; startups</li>
+        <li><code>culture.karnatakaofficial.com</code> — Culture &amp; heritage</li>
+        <li><code>events.karnatakaofficial.com</code> — Events &amp; festivals</li>
+        <li><code>news.karnatakaofficial.com</code> — News &amp; updates</li>
+        <li><code>jobs.karnatakaofficial.com</code> — Jobs &amp; opportunities</li>
+      </ul>
+    </section>
+
+    <!-- Slide 9: Building Tools -->
+    <section class="slide" data-index="9">
+      <h2>5. Tools for Building &amp; Publishing</h2>
+      <ul>
+        <li><strong>Static Site Generators:</strong> Jekyll (Ruby), Hugo (Go), Astro (JS), Next.js (React), 11ty (JS)</li>
+        <li><strong>No-Code Builders:</strong> WordPress.com, Wix, Webflow, Framer, Notion + Super.so</li>
+        <li><strong>Blogging Platforms:</strong> WordPress.org, Ghost, Substack, Medium, Hashnode</li>
+        <li><strong>SEO Tools:</strong> Google Search Console (free), Google Analytics (free), Ubersuggest, AnswerThePublic, Rank Math (WP plugin)</li>
+        <li><strong>Content Creation:</strong> Canva, TinyPNG, Grammarly, Pexels, Unsplash</li>
+        <li><strong>Deployment:</strong> GitHub Actions, Netlify Deploy, Vercel CLI, Cloudflare Workers</li>
+      </ul>
+    </section>
+
+    <!-- Slide 10: User Signup & Comments -->
+    <section class="slide" data-index="10">
+      <h2>6. User Signup &amp; Comments</h2>
+      <ul>
+        <li><strong>Firebase Auth + Firestore:</strong> Free tier, email/Google login, comments stored in Firestore — best for custom experience</li>
+        <li><strong>Disqus:</strong> Easiest — just embed a script, built-in spam filtering, social login</li>
+        <li><strong>Utterances:</strong> Free, uses GitHub Issues as comments — great for dev blogs</li>
+        <li><strong>Commento:</strong> Open-source, self-hosted commenting system</li>
+        <li><strong>Newsletter Signup:</strong> Mailchimp (free 500 contacts), ConvertKit (free 1K subs), Beehiiv, Substack</li>
+      </ul>
+      <p style="margin-top:12px; font-size:clamp(0.7rem,1.4vw,0.9rem); color:var(--text2);">Recommendation: Firebase for custom signup + comments, Mailchimp/ConvertKit for newsletter</p>
+    </section>
+
+    <!-- Slide 11: Landing Page Design -->
+    <section class="slide" data-index="11">
+      <h2>7. Landing Page Design</h2>
+      <ul>
+        <li><strong>Hero:</strong> "Your Gateway to Karnataka" headline, search bar, CTA buttons, Karnataka landscape background</li>
+        <li><strong>Quick Nav:</strong> Grid cards for Culture, Food, Travel, Tech, News, Events with icons</li>
+        <li><strong>Featured Articles:</strong> 3–4 highlighted recent posts with thumbnails</li>
+        <li><strong>Social Proof:</strong> Stats — readers, articles, districts covered</li>
+        <li><strong>Newsletter Signup:</strong> "Get the best of Karnataka in your inbox weekly"</li>
+        <li><strong>Footer:</strong> Quick links, social media, contact, privacy policy</li>
+      </ul>
+    </section>
+
+    <!-- Slide 12: Landing Page Colors -->
+    <section class="slide" data-index="12">
+      <h2>7. Landing Page — Color Palette</h2>
+      <ul>
+        <li><strong>Primary:</strong> Deep saffron <code>#FF6B35</code></li>
+        <li><strong>Secondary:</strong> Karnataka green <code>#138808</code></li>
+        <li><strong>Accent:</strong> Gold <code>#FFD700</code></li>
+        <li><strong>Background:</strong> White <code>#FFFFFF</code> / Dark <code>#1A1A2E</code></li>
+        <li><strong>Text:</strong> Dark <code>#1A1A2E</code> / Light <code>#E0E0E0</code></li>
+      </ul>
+      <p style="margin-top:16px; font-size:clamp(0.7rem,1.4vw,0.9rem); color:var(--text2);">Clean, modern design with Karnataka-inspired colors · Mobile-first responsive · Fast loading · Accessible</p>
+    </section>
+
+    <!-- Slide 13: Quick Start Checklist -->
+    <section class="slide" data-index="13">
+      <h2>Quick Start Checklist</h2>
+      <ul>
+        <li>✅ Purchase domain Karnatakaofficial.com</li>
+        <li>Set up hosting (Netlify or Cloudflare Pages recommended)</li>
+        <li>Configure DNS and SSL</li>
+        <li>Set up Google Search Console + Bing Webmaster Tools</li>
+        <li>Choose blogging platform (Hugo/Astro for static, WordPress for dynamic)</li>
+        <li>Design and build landing page</li>
+        <li>Configure subdomains (blog, travel, food, tech, culture, events)</li>
+        <li>Create content calendar with 20+ article ideas</li>
+        <li>Set up comment system (Firebase or Disqus)</li>
+        <li>Set up newsletter signup (Mailchimp or ConvertKit)</li>
+        <li>Publish first 10 articles and submit sitemap to Google</li>
+      </ul>
+    </section>
+
+    <!-- Slide 14: Key Takeaways -->
+    <section class="slide" data-index="14">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li><strong>SEO is a marathon</strong> — focus on quality content, EEAT signals, and consistent updates</li>
+        <li><strong>Free hosting is powerful</strong> — Netlify and Cloudflare Pages offer generous limits with custom domains</li>
+        <li><strong>Subdomains = separate sites</strong> — build authority for each independently, cross-link strategically</li>
+        <li><strong>Content updates beat new content</strong> — refreshing old posts is the fastest traffic gain</li>
+        <li><strong>Diversify traffic</strong> — don't rely only on Google; explore Bing, Pinterest, email, AI citations</li>
+        <li><strong>First-hand experience</strong> — personal stories and local insights are your competitive advantage over AI-generated content</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn" onclick="prevSlide()">← Prev</button>
+    <div class="progress" id="progressBar"></div>
+    <span class="slide-counter" id="slideCounter">1 / 15</span>
+    <button id="nextBtn" onclick="nextSlide()">Next →</button>
+  </div>
+</div>
+<div class="swipe-hint">← swipe or use arrow keys →</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  const progressBar = document.getElementById('progressBar');
+  const counter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const themeBtn = document.getElementById('themeToggle');
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot';
+    dot.onclick = () => goToSlide(i);
+    dot.title = 'Slide ' + (i+1);
+    progressBar.appendChild(dot);
+  }
+
+  function update() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    const dots = progressBar.querySelectorAll('.progress-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = (current + 1) + ' / ' + total;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  function nextSlide() { if (current < total - 1) { current++; update(); } }
+  function prevSlide() { if (current > 0) { current--; update(); } }
+  function goToSlide(i) { current = i; update(); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'Home') { goToSlide(0); }
+    if (e.key === 'End') { goToSlide(total - 1); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+  }, { passive: true });
+
+  let dark = true;
+  themeBtn.addEventListener('click', () => {
+    dark = !dark;
+    document.body.classList.toggle('light', !dark);
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+  });
+
+  update();
+</script>
+</body>
+</html>

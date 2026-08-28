@@ -1,0 +1,50 @@
+small specialized LLM beats GPT-4o benchmark 2026
+tiny model outperforms frontier model specific task
+expert LLM breaks benchmark frontier model
+specialized language model beats Claude Opus benchmark
+small model beats Gemini Pro benchmark task
+domain specific LLM outperforms GPT-4o 2026
+narrow AI model beats general LLM benchmark
+fine-tuned small model beats frontier model
+specialized model beats GPT-4o coding benchmark
+small LLM beats Claude benchmark math
+expert model beats frontier model cybersecurity
+tiny model beats GPT-4o medical benchmark
+specialized LLM beats frontier model legal
+small model beats GPT-4o translation benchmark
+domain expert LLM beats Gemini benchmark
+fine-tuned model beats GPT-4o reasoning
+small model beats frontier model OCR
+specialized model beats GPT-4o vision benchmark
+tiny LLM beats Claude Opus coding
+expert model beats frontier model SQL
+small model beats GPT-4o agentic benchmark
+specialized model beats frontier model RAG
+tiny model beats GPT-4o math olympiad
+domain LLM beats frontier model finance
+small model beats Claude benchmark cybersecurity
+expert model beats GPT-4o biology
+specialized model beats frontier model chemistry
+tiny LLM beats Gemini coding benchmark
+small model beats GPT-4o table extraction
+domain expert beats frontier model medicine
+specialized model beats GPT-4o code review
+small model beats frontier model vulnerability detection
+expert LLM beats GPT-4o penetration testing
+tiny model beats Claude benchmark logic
+specialized model beats frontier model CWE
+small model beats GPT-4o NER
+domain model beats frontier model sentiment
+expert model beats GPT-4o summarization
+small model beats frontier model classification
+specialized LLM beats GPT-4o function calling
+tiny model beats frontier model tool use
+expert model beats GPT-4o OCR accuracy
+small model beats Claude benchmark vision
+domain LLM beats frontier model document parsing
+specialized model beats GPT-4o audio transcription
+tiny model beats frontier model speech
+expert model beats GPT-4o image captioning
+small model beats frontier model layout analysis
+specialized model beats GPT-4o PDF extraction
+domain expert beats frontier model table understanding

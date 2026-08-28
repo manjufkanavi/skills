@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local LLMs in 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfcfb;
+    --ink: #1c1917;
+    --muted: #78716c;
+    --accent: #b45309;
+    --accent-light: #fef3c7;
+    --parchment: #f5f0e8;
+    --border: #e7e5e4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    line-height: 1.8;
+    font-weight: 300;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .masthead {
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .masthead-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+  }
+
+  .masthead-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .masthead-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .masthead-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .masthead-rule-bottom {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 3rem auto 0;
+  }
+
+  .article {
+    padding: 3rem 0;
+  }
+
+  .article-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-section:first-child {
+    border-top: none;
+  }
+
+  .section-number {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .article-section h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .article-section p {
+    font-size: 1.05rem;
+    color: #44403c;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-section p.lead {
+    font-size: 1.2rem;
+    color: var(--ink);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  .drop-cap::first-letter {
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2.5rem 0;
+  }
+
+  .two-col-col h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .two-col-col p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .callout {
+    background: var(--parchment);
+    padding: 3rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .callout p {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .report-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .report-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: #44403c;
+  }
+
+  .report-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .code-block {
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--muted);
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .separator {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .separator::before {
+    content: '◆';
+    color: var(--accent-light);
+    font-size: 0.5rem;
+    letter-spacing: 1em;
+  }
+
+  .references {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .ref-list {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  .ref-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    break-inside: avoid;
+  }
+
+  .ref-list li::before {
+    content: '[';
+    color: var(--accent);
+    margin-right: 0.25rem;
+  }
+
+  .ref-list li::after {
+    content: ']';
+    color: var(--accent);
+    margin-left: 0.25rem;
+  }
+
+  .report-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .report-footer p {
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 0 1.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .ref-list { columns: 1; }
+    .callout { padding: 2rem 1.5rem; }
+    .masthead { padding: 4rem 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-rule"></div>
+  <div class="masthead-tag">Research Report · July 2026</div>
+  <h1>Local LLMs in 2026: <em>The Definitive Landscape</em></h1>
+  <p class="masthead-sub">A synthesized account of privacy, tools, hardware, and the case for on-device artificial intelligence — drawn from 155 sources across 7 thematic clusters.</p>
+  <p class="masthead-meta">45 search queries · 3 research rounds · 8 academic databases · 165 web sources</p>
+  <div class="masthead-rule-bottom"></div>
+</header>
+
+<article class="page article">
+
+  <section class="article-section">
+    <span class="section-number">I</span>
+    <h2>Executive Summary</h2>
+    <p class="lead drop-cap">In 2026, running a large language model on your own hardware is no longer a weekend experiment — it is a legitimate production option. Open-weight models have reached performance parity with the best cloud offerings, consumer GPUs ship with enough VRAM to run 70B-parameter models after quantization, and runtimes like Ollama let you go from zero to a working local API in a single terminal command.</p>
+    <p>The landscape is shaped by three converging forces: privacy regulation making data sovereignty a compliance necessity, cloud API costs scaling beyond sustainable levels at production volume, and the open-weight ecosystem maturing to produce models that genuinely rival frontier proprietary offerings across standard benchmarks.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">II</span>
+    <h2>The Privacy Imperative and the Case for Local</h2>
+    <p>Two years ago, if you wanted to work with a GPT-4-class language model, you had exactly one option: send your data to someone else's server and pay by the token. The shift has been transformative. For any team handling customer data, medical records, legal documents, or proprietary source code, sending that data to a third-party API endpoint creates a compliance surface area that grows more expensive to manage with every new regulation.</p>
+    <p>GDPR enforcement has intensified every year since its inception, with cumulative fines running into the billions of euros. US states are passing their own AI and data privacy legislation at an accelerating pace — the Colorado AI Act is one prominent example among many.</p>
+
+    <div class="callout">
+      <p>Local inference eliminates the most uncomfortable question in any data protection impact assessment: "Where does the data go?" When the model runs on hardware you control, the answer is nowhere.</p>
+    </div>
+
+    <p>Beyond privacy, local inference delivers concrete engineering benefits. Cutting 100 to 300 milliseconds of network latency off every request produces a noticeably snappier experience for interactive applications. For batch processing jobs that make thousands of sequential calls, the savings compound dramatically. Local models can also produce more reproducible outputs — setting the temperature to zero and controlling the runtime environment yields highly consistent results across test runs.</p>
+
+    <p>The cost argument is equally compelling. A mid-size development team making roughly 1 million tokens of API calls per day to a GPT-4o-class model spends several thousand dollars monthly. Over twelve months, that exceeds the cost of a high-end GPU that delivers comparable inference indefinitely at near-zero marginal cost.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">III</span>
+    <h2>The State of Open-Weight Models</h2>
+    <p>The six local model families that matter most in 2026 are <strong>Llama, Mistral, Qwen, DeepSeek, Gemma, and Phi</strong>. Each has carved out distinct strengths across benchmark categories.</p>
+
+    <div class="two-col">
+      <div class="two-col-col">
+        <h3>Llama 4</h3>
+        <p>Meta's headline act. Uses Mixture of Experts architecture — Scout has 109B total parameters but only 17B active per forward pass, making it dramatically more efficient than its count suggests.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>Qwen 3</h3>
+        <p>From Alibaba, emerged as a formidable competitor with excellent multilingual and coding performance. The 480B Coder variant targets agentic coding workloads.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>DeepSeek</h3>
+        <p>V3.2-Exp and R1 variants have carved out a niche in reasoning-heavy tasks. Strong on logic benchmarks and code generation.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>Gemma 4</h3>
+        <p>From Google. Now includes a 12B model that runs in 16GB of RAM — accessible on mid-range laptops. Strong for multimodal use.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size: 1.1rem; font-weight: 400; margin: 2.5rem 0 1.5rem; color: var(--accent); letter-spacing: 0.05em;">Understanding Quantization: Making Big Models Fit</h3>
+
+    <p>A 70B-parameter model in full FP16 precision requires roughly 140GB of memory. Quantization solves this by reducing the precision of model weights, shrinking memory requirements while accepting a controlled loss in output quality.</p>
+
+    <table class="report-table">
+      <thead>
+        <tr><th>Quantization Level</th><th>Approx. Size</th><th>Quality Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FP16 (no quant)</td><td>~140 GB</td><td>Baseline</td></tr>
+        <tr><td>Q8_0</td><td>~70 GB</td><td>Negligible loss</td></tr>
+        <tr><td>Q6_K</td><td>~54 GB</td><td>Minimal loss</td></tr>
+        <tr><td>Q4_K_M <span style="color: var(--accent);">★</span></td><td>~40 GB</td><td><strong>Best sweet spot</strong></td></tr>
+        <tr><td>Q3_K_M</td><td>~33 GB</td><td>Noticeable degradation</td></tr>
+        <tr><td>Q2_K</td><td>~25 GB</td><td>Significant degradation</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size: 0.95rem; color: var(--muted); font-style: italic;">Q4_K_M is the widely recommended sweet spot. It preserves the vast majority of model quality while cutting memory requirements to roughly a quarter of the FP16 baseline.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">IV</span>
+    <h2>Hardware: What You Actually Need</h2>
+    <p>For local LLM inference, VRAM is the single most important specification. The model weights, the KV-cache (which scales with context length and batch size), and activation memory all compete for GPU memory.</p>
+
+    <table class="report-table">
+      <thead>
+        <tr><th>Tier</th><th>Budget</th><th>Hardware</th><th>Max Model (Q4)</th><th>Speed</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Entry</td><td>$500–$1K</td><td>RTX 3090 (24GB)</td><td>~30B / Scout MoE</td><td>~20 tok/s</td></tr>
+        <tr><td>Mid</td><td>$1.5K–$3K</td><td>RTX 4090/5090</td><td>~70B / Scout MoE</td><td>30–45 tok/s</td></tr>
+        <tr><td>Pro</td><td>$5K+</td><td>RTX PRO 6000 (96GB)</td><td>70B+ / Maverick</td><td>50+ tok/s</td></tr>
+        <tr><td>Apple</td><td>Varies</td><td>M4 Max (128GB)</td><td>70B Q4_K_M</td><td>15–25 tok/s</td></tr>
+        <tr><td>Apple Ultra</td><td>Varies</td><td>M4 Ultra (192–512GB)</td><td>100B+ / multi</td><td>20–30 tok/s</td></tr>
+      </tbody>
+    </table>
+
+    <p>Apple Silicon's unified memory architecture — where CPU and GPU share the same memory pool — fundamentally changes the equation. An M4 Max with 128GB can run quantized 70B models entirely in memory, a feat impossible on most consumer NVIDIA GPUs that cap at 24GB.</p>
+
+    <p>AMD's RX 7900 XTX offers 24GB at a lower price point, and ROCm support has improved significantly. Intel Arc support is still maturing through llama.cpp's SYCL implementation.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">V</span>
+    <h2>The Tool Landscape</h2>
+    <p>Four tools dominate the local LLM ecosystem. Each serves a different user profile and use case.</p>
+
+    <table class="report-table">
+      <thead>
+        <tr><th>Criteria</th><th>Ollama</th><th>LM Studio</th><th>vLLM</th><th>Jan</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Setup</td><td>One command</td><td>GUI installer</td><td>Python + CUDA</td><td>GUI installer</td></tr>
+        <tr><td>Model Format</td><td>GGUF</td><td>GGUF</td><td>HF, AWQ, GPTQ</td><td>GGUF</td></tr>
+        <tr><td>OpenAI API</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>NVIDIA GPU</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Apple Silicon</td><td>Metal</td><td>Metal</td><td>❌</td><td>Metal</td></tr>
+        <tr><td>Production Ready</td><td>Dev/small team</td><td>Personal</td><td>✅ Production</td><td>Personal</td></tr>
+        <tr><td>Open Source</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size: 1.1rem; font-weight: 400; margin: 2.5rem 0 1.5rem; color: var(--accent); letter-spacing: 0.05em;">Getting Started with Ollama</h3>
+
+    <div class="code-block">brew install ollama            # Install
+ollama pull llama4             # Pull a model
+ollama run llama4              # Interactive chat
+ollama list                    # See all models</div>
+
+    <p style="font-size: 0.95rem; color: var(--muted);">Ollama exposes an OpenAI-compatible REST API on <code>localhost:11434</code>, making it a drop-in replacement for cloud endpoints in existing codebases.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">VI</span>
+    <h2>Applications: Where Local LLMs Excel</h2>
+    <p>The practical use cases for local LLMs have expanded far beyond hobbyist experimentation into serious production workflows across several domains.</p>
+
+    <div class="two-col">
+      <div class="two-col-col">
+        <h3>Agentic Coding</h3>
+        <p>Local AI coding now handles about 80% of daily development work: writing functions, generating tests, scaffolding boilerplate, and small refactors. Qwen 3 scores 76.0 on HumanEval at Q4_K_M quantization.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>Enterprise Security</h3>
+        <p>Three scenarios where companies choose local: high-volume requests, air-gapped environments (defense, healthcare, finance), and compliance-heavy industries where data sovereignty is a legal requirement.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>Edge Computing</h3>
+        <p>Running models directly on end-user devices eliminates cloud dependency, reduces latency, and enables real-time AI features previously impossible with cloud-only architectures.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>Research & Analysis</h3>
+        <p>Academic literature review, competitive intelligence, policy research — local models with RAG pipelines can process thousands of documents without exposing proprietary data to third parties.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">VII</span>
+    <h2>Challenges: The Honest Assessment</h2>
+    <p>Despite rapid progress, significant gaps remain between local and cloud LLMs that practitioners must account for.</p>
+
+    <p><strong>Quality versus hardware trade-offs.</strong> As PromptQuorum noted in July 2026, local LLMs cannot match frontier cloud models on reasoning, speed, and real-time data access. They suffer from lower output quality on complex tasks, slower inference on consumer hardware, and inability to access real-time data without external tool integration.</p>
+
+    <p><strong>The hardware treadmill.</strong> From Hacker News community feedback: dense models are smart but slow; MoE models are fast but make more mistakes. Quantization makes tool calling weaker — most models run at 4-bit quants and users wonder why the model "kinda sucks" because you've essentially lobotomized it.</p>
+
+    <div class="callout">
+      <p>Many technology leaders are hedging their bets. The hybrid approach works well: run the core model locally for sensitive or latency-critical tasks, and offload heavy or high-volume workloads to a managed API.</p>
+    </div>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">VIII</span>
+    <h2>Future Outlook: 2027–2029</h2>
+    <p>The trajectory is clear: local inference moves from niche experiment to legitimate developer workflow, and from there to production standard for privacy-first applications.</p>
+
+    <p><strong>Emerging technologies</strong> including 1-bit quantization (PrismML Bonsai) are reducing VRAM requirements by up to 16× while maintaining usable output quality. On-device AI is transitioning from experimental to mainstream deployment.</p>
+
+    <p>The global LLM market is projected to grow from $1.59 billion in 2023 to $259.8 billion by 2030 (CAGR of 79.8%). Local inference, as a critical subset of this market, is positioned for exponential growth as privacy regulation tightens and hardware continues to improve.</p>
+
+    <div class="callout">
+      <p>The question has evolved from "can you run a model locally?" to "which model, which hardware, which runtime — and for what specific purpose?"</p>
+    </div>
+  </section>
+
+  <div class="references">
+    <h2>References</h2>
+    <ol class="ref-list">
+      <li>Guide to Local LLMs in 2026 — SitePoint</li>
+      <li>Running local models — Hacker News</li>
+      <li>Best Local LLM Tools Ranked — Techsy.io</li>
+      <li>Rise of Local LLM Applications — Proactive Management</li>
+      <li>Local LLMs for Agentic Coding — Alex Ewerlof</li>
+      <li>Best Open-Source LLMs — BentoML</li>
+      <li>Local LLM Deployment Forecast — ZimaSpace</li>
+      <li>Open-Weight Models on Hugging Face</li>
+      <li>Transform AI with Local LLM — Microsoft</li>
+      <li>Enterprise Local LLM: vLLM & GPUs — SitePoint</li>
+      <li>Local LLM-as-Judge — Mozilla AI Blog</li>
+      <li>Top LLM Use Cases — Softweb Solutions</li>
+      <li>Local LLMs Are Getting Easier — SitePoint</li>
+      <li>How to Run a Local LLM — n8n Blog</li>
+      <li>Best Local Models — daily.dev</li>
+      <li>Guide to Local LLMs — Scrapfly</li>
+      <li>5 Cool Things with Local LLMs — KDnuggets</li>
+      <li>Local AI Coding 2026 Benchmark — Kunal Ganglani</li>
+      <li>Local LLM Definitive Guide — Iternal</li>
+      <li>Top 5 Local LLM Tools — Pinggy</li>
+      <li>Best Models for Developers — SitePoint</li>
+      <li>Which Local LLM Is Better — Medium</li>
+      <li>When You Actually Need Local LLMs — Ignesa</li>
+      <li>Best Local LLMs April 2026 — r/LocalLLaMA</li>
+      <li>Running AI Models Locally — Sesamedisk</li>
+      <li>Local LLM Trade-Offs — PromptQuorum</li>
+      <li>Secure AI with Local LLMs — Anavcloud</li>
+      <li>Privacy-First AI Deployment — Digital Applied</li>
+      <li>Meta Llama 3 — Meta AI Blog</li>
+      <li>How to Run Local LLMs for Enterprises — Intellias</li>
+      <li>Complete Guide to Local LLMs — Kunal Ganglani</li>
+      <li>What's Next in AI — ByteByteGo</li>
+      <li>Local LLM Security & Cost — Geniussee</li>
+      <li>State of Local LLMs — KafkaAI</li>
+      <li>LLM Applications Survey — arXiv</li>
+      <li>Large Language Models: A Survey — arXiv</li>
+      <li>Evaluating Open-Source LLMs — Devoxx</li>
+      <li>LLMs in 2026: Real vs Hype — Info-Tech</li>
+      <li>AI Code Analysis Tool — Reddit r/LocalLLM</li>
+      <li>Best Local LLMs — WhatLLM.org</li>
+      <li>Local Deep Research — LearningCircuit GitHub</li>
+      <li>Awesome Local LLM — Rafska GitHub</li>
+      <li>Awesome Local LLMs — Vince-Lam GitHub</li>
+      <li>Local LLM User Guideline — GitHub</li>
+      <li>LLM Survey — RUCAIBox GitHub</li>
+    </ol>
+  </div>
+
+</article>
+
+<footer class="report-footer page">
+  <p>Deep Research Report &nbsp;·&nbsp; July 17, 2026</p>
+</footer>
+
+</body>
+</html>

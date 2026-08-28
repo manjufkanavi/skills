@@ -1,0 +1,20 @@
+Cisco antares model CWE benchmark
+VibeThinker model logic benchmark
+Selene Mini evaluation model RewardBench
+Chroma Context-1 retrieval benchmark
+specialized medical LLM beats GPT-4o MedQA
+legal LLM beats frontier model benchmark
+math specialist model beats GPT-4o AIME
+OCR specialist model beats GPT-4o benchmark
+code security model beats GPT-4o vulnerability
+cybersecurity LLM beats frontier model benchmark
+small model beats GPT-4o SWE-bench
+specialized model beats frontier model agentic benchmark
+tiny model beats GPT-4o function calling
+domain model beats frontier model NER
+specialized model beats GPT-4o summarization
+small model beats frontier model classification
+expert model beats GPT-4o translation
+specialized model beats frontier model sentiment
+tiny model beats GPT-4o table extraction
+domain LLM beats frontier model document parsing

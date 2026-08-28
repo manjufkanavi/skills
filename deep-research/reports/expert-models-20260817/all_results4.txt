@@ -1,0 +1,165 @@
+Introducing GPT-5.4 - OpenAI | https://openai.com/index/introducing-gpt-5-4/
+Domain-Specific LLM Benchmarks: 2026 Vertical AI Map - Kili Technology | https://kili-technology.com/blog/domain-specific-llm-benchmarks-guide
+SLM vs LLM: Why 'Bigger is Better' is Dead in 2026 | AI Advances | https://ai.gopubby.com/slm-vs-llm-enterprise-2026-ab5f7d6b4f45
+AI Model Comparison 2026: GPT-4o vs Claude 4 vs Gemini 2.0 vs Mistral | https://www.aimagicx.com/blog/ai-model-comparison-gpt4o-claude4-gemini-mistral-2026
+Choosing the Best AI Models 2026: GPT-4o vs Claude vs Gemini | https://www.appwaveinc.com/blogs/llm-comparison-2026
+Which ChatGPT Model Should You Use? (2026 Decision Guide) - Stob.AI | https://stob.ai/blog/choosing-the-right-chatgpt-model-the-ultimate-guide
+A Frontier Model Comparison on Swiss Legal and Regulatory Tasks | https://arxiv.org/html/2603.23646v1
+Best AI for Legal Work in 2026? We Graded 3,000 Answers | HAQQ | https://www.haqq.ai/blog/best-ai-for-legal-work-benchmark
+Llama vs ChatGPT: Can Open Source Match GPT-5? (2026) | Inference.net | https://inference.net/content/llama-vs-chatgpt-can-open-source-match-gpt5/
+SLM vs. LLM: The Enterprise Decision Guide With Real Cost Data and ... | https://www.premai.io/blog/slm-vs-llm-the-enterprise-decision-guide-with-real-cost-data-and-benchmarks/
+Breaking: Frontier Models Now Beat Human Accountants. ... | https://digits.com/blog/frontier-models-now-beat-human-accountants/
+Why are small models (32b) scoring close to frontier models? | https://www.reddit.com/r/LocalLLaMA/comments/1qqidxp/why_are_small_models_32b_scoring_close_to/
+Small Language Models Outperform Frontier AI On Cost ... | https://www.forbes.com/sites/joetoscano1/2026/06/25/small-language-models-outperform-frontier-ai-on-cost-speed-and-accuracy/
+Small Models Are Beating Giant LLMs | https://towardsaws.com/small-models-are-beating-giant-llms-and-that-changes-everything-c3a955111ce8
+How to Choose Between Small and Frontier Models | https://towardsdatascience.com/how-to-choose-between-small-and-frontier-models/
+FrontierFinance: A Long-Horizon Computer-Use ... | https://arxiv.org/html/2604.05912v1
+Benchmark of 40+ LLMs in Finance: Claude Fable 5 & GPT ... | https://aimultiple.com/finance-llm
+How do frontier models perform on real-world finance ... | https://surgehq.ai/blog/finance-eval-real-world
+Do We Still Need Frontier AI Models for Everything? What ... | https://www.linkedin.com/pulse/do-we-still-need-frontier-ai-models-everything-what-ghanbari-ph-d--5di9f
+Accelerating life sciences research | https://openai.com/index/accelerating-life-sciences-research-with-retro-biosciences/
+Do Drug Discovery & Life Sciences need domain-specific ... | https://www.linkedin.com/pulse/do-drug-discovery-life-sciences-need-domain-specific-b-sharma-phd-cmv0c
+Claude 3.5 Sonnet significantly outperforms GPT-4o (and ... | https://www.reddit.com/r/singularity/comments/1dkqlx0/claude_35_sonnet_significantly_outperforms_gpt4o/
+Benchmark Trends | https://securebio.org/benchmarks/
+OpenAI introduces Genebench-Pro to test AI's research ... | https://www.facebook.com/groups/claudecommunity/posts/1050143580859640/
+Trendlines in AIxBio evals | https://www.lennijusten.com/blog/biology-benchmarks/
+a benchmark for evaluating the performance of large ... | https://www.sciencedirect.com/science/article/pii/S2589750025001256
+LLM Benchmarks in Life Sciences: Comprehensive Overview | https://intuitionlabs.ai/articles/large-language-model-benchmarks-life-sciences-overview
+10-Does a Medical AI Model Beat Claude Sonnet or GPT-4o on ... | https://www.youtube.com/watch?v=OhIAYPTF98Q
+Our first scientific reasoning model, ether0, beats frontier models on ... | https://www.linkedin.com/posts/samuel-g-rodriques-080a9b22_today-we-are-releasing-ether0-our-first-activity-7336424295809654785-4Icg
+Frontier Models versus Specialized Clinical AI | https://x.com/dereckwpaul/article/2067259058562707962
+The Evolution of AI: From Frontier Models to Specialized Small ... | https://birkholm-buch.dk/2026/04/10/the-evolution-of-ai-from-frontier-models-to-specialized-small-language-models/
+The Model Is No Longer the Bottleneck - K-Dense | https://www.k-dense.ai/blog/the-model-is-no-longer-the-bottleneck
+Why Purpose-Built AI Models Outperform Frontier Models in Testing | https://www.functionize.com/blog/why-purpose-built-ai-models-outperform-frontier-models-in-testing
+The Next Battlefield in Frontier AI Will Be in AI for Science - Forever.AI | https://www.forever.ai/p/the-next-battlefield-in-frontier
+Teaching AI the Language of Molecules - Insilico Medicine | https://insilico.com/blog/mmai-liquid-ai
+Vibethinker-3b model achieves frontier reasoning performance | https://www.facebook.com/groups/595424764221375/posts/2519868255110340/
+ether0: a scientific reasoning model for chemistry - FutureHouse | https://www.futurehouse.org/research-announcements/ether0-a-scientific-reasoning-model-for-chemistry
+Diffusion Models at the Drug Discovery Frontier: A Review ... - PMC | https://pmc.ncbi.nlm.nih.gov/articles/PMC12729718/
+How Companies Actually Use Small Language Models | https://florinelchis.medium.com/how-companies-actually-use-small-language-models-what-287-case-studies-reveal-d9ea4b61e530
+Using GPT-4o to train a 2000000x smaller model (that runs ... | https://www.youtube.com/watch?v=Jou0aRgGiis
+Evaluating o1-Like LLMs: Unlocking Reasoning for ... | https://arxiv.org/html/2502.11544v1
+Tiny model, giant leap for multimodal reasoning. | https://www.linkedin.com/posts/mwitiderrick_tiny-model-giant-leap-for-multimodal-activity-7316737277446045696-tRDX
+LLMs for Translation Tasks (Part 1) - Raw translation | https://labs.straker.ai/llms-for-translation-tasks-part-1-raw-translation
+A Guide to the GPT-4o 'Omni' Model - GSV: AI & Education | https://aieducation.substack.com/p/gpt-4o-omni-model
+Gpt-4o-mini has terrible results in comparison to ... | https://community.openai.com/t/gpt-4o-mini-has-terrible-results-in-comparison-to-gpt-4o-on-text-summarization-task/876725
+OpenAI introduces faster, cheaper GPT-4o model | https://www.ciodive.com/news/openai-faster-cheaper-gpt-4o-model/715965/
+GPT-4o Mini vs Claude 3 Haiku vs GPT-3.5 Turbo - Vellum | https://www.vellum.ai/blog/gpt-4o-mini-v-s-claude-3-haiku-v-s-gpt-3-5-turbo-a-comparison
+Frontier Models Suck Sometimes (A Benchmark) | Tejas Kumar | https://tej.as/blog/note-app-ai-benchmark-apple-intelligence-sucks
+Everything You Need to Know About Audio AI Frontier Models | https://thesequence.substack.com/p/the-sequence-opinion-774-everything
+Can Smaller AI Models Outperform Giants? ... | https://www.reddit.com/r/LocalLLaMA/comments/1f755h3/can_smaller_ai_models_outperform_giants_smaller/
+LLM vs. SLM vs. FM: Choosing the Right AI Model | https://www.youtube.com/watch?v=AVQzG2MY858
+Level AI Bets Small Beats Big: Latitude's Seven Purpose ... | https://www.businesswire.com/news/home/20260715601362/en/Level-AI-Bets-Small-Beats-Big-Latitudes-Seven-Purpose-Built-Models-Match-Frontier-LLM-Accuracy-on-CX-Tasks-at-Up-to-One-Fiftieth-the-Cost
+Right-Sized AI: Why Small Language Models Outperform ... | https://www.cloudgeometry.com/blog/right-sized-ai-when-small-language-models-beat-the-giants
+Interfaze: The Future of AI is built on Task-Specific Small ... | https://arxiv.org/html/2602.04101v1
+Comparing Speech-to-text Models | CCV AI Services | https://docs.ccv.brown.edu/ai-tools/services/transcribe/comparing-speech-to-text-models
+GPT-4o-transcribe and audio model ready to use via API? | https://community.openai.com/t/gpt-4o-transcribe-and-audio-model-ready-to-use-via-api/1219993
+A Preliminary Exploration with GPT-4o Voice Mode | https://arxiv.org/html/2502.09940v1
+GPT-4o-transcribe outperforms Whisper-large : r/OpenAI | https://www.reddit.com/r/OpenAI/comments/1jvdqty/gpt4otranscribe_outperforms_whisperlarge/
+Model Comparison: Our Approach vs GPT-4o-Transcribe ... | https://www.linkedin.com/posts/tinkvu_model-comparison-our-approach-vs-gpt-4o-transcribe-activity-7373656772278099968-dMW6
+New audio models from OpenAI, but how much can we rely on ... | https://simonw.substack.com/p/new-audio-models-from-openai-but
+OpenAI releases GPT-4o, natively interfacing with text, ... | https://www.lesswrong.com/posts/KtCgWunZqgbTnP94a/openai-releases-gpt-4o-natively-interfacing-with-text-voice
+An Analysis of Voice Mode in GPT-4o | by Trevor Lohrbeer | https://medium.com/@FastFedora/an-analysis-of-voice-mode-in-gpt-4o-cc0ab4c8a2c0
+gpt-4o-transcribe for real-time speech-to-text transcription | https://learn.microsoft.com/en-us/answers/questions/5785983/gpt-4o-transcribe-for-real-time-speech-to-text-tra
+OpenAI Fully Free FM & GPT-4o Audio Models This AI Text To ... | https://www.youtube.com/watch?v=9wKDbuEuvg8
+ScaleCap: Scalable Image Captioning via Dual-Modality ... | https://openreview.net/forum?id=3tUSHgohi5
+What's the best model for image captioning right now? | https://www.reddit.com/r/LocalLLaMA/comments/1kgxpww/whats_the_best_model_for_image_captioning_right/
+Vision-Based Image Captioning on the Edge | https://www.edgeimpulse.com/blog/vision-based-image-captioning-on-the-edge/
+Image Caption Model from scratch — ViT+GPT | https://medium.com/@mr.sk12112002/image-caption-model-from-scratch-vit-gpt-94afaae30fb7
+Fine-tuning a pre-trained model for image captioning | https://www.facebook.com/groups/DeepNetGroup/posts/1973832069676332/
+BLIP Image Captioning vs Depth Anything V2 Small | https://lithovex.up.railway.app/compare/salesforce-blip-image-captioning-large-vs-depth-anything-depth-anything-v2-small
+Train Custom AI Models with Burt, Outperforming Generalist ... | https://www.linkedin.com/posts/y-combinator_burt-yc-w26-helps-teams-train-and-deploy-activity-7424557313941721088-DCXR
+Open-Source Models Match Frontier Quality on Legal Tasks | https://www.linkedin.com/posts/lin-qiao-22248b4_your-model-your-frontier-the-question-activity-7468101601774243840-erN8
+GPT-4o mini: advancing cost-efficient intelligence | https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/
+Multimodal RAG with GPT-4o and Pathway: Accurate Table ... | https://www.reddit.com/r/LangChain/comments/1cuy4e6/multimodal_rag_with_gpt4o_and_pathway_accurate/
+Google's small AI model Gemini leaves GPT-4o behind | https://www.facebook.com/groups/cto.platform/posts/1916032502176116/
+SkillRL: How a 7B Model Beat GPT-4o by 41.9 Points ... | https://medium.com/@Micheal-Lanham/skillrl-how-a-7b-model-beat-gpt-4o-by-41-9-points-by-learning-from-its-own-failures-4a10a51d79af
+GPT-4o as the Gold Standard: A Scalable and General ... | https://arxiv.org/html/2410.02755v3
+GPT-4o mini: advancing cost-efficient intelligence | https://news.ycombinator.com/item?id=40997585
+# Zero shot pdf OCR with gpt-4o-mini https://github.com ... | https://www.facebook.com/groups/AIUGM/posts/3856489641298669/
+Document OCR is Not Getting Commoditized - LlamaIndex | https://www.llamaindex.ai/blog/document-ocr-is-not-getting-commoditized
+Qwen3.5-9B on document benchmarks: where it beats frontier ... | https://www.reddit.com/r/LocalLLaMA/comments/1rv98wo/qwen359b_on_document_benchmarks_where_it_beats/
+Your model doesn't need to pass the bar exam. It needs to parse a log file. | https://dev.to/cyclopt_dimitrisk/your-model-doesnt-need-to-pass-the-bar-exam-it-needs-to-parse-a-log-file-cj4
+Small Reasoning Models in the Enterprise Stack: When We ... - Silkate | https://silkate.com/blog/small-reasoning-models-enterprise-stack
+Smaller AI models outperform frontier models in most workflows - LinkedIn | https://www.linkedin.com/posts/vineetvashishta_dellpromax-activity-7407472906185637888-HrXW
+I Ran Tencent's New 1B OCR Model. It Went 12 for 12. | by Pawel - Medium | https://medium.com/@meshuggah22/i-ran-tencents-new-1b-ocr-model-it-went-12-for-12-e8957323774b
+Dr.DocBench: A Comprehensive Benchmark for Expert-Level ... - arXiv | https://arxiv.org/html/2606.01393v1
+Frontier Models Are Strong But Document Parsing Is Harder | https://unstructured.io/blog/frontier-models-are-strong-but-document-parsing-is-harder
+Evaluating Generative Pre-trained Transformers | https://arxiv.org/html/2505.14692v1
+Evaluating Arabic Sentiment Analysis With GPT-4o | https://www.igi-global.com/article/evaluating-arabic-sentiment-analysis-with-gpt-4o/402749
+GPT-4o Outperforms Conventional Models in Sentiment ... | https://www.linkedin.com/posts/leona-su-ph-d-64496846_generativeai-llm-gpt-activity-7485703888721825792-AMos
+Sentiment Analysis in Redshift with OpenAI GPT-4o | https://www.matillion.com/blog/sentiment-analysis-in-redshift-with-openai-gpt-4o
+Using OpenAI GPT-4 to Perform Sentiment Analysis Data ... | https://www.reddit.com/r/PromptEngineering/comments/1avvbg6/using_openai_gpt4_to_perform_sentiment_analysis/
+ELECTRA and GPT-4o: Cost-Effective Partners for ... | https://aclanthology.org/2025.knowledgenlp-1.2.pdf
+GPT-4 vs GPT-4o? Which is the better? | https://community.openai.com/t/gpt-4-vs-gpt-4o-which-is-the-better/746991
+Evaluating Arabic Sentiment Analysis With GPT-4o | https://www.sciencedirect.com/org/science/article/pii/S1548771726000424
+A Case Study of Sentiment Analysis on Survey Data Using ... | https://nhsjs.com/2025/a-case-study-of-sentiment-analysis-on-survey-data-using-llms-versus-dedicated-neural-networks/
+A 3B model is suddenly scoring near frontier ... | https://www.reddit.com/r/LocalLLM/comments/1u7ixap/a_3b_model_is_suddenly_scoring_near_frontier/
+A $500 RL fine-tune of a 9B open model beat frontier ... | https://news.ycombinator.com/item?id=49078454
+Why Small AI Models Beat Frontier LLMs in Offensive ... | https://novee.security/blog/why-small-purpose-trained-ai-models-beat-frontier-llms-at-offensive-security/
+Pro Mechanic on Why Chinese Bikes Can't Beat Specialized & ... | https://www.youtube.com/watch?v=iWfdaHFMZfE
+Partnering with NVIDIA for post-training Nemotron models ... | https://www.agilerl.com/blog/partnering-with-nvidia-for-post-training-nemotron-models-to-beat-frontier-apis
+Specialized Foundation Models Struggle to Beat ... | https://openreview.net/forum?id=JYTQ6ELUVO
+Bridgewater's Specialized Model Beats Frontier Models on ... | https://www.linkedin.com/posts/damonwild_for-a-regulated-financial-decision-renting-activity-7491613672109154304-fVM7
+Classification with GenAI: Where GPT-4o Falls Short for Enterprises | https://www.reddit.com/r/LLMDevs/comments/1k0lt3p/classification_with_genai_where_gpt4o_falls_short/
+My finetuned models beat OpenAI's GPT-4 | Hacker News | https://news.ycombinator.com/item?id=40843848
+OpenAI's GPT-4o-Mini - The Maxiest Mini Model? - YouTube | https://www.youtube.com/watch?v=4kiCn5zAykU
+[2406.08660] Fine-Tuned 'Small' LLMs (Still) Significantly Outperform Zero ... | https://arxiv.org/abs/2406.08660
+A Guide to Small Language Models (SLMs) - Fastino | https://fastino.ai/blog/a-guide-to-small-language-models
+[PDF] Evaluating the performance of GPT-4o and Gemini 1.5 Pro on ... | https://www.diva-portal.org/smash/get/diva2:1955595/FULLTEXT01.pdf
+Grading at scale: privacy-preserving automated short answer ... - Frontiers | https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2026.1829089/full
+Knowledge Agents: Beat Frontier Models with Better ... | https://weightythoughts.com/p/knowledge-agents-beat-frontier-models
+AI Model Routing: When to Use Frontier Models vs Cheap ... | https://www.mindstudio.ai/blog/ai-model-routing-frontier-vs-cheap-models-agent-stack
+Frontier vs. Local LLMs: I Tested 8 Models on a 340-Page ... | https://medium.com/@scmstorz/frontier-vs-local-llms-i-tested-8-models-on-a-340-page-book-8b09ba1da92e
+Enterprise AI doesn't need a frontier model: the case for open ... | https://levelup.gitconnected.com/your-enterprise-ai-doesnt-need-a-frontier-model-the-case-for-open-weights-7310ea67230e
+Gpt-4o vs. gpt-4-turbo - function calling - Bugs | https://community.openai.com/t/gpt-4o-vs-gpt-4-turbo-function-calling/750493
+Function calling with GPT-4o | OpenAI Playground - YouTube | https://www.youtube.com/watch?v=gsNML-ELhBs
+GPT-4o function calling is 3x faster, 50% cheaper with almost no drop in ... | https://www.reddit.com/r/OpenAI/comments/1cravgf/gpt4o_function_calling_is_3x_faster_50_cheaper/
+Integrating Function Calling with Gpt-4o | by Milen Pavlov | Medium | https://medium.com/@milenppavlov/supercharging-your-ai-applications-integrating-function-calling-with-gpt-4o-334a36cd2aad
+GPT-4o cannot properly call custom functions more than half the time | https://community.openai.com/t/gpt-4o-cannot-properly-call-custom-functions-more-than-half-the-time/754926
+Function Calling—How Llama 3 70B Can Outperform GPT-4o - Friendli AI | https://friendli.ai/blog/friendli-tools-llama3-outperforms-gpt4o
+Improving GPT 4 Function Calling Accuracy - Composio | https://composio.dev/blog/gpt-4-function-calling-example
+Why is GPT-4 named GPT-4o? - Facebook | https://www.facebook.com/groups/698593531630485/posts/1080301593459675/
+OpenAI introduces function calling for GPT-4 - LessWrong | https://www.lesswrong.com/posts/cnPeYAefQCtaA5PRa/openai-introduces-function-calling-for-gpt-4
+OpenAI GPT-4o Supports Native Function Calling for SMBs - LinkedIn | https://www.linkedin.com/posts/bryce-meyer-54536927a_ai-automation-smallbusiness-activity-7485257391731810305-6MDx
+Can a Specialized Model Beat Frontier Models at React Native? | https://www.youtube.com/watch?v=eiGcqvji4nk
+A Review of the Major Models: Frontier (M)LLMs, Deep ... | https://stefanbauschard.substack.com/p/a-review-of-the-major-models-frontier
+Why a Custom AI Just Beat Every Frontier Model and What ... | https://flowtivity.ai/blog/custom-ai-beats-frontier-models/
+Thomson Reuters Says Its Homegrown AI Model Now ... | https://www.lawnext.com/2026/08/thomson-reuters-says-its-homegrown-ai-model-now-rivals-the-frontier-labs-i-take-a-closer-look-at-the-benchmarks.html
+7B Model Outperforms GPT-4o in Agentic Workflows | Manoj ... | https://www.linkedin.com/posts/manoj-kumar-57188b122_agentflow-small-models-big-brains-7b-agents-activity-7415312718968045568-Fk3U
+Small Models Outperform GPT-4o on Long Context with ... | https://www.linkedin.com/posts/togethercomputer_iclr2026-activity-7443353590984781825-hfiS
+[R] [N] Open-source 8B evaluation model beats GPT-4o ... | https://www.reddit.com/r/MachineLearning/comments/1idpqas/r_n_opensource_8b_evaluation_model_beats_gpt4o/
+Introducing GPT-4.1 in the API | https://openai.com/index/gpt-4-1/
+Mixture-of-Agents Beats ChatGPT-4o | https://medium.com/@ignacio.de.gregorio.noblejas/mixture-of-agents-beats-chatgpt-4o-6470a74f1525
+Establishing Best Practices for Building Rigorous Agentic ... | https://arxiv.org/html/2507.02825v3
+Small Models, Big Wins: Agentic AI in Enterprise Explained | https://www.premai.io/blog/small-models-big-wins-agentic-ai-in-enterprise-explained/
+Compare GPT-4o vs GPT-4o1 vs O1-Mini: How to Choose | https://galileo.ai/blog/gpt-4o-vs-gpt-4o1-vs-o1-mini
+GPT-4o vs GPT-5.4 mini: Benchmarks & Cost | https://benchlm.ai/compare/gpt-4o-vs-gpt-5-4-mini
+Why SWE-bench Verified no longer measures frontier coding capabilities | https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/
+SWE-bench Verified - Epoch AI | https://epoch.ai/benchmarks/swe-bench-verified
+SWE-bench Verified no longer measures frontier coding capabilities | https://news.ycombinator.com/item?id=47910388
+The new benchmarks like DeepSWE now show a very big gap in ... - Reddit | https://www.reddit.com/r/singularity/comments/1tt7t5t/the_new_benchmarks_like_deepswe_now_show_a_very/
+SWE-bench Verified - AI Benchmark Explained - DemandSphere | https://www.demandsphere.com/research/demandsphere-radar/ai-frontier-model-tracker/benchmarks/swe-bench/
+SWE-bench Verified - Vals AI | https://www.vals.ai/benchmarks/swebench
+SWE-bench Pro Leaderboard (2026): Every Model Score, Benchmarks ... | https://www.morphllm.com/swe-bench-pro
+How SWE-bench Changed the Way We Test AI Coders - YouTube | https://www.youtube.com/watch?v=uamd4C7AFXo
+SWE-Bench Won't Save You When Production Burns - Medium | https://medium.com/the-simulacrum/swe-bench-wont-save-you-when-production-burns-a819d0de38e4
+Dissecting the SWE-Bench Leaderboards: Profiling Submitters ... | https://arxiv.org/html/2506.17208v1
+Reviewing Code With GPT-4o, OpenAI's New 'Omni' LLM | https://thenewstack.io/reviewing-code-with-gpt-4o-openais-new-omni-llm/
+Should I be using GPT-4 or GPT-4o for coding? | https://www.reddit.com/r/ChatGPTCoding/comments/1fa371p/should_i_be_using_gpt4_or_gpt4o_for_coding/
+which one writes better C/C++ code? gpt 4 or 4o? | https://www.facebook.com/groups/698593531630485/posts/1113208946835606/
+A comparative evaluation of ChatGPT-4o and DeepSeek ... | https://www.sciencedirect.com/science/article/pii/S2590005626003024
+GPT-4.1 model outperforms GPT-4o models in code ... | https://www.linkedin.com/posts/jphwang_i-just-tried-out-using-openais-new-gpt-activity-7317929693150670849-2v-j
+Picking the Right GPT Model (Without the Guesswork) | https://adammico.medium.com/picking-the-right-gpt-model-without-the-guesswork-4161e722d242
+Qwen vs GPT-4o: Which AI Model Wins for Coding in 2026 | https://www.secondtalent.com/resources/qwen-vs-gpt-4o-coding/
+What is GPT-4o (2026): Pricing, Features, Pros and Cons | https://searchatlas.com/blog/what-is-gpt-4o/
+The Frontier AI Vulnerability Burst: Industrializing ... | https://unit42.paloaltonetworks.com/frontier-ai-vulnerability-burst/
+Are Frontier LLMs Ready for Cybersecurity? Evidence ... | https://arxiv.org/html/2605.23243v3
+Critical analysis of frontier AI (Mythos) capabilities in ... | https://shieldworkz.com/blogs/critical-analysis-of-frontier-ai-(mythos)-capabilities-in-enterprise-and-ot-security
+Managing Advanced Cyber Risks in Frontier AI Frameworks | https://www.frontiermodelforum.org/technical-reports/managing-advanced-cyber-risks-in-frontier-ai-frameworks/
+Frontier AI Explained: Key Models, Players, and Business ... | https://www.crowdstrike.com/en-us/cybersecurity-101/artificial-intelligence/frontier-ai/
+Proprietary Problems: No Frontier Model Is Multi-Turn ... | https://blogs.cisco.com/ai/proprietary-problems
+Attackers need only one path. Defenders need to know which ... | https://www.facebook.com/PaloAltoNetworks/posts/attackers-need-only-one-path-defenders-need-to-know-which-paths-mattertraditiona/1497933675697070/
+Frontier AI's Impact on the Cybersecurity Landscape | https://rdi.berkeley.edu/frontier-ai-impact-on-cybersecurity/
+Frontier AI Models and Cybersecurity Readiness | https://www.lowenstein.com/news-insights/publications/articles/frontier-ai-models-and-cybersecurity-readiness-recalibrating-risk-for-a-faster-threat-environment-mushahwar-overton
+UNIQUE: 164

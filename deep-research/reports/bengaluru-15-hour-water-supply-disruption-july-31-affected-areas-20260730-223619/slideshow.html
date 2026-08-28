@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bengaluru 15-hour water supply disruption July 31 affected areas — Research Slides</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; overflow: hidden; }
+  .presentation { height: 100vh; display: flex; flex-direction: column; }
+  .slides-container { flex: 1; position: relative; overflow: hidden; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 80px; opacity: 0; transform: translateX(60px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+  .slide.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+  .slide.prev { opacity: 0; transform: translateX(-60px); }
+  .title-slide h1 { font-size: 3.5rem; font-weight: 800; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; text-align: center; }
+  .title-slide h2 { font-size: 1.5rem; font-weight: 400; color: #888; margin-bottom: 24px; text-align: center; }
+  .title-slide .meta { font-size: 1rem; color: #555; }
+  .slide h2 { font-size: 2.2rem; font-weight: 700; color: #667eea; margin-bottom: 32px; text-align: center; }
+  .slide ul { list-style: none; max-width: 800px; width: 100%; }
+  .slide li { font-size: 1.25rem; line-height: 1.8; padding: 12px 0 12px 28px; position: relative; color: #ccc; }
+  .slide li::before { content: '\25b8'; position: absolute; left: 0; color: #764ba2; font-weight: bold; }
+  .slide li:nth-child(even) { color: #aaa; }
+  .controls { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 20px; background: rgba(10,10,15,0.95); border-top: 1px solid #1a1a2e; }
+  .controls button { background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: transform 0.2s; }
+  .controls button:hover { transform: scale(1.05); }
+  .controls button:disabled { opacity: 0.3; cursor: default; transform: none; }
+  .progress { display: flex; gap: 6px; }
+  .progress-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; transition: all 0.3s; }
+  .progress-dot.active { background: #667eea; transform: scale(1.3); }
+  .slide-counter { font-size: 0.9rem; color: #555; min-width: 60px; text-align: center; }
+  @media (max-width: 768px) {
+    .title-slide h1 { font-size: 2rem; }
+    .title-slide h2 { font-size: 1.1rem; }
+    .slide h2 { font-size: 1.5rem; }
+    .slide li { font-size: 1rem; }
+    .slide { padding: 30px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="presentation">
+  <div class="slides-container" id="slidesContainer">
+    <section class="slide title-slide"><h1>Loop Engineering</h1><h2>Deep Research: Bengaluru 15-hour water supply disruption July 31 affected areas</h2><p class="meta">36 sources · 78 queries · 3 rounds</p></section>
+<section class="slide"><h2>From Prompt to Loop</h2><ul><li>Residents in affected areas have been advised to store sufficient water and use it sparingly.</li><li># Bengaluru Water Supply to Be Hit for 15 Hours on July 31 - Check Timings and Affected Areas Edited by: Mansi Arora Updated , 20:57 IST Powered by ## Bengaluru residents face a major water supply disruption on July 31 due to emergency maintenance .</li><li>DH Online Last Updated 28 July 2026, 18:23 IST Follow Us Representative image generated through AI If your taps run dry on Friday, don't blame the weather.</li><li>Subscribe Karnataka # Bengaluru to face 15-hour water supply disruption on July 31: Check affected areas According to the BWSSB, a leak has developed in the scour valve of the 3,000 mm transmission pipeline under the Cauvery Stage V Water Supply Sche</li><li>Your active subscription(s) Account subscription benefits alongside Premium Stories, Editorials, Opinions and more.</li></ul></section>
+<section class="slide"><h2>How It Works</h2><ul><li>## Abstract Interrupted water supplies contribute to water insecurity, water quality risks, diarrhea, and stress; other risks (acute respiratory infections (ARIs), antibiotic use, antimicrobial resistance) remain unquantified.</li><li># No Water For 15 Hours In Parts Of Bengaluru Tomorrow — Is Your Area On The List?</li><li>## Filters ## Filters Showing 1-20 of 99 results Content type 1.</li><li>… affected, the Indian blackout on , affected the … affected hydroelectric installations.</li><li>Bengaluru # No drinking water shortage in Bengaluru She also spoke on the death of two maintenance workers at the Bellandur STP last month, and said investigation is ongoing, and all aspects of the incident are being examined.</li></ul></section>
+<section class="slide"><h2>Problems & Fixes</h2><ul><li>r/bangalore 2y ago designgirl001 # Which parts of Bangalore are relatively unaffected ?</li><li>r/bangalore 7y ago neoronin # Water shutdown in Bengaluru on July 21 and 22, supply for entire city may face disruption News thenewsminute.com Archived post.</li><li>Even before peak summer begins, groundwater levels in many parts of the city are already dropping fast.</li></ul></section>
+<section class="slide"><h2>Key Takeaways</h2><ul><li>Loop engineering replaces static prompts with iterative, self-correcting agent loops</li><li>CI/CD pipelines must shift from linear gates to continuous feedback sources</li><li>Common problems: infinite loops, context exhaustion, token cost, non-determinism</li><li>Fixes: iteration budgets, context summarization, cost tiering, sandboxed execution</li><li>Human-in-the-loop remains essential for production safety and governance</li></ul></section>
+  </div>
+  <div class="controls">
+    <button id="prevBtn" onclick="prevSlide()">\u2190 Prev</button>
+    <div class="progress" id="progressBar"></div>
+    <span class="slide-counter" id="slideCounter">1 / 5</span>
+    <button id="nextBtn" onclick="nextSlide()">Next \u2192</button>
+  </div>
+</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  const progressBar = document.getElementById('progressBar');
+  const counter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot';
+    dot.onclick = () => goToSlide(i);
+    dot.title = `Slide ${i+1}`;
+    progressBar.appendChild(dot);
+  }
+  function update() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    const dots = progressBar.querySelectorAll('.progress-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${total}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+  function nextSlide() { if (current < total - 1) { current++; update(); } }
+  function prevSlide() { if (current > 0) { current--; update(); } }
+  function goToSlide(i) { current = i; update(); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'Home') goToSlide(0);
+    if (e.key === 'End') goToSlide(total - 1);
+  });
+  update();
+</script>
+</body>
+</html>

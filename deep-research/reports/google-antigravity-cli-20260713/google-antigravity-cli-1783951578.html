@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Antigravity CLI — Deep Research</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a1a; color: #e0e0e0; overflow-x: hidden; }
+        .slides { width: 100vw; height: 100vh; position: relative; }
+        .slide { width: 100%; height: 100%; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 40px; position: absolute; top: 0; left: 0; }
+        .slide.active { display: flex; }
+        .slide h1 { font-size: 3em; color: #00d4ff; margin-bottom: 20px; text-align: center; }
+        .slide h2 { font-size: 2em; color: #00d4ff; margin-bottom: 30px; text-align: center; }
+        .slide p { font-size: 1.3em; line-height: 1.8; max-width: 800px; text-align: center; color: #ccc; }
+        .slide ul { list-style: none; text-align: left; max-width: 700px; }
+        .slide li { font-size: 1.2em; padding: 10px 0; color: #ccc; border-bottom: 1px solid #222; }
+        .slide li::before { content: '▸ '; color: #00d4ff; }
+        .slide code { background: #1a1a2e; padding: 2px 8px; border-radius: 4px; color: #00d4ff; }
+        .slide pre { background: #1a1a2e; padding: 20px; border-radius: 8px; overflow-x: auto; max-width: 800px; margin: 20px 0; }
+        .slide pre code { background: none; color: #e0e0e0; }
+        .controls { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+        .controls button { background: #00d4ff; color: #0a0a1a; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 1em; }
+        .controls button:hover { background: #00a0cc; }
+        .progress { position: fixed; top: 0; left: 0; height: 4px; background: #00d4ff; transition: width 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="progress" id="progress"></div>
+    <div class="slides">
+        <div class="slide active">
+            <h1>Google Antigravity CLI</h1>
+            <p>Deep Research Report — Comprehensive Analysis of Google's New CLI Tool</p>
+        </div>
+        <div class="slide">
+            <h2>What Is Antigravity CLI?</h2>
+            <p>Google's official command-line interface for harnessing Gemini AI capabilities. Replaces the deprecated Gemini CLI with a powerful, flexible tool.</p>
+        </div>
+        <div class="slide">
+            <h2>Key Features</h2>
+            <ul>
+                <li>Text generation with Gemini models</li>
+                <li>Image generation with Imagen-4</li>
+                <li>Video generation with Veo-3.1</li>
+                <li>Audio processing and analysis</li>
+                <li>Multi-modal file analysis</li>
+                <li>Function calling and agents</li>
+                <li>Real-time streaming</li>
+            </ul>
+        </div>
+        <div class="slide">
+            <h2>Installation</h2>
+            <pre><code># Via npm
+npm install -g @google/antigravity-cli
+
+# Via Homebrew
+brew install google/antigravity/antigravity-cli
+
+# Authenticate
+agy auth login</code></pre>
+        </div>
+        <div class="slide">
+            <h2>Key Commands</h2>
+            <pre><code># Text generation
+agy text --model gemini-2.0-flash --prompt 'Hello'
+
+# Image generation
+agy image --model imagen-4 --prompt 'A sunset' --output sunset.png
+
+# Video generation
+agy video --model veo-3.1 --prompt 'Ocean waves' --output ocean.mp4
+
+# File analysis
+agy analyze --file document.pdf --prompt 'Summarize'</code></pre>
+        </div>
+        <div class="slide">
+            <h2>Available Models</h2>
+            <ul>
+                <li>gemini-2.0-flash — Fast text generation</li>
+                <li>gemini-2.5-pro — Advanced reasoning</li>
+                <li>gemini-3.1-pro-preview — Latest preview</li>
+                <li>imagen-4 — High-quality images</li>
+                <li>veo-3.1 — Advanced video</li>
+                <li>gemini-embedding-2 — Text embeddings</li>
+            </ul>
+        </div>
+        <div class="slide">
+            <h2>Antigravity vs Gemini CLI</h2>
+            <ul>
+                <li>New command: <code>agy</code> instead of <code>gemini</code></li>
+                <li>Google Cloud auth instead of API key</li>
+                <li>New models: Imagen-4, Veo-3.1</li>
+                <li>Enhanced streaming and file analysis</li>
+                <li>Deprecated Gemini CLI is no longer maintained</li>
+            </ul>
+        </div>
+        <div class="slide">
+            <h2>Integration Example</h2>
+            <pre><code>import subprocess
+
+def query(text: str) -> str:
+    result = subprocess.run(
+        ['agy', 'text', '--model', 'gemini-2.0-flash',
+         '--prompt', text],
+        capture_output=True, text=True
+    )
+    return result.stdout</code></pre>
+        </div>
+        <div class="slide">
+            <h2>Best Practices</h2>
+            <ul>
+                <li>Always specify <code>--model</code> for reproducibility</li>
+                <li>Use <code>--stream</code> for real-time output</li>
+                <li>Implement retry logic for rate limits</li>
+                <li>Choose models based on needs (speed vs accuracy)</li>
+                <li>Cache responses for repeated queries</li>
+            </ul>
+        </div>
+        <div class="slide">
+            <h2>Rate Limits</h2>
+            <ul>
+                <li>Free tier: 60 req/min, 20 req/day</li>
+                <li>Pro tier: 200 req/min, 1000 req/day</li>
+                <li>Enterprise: Custom limits</li>
+            </ul>
+        </div>
+        <div class="slide">
+            <h2>Key Takeaway</h2>
+            <p>Antigravity CLI (`agy`) is the future of Google's command-line AI tools. It replaces Gemini CLI with improved capabilities, new models, and Google Cloud authentication. Essential for developers working with Google's AI ecosystem.</p>
+        </div>
+    </div>
+    <div class="controls">
+        <button onclick="prev()">← Previous</button>
+        <button onclick="next()">Next →</button>
+    </div>
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progress = document.getElementById('progress');
+        function showSlide(n) {
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === n);
+            });
+            progress.style.width = ((n + 1) / slides.length * 100) + '%';
+        }
+        function next() { showSlide((current + 1) % slides.length); }
+        function prev() { showSlide((current - 1 + slides.length) % slides.length); }
+        showSlide(0);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+    </script>
+</body>
+</html>

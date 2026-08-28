@@ -1,0 +1,20 @@
+specialized model beats GPT-4o legal benchmark 2026
+small model beats frontier model finance benchmark
+domain model beats GPT-4o biology benchmark
+specialized model beats frontier model chemistry
+tiny model beats GPT-4o translation WMT
+small model beats frontier model speech recognition
+expert model beats GPT-4o audio transcription
+specialized model beats frontier model image captioning
+tiny model beats GPT-4o table extraction
+small model beats frontier model document parsing
+domain model beats GPT-4o sentiment analysis
+specialized model beats frontier model NER
+tiny model beats GPT-4o text classification
+small model beats frontier model summarization
+expert model beats GPT-4o function calling
+specialized model beats frontier model tool use
+tiny model beats GPT-4o agentic benchmark
+small model beats frontier model SWE-bench
+domain model beats GPT-4o code review
+specialized model beats frontier model vulnerability detection

@@ -1,0 +1,562 @@
+{
+  "how-to-set-up-comfyui-for-video-generation-on-mac-studio-m4-with-mlx-using-wan-2-1-1-3b-model": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/how-to-set-up-comfyui-for-video-generation-on-mac-studio-m4-with-mlx-using-wan-2-1-1-3b-model",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/how-to-set-up-comfyui-for-video-generation-on-mac-studio-m4-with-mlx-using-wan-2-1-1-3b-model",
+    "pages_count": 38,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-07-16T10:23:23.875245+00:00"
+  },
+  "how-to-create-a-skill-on-mac-studio-to-programmatically-unload-running-models-using-omlx-server-for-seamless-model-lifecycle-management": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/how-to-create-a-skill-on-mac-studio-to-programmatically-unload-running-models-using-omlx-server-for-seamless-model-lifecycle-management",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/how-to-create-a-skill-on-mac-studio-to-programmatically-unload-running-models-using-omlx-server-for-seamless-model-lifecycle-management",
+    "pages_count": 47,
+    "pdfs_count": 0,
+    "research_count": 10,
+    "total_queries": 61,
+    "rounds": 3,
+    "timestamp": "2026-07-16T09:57:05.539856+00:00"
+  },
+  "how-to-create-a-skill-on-mac-studio-to-programmatically-unload-running-models-using-omlx-server": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/how-to-create-a-skill-on-mac-studio-to-programmatically-unload-running-models-using-omlx-server",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/how-to-create-a-skill-on-mac-studio-to-programmatically-unload-running-models-using-omlx-server",
+    "pages_count": 60,
+    "pdfs_count": 0,
+    "research_count": 11,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-16T10:27:02.441292+00:00"
+  },
+  "karnataka-themes-kannada-culture-traditional-colors-patterns-motifs-design-elements": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/karnataka-themes-kannada-culture-traditional-colors-patterns-motifs-design-elements",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/karnataka-themes-kannada-culture-traditional-colors-patterns-motifs-design-elements",
+    "pages_count": 145,
+    "pdfs_count": 0,
+    "research_count": 9,
+    "total_queries": 67,
+    "rounds": 3,
+    "timestamp": "2026-07-17T17:32:23.667016+00:00"
+  },
+  "award-winning-beautiful-html-landing-page-animations-css-design-2025-2026": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/award-winning-beautiful-html-landing-page-animations-css-design-2025-2026",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/award-winning-beautiful-html-landing-page-animations-css-design-2025-2026",
+    "pages_count": 128,
+    "pdfs_count": 0,
+    "research_count": 10,
+    "total_queries": 76,
+    "rounds": 3,
+    "timestamp": "2026-07-17T17:35:59.897771+00:00"
+  },
+  "how-ai-is-shaping-software-engineering-landscapes-trends-and-how-to-cope-with-changes": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/how-ai-is-shaping-software-engineering-landscapes-trends-and-how-to-cope-with-changes",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/how-ai-is-shaping-software-engineering-landscapes-trends-and-how-to-cope-with-changes",
+    "pages_count": 113,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-21T20:26:49.419708+00:00"
+  },
+  "headroom-graphify-mem0-context-compression-knowledge-graphs-memory-layers-for-ai-agents-installation-configuration": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/headroom-graphify-mem0-context-compression-knowledge-graphs-memory-layers-for-ai-agents-installation-configuration",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/headroom-graphify-mem0-context-compression-knowledge-graphs-memory-layers-for-ai-agents-installation-configuration",
+    "pages_count": 94,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 76,
+    "rounds": 3,
+    "timestamp": "2026-07-23T14:15:58.910982+00:00"
+  },
+  "how-to-make-text-generation-models--llms--draw-images-that-are-almost-near-perfect-to-images-generated-using-dedicated-image-models---tools--apis--libraries--techniques": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/how-to-make-text-generation-models--llms--draw-images-that-are-almost-near-perfect-to-images-generated-using-dedicated-image-models---tools--apis--libraries--techniques",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/how-to-make-text-generation-models--llms--draw-images-that-are-almost-near-perfect-to-images-generated-using-dedicated-image-models---tools--apis--libraries--techniques",
+    "pages_count": 74,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 57,
+    "rounds": 3,
+    "timestamp": "2026-07-24T13:03:31.535010+00:00"
+  },
+  "neet-nta-exam-scam-paper-leak-india-2026-updates": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/neet-nta-exam-scam-paper-leak-india-2026-updates",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/neet-nta-exam-scam-paper-leak-india-2026-updates",
+    "pages_count": 124,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-25T12:46:15.806795+00:00"
+  },
+  "bengaluru-triple-murder-co-accused-used-ai-tool-to-plan-killings": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/bengaluru-triple-murder-co-accused-used-ai-tool-to-plan-killings",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/bengaluru-triple-murder-co-accused-used-ai-tool-to-plan-killings",
+    "pages_count": 60,
+    "pdfs_count": 0,
+    "research_count": 17,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-07-25T13:16:50.952485+00:00"
+  },
+  "karnataka-bjp-chief-vijayendra-backs-farmers-opposing-land-acquisition-for-bengaluru-s-second-airport-at-kanakapura--tumakuru-alternative-proposal-by-bjp--bidadi-township-protest-2026": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/karnataka-bjp-chief-vijayendra-backs-farmers-opposing-land-acquisition-for-bengaluru-s-second-airport-at-kanakapura--tumakuru-alternative-proposal-by-bjp--bidadi-township-protest-2026",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/karnataka-bjp-chief-vijayendra-backs-farmers-opposing-land-acquisition-for-bengaluru-s-second-airport-at-kanakapura--tumakuru-alternative-proposal-by-bjp--bidadi-township-protest-2026",
+    "pages_count": 44,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-07-25T15:39:49.001165+00:00"
+  },
+  "karnataka-india-s-first-museum-of-innovation-startups-technology-bengaluru": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/karnataka-india-s-first-museum-of-innovation-startups-technology-bengaluru",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/karnataka-india-s-first-museum-of-innovation-startups-technology-bengaluru",
+    "pages_count": 63,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-26T02:54:00.513926+00:00"
+  },
+  "karnataka-mulls-annuity-payment-model-for-rs-450-crore-bengaluru-orr-revamp--contractors-may-maintain-roads": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/karnataka-mulls-annuity-payment-model-for-rs-450-crore-bengaluru-orr-revamp--contractors-may-maintain-roads",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/karnataka-mulls-annuity-payment-model-for-rs-450-crore-bengaluru-orr-revamp--contractors-may-maintain-roads",
+    "pages_count": 63,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 60,
+    "rounds": 3,
+    "timestamp": "2026-07-26T03:55:07.312462+00:00"
+  },
+  "karnataka-to-set-up-ai-university--to-roll-out-tech-expansion-policy-in-100-days": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/karnataka-to-set-up-ai-university--to-roll-out-tech-expansion-policy-in-100-days",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/karnataka-to-set-up-ai-university--to-roll-out-tech-expansion-policy-in-100-days",
+    "pages_count": 84,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-26T04:22:11.991571+00:00"
+  },
+  "karnataka-government-citizen-services-portals---complete-list-of-all-government-websites-offering-online-services-to-citizens-in-karnataka--including-seva-sindhu--karnataka-one--bangalore-one--and-department-specific-portals": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/karnataka-government-citizen-services-portals---complete-list-of-all-government-websites-offering-online-services-to-citizens-in-karnataka--including-seva-sindhu--karnataka-one--bangalore-one--and-department-specific-portals",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/karnataka-government-citizen-services-portals---complete-list-of-all-government-websites-offering-online-services-to-citizens-in-karnataka--including-seva-sindhu--karnataka-one--bangalore-one--and-department-specific-portals",
+    "pages_count": 41,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 77,
+    "rounds": 3,
+    "timestamp": "2026-07-26T16:16:33.559514+00:00"
+  },
+  "scaling-grafana-monitoring-with-prometheus-and-thanos--handling-12m--metrics--prometheus-remote-write-failures--thanos-receive-bottlenecks--and-high-cardinality-metric-optimization": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/scaling-grafana-monitoring-with-prometheus-and-thanos--handling-12m--metrics--prometheus-remote-write-failures--thanos-receive-bottlenecks--and-high-cardinality-metric-optimization",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/scaling-grafana-monitoring-with-prometheus-and-thanos--handling-12m--metrics--prometheus-remote-write-failures--thanos-receive-bottlenecks--and-high-cardinality-metric-optimization",
+    "pages_count": 35,
+    "pdfs_count": 0,
+    "research_count": 13,
+    "total_queries": 55,
+    "rounds": 3,
+    "timestamp": "2026-07-27T20:48:02.439463+00:00"
+  },
+  "students-hiv-tests-karnataka-schools-colleges": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/students-hiv-tests-karnataka-schools-colleges",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/students-hiv-tests-karnataka-schools-colleges",
+    "pages_count": 107,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-29T08:27:32.357745+00:00"
+  },
+  "hiv-tests-in-karnataka": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/hiv-tests-in-karnataka",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/hiv-tests-in-karnataka",
+    "pages_count": 178,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-30T12:15:42.323664+00:00"
+  },
+  "bengaluru-15-hour-water-supply-disruption-july-31-affected-areas": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/bengaluru-15-hour-water-supply-disruption-july-31-affected-areas",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/bengaluru-15-hour-water-supply-disruption-july-31-affected-areas",
+    "pages_count": 39,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-07-30T17:05:45.440036+00:00"
+  },
+  "nice-one-of-biggest-land-scams--karnataka-high-court": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/nice-one-of-biggest-land-scams--karnataka-high-court",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/nice-one-of-biggest-land-scams--karnataka-high-court",
+    "pages_count": 77,
+    "pdfs_count": 0,
+    "research_count": 13,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-07-30T21:45:10.403133+00:00"
+  },
+  "nice-land-scam--karnataka-high-court-revokes-land-acquisition-for-bengaluru-mysuru-infrastructure-corridor": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/nice-land-scam--karnataka-high-court-revokes-land-acquisition-for-bengaluru-mysuru-infrastructure-corridor",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/nice-land-scam--karnataka-high-court-revokes-land-acquisition-for-bengaluru-mysuru-infrastructure-corridor",
+    "pages_count": 36,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-07-30T21:04:07.576932+00:00"
+  },
+  "man-asks-rs-40-lakh-from-daughter-s-groom-to-be--stabs-her-after-she-objects": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/man-asks-rs-40-lakh-from-daughter-s-groom-to-be--stabs-her-after-she-objects",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/man-asks-rs-40-lakh-from-daughter-s-groom-to-be--stabs-her-after-she-objects",
+    "pages_count": 97,
+    "pdfs_count": 0,
+    "research_count": 11,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-07-30T22:00:26.816416+00:00"
+  },
+  "increasing-hiv-cases-in-karnataka": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/increasing-hiv-cases-in-karnataka",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/increasing-hiv-cases-in-karnataka",
+    "pages_count": 77,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 60,
+    "rounds": 3,
+    "timestamp": "2026-07-31T06:54:05.820666+00:00"
+  },
+  "top-product-based-technology-companies-in-india-for-computer-networking--cloud-computing--data-center--ai-ml--monitoring-and-observability--and-cybersecurity-domains": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/top-product-based-technology-companies-in-india-for-computer-networking--cloud-computing--data-center--ai-ml--monitoring-and-observability--and-cybersecurity-domains",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/top-product-based-technology-companies-in-india-for-computer-networking--cloud-computing--data-center--ai-ml--monitoring-and-observability--and-cybersecurity-domains",
+    "pages_count": 99,
+    "pdfs_count": 0,
+    "research_count": 13,
+    "total_queries": 77,
+    "rounds": 3,
+    "timestamp": "2026-07-31T18:21:23.284818+00:00"
+  },
+  "free-open-source-reverse-image-search-osint-tools-for-building-a-reverse-image-search-tool": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/free-open-source-reverse-image-search-osint-tools-for-building-a-reverse-image-search-tool",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/free-open-source-reverse-image-search-osint-tools-for-building-a-reverse-image-search-tool",
+    "pages_count": 47,
+    "pdfs_count": 0,
+    "research_count": 17,
+    "total_queries": 72,
+    "rounds": 3,
+    "timestamp": "2026-08-03T18:56:24.955977+00:00"
+  },
+  "free-open-source-reverse-image-search-osint-tools-and-existing-image-search-apis-for-building-an-osint-tool": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/free-open-source-reverse-image-search-osint-tools-and-existing-image-search-apis-for-building-an-osint-tool",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/free-open-source-reverse-image-search-osint-tools-and-existing-image-search-apis-for-building-an-osint-tool",
+    "pages_count": 49,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 61,
+    "rounds": 3,
+    "timestamp": "2026-08-03T18:59:54.215588+00:00"
+  },
+  "free-open-source-osint-reverse-image-search-tools-and-apis-for-building-a-reverse-image-search-tool--categorized-by-whether-they-require-login-or-not": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/free-open-source-osint-reverse-image-search-tools-and-apis-for-building-a-reverse-image-search-tool--categorized-by-whether-they-require-login-or-not",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/free-open-source-osint-reverse-image-search-tools-and-apis-for-building-a-reverse-image-search-tool--categorized-by-whether-they-require-login-or-not",
+    "pages_count": 17,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 5,
+    "rounds": 3,
+    "timestamp": "2026-08-03T19:04:57.330445+00:00"
+  },
+  "free-open-source-osint-reverse-image-search-tools-and-apis-for-building-a-reverse-image-search-tool": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/free-open-source-osint-reverse-image-search-tools-and-apis-for-building-a-reverse-image-search-tool",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/free-open-source-osint-reverse-image-search-tools-and-apis-for-building-a-reverse-image-search-tool",
+    "pages_count": 44,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 55,
+    "rounds": 3,
+    "timestamp": "2026-08-03T19:04:58.180850+00:00"
+  },
+  "free-open-source-osint-reverse-image-search-tools-and-apis-that-require-user-login-or-account-authentication-to-use": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/free-open-source-osint-reverse-image-search-tools-and-apis-that-require-user-login-or-account-authentication-to-use",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/free-open-source-osint-reverse-image-search-tools-and-apis-that-require-user-login-or-account-authentication-to-use",
+    "pages_count": 29,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 52,
+    "rounds": 3,
+    "timestamp": "2026-08-03T19:06:32.071838+00:00"
+  },
+  "free-open-source-osint-reverse-image-search-tools-and-apis-that-do-not-require-login-or-account-authentication-to-use": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/free-open-source-osint-reverse-image-search-tools-and-apis-that-do-not-require-login-or-account-authentication-to-use",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/free-open-source-osint-reverse-image-search-tools-and-apis-that-do-not-require-login-or-account-authentication-to-use",
+    "pages_count": 35,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 34,
+    "rounds": 3,
+    "timestamp": "2026-08-03T19:08:05.889889+00:00"
+  },
+  "how-to-integrate-nanobot-agent-with-antigravity-cli-for-seamless-agentic-coding-from-telegram-bot": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/how-to-integrate-nanobot-agent-with-antigravity-cli-for-seamless-agentic-coding-from-telegram-bot",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/how-to-integrate-nanobot-agent-with-antigravity-cli-for-seamless-agentic-coding-from-telegram-bot",
+    "pages_count": 67,
+    "pdfs_count": 0,
+    "research_count": 18,
+    "total_queries": 71,
+    "rounds": 3,
+    "timestamp": "2026-08-04T18:36:43.771773+00:00"
+  },
+  "qwen-3-8-local-models-release-august-2026-27b-35b-smaller-models": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/qwen-3-8-local-models-release-august-2026-27b-35b-smaller-models",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/qwen-3-8-local-models-release-august-2026-27b-35b-smaller-models",
+    "pages_count": 48,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 59,
+    "rounds": 3,
+    "timestamp": "2026-08-06T21:14:15.161910+00:00"
+  },
+  "best-open-source-antivirus-and-threat-detection-software-for-mac-and-linux-with-live-monitoring-and-ui-dashboard-features": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/best-open-source-antivirus-and-threat-detection-software-for-mac-and-linux-with-live-monitoring-and-ui-dashboard-features",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/best-open-source-antivirus-and-threat-detection-software-for-mac-and-linux-with-live-monitoring-and-ui-dashboard-features",
+    "pages_count": 66,
+    "pdfs_count": 0,
+    "research_count": 14,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-07T08:38:07.660487+00:00"
+  },
+  "open-source-resume-builder-tools-ats-scoring-linkedin-import-resume-parser": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/open-source-resume-builder-tools-ats-scoring-linkedin-import-resume-parser",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/open-source-resume-builder-tools-ats-scoring-linkedin-import-resume-parser",
+    "pages_count": 72,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-07T18:04:19.238478+00:00"
+  },
+  "small-specialized-llms-for-specific-use-cases--ocr--pdf-extraction--table-extraction--layout-analysis--image-captioning--audio-transcription--code-generation--classification--ner--summarization": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/small-specialized-llms-for-specific-use-cases--ocr--pdf-extraction--table-extraction--layout-analysis--image-captioning--audio-transcription--code-generation--classification--ner--summarization",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/small-specialized-llms-for-specific-use-cases--ocr--pdf-extraction--table-extraction--layout-analysis--image-captioning--audio-transcription--code-generation--classification--ner--summarization",
+    "pages_count": 73,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 55,
+    "rounds": 3,
+    "timestamp": "2026-08-07T23:36:25.884727+00:00"
+  },
+  "sast-static-analysis-linting-tools-for-python-typescript-node-js-and-go-projects": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/sast-static-analysis-linting-tools-for-python-typescript-node-js-and-go-projects",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/sast-static-analysis-linting-tools-for-python-typescript-node-js-and-go-projects",
+    "pages_count": 37,
+    "pdfs_count": 0,
+    "research_count": 17,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-12T13:08:54.510836+00:00"
+  },
+  "antigravity-cli-headless-mode-configuration-for-hermes-agent-backend-model--flash-vs-pro-model-selection-for-thinking-and-coding-tasks": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/antigravity-cli-headless-mode-configuration-for-hermes-agent-backend-model--flash-vs-pro-model-selection-for-thinking-and-coding-tasks",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/antigravity-cli-headless-mode-configuration-for-hermes-agent-backend-model--flash-vs-pro-model-selection-for-thinking-and-coding-tasks",
+    "pages_count": 54,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 72,
+    "rounds": 3,
+    "timestamp": "2026-08-13T09:06:51.691099+00:00"
+  },
+  "omlx-embedding-batch-size-optimal-value-increase-throughput-performance": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/omlx-embedding-batch-size-optimal-value-increase-throughput-performance",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/omlx-embedding-batch-size-optimal-value-increase-throughput-performance",
+    "pages_count": 57,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 77,
+    "rounds": 3,
+    "timestamp": "2026-08-14T19:56:48.542863+00:00"
+  },
+  "cheapest-options-to-run-qwen-3-8-27b-model-at-262k-context-with-100-tokens-per-second-inference-speed-in-india-gpu-cloud-rental": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/cheapest-options-to-run-qwen-3-8-27b-model-at-262k-context-with-100-tokens-per-second-inference-speed-in-india-gpu-cloud-rental",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/cheapest-options-to-run-qwen-3-8-27b-model-at-262k-context-with-100-tokens-per-second-inference-speed-in-india-gpu-cloud-rental",
+    "pages_count": 83,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 70,
+    "rounds": 3,
+    "timestamp": "2026-08-14T21:35:00.801757+00:00"
+  },
+  "best-cheap-options-running-qwen-3-8-27b-at-262k-context-100-tokens-per-second-home-setup-india": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/best-cheap-options-running-qwen-3-8-27b-at-262k-context-100-tokens-per-second-home-setup-india",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/best-cheap-options-running-qwen-3-8-27b-at-262k-context-100-tokens-per-second-home-setup-india",
+    "pages_count": 56,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-08-14T21:39:25.787478+00:00"
+  },
+  "best-hardware-in-india-to-run-under-10b-parameter-llm-at-200-tokens-per-second-at-home": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/best-hardware-in-india-to-run-under-10b-parameter-llm-at-200-tokens-per-second-at-home",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/best-hardware-in-india-to-run-under-10b-parameter-llm-at-200-tokens-per-second-at-home",
+    "pages_count": 59,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-08-14T21:46:14.155938+00:00"
+  },
+  "best-local-coding-llm-200-tokens-per-second-apple-m4-max-mac-studio-mlx": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/best-local-coding-llm-200-tokens-per-second-apple-m4-max-mac-studio-mlx",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/best-local-coding-llm-200-tokens-per-second-apple-m4-max-mac-studio-mlx",
+    "pages_count": 63,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-08-14T22:15:08.699884+00:00"
+  },
+  "qwen-3-8-27b-mac-studio-m4-benchmark-throughput-prompt-processing": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/qwen-3-8-27b-mac-studio-m4-benchmark-throughput-prompt-processing",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/qwen-3-8-27b-mac-studio-m4-benchmark-throughput-prompt-processing",
+    "pages_count": 38,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-08-14T23:03:10.532499+00:00"
+  },
+  "qwen3-6-35b-a3b-fine-tuned-models-variants": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/qwen3-6-35b-a3b-fine-tuned-models-variants",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/qwen3-6-35b-a3b-fine-tuned-models-variants",
+    "pages_count": 66,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-15T10:21:58.423506+00:00"
+  },
+  "qwen3-6-35b-a3b-mlx-fine-tuned-models-huggingface": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/qwen3-6-35b-a3b-mlx-fine-tuned-models-huggingface",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/qwen3-6-35b-a3b-mlx-fine-tuned-models-huggingface",
+    "pages_count": 76,
+    "pdfs_count": 0,
+    "research_count": 13,
+    "total_queries": 61,
+    "rounds": 3,
+    "timestamp": "2026-08-15T10:36:00.531715+00:00"
+  },
+  "omlx-best-configuration-ornith-9b-mac-studio-m4-max-260k-context-prompt-processing-speed-tokens-per-second-chunked-prefix-spark-context-prefill-mtp-speculative-decoding": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/omlx-best-configuration-ornith-9b-mac-studio-m4-max-260k-context-prompt-processing-speed-tokens-per-second-chunked-prefix-spark-context-prefill-mtp-speculative-decoding",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/omlx-best-configuration-ornith-9b-mac-studio-m4-max-260k-context-prompt-processing-speed-tokens-per-second-chunked-prefix-spark-context-prefill-mtp-speculative-decoding",
+    "pages_count": 37,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 67,
+    "rounds": 3,
+    "timestamp": "2026-08-15T10:57:21.460399+00:00"
+  },
+  "narendra-modi-independence-day-2026-speech-red-fort-highlights-policy-announcements": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/narendra-modi-independence-day-2026-speech-red-fort-highlights-policy-announcements",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/narendra-modi-independence-day-2026-speech-red-fort-highlights-policy-announcements",
+    "pages_count": 85,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 60,
+    "rounds": 3,
+    "timestamp": "2026-08-15T20:21:58.018021+00:00"
+  },
+  "sapta-dhara-technology-and-innovation-pillar": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/sapta-dhara-technology-and-innovation-pillar",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/sapta-dhara-technology-and-innovation-pillar",
+    "pages_count": 142,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-15T21:20:15.882596+00:00"
+  },
+  "best-book-on-kubernetes": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/best-book-on-kubernetes",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/best-book-on-kubernetes",
+    "pages_count": 83,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-08-16T10:43:15.084152+00:00"
+  },
+  "specialized-expert-llm-models-that-beat-frontier-models-on-specific-benchmark-tasks-like-cwe-cybersecurity-and-logic-reasoning": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/specialized-expert-llm-models-that-beat-frontier-models-on-specific-benchmark-tasks-like-cwe-cybersecurity-and-logic-reasoning",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/specialized-expert-llm-models-that-beat-frontier-models-on-specific-benchmark-tasks-like-cwe-cybersecurity-and-logic-reasoning",
+    "pages_count": 40,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 57,
+    "rounds": 3,
+    "timestamp": "2026-08-16T20:26:18.321230+00:00"
+  },
+  "agentic-harness-using-vibethinker-3b-as-reasoning-brain-orchestrator-pattern": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/agentic-harness-using-vibethinker-3b-as-reasoning-brain-orchestrator-pattern",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/agentic-harness-using-vibethinker-3b-as-reasoning-brain-orchestrator-pattern",
+    "pages_count": 46,
+    "pdfs_count": 0,
+    "research_count": 14,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-17T04:17:35.998243+00:00"
+  },
+  "ai-testing-agents-skills-github-api-testing-load-testing-browser-testing-test-case-generation": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/ai-testing-agents-skills-github-api-testing-load-testing-browser-testing-test-case-generation",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/ai-testing-agents-skills-github-api-testing-load-testing-browser-testing-test-case-generation",
+    "pages_count": 83,
+    "pdfs_count": 0,
+    "research_count": 12,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-21T21:09:07.785356+00:00"
+  },
+  "open-source-software-written-fully-in-javascript-html": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/open-source-software-written-fully-in-javascript-html",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/open-source-software-written-fully-in-javascript-html",
+    "pages_count": 187,
+    "pdfs_count": 0,
+    "research_count": 14,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-21T21:50:17.757279+00:00"
+  },
+  "open-source-javascript": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/open-source-javascript",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/open-source-javascript",
+    "pages_count": 207,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 77,
+    "rounds": 3,
+    "timestamp": "2026-08-22T00:59:46.765306+00:00"
+  },
+  "open-source-software-projects-written-fully-in-javascript-and-or-html": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/open-source-software-projects-written-fully-in-javascript-and-or-html",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/open-source-software-projects-written-fully-in-javascript-and-or-html",
+    "pages_count": 80,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-08-22T01:18:11.121200+00:00"
+  },
+  "best-way-to-curate-data-topics-to-teach-programming": {
+    "raw_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/raw/best-way-to-curate-data-topics-to-teach-programming",
+    "synthesized_path": "/Users/manjunathkanavi/.nanobot/workspace/skills/deep-research/data/synthesized/best-way-to-curate-data-topics-to-teach-programming",
+    "pages_count": 151,
+    "pdfs_count": 0,
+    "research_count": 15,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-08-22T23:12:37.623609+00:00"
+  }
+}

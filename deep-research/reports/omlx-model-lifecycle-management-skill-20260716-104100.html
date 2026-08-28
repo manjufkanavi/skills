@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oMLX Model Lifecycle Management Skill</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --fg: #e8e8f0;
+  --accent1: #6366f1;
+  --accent2: #8b5cf6;
+  --accent3: #a78bfa;
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+  height: 100vh;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.slide h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.slide h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: var(--accent3);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.slide p, .slide li {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.7;
+  max-width: 800px;
+  text-align: center;
+}
+.slide ul {
+  list-style: none;
+  text-align: left;
+  max-width: 700px;
+}
+.slide ul li {
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.slide ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1rem 0;
+  backdrop-filter: blur(10px);
+}
+.code {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  max-width: 700px;
+  overflow-x: auto;
+  text-align: left;
+  line-height: 1.6;
+  color: #a5f3fc;
+}
+.api-table {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 2rem;
+  max-width: 600px;
+  text-align: left;
+  font-size: 1.1rem;
+}
+.api-table dt { color: var(--accent3); font-weight: 600; }
+.api-table dd { color: var(--fg); }
+.nav {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  z-index: 100;
+}
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.nav-dot.active { background: var(--accent2); }
+.nav-arrow {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+.nav-arrow:hover { background: var(--accent1); }
+.counter {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 0.9rem;
+  color: var(--accent3);
+  z-index: 100;
+}
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  left: 2rem;
+  z-index: 100;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+@media (prefers-color-scheme: light) {
+  body.light-mode {
+    --bg: #f5f5fa;
+    --fg: #1a1a2e;
+    --card: rgba(0,0,0,0.04);
+    --border: rgba(0,0,0,0.1);
+  }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+<div class="counter" id="counter">1 / 9</div>
+
+<div class="slide active">
+  <h1>oMLX Model Lifecycle Management</h1>
+  <p>Creating a skill to programmatically unload and load models on Mac Studio</p>
+  <p style="margin-top:2rem; font-size:0.9rem; color:var(--accent3);">Press → or Space to navigate</p>
+</div>
+
+<div class="slide">
+  <h2>Why Model Lifecycle Management?</h2>
+  <div class="card">
+    <ul>
+      <li>64GB unified memory constraint</li>
+      <li>MLX LLM and ComfyUI cannot run simultaneously</li>
+      <li>Need sequential unload/load cycle</li>
+      <li>Default model must be restored after generation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <h2>oMLX Architecture</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Continuous batching</strong> — concurrent request handling</li>
+      <li><strong>Paged KV cache</strong> — prefix sharing across requests</li>
+      <li><strong>SSD prefix cache</strong> — hot/cold tiered storage</li>
+      <li><strong>Multi-model residency</strong> — YAML config</li>
+      <li><strong>OpenAI + Anthropic endpoints</strong> — unified API</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Key API Endpoints</h2>
+  <div class="api-table">
+    <dt>Unload</dt><dd>POST /v1/models/unload</dd>
+    <dt>Load</dt><dd>POST /v1/models/load</dd>
+    <dt>Status</dt><dd>GET /v1/status</dd>
+    <dt>List</dt><dd>GET /v1/models</dd>
+  </div>
+  <div class="code" style="margin-top:1.5rem;">
+curl -X POST http://localhost:8095/v1/models/unload \
+  -d '{"model":"mlx-community/Qwen3.6-35B-A3B-4bit"}'
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Python Skill Implementation</h2>
+  <div class="code">
+#!/usr/bin/env python3
+import requests
+
+OMLX_BASE = "http://localhost:8095"
+
+def unload_model(model_name):
+    return requests.post(
+        f"{OMLX_BASE}/v1/models/unload",
+        json={"model": model_name}
+    ).json()
+
+def load_model(model_name):
+    return requests.post(
+        f"{OMLX_BASE}/v1/models/load",
+        json={"model": model_name}
+    ).json()
+
+def swap_models(from_m, to_m, wait=10):
+    unload_model(from_m)
+    time.sleep(wait)
+    return load_model(to_m)
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Complete Workflow</h2>
+  <div class="card">
+    <ol style="text-align:left; max-width:600px; list-style:decimal; padding-left:2rem;">
+      <li>Check oMLX status</li>
+      <li>Unload default LLM model</li>
+      <li>Wait for unload (10s)</li>
+      <li>Submit ComfyUI workflow</li>
+      <li>Monitor via WebSocket</li>
+      <li>Free ComfyUI memory</li>
+      <li>Reload default LLM model</li>
+      <li>Verify model is responding</li>
+    </ol>
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Hermes Agent Integration</h2>
+  <div class="card">
+    <ul>
+      <li>Define skill with tool descriptions</li>
+      <li>Agent auto-selects unload/load tools</li>
+      <li>Prompt template enforces lifecycle order</li>
+      <li>Verification step before/after each operation</li>
+    </ul>
+  </div>
+  <div class="code" style="margin-top:1rem;">
+tools:
+  - name: omlx_unload
+    parameters: { model: string }
+  - name: omlx_load
+    parameters: { model: string }
+  - name: omlx_swap
+    parameters: { from_model, to_model, wait }
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Error Handling</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Connection refused:</strong> Start oMLX server</li>
+      <li><strong>Model not found:</strong> Verify path with `omlx list`</li>
+      <li><strong>OOM during load:</strong> Use quantized model</li>
+      <li><strong>Swap timeout:</strong> Increase wait time</li>
+      <li><strong>API format error:</strong> Check JSON structure</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Key Takeaways</h2>
+  <div class="card">
+    <ul>
+      <li>oMLX provides explicit unload/load API for model lifecycle</li>
+      <li>Sequential cycle is mandatory on 64GB Mac Studio</li>
+      <li>Python skill with argparse enables CLI and agent use</li>
+      <li>WebSocket monitoring provides real-time progress</li>
+      <li>Multi-model YAML config enables advanced residency</li>
+    </ul>
+  </div>
+  <p style="margin-top:2rem; color:var(--accent3);">References: oMLX, MLX, ComfyUI, Hermes Agent</p>
+</div>
+
+<div class="nav" id="nav"></div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+function showSlide(i) {
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === i);
+  });
+  document.getElementById('counter').textContent = `${i+1} / ${total}`;
+  document.querySelectorAll('.nav-dot').forEach((d, idx) => {
+    d.classList.toggle('active', idx === i);
+  });
+}
+
+const nav = document.getElementById('nav');
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => showSlide(i);
+  nav.appendChild(dot);
+}
+
+const prev = document.createElement('button');
+prev.className = 'nav-arrow';
+prev.textContent = '←';
+prev.onclick = () => showSlide((current - 1 + total) % total);
+nav.appendChild(prev);
+
+const next = document.createElement('button');
+next.className = 'nav-arrow';
+next.textContent = '→';
+next.onclick = () => showSlide((current + 1) % total);
+nav.appendChild(next);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide((current+1)%total); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide((current-1+total)%total); }
+  if (e.key === 'Home') { e.preventDefault(); showSlide(0); }
+  if (e.key === 'End') { e.preventDefault(); showSlide(total-1); }
+});
+
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+}
+</script>
+</body>
+</html>

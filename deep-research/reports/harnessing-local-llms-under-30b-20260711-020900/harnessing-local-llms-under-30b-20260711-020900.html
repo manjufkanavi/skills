@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Local LLMs Under 30B — Research Slides</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --text: #e0e0e0;
+    --text2: #999;
+    --accent: #667eea;
+    --accent2: #764ba2;
+    --bullet: #764ba2;
+    --border: #1a1a2e;
+    --dot: #333;
+    --dot-active: #667eea;
+    --btn-bg: linear-gradient(135deg, #667eea, #764ba2);
+    --btn-text: #fff;
+    --title-h1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --title-h2: #888;
+    --title-meta: #555;
+    --slide-h2: #667eea;
+    --li: #ccc;
+    --li-alt: #aaa;
+    --li-marker: #764ba2;
+    --controls-bg: rgba(10,10,15,0.95);
+    --theme-icon: "☀️";
+    --transition-speed: 0.5s;
+  }
+  .light {
+    --bg: #f5f5fa;
+    --bg2: #eeeef4;
+    --text: #1a1a2e;
+    --text2: #555;
+    --accent: #5a6fd6;
+    --accent2: #6a4192;
+    --bullet: #6a4192;
+    --border: #d0d0dd;
+    --dot: #ccc;
+    --dot-active: #5a6fd6;
+    --btn-bg: linear-gradient(135deg, #5a6fd6, #6a4192);
+    --btn-text: #fff;
+    --title-h1: linear-gradient(135deg, #5a6fd6 0%, #6a4192 100%);
+    --title-h2: #666;
+    --title-meta: #888;
+    --slide-h2: #5a6fd6;
+    --li: #333;
+    --li-alt: #555;
+    --li-marker: #6a4192;
+    --controls-bg: rgba(245,245,250,0.95);
+    --theme-icon: "🌙";
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+  }
+  .presentation { height: 100vh; display: flex; flex-direction: column; }
+  .slides-container { flex: 1; position: relative; overflow: hidden; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: clamp(20px, 5vw, 60px) clamp(20px, 8vw, 80px);
+    opacity: 0;
+    transform: translateX(60px) scale(0.97);
+    transition: opacity var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+  .slide.prev {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.97);
+  }
+  .slide.active h2,
+  .slide.active li {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  .slide.active h2 { animation-delay: 0.1s; }
+  .slide.active li:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active li:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active li:nth-child(3) { animation-delay: 0.35s; }
+  .slide.active li:nth-child(4) { animation-delay: 0.45s; }
+  .slide.active li:nth-child(5) { animation-delay: 0.55s; }
+  .slide.active li:nth-child(n+6) { animation-delay: 0.65s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .title-slide h1 {
+    font-size: clamp(1.4rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    background: var(--title-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: clamp(8px, 2vh, 16px);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .title-slide h2 {
+    font-size: clamp(0.85rem, 2.2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--title-h2);
+    margin-bottom: clamp(12px, 3vh, 24px);
+    text-align: center;
+    max-width: 700px;
+  }
+  .title-slide .meta {
+    font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+    color: var(--title-meta);
+  }
+  .slide h2 {
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--slide-h2);
+    margin-bottom: clamp(12px, 2.5vh, 28px);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .slide ul {
+    list-style: none;
+    max-width: min(800px, 92vw);
+    width: 100%;
+  }
+  .slide li {
+    font-size: clamp(0.8rem, 1.8vw, 1.15rem);
+    line-height: 1.7;
+    padding: clamp(5px, 1vh, 10px) 0 clamp(5px, 1vh, 10px) 28px;
+    position: relative;
+    color: var(--li);
+  }
+  .slide li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--li-marker);
+    font-weight: bold;
+  }
+  .slide li:nth-child(even) { color: var(--li-alt); }
+  .slide code {
+    background: var(--bg2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--accent);
+  }
+  .slide pre {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: clamp(10px, 2vh, 20px);
+    max-width: min(800px, 92vw);
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 12px;
+  }
+  .slide pre code {
+    background: none;
+    padding: 0;
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    line-height: 1.6;
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: var(--btn-bg);
+    border: none;
+    color: var(--btn-text);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(102,126,234,0.3);
+  }
+  .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(102,126,234,0.5); }
+  .theme-toggle:active { transform: scale(0.95); }
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 2vw, 20px);
+    padding: clamp(10px, 2vh, 20px);
+    background: var(--controls-bg);
+    border-top: 1px solid var(--border);
+    transition: background var(--transition-speed) ease;
+  }
+  .controls button {
+    background: var(--btn-bg);
+    border: none;
+    color: var(--btn-text);
+    padding: clamp(6px, 1.2vh, 10px) clamp(12px, 2vw, 24px);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+    font-weight: 600;
+    transition: transform 0.2s;
+  }
+  .controls button:hover { transform: scale(1.05); }
+  .controls button:disabled { opacity: 0.3; cursor: default; transform: none; }
+  .progress { display: flex; gap: clamp(4px, 1vw, 6px); }
+  .progress-dot {
+    width: clamp(8px, 1vw, 10px);
+    height: clamp(8px, 1vw, 10px);
+    border-radius: 50%;
+    background: var(--dot);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .progress-dot.active { background: var(--dot-active); transform: scale(1.3); }
+  .slide-counter {
+    font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+    color: var(--text2);
+    min-width: clamp(40px, 6vw, 60px);
+    text-align: center;
+  }
+  .swipe-hint {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: var(--text2);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: fadeOut 3s ease 2s forwards;
+  }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @media (max-height: 500px) {
+    .slide { padding: 10px 20px; }
+    .slide li { padding: 4px 0 4px 24px; font-size: 0.8rem; }
+    .slide h2 { margin-bottom: 12px; }
+  }
+  @media (max-width: 400px) {
+    .slide li { font-size: 0.75rem; padding-left: 20px; }
+    .slide li::before { left: -2px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">☀️</button>
+<div class="presentation">
+  <div class="slides-container" id="slidesContainer">
+
+    <!-- Slide 0: Title -->
+    <section class="slide title-slide" data-index="0">
+      <h1>Local LLMs Under 30B Parameters</h1>
+      <h2>Skills, MCPs, Best Practices, New Releases, Open Source Tools &amp; Context Management</h2>
+      <p class="meta">Mac Studio M4 · 64GB RAM · 260K Context · Deep Research Report</p>
+    </section>
+
+    <!-- Slide 1: Executive Summary -->
+    <section class="slide" data-index="1">
+      <h2>Executive Summary</h2>
+      <ul>
+        <li>Local LLMs under 30B have reached a critical inflection point</li>
+        <li>Qwen 2.5, Llama 3.1, Mistral, Phi-3.5 now match or exceed 2023's larger models</li>
+        <li>Quantization (GGUF, AWQ, GPTQ) enables efficient consumer hardware deployment</li>
+        <li>This report covers: must-have skills, MCPs, best practices, new releases, open-source software, domain-specific models, and 260K context management</li>
+      </ul>
+    </section>
+
+    <!-- Slide 2: Must-Have Skills -->
+    <section class="slide" data-index="2">
+      <h2>Must-Have Skills for Local LLMs</h2>
+      <ul>
+        <li><strong>Quantization mastery:</strong> GGUF (llama.cpp), AWQ, GPTQ, FP16/BF16. GGUF is the universal standard</li>
+        <li><strong>Fine-tuning:</strong> LoRA/QLoRA with Unsloth, Axolotl, Hugging Face PEFT, Ollama Modelfile</li>
+        <li><strong>Prompt engineering:</strong> System prompts, few-shot, chain-of-thought, ReAct patterns</li>
+        <li><strong>RAG:</strong> Chunking, embedding models, vector databases (Chroma, FAISS, Qdrant, Weaviate)</li>
+        <li><strong>Context management:</strong> Sliding windows, summary compression, hierarchical attention</li>
+        <li><strong>Infrastructure:</strong> Ollama, vLLM, LM Studio, TGI, Docker</li>
+        <li><strong>Agent skills:</strong> Function calling, multi-agent orchestration (CrewAI, AutoGen, LangGraph), MCP, evaluation (Promptfoo, DeepEval, RAGAS)</li>
+      </ul>
+    </section>
+
+    <!-- Slide 3: MCPs -->
+    <section class="slide" data-index="3">
+      <h2>Must-Have MCPs for Local LLMs</h2>
+      <ul>
+        <li><strong>Model Context Protocol (MCP):</strong> Anthropic's open standard for connecting LLMs to external tools and data sources</li>
+        <li><strong>File System MCP:</strong> Read/write files, navigate directories, search content</li>
+        <li><strong>Web Search MCP:</strong> Brave Search, Tavily, SearxNG for internet access</li>
+        <li><strong>Database MCP:</strong> PostgreSQL, SQLite, MongoDB connectors</li>
+        <li><strong>Code Execution MCP:</strong> Run Python, JS, shell commands in sandboxed environments</li>
+        <li><strong>Git MCP:</strong> Repository operations, diff analysis, commit management</li>
+        <li><strong>Browser MCP:</strong> Playwright/Puppeteer for web automation</li>
+        <li><strong>Vector DB MCP:</strong> Chroma, Qdrant, Weaviate for RAG workflows</li>
+        <li><strong>GitHub MCP:</strong> Issue tracking, PR management, code review</li>
+        <li><strong>Frameworks:</strong> Python/TypeScript MCP SDK, LiteLLM, FastMCP</li>
+      </ul>
+    </section>
+
+    <!-- Slide 4: Best Practices -->
+    <section class="slide" data-index="4">
+      <h2>Local LLM Best Practices</h2>
+      <ul>
+        <li><strong>Model selection:</strong> 3B–7B for chat/summarization, 13B–20B for complex reasoning, 24B–32B for domain expertise</li>
+        <li><strong>Prefer recent architectures:</strong> Qwen 2.5, Llama 3.1, Mistral Nemo, Phi-3.5</li>
+        <li><strong>Use instruction-tuned variants:</strong> Always prefer -Instruct or chat-tuned versions</li>
+        <li><strong>Quantization:</strong> Q4_K_M (GGUF) is best quality/size balance (~4.5GB for 7B). Q5_K_M for slightly better quality. Q8_0 for near-lossless</li>
+        <li><strong>GPU offloading:</strong> Set n_gpu_layers=-1 in llama.cpp</li>
+        <li><strong>Thread optimization:</strong> Set n_threads to physical cores. M4 Mac: use 12–14 threads</li>
+        <li><strong>Prompt engineering:</strong> Be explicit, use templates, chain-of-thought, few-shot examples, structured output</li>
+        <li><strong>RAG:</strong> Chunk 256–512 tokens, 10–20% overlap, BGE-large embeddings, hybrid search, cross-encoder re-ranking</li>
+      </ul>
+    </section>
+
+    <!-- Slide 5: New Releases -->
+    <section class="slide" data-index="5">
+      <h2>New Local LLM Releases (2024–2025)</h2>
+      <ul>
+        <li><strong>Qwen 2.5 Series:</strong> 0.5B/1.5B/3B/7B/14B/32B. Best multilingual (29 languages), excellent code/math. Qwen2.5-Coder-32B and Qwen2.5-Math-7B are specialized standouts</li>
+        <li><strong>Llama 3.1:</strong> 8B-Instruct (fast, efficient), 70B-Instruct (requires significant hardware). 128K context, excellent tool use</li>
+        <li><strong>Mistral Series:</strong> 7B v0.3, Small 24B (optimized for latency), Nemo 12B (131K context, excellent value)</li>
+        <li><strong>Phi-3.5:</strong> Mini 3.8B (128K context, excellent reasoning), MoE 4.2B active/14B total</li>
+        <li><strong>Gemma 2:</strong> 9B/27B, strong performance, 128K context</li>
+        <li><strong>Others:</strong> DeepSeek-V2.5 (MoE, 236B/21B active), Yi 1.5 9B/34B (200K context), Command R+ (128K, RAG-optimized), Solar 10.7B, SmolLM2 1.7B/3.7B</li>
+      </ul>
+    </section>
+
+    <!-- Slide 6: Open Source Software -->
+    <section class="slide" data-index="6">
+      <h2>Open Source Software for Building</h2>
+      <ul>
+        <li><strong>Inference:</strong> Ollama (easiest), vLLM (high-throughput), TGI (Hugging Face), llama.cpp (GGUF), LM Studio, Jan, Open WebUI</li>
+        <li><strong>Frameworks:</strong> LangChain, LlamaIndex, LangGraph, CrewAI, AutoGen, SmolAgents, Haystack</li>
+        <li><strong>RAG &amp; Vector DBs:</strong> Chroma (local), Qdrant (production), Weaviate, FAISS, Milvus, pgvector</li>
+        <li><strong>Fine-tuning:</strong> Unsloth (2x faster, 60% less memory), Axolotl, Hugging Face PEFT, TRL (RLHF/DPO/ORPO)</li>
+        <li><strong>Evaluation:</strong> Promptfoo, DeepEval, RAGAS, WandB, LangSmith</li>
+        <li><strong>Agent Platforms:</strong> Open Interpreter, Bee Agent Framework, Dify, FlowiseAI, Langflow</li>
+      </ul>
+    </section>
+
+    <!-- Slide 7: Domain-Specific Models -->
+    <section class="slide" data-index="7">
+      <h2>Domain-Specific Models Under 30B</h2>
+      <ul>
+        <li><strong>Code:</strong> Qwen2.5-Coder-32B (best overall), Qwen2.5-Coder-7B, StarCoder2-15B</li>
+        <li><strong>Medical:</strong> Meditron-8B (Meta), LLaMA-Med (Stanford), BioMistral-7B</li>
+        <li><strong>Legal:</strong> Legal-Pali (Google), Lawformer</li>
+        <li><strong>Finance:</strong> FinBERT, FinGPT (open-source)</li>
+        <li><strong>Math:</strong> Qwen2.5-Math-7B (state-of-the-art open), MetaMath-70B, SOLAR-10.7B</li>
+        <li><strong>Multilingual:</strong> Qwen2.5 (29 languages), Mistral 7B v0.3, Nemotron-4-34B (40+ languages), Jais-13B/30B (Arabic-first)</li>
+        <li><strong>All-rounders:</strong> Qwen2.5-14B (best balance), Qwen2.5-32B (near-70B quality), Llama-3.1-8B, Mistral Nemo 12B, Gemma 2 9B</li>
+      </ul>
+    </section>
+
+    <!-- Slide 8: Context Management -->
+    <section class="slide" data-index="8">
+      <h2>Handling 260K Context</h2>
+      <ul>
+        <li><strong>260K tokens</strong> ≈ 200,000 words ≈ 400 pages. Requires smart management</li>
+        <li><strong>Memory cost:</strong> KV cache can consume 8–16GB VRAM even for 7B models at full context</li>
+        <li><strong>Sliding Window:</strong> Attend only to recent N tokens (32K/64K). Older context summarized. Use --context-length 32768 in llama.cpp</li>
+        <li><strong>Summary Compression:</strong> Maintain running summary of earlier sections. Replace old tokens with summary tokens</li>
+        <li><strong>Hierarchical Context:</strong> Raw data → extracted facts → summaries → high-level overview. Query relevant layer</li>
+        <li><strong>RAG:</strong> Don't load everything. Retrieve only relevant chunks. Chunk 256–512 tokens, BGE embeddings, cross-encoder re-ranking</li>
+        <li><strong>Context Packing:</strong> Pack multiple short documents with special token separators</li>
+        <li><strong>Streaming:</strong> Process incrementally, maintain state between chunks</li>
+      </ul>
+    </section>
+
+    <!-- Slide 9: Mac Studio M4 Setup -->
+    <section class="slide" data-index="9">
+      <h2>Mac Studio M4 Setup for 260K Context</h2>
+      <ul>
+        <li>Set GPU memory: <code>export OLLAMA_NUM_GPU=99</code></li>
+        <li>Create custom Ollama model:</li>
+      </ul>
+      <pre><code>ollama pull qwen2.5:32b
+cat &gt; Modelfile &lt;&lt; 'EOF'
+FROM qwen2.5:32b
+PARAMETER num_ctx 262144
+PARAMETER num_gpu_layers 99
+PARAMETER num_thread 14
+EOF
+ollama create qwen2.5-32b-260k -f Modelfile</code></pre>
+    </section>
+
+    <!-- Slide 10: vLLM Configuration -->
+    <section class="slide" data-index="10">
+      <h2>vLLM Configuration</h2>
+      <pre><code>from vllm import LLM, SamplingParams
+
+llm = LLM(
+    model="Qwen/Qwen2.5-32B-Instruct",
+    max_model_len=262144,
+    gpu_memory_utilization=0.9,
+    tensor_parallel_size=1,
+    dtype="float16",
+)
+
+sampling_params = SamplingParams(
+    temperature=0.7,
+    max_tokens=4096,
+    top_p=0.95,
+)</code></pre>
+      <ul>
+        <li>Close other GPU-intensive apps before large context inference</li>
+        <li>Use swap space (SSD as extended RAM) to prevent OOM</li>
+        <li>Monitor with <code>sudo powermetrics --samplers gpu -i 1</code></li>
+        <li>Batch requests and cache embeddings to avoid recomputation</li>
+      </ul>
+    </section>
+
+    <!-- Slide 11: Context Comparison -->
+    <section class="slide" data-index="11">
+      <h2>Context Window Comparison</h2>
+      <ul>
+        <li><strong>Qwen2.5-3B:</strong> 128K max, 64K practical, 2.2 GB VRAM (Q4)</li>
+        <li><strong>Qwen2.5-7B:</strong> 128K max, 32K practical, 4.7 GB VRAM</li>
+        <li><strong>Qwen2.5-14B:</strong> 128K max, 32K practical, 9.2 GB VRAM</li>
+        <li><strong>Qwen2.5-32B:</strong> 128K max, 16K–32K practical, 19 GB VRAM</li>
+        <li><strong>Llama 3.1-8B:</strong> 128K max, 32K practical, 5.5 GB VRAM</li>
+        <li><strong>Mistral Nemo 12B:</strong> 128K max, 32K practical, 8.5 GB VRAM</li>
+        <li><strong>Gemma 2 9B:</strong> 8K max, 8K practical, 6.2 GB VRAM</li>
+      </ul>
+      <p style="margin-top:16px; font-size:clamp(0.7rem,1.4vw,0.9rem); color:var(--text2);">Practical context limited by VRAM/RAM for KV cache, not just model capability</p>
+    </section>
+
+    <!-- Slide 12: Conclusion -->
+    <section class="slide" data-index="12">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li><strong>Qwen2.5-32B</strong> is the best local model under 30B — near-70B quality at deployable size</li>
+        <li><strong>GGUF Q4_K_M</strong> is the recommended quantization format for most use cases</li>
+        <li><strong>MCP</strong> provides standardized tool integration — essential for agent workflows</li>
+        <li><strong>RAG + vector DBs</strong> are critical for domain knowledge beyond model training</li>
+        <li><strong>Context management</strong> (sliding window, summary compression, RAG) is essential for 260K+ context</li>
+        <li>Your Mac Studio M4 with 64GB RAM is an excellent platform for local LLM deployment</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn" onclick="prevSlide()">← Prev</button>
+    <div class="progress" id="progressBar"></div>
+    <span class="slide-counter" id="slideCounter">1 / 13</span>
+    <button id="nextBtn" onclick="nextSlide()">Next →</button>
+  </div>
+</div>
+<div class="swipe-hint">← swipe or use arrow keys →</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  const progressBar = document.getElementById('progressBar');
+  const counter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const themeBtn = document.getElementById('themeToggle');
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot';
+    dot.onclick = () => goToSlide(i);
+    dot.title = 'Slide ' + (i+1);
+    progressBar.appendChild(dot);
+  }
+
+  function update() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    const dots = progressBar.querySelectorAll('.progress-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = (current + 1) + ' / ' + total;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  function nextSlide() { if (current < total - 1) { current++; update(); } }
+  function prevSlide() { if (current > 0) { current--; update(); } }
+  function goToSlide(i) { current = i; update(); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'Home') { goToSlide(0); }
+    if (e.key === 'End') { goToSlide(total - 1); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+  }, { passive: true });
+
+  let dark = true;
+  themeBtn.addEventListener('click', () => {
+    dark = !dark;
+    document.body.classList.toggle('light', !dark);
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+  });
+
+  update();
+</script>
+</body>
+</html>

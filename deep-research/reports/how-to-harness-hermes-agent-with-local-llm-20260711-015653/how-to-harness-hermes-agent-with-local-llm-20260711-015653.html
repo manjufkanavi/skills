@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Harnessing Hermes Agent with Local LLM — Research Slides</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --text: #e0e0e0;
+    --text2: #999;
+    --accent: #667eea;
+    --accent2: #764ba2;
+    --bullet: #764ba2;
+    --border: #1a1a2e;
+    --dot: #333;
+    --dot-active: #667eea;
+    --btn-bg: linear-gradient(135deg, #667eea, #764ba2);
+    --btn-text: #fff;
+    --title-h1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --title-h2: #888;
+    --title-meta: #555;
+    --slide-h2: #667eea;
+    --li: #ccc;
+    --li-alt: #aaa;
+    --li-marker: #764ba2;
+    --controls-bg: rgba(10,10,15,0.95);
+    --theme-icon: "☀️";
+    --transition-speed: 0.5s;
+  }
+  .light {
+    --bg: #f5f5fa;
+    --bg2: #eeeef4;
+    --text: #1a1a2e;
+    --text2: #555;
+    --accent: #5a6fd6;
+    --accent2: #6a4192;
+    --bullet: #6a4192;
+    --border: #d0d0dd;
+    --dot: #ccc;
+    --dot-active: #5a6fd6;
+    --btn-bg: linear-gradient(135deg, #5a6fd6, #6a4192);
+    --btn-text: #fff;
+    --title-h1: linear-gradient(135deg, #5a6fd6 0%, #6a4192 100%);
+    --title-h2: #666;
+    --title-meta: #888;
+    --slide-h2: #5a6fd6;
+    --li: #333;
+    --li-alt: #555;
+    --li-marker: #6a4192;
+    --controls-bg: rgba(245,245,250,0.95);
+    --theme-icon: "🌙";
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+  }
+  .presentation { height: 100vh; display: flex; flex-direction: column; }
+  .slides-container { flex: 1; position: relative; overflow: hidden; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: clamp(20px, 5vw, 60px) clamp(20px, 8vw, 80px);
+    opacity: 0;
+    transform: translateX(60px) scale(0.97);
+    transition: opacity var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+  .slide.prev {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.97);
+  }
+  .slide.active h2,
+  .slide.active li {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  .slide.active h2 { animation-delay: 0.1s; }
+  .slide.active li:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active li:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active li:nth-child(3) { animation-delay: 0.35s; }
+  .slide.active li:nth-child(4) { animation-delay: 0.45s; }
+  .slide.active li:nth-child(5) { animation-delay: 0.55s; }
+  .slide.active li:nth-child(n+6) { animation-delay: 0.65s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .title-slide h1 {
+    font-size: clamp(1.4rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    background: var(--title-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: clamp(8px, 2vh, 16px);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .title-slide h2 {
+    font-size: clamp(0.85rem, 2.2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--title-h2);
+    margin-bottom: clamp(12px, 3vh, 24px);
+    text-align: center;
+    max-width: 700px;
+  }
+  .title-slide .meta {
+    font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+    color: var(--title-meta);
+  }
+  .slide h2 {
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--slide-h2);
+    margin-bottom: clamp(12px, 2.5vh, 28px);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .slide ul {
+    list-style: none;
+    max-width: min(800px, 92vw);
+    width: 100%;
+  }
+  .slide li {
+    font-size: clamp(0.8rem, 1.8vw, 1.15rem);
+    line-height: 1.7;
+    padding: clamp(5px, 1vh, 10px) 0 clamp(5px, 1vh, 10px) 28px;
+    position: relative;
+    color: var(--li);
+  }
+  .slide li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--li-marker);
+    font-weight: bold;
+  }
+  .slide li:nth-child(even) { color: var(--li-alt); }
+  .slide code {
+    background: var(--bg2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--accent);
+  }
+  .slide pre {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: clamp(10px, 2vh, 20px);
+    max-width: min(800px, 92vw);
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 12px;
+  }
+  .slide pre code {
+    background: none;
+    padding: 0;
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    line-height: 1.6;
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: var(--btn-bg);
+    border: none;
+    color: var(--btn-text);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(102,126,234,0.3);
+  }
+  .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(102,126,234,0.5); }
+  .theme-toggle:active { transform: scale(0.95); }
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 2vw, 20px);
+    padding: clamp(10px, 2vh, 20px);
+    background: var(--controls-bg);
+    border-top: 1px solid var(--border);
+    transition: background var(--transition-speed) ease;
+  }
+  .controls button {
+    background: var(--btn-bg);
+    border: none;
+    color: var(--btn-text);
+    padding: clamp(6px, 1.2vh, 10px) clamp(12px, 2vw, 24px);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+    font-weight: 600;
+    transition: transform 0.2s;
+  }
+  .controls button:hover { transform: scale(1.05); }
+  .controls button:disabled { opacity: 0.3; cursor: default; transform: none; }
+  .progress { display: flex; gap: clamp(4px, 1vw, 6px); }
+  .progress-dot {
+    width: clamp(8px, 1vw, 10px);
+    height: clamp(8px, 1vw, 10px);
+    border-radius: 50%;
+    background: var(--dot);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .progress-dot.active { background: var(--dot-active); transform: scale(1.3); }
+  .slide-counter {
+    font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+    color: var(--text2);
+    min-width: clamp(40px, 6vw, 60px);
+    text-align: center;
+  }
+  .swipe-hint {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: var(--text2);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: fadeOut 3s ease 2s forwards;
+  }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @media (max-height: 500px) {
+    .slide { padding: 10px 20px; }
+    .slide li { padding: 4px 0 4px 24px; font-size: 0.8rem; }
+    .slide h2 { margin-bottom: 12px; }
+  }
+  @media (max-width: 400px) {
+    .slide li { font-size: 0.75rem; padding-left: 20px; }
+    .slide li::before { left: -2px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">☀️</button>
+<div class="presentation">
+  <div class="slides-container" id="slidesContainer">
+
+    <!-- Slide 0: Title -->
+    <section class="slide title-slide" data-index="0">
+      <h1>Harnessing Hermes Agent with Local LLM</h1>
+      <h2>Building Multi-Agent B2B SaaS on Mac Studio M4 with Qwen 3B</h2>
+      <p class="meta">Mac Studio M4 · 64GB RAM · 260K Context · Hermes Agent</p>
+    </section>
+
+    <!-- Slide 1: What Is Hermes Agent -->
+    <section class="slide" data-index="1">
+      <h2>What Is Hermes Agent</h2>
+      <ul>
+        <li>Open-source autonomous AI agent framework by Nous Research (MIT licensed)</li>
+        <li><strong>Self-improving</strong> — creates and refines skills from completed tasks</li>
+        <li><strong>Persistent</strong> — remembers across sessions via layered memory</li>
+        <li><strong>Model-agnostic</strong> — works with Ollama, vLLM, OpenRouter, any OpenAI-compatible endpoint</li>
+        <li><strong>Multi-platform</strong> — CLI, desktop, Telegram, Discord, Slack, WhatsApp, 15+ gateways</li>
+        <li><strong>Sandboxed</strong> — Docker, SSH, Daytona, Modal, Singularity execution backends</li>
+        <li>Minimum requirement: 64K context — your Qwen 3B with 260K exceeds this by 4x</li>
+      </ul>
+    </section>
+
+    <!-- Slide 2: Architecture -->
+    <section class="slide" data-index="2">
+      <h2>Three-Tier Architecture</h2>
+      <ul>
+        <li><strong>Layer 1 — Gateway:</strong> Long-running process handling communication across 15+ messaging platforms; normalizes messages into common format with session routing</li>
+        <li><strong>Layer 2 — Core Engine (AIAgent):</strong> Provider selection, prompt construction, tool execution, retries, fallback logic, session persistence. System prompt assembled from SOUL.md, MEMORY.md, skills, and context files</li>
+        <li><strong>Layer 3 — Execution Backends:</strong> Six backends — Local, Docker, SSH, Daytona, Modal, Singularity. Docker recommended for production</li>
+      </ul>
+    </section>
+
+    <!-- Slide 3: Setup on Mac Studio M4 -->
+    <section class="slide" data-index="3">
+      <h2>Setup on Mac Studio M4</h2>
+      <ul>
+        <li>Install Hermes: <code>pip install hermes-agent</code></li>
+        <li>Install Ollama: <code>brew install ollama</code> then <code>ollama serve</code></li>
+        <li>Pull your model: <code>ollama pull qwen3:3b</code></li>
+        <li>Configure Hermes: <code>hermes setup</code> — set endpoint to <code>http://localhost:11434/v1</code>, model <code>qwen3:3b</code>, context <code>262144</code></li>
+        <li>Enable Docker backend: <code>hermes config set terminal.backend docker</code></li>
+        <li>Start: <code>hermes --tui</code></li>
+      </ul>
+    </section>
+
+    <!-- Slide 4: Hardware Optimization -->
+    <section class="slide" data-index="4">
+      <h2>Mac Studio M4 Optimization</h2>
+      <ul>
+        <li>Set GPU memory: <code>export OLLAMA_NUM_GPU=99</code> to use all M4 GPU layers</li>
+        <li>Limit concurrent models: <code>export OLLAMA_MAX_LOADED_MODELS=1</code></li>
+        <li>Add to <code>~/.zshrc</code> for persistence</li>
+        <li>For higher throughput, use vLLM: <code>vllm serve Qwen/Qwen2.5-3B-Instruct --max-model-len 262144 --gpu-memory-utilization 0.9</code></li>
+        <li>Point Hermes at vLLM: <code>http://localhost:8000/v1</code></li>
+        <li>Monitor with <code>sudo powermetrics --samplers gpu -i 1</code></li>
+      </ul>
+    </section>
+
+    <!-- Slide 5: Multi-Agent Concept -->
+    <section class="slide" data-index="5">
+      <h2>Multi-Agent B2B SaaS Concept</h2>
+      <ul>
+        <li>Create multiple Hermes Agent profiles, each with a distinct role</li>
+        <li><strong>Product Manager</strong> — defines user stories, acceptance criteria, requirements</li>
+        <li><strong>Architect</strong> — designs systems, defines APIs, establishes patterns</li>
+        <li><strong>Developer</strong> — writes clean, tested, production-ready code</li>
+        <li><strong>Tester</strong> — creates test suites, identifies edge cases, validates</li>
+        <li><strong>DevOps</strong> — designs CI/CD, containers, monitoring, deployment</li>
+        <li>Agents communicate through shared files and structured protocols</li>
+      </ul>
+    </section>
+
+    <!-- Slide 6: Creating Agent Profiles -->
+    <section class="slide" data-index="6">
+      <h2>Creating Agent Profiles</h2>
+      <ul>
+        <li>Create profiles: <code>hermes profile create architect --clone</code> (repeat for each role)</li>
+        <li>Define personality in each profile's <code>SOUL.md</code></li>
+        <li>Example — Architect SOUL.md: "You are a senior software architect. You think in systems, prioritize scalability, and make trade-off decisions explicitly."</li>
+        <li>Example — Developer SOUL.md: "You are a staff engineer. You write clean, tested, production-ready code. You prefer standard libraries, explicit over clever."</li>
+        <li>Example — Tester SOUL.md: "You are a QA engineer specializing in automated testing. You create comprehensive test suites and document every defect."</li>
+      </ul>
+    </section>
+
+    <!-- Slide 7: Shared Memory & Communication -->
+    <section class="slide" data-index="7">
+      <h2>Shared Memory & Communication</h2>
+      <ul>
+        <li>Create shared knowledge base: <code>mkdir -p ~/.hermes/shared/</code></li>
+        <li>Agents read/write to shared files: <code>project.json</code>, <code>updates.json</code>, <code>results.json</code></li>
+        <li>Protocol: read current state → post planned work → execute → post results → update state</li>
+        <li>Use atomic file writes to prevent corruption</li>
+        <li>Include timestamps in all updates</li>
+        <li>Shared files cover: project specs, architecture decisions, API contracts, test results, deployment status</li>
+      </ul>
+    </section>
+
+    <!-- Slide 8: Development Workflow -->
+    <section class="slide" data-index="8">
+      <h2>Software Development Workflow</h2>
+      <ul>
+        <li><strong>Phase 1:</strong> Product Manager defines requirements for the B2B SaaS product</li>
+        <li><strong>Phase 2:</strong> Architect reviews requirements and creates architecture design</li>
+        <li><strong>Phase 3:</strong> Developer implements the system following the architecture</li>
+        <li><strong>Phase 4:</strong> Tester creates and runs comprehensive test suites</li>
+        <li><strong>Phase 5:</strong> DevOps sets up CI/CD pipeline and deployment configuration</li>
+        <li>Each agent works on its own profile but coordinates through shared files</li>
+      </ul>
+    </section>
+
+    <!-- Slide 9: Tech Stack -->
+    <section class="slide" data-index="9">
+      <h2>Recommended Tech Stack</h2>
+      <ul>
+        <li><strong>Backend:</strong> Python (FastAPI) or Node.js (Next.js)</li>
+        <li><strong>Database:</strong> PostgreSQL</li>
+        <li><strong>Frontend:</strong> React / Next.js</li>
+        <li><strong>Authentication:</strong> JWT + OAuth</li>
+        <li><strong>Deployment:</strong> Docker + Kubernetes (or Docker Compose for MVP)</li>
+        <li><strong>CI/CD:</strong> GitHub Actions</li>
+        <li><strong>Monitoring:</strong> Prometheus + Grafana</li>
+      </ul>
+    </section>
+
+    <!-- Slide 10: Self-Improving System -->
+    <section class="slide" data-index="10">
+      <h2>Self-Improving Multi-Agent System</h2>
+      <ul>
+        <li><strong>Skill sharing:</strong> Agents export/import skills to improve collectively</li>
+        <li><code>hermes -p developer skills export code-review</code></li>
+        <li><code>hermes -p tester skills import code-review</code></li>
+        <li><strong>Memory consolidation:</strong> Periodically review all agents' progress and consolidate shared memory</li>
+        <li><strong>GEPA optimization:</strong> Use Genetic-Pareto Prompt Evolution to optimize agent prompts automatically</li>
+        <li>Agents get better over time — your investment compounds</li>
+      </ul>
+    </section>
+
+    <!-- Slide 11: Automation -->
+    <section class="slide" data-index="11">
+      <h2>Automation with Cron Jobs</h2>
+      <ul>
+        <li>Daily standup: <code>hermes -p product_manager cron add "every day at 9am" "Generate daily project status summary"</code></li>
+        <li>Nightly tests: <code>hermes -p tester cron add "every day at 2am" "Run full test suite and report results"</code></li>
+        <li>Weekly review: <code>hermes -p architect cron add "every monday at 10am" "Review code changes and suggest architectural improvements"</code></li>
+        <li>Agents run autonomously and report back through shared files</li>
+      </ul>
+    </section>
+
+    <!-- Slide 12: Security -->
+    <section class="slide" data-index="12">
+      <h2>Security Considerations</h2>
+      <ul>
+        <li><strong>Docker isolation:</strong> Always run agents in Docker for production — <code>hermes config set terminal.backend docker</code></li>
+        <li><strong>Command approval:</strong> Enable smart approval mode — <code>hermes config set security.approval_mode smart</code></li>
+        <li><strong>Credential protection:</strong> Hermes automatically strips sensitive env vars; configure only what's needed</li>
+        <li><strong>Never commit secrets:</strong> API keys, database URLs, tokens must stay in environment or secret managers</li>
+      </ul>
+    </section>
+
+    <!-- Slide 13: Scaling -->
+    <section class="slide" data-index="13">
+      <h2>Scaling the System</h2>
+      <ul>
+        <li>Add specialized agents: <code>hermes profile create data_engineer --clone</code></li>
+        <li>Add more roles as needed: security auditor, tech writer, data engineer</li>
+        <li><strong>Distributed deployment:</strong> Run Hermes backend on Mac Studio, connect desktop apps from team members</li>
+        <li>Backend: <code>hermes gateway start</code></li>
+        <li>Team members configure remote URL: <code>http://your-mac-studio:9119</code></li>
+        <li>Start with 2-3 agents, scale up as product matures</li>
+      </ul>
+    </section>
+
+    <!-- Slide 14: Troubleshooting -->
+    <section class="slide" data-index="14">
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li><strong>Model not responding:</strong> Check Ollama — <code>ollama list</code>, <code>ollama ps</code>, restart with <code>brew services restart ollama</code></li>
+        <li><strong>Context window errors:</strong> Verify config — <code>hermes config get model.context_length</code></li>
+        <li><strong>Docker issues:</strong> Check Docker — <code>docker ps</code>, rebuild with <code>hermes docker rebuild</code></li>
+        <li><strong>Memory pressure:</strong> Reduce GPU allocation — <code>export OLLAMA_NUM_GPU=80</code></li>
+        <li><strong>Health check:</strong> <code>hermes doctor</code></li>
+      </ul>
+    </section>
+
+    <!-- Slide 15: Best Practices -->
+    <section class="slide" data-index="15">
+      <h2>Best Practices</h2>
+      <ul>
+        <li>Start small: begin with 2-3 agents, add more as needed</li>
+        <li>Use shared files for coordination through structured JSON/markdown</li>
+        <li>Set clear boundaries — each agent should have a well-defined role</li>
+        <li>Monitor resource usage — your Mac Studio is powerful but has limits</li>
+        <li>Backup regularly: <code>tar czf ~/.hermes_backup.tar.gz ~/.hermes/</code></li>
+        <li>Use Docker backend for code execution</li>
+        <li>Document everything in SOUL.md for clear agent personalities</li>
+        <li>Let agents create and refine skills over time</li>
+      </ul>
+    </section>
+
+    <!-- Slide 16: Quick Start Checklist -->
+    <section class="slide" data-index="16">
+      <h2>Quick Start Checklist</h2>
+      <ul>
+        <li>☐ Install Hermes Agent (<code>pip install hermes-agent</code>)</li>
+        <li>☐ Install Ollama (<code>brew install ollama</code>)</li>
+        <li>☐ Pull Qwen model (<code>ollama pull qwen3:3b</code>)</li>
+        <li>☐ Configure Hermes for Ollama endpoint</li>
+        <li>☐ Set context length to 262144</li>
+        <li>☐ Enable Docker backend</li>
+        <li>☐ Create agent profiles (architect, developer, tester, devops, pm)</li>
+        <li>☐ Write SOUL.md for each agent</li>
+        <li>☐ Create shared memory directory</li>
+        <li>☐ Test the workflow end-to-end</li>
+      </ul>
+    </section>
+
+    <!-- Slide 17: Conclusion -->
+    <section class="slide" data-index="17">
+      <h2>Why This Works</h2>
+      <ul>
+        <li><strong>Local privacy:</strong> All data stays on your Mac Studio hardware</li>
+        <li><strong>Cost effective:</strong> No API costs for inference</li>
+        <li><strong>Self-improving:</strong> Agents get better over time through skill creation</li>
+        <li><strong>Multi-agent:</strong> Role-playing agents collaborate on complex software projects</li>
+        <li><strong>Production-ready:</strong> Docker isolation, command approval, credential protection</li>
+        <li>Your Mac Studio M4 with 64GB RAM and 260K context is an excellent platform</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn" onclick="prevSlide()">← Prev</button>
+    <div class="progress" id="progressBar"></div>
+    <span class="slide-counter" id="slideCounter">1 / 18</span>
+    <button id="nextBtn" onclick="nextSlide()">Next →</button>
+  </div>
+</div>
+<div class="swipe-hint">← swipe or use arrow keys →</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  const progressBar = document.getElementById('progressBar');
+  const counter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const themeBtn = document.getElementById('themeToggle');
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot';
+    dot.onclick = () => goToSlide(i);
+    dot.title = 'Slide ' + (i+1);
+    progressBar.appendChild(dot);
+  }
+
+  function update() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    const dots = progressBar.querySelectorAll('.progress-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = (current + 1) + ' / ' + total;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  function nextSlide() { if (current < total - 1) { current++; update(); } }
+  function prevSlide() { if (current > 0) { current--; update(); } }
+  function goToSlide(i) { current = i; update(); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'Home') { goToSlide(0); }
+    if (e.key === 'End') { goToSlide(total - 1); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+  }, { passive: true });
+
+  let dark = true;
+  themeBtn.addEventListener('click', () => {
+    dark = !dark;
+    document.body.classList.toggle('light', !dark);
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+  });
+
+  update();
+</script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playwright MCP + Lightpanda on macOS</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --fg: #e2e8f0;
+    --accent: #38bdf8;
+    --accent2: #818cf8;
+    --card: #1e293b;
+    --code-bg: #0f172a;
+    --border: #334155;
+  }
+  .light {
+    --bg: #f8fafc;
+    --fg: #1e293b;
+    --accent: #0284c7;
+    --accent2: #6366f1;
+    --card: #ffffff;
+    --code-bg: #f1f5f9;
+    --border: #cbd5e1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    overflow: hidden;
+    transition: background 0.5s, color 0.5s;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+  h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  h2 {
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--accent);
+  }
+  h3 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    margin: 1rem 0 0.5rem;
+    color: var(--accent2);
+  }
+  p, li {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    line-height: 1.7;
+    max-width: 700px;
+    text-align: center;
+    margin: 0.3rem 0;
+  }
+  ul {
+    list-style: none;
+    text-align: left;
+    max-width: 600px;
+  }
+  ul li {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+  ul li::before {
+    content: "▸ ";
+    color: var(--accent);
+  }
+  .code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-width: 90vw;
+    width: 600px;
+    margin: 0.8rem 0;
+    overflow-x: auto;
+    color: var(--accent);
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 0.8rem;
+    max-width: 700px;
+    width: 90%;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 90%;
+    max-width: 800px;
+    margin: 1rem 0;
+  }
+  .grid-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .grid-item h4 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  .grid-item p {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  .nav {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+  }
+  .nav button {
+    background: var(--card);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav button:hover {
+    background: var(--accent);
+    color: white;
+  }
+  .dots {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 2rem;
+    display: flex;
+    gap: 6px;
+    z-index: 100;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: all 0.3s;
+  }
+  .dot.active {
+    background: var(--accent);
+    transform: scale(1.3);
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  .theme-toggle:hover {
+    background: var(--accent);
+  }
+  .slide-number {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--border);
+    z-index: 100;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin: 0.2rem;
+  }
+  .comparison {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    width: 90%;
+    max-width: 800px;
+    margin: 1rem 0;
+  }
+  .comparison > div {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .comparison h4 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .comparison p {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .comparison { grid-template-columns: 1fr; }
+    .code { font-size: 0.65rem; padding: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light">🌓</div>
+<div class="slide-number" id="slideNum">1 / 10</div>
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+  <h1>Playwright MCP + Lightpanda</h1>
+  <p style="font-size:1.2rem; margin-top:0.5rem;">Persistent Browser Sessions on macOS</p>
+  <p style="margin-top:1.5rem; color: var(--border);">Non-Headless Mode • Cross-Restart State • Complete Guide</p>
+</div>
+
+<!-- Slide 2: The Landscape -->
+<div class="slide">
+  <h2>Two Different MCP Servers</h2>
+  <div class="grid">
+    <div class="grid-item">
+      <h4>Playwright MCP</h4>
+      <p>Microsoft's official MCP server. Uses Chromium/Firefox/WebKit under the hood. 40+ tools.</p>
+      <span class="badge">npx @playwright/mcp</span>
+    </div>
+    <div class="grid-item">
+      <h4>Lightpanda MCP</h4>
+      <p>Lightpanda's built-in MCP server. Go-based, lightweight browser. 25+ tools.</p>
+      <span class="badge">lightpanda mcp</span>
+    </div>
+  </div>
+  <p style="margin-top:1rem;">Plus: Playwright can <strong>control</strong> Lightpanda via CDP — the hybrid approach.</p>
+</div>
+
+<!-- Slide 3: Playwright MCP Setup -->
+<div class="slide">
+  <h2>1. Playwright MCP — Quick Setup</h2>
+  <div class="code">{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}</div>
+<p>Runs <strong>headed (non-headless) by default</strong> on macOS — browser window is visible.</p>
+<div class="code">npx @playwright/mcp@latest --browser=firefox
+npx @playwright/mcp@latest --headless  # to force headless</div>
+</div>
+
+<!-- Slide 4: Session Persistence -->
+<div class="slide">
+  <h2>2. Session Persistence (Key Feature)</h2>
+  <p>Playwright MCP persists cookies, localStorage, and login state <strong>between sessions by default</strong>.</p>
+  <div class="card">
+    <p style="text-align:left;"><strong>macOS profile location:</strong></p>
+    <div class="code" style="margin:0.5rem 0;">~/Library/Caches/ms-playwright/mcp-{channel}-profile</div>
+    <p style="text-align:left;"><strong>Custom profile:</strong></p>
+    <div class="code" style="margin:0.5rem 0;">--user-data-dir=/Users/you/playwright-profile</div>
+  </div>
+  <p>Login once → close server → restart → still logged in. Survives reboots.</p>
+</div>
+
+<!-- Slide 5: Storage State -->
+<div class="slide">
+  <h2>3. Explicit State Management</h2>
+  <div class="card">
+    <div class="code">→ browser_storage_state
+  State saved to: auth-state.json
+
+→ browser_set_storage_state { path: "./auth-state.json" }
+→ browser_navigate { url: "https://app.example.com" }
+  // Already logged in</div>
+  </div>
+  <p>Or auto-load on startup:</p>
+  <div class="code">npx @playwright/mcp@latest --caps=storage --isolated --storage-state=./auth-state.json</div>
+</div>
+
+<!-- Slide 6: HTTP Transport -->
+<div class="slide">
+  <h2>4. Persistent HTTP Server</h2>
+  <p>Run the MCP server as a long-lived HTTP service:</p>
+  <div class="code">npx @playwright/mcp@latest --port 8931 --shared-browser-context</div>
+  <div class="code">{
+  "mcpServers": {
+    "playwright": {
+      "url": "http://localhost:8931/mcp"
+    }
+  }
+}</div>
+<p><code>--shared-browser-context</code> shares one browser across multiple connected clients.</p>
+</div>
+
+<!-- Slide 7: Lightpanda MCP -->
+<div class="slide">
+  <h2>5. Lightpanda Native MCP</h2>
+  <div class="code">brew install lightpanda-io/lightpanda/lightpanda
+lightpanda mcp</div>
+  <div class="code">{
+  "mcpServers": {
+    "lightpanda": {
+      "command": "/usr/local/bin/lightpanda",
+      "args": ["mcp"]
+    }
+  }
+}</div>
+<p>25+ tools: goto, click, fill, evaluate, extract, search, markdown, html, etc.</p>
+<p>For HTTP with persistence, use <code>supergateway --stateful --sessionTimeout 180000</code>.</p>
+</div>
+
+<!-- Slide 8: Playwright + Lightpanda CDP -->
+<div class="slide">
+  <h2>6. Playwright + Lightpanda via CDP</h2>
+  <p>Start Lightpanda as a CDP server:</p>
+  <div class="code">lightpanda serve --host 127.0.0.1 --port 9222 \
+  --user-data-dir=/Users/you/lightpanda-profile</div>
+  <p>Connect Playwright:</p>
+  <div class="code">import { chromium } from 'playwright-core';
+const browser = await chromium.connectOverCDP(
+  'ws://127.0.0.1:9222');
+const context = await browser.newContext();
+const page = await context.newPage();</div>
+</div>
+
+<!-- Slide 9: Auto-Start on Boot -->
+<div class="slide">
+  <h2>7. Auto-Start on macOS Reboot</h2>
+  <p>Create a <code>launchd</code> agent:</p>
+  <div class="code">~/Library/LaunchAgents/io.lightpanda.cdp.plist
+
+<?xml version="1.0"?>
+<dict>
+  <key>Label</key><string>io.lightpanda.cdp</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/lightpanda</string>
+    <string>serve</string>
+    <string>--host</string><string>127.0.0.1</string>
+    <string>--port</string><string>9222</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+</dict></div>
+<div class="code">launchctl load ~/Library/LaunchAgents/io.lightpanda.cdp.plist</div>
+</div>
+
+<!-- Slide 10: Comparison -->
+<div class="slide">
+  <h2>Comparison &amp; Recommendation</h2>
+  <div class="comparison">
+    <div>
+      <h4>Playwright MCP</h4>
+      <p>Chromium<br>40+ tools<br>Auto persistence<br>Low setup</p>
+    </div>
+    <div>
+      <h4>Lightpanda MCP</h4>
+      <p>Lightpanda<br>25+ tools<br>Per-session state<br>Low setup</p>
+    </div>
+    <div>
+      <h4>PW + Lightpanda CDP</h4>
+      <p>Lightpanda<br>Full API<br>Disk persistence<br>Medium setup</p>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;"><strong>Recommendation:</strong> Start with Playwright MCP for simplicity. Use CDP approach when you need Lightpanda's speed.</p>
+  <p style="margin-top:0.5rem; color: var(--border);">No Xvfb needed on macOS — native display handles headed mode.</p>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">‹</button>
+  <button onclick="nextSlide()">›</button>
+</div>
+<div class="dots" id="dots"></div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+// Build dots
+const dotsContainer = document.getElementById('dots');
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dotsContainer.appendChild(dot);
+}
+
+function update() {
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === current);
+  });
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+  document.getElementById('slideNum').textContent = `${current + 1} / ${total}`;
+}
+
+function nextSlide() {
+  current = (current + 1) % total;
+  update();
+}
+
+function prevSlide() {
+  current = (current - 1 + total) % total;
+  update();
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+});
+
+// Touch/swipe support
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diff) > 50) {
+    diff < 0 ? nextSlide() : prevSlide();
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Better Prompt AI Models to Create SVG</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --fg: #e2e8f0;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --muted: #94a3b8;
+  --card: #1e293b;
+  --border: #334155;
+}
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg2: #f1f5f9;
+  --fg: #0f172a;
+  --accent: #0284c7;
+  --accent2: #6366f1;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #cbd5e1;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.theme-toggle:hover { background: var(--accent); color: white; }
+.slide-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.slide h1 {
+  font-size: clamp(28px, 4vw, 56px);
+  text-align: center;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.slide h2 {
+  font-size: clamp(22px, 3vw, 40px);
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+.slide h3 {
+  font-size: clamp(16px, 2vw, 24px);
+  color: var(--accent2);
+  margin-bottom: 12px;
+}
+.slide p, .slide li {
+  font-size: clamp(14px, 1.5vw, 20px);
+  line-height: 1.7;
+  max-width: 900px;
+  text-align: center;
+}
+.slide ul, .slide ol {
+  text-align: left;
+  max-width: 800px;
+  list-style: none;
+  padding: 0;
+}
+.slide ul li, .slide ol li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  text-align: left;
+}
+.slide ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 24px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.card h3 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.card p {
+  text-align: center;
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+.nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 100;
+}
+.nav button {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.nav button:hover { background: var(--accent); color: white; }
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.4s ease;
+  z-index: 100;
+}
+.dot-nav {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+}
+.highlight {
+  color: var(--accent);
+  font-weight: 600;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 20px;
+}
+.two-col > div {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+@media (max-width: 768px) {
+  .slide { padding: 40px 24px; }
+  .two-col { grid-template-columns: 1fr; gap: 16px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .dot-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+<div class="progress" id="progress"></div>
+<div class="dot-nav" id="dotNav"></div>
+
+<div class="slide-container">
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+  <h1>How to Better Prompt AI Models to Create SVG</h1>
+  <p style="font-size: clamp(16px, 2vw, 24px); color: var(--muted);">A Comprehensive Guide to SVG Prompting Best Practices</p>
+  <p style="margin-top: 32px; color: var(--muted);">Research synthesized from 116 sources · July 2026</p>
+</div>
+
+<!-- Slide 2: Why SVG Is Different -->
+<div class="slide">
+  <h2>Why SVG Is Different</h2>
+  <h3>Text-Native Advantage vs. Complexity Barrier</h3>
+  <div class="two-col">
+    <div>
+      <h3>✅ The Advantage</h3>
+      <ul>
+        <li>SVG is XML-based code, not pixels</li>
+        <li>LLMs process SVG as structured text</li>
+        <li>Natural alignment with language model architecture</li>
+        <li>Enables understanding and generation with capabilities rivaling specialized models</li>
+      </ul>
+    </div>
+    <div>
+      <h3>⚠️ The Barrier</h3>
+      <ul>
+        <li>Universal performance degradation as complexity increases</li>
+        <li>Easy SVG: 70-80% accuracy</li>
+        <li>Medium SVG: drops 20-40%</li>
+        <li>Hard SVG: drops 40-60%</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: The Comprehension-Creation Gap -->
+<div class="slide">
+  <h2>The Comprehension-Creation Gap</h2>
+  <p>Models understand SVG far better than they can generate it.</p>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Understanding</h3>
+      <p>Top models achieve 70-80% semantic understanding</p>
+    </div>
+    <div class="card">
+      <h3>Generation</h3>
+      <p>Path-Structure Similarity rarely exceeds 20%</p>
+    </div>
+    <div class="card">
+      <h3>The Gap</h3>
+      <p>Prompts must bridge what the model understands vs. what it can construct</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Prompt Anatomy -->
+<div class="slide">
+  <h2>Effective SVG Prompt Anatomy</h2>
+  <p style="font-size: clamp(13px, 1.3vw, 17px); background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); max-width: 900px;">
+    <span class="highlight">[Role/Context]</span> + <span class="highlight">[Subject Description]</span> + <span class="highlight">[Structural Specifications]</span> + <span class="highlight">[Styling Details]</span> + <span class="highlight">[Technical Constraints]</span> + <span class="highlight">[Output Format]</span>
+  </p>
+  <div class="two-col" style="margin-top: 24px;">
+    <div>
+      <h3>❌ Bad Prompt</h3>
+      <p>"Draw a cute cat"</p>
+    </div>
+    <div>
+      <h3>✅ Good Prompt</h3>
+      <p>"Create a side-profile cat silhouette using a filled path with smooth curves for the body, triangular ears, and a curved tail. viewBox='0 0 100 100'."</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Key Prompting Principles -->
+<div class="slide">
+  <h2>Key Prompting Principles</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Be Structurally Specific</h3>
+      <p>Specify geometry, attributes, and relationships — not just aesthetic descriptions</p>
+    </div>
+    <div class="card">
+      <h3>Specify Dimensions</h3>
+      <p>Always include viewBox and element positions relative to it</p>
+    </div>
+    <div class="card">
+      <h3>Use SVG Terminology</h3>
+      <p>Reference actual elements: path, circle, rect, polygon. Use SVG commands: M, L, C, Q, A</p>
+    </div>
+    <div class="card">
+      <h3>Set Complexity Limits</h3>
+      <p>Models handle ~10 paths reliably. Beyond that, quality degrades significantly</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Prompt Chaining -->
+<div class="slide">
+  <h2>Prompt Chaining for Complex SVGs</h2>
+  <p>Reasoning-enhanced models perform better with multi-step prompts</p>
+  <div class="card-grid">
+    <div class="card">
+      <h3>1. Plan</h3>
+      <p>"Outline the SVG structure. List all elements needed."</p>
+    </div>
+    <div class="card">
+      <h3>2. Generate</h3>
+      <p>"Create the SVG based on this structure."</p>
+    </div>
+    <div class="card">
+      <h3>3. Refine</h3>
+      <p>"Review for [issues]. Fix them."</p>
+    </div>
+    <div class="card">
+      <h3>4. Optimize</h3>
+      <p>"Optimize following SVGO principles."</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Model-Specific Strategies -->
+<div class="slide">
+  <h2>Model-Specific Strategies</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🟣 Claude</h3>
+      <p>Best overall. Handles detailed specs, color palettes, gradients. Use natural language + technical constraints.</p>
+    </div>
+    <div class="card">
+      <h3>🔵 GPT-4o</h3>
+      <p>Strong generation. Benefits from visual context. Good at image-to-SVG. Specify coordinates explicitly.</p>
+    </div>
+    <div class="card">
+      <h3>🟢 Gemini</h3>
+      <p>Strong multimodal. Good for charts/diagrams. Leverage image input for image-to-SVG tasks.</p>
+    </div>
+    <div class="card">
+      <h3>⚪ Open-Source</h3>
+      <p>Reasoning models (DeepSeek-R1, QwQ-32B) show surprising capabilities. Use step-by-step instructions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Common Mistakes -->
+<div class="slide">
+  <h2>Common Mistakes & Fixes</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Malformed XML</h3>
+      <p><strong>Fix:</strong> "Ensure all tags are properly closed. Use self-closing tags for void elements."</p>
+    </div>
+    <div class="card">
+      <h3>Incorrect Paths</h3>
+      <p><strong>Fix:</strong> Specify command sequence: M, L, C, Z. Ensure valid coordinates.</p>
+    </div>
+    <div class="card">
+      <h3>Inconsistent Styling</h3>
+      <p><strong>Fix:</strong> Specify fill, stroke, stroke-width explicitly for each element.</p>
+    </div>
+    <div class="card">
+      <h3>Coordinate Confusion</h3>
+      <p><strong>Fix:</strong> Define viewBox upfront. All coordinates within 0-100 range.</p>
+    </div>
+    <div class="card">
+      <h3>Overly Complex</h3>
+      <p><strong>Fix:</strong> Break into steps. Limit element count. Specify complexity expectations.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 9: Advanced Techniques -->
+<div class="slide">
+  <h2>Advanced Prompting Techniques</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Context Provision</h3>
+      <p>Tell the model how the SVG will be used (favicon, logo, icon, chart)</p>
+    </div>
+    <div class="card">
+      <h3>Few-Shot Prompting</h3>
+      <p>Provide example input/output pairs to guide format and style</p>
+    </div>
+    <div class="card">
+      <h3>Constraint-Based</h3>
+      <p>Set explicit limits: max elements, no gradients, single color, etc.</p>
+    </div>
+    <div class="card">
+      <h3>Iterative Refinement</h3>
+      <p>Generate → Validate → Optimize → Refine in multiple passes</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 10: Multi-Pass Approach -->
+<div class="slide">
+  <h2>The Multi-Pass Approach</h2>
+  <p>Research shows <span class="highlight">5 automated passes</span> produce significantly better results than a single pass</p>
+  <div class="card-grid">
+    <div class="card">
+      <h3>1. Generate</h3>
+      <p>Create initial SVG from prompt</p>
+    </div>
+    <div class="card">
+      <h3>2. Validate</h3>
+      <p>Check XML validity, tag closure, attributes</p>
+    </div>
+    <div class="card">
+      <h3>3. Optimize</h3>
+      <p>Remove redundancy, simplify paths, compress</p>
+    </div>
+    <div class="card">
+      <h3>4. Visual Check</h3>
+      <p>Verify output matches intent</p>
+    </div>
+    <div class="card">
+      <h3>5. Refine</h3>
+      <p>Address remaining issues</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11: Prompt Templates -->
+<div class="slide">
+  <h2>Ready-to-Use Prompt Templates</h2>
+  <div class="two-col">
+    <div>
+      <h3>Icon Generation</h3>
+      <p style="font-size: clamp(11px, 1.1vw, 15px);">Create a [style] SVG icon of a [subject]. viewBox="0 0 24 24". Use [color] fill. Keep to [N] elements max. No strokes unless specified. Output only valid SVG code.</p>
+    </div>
+    <div>
+      <h3>Data Visualization</h3>
+      <p style="font-size: clamp(11px, 1.1vw, 15px);">Create an SVG bar chart showing [data]. viewBox="0 0 [W] [H]". X-axis: [labels]. Y-axis: [range]. Use [colors] for bars. Include axis labels and title.</p>
+    </div>
+    <div>
+      <h3>Logo Design</h3>
+      <p style="font-size: clamp(11px, 1.1vw, 15px);">Design an SVG logo for [company]. Style: [minimalist/modern]. viewBox="0 0 200 200". Primary color: [color]. Keep it scalable and recognizable at small sizes.</p>
+    </div>
+    <div>
+      <h3>UI Elements</h3>
+      <p style="font-size: clamp(11px, 1.1vw, 15px);">Create an SVG [button/checkbox/toggle]. viewBox="0 0 [W] [H]". Style: [modern/flat]. Colors: [primary] active, [secondary] inactive. Include hover state.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: Validation Checklist -->
+<div class="slide">
+  <h2>SVG Validation Checklist</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>✅ XML Structure</h3>
+      <p>All tags closed, proper nesting</p>
+    </div>
+    <div class="card">
+      <h3>✅ xmlns Attribute</h3>
+      <p>Correct namespace declaration</p>
+    </div>
+    <div class="card">
+      <h3>✅ viewBox</h3>
+      <p>Valid dimensions defined</p>
+    </div>
+    <div class="card">
+      <h3>✅ Coordinates</h3>
+      <p>All within viewBox bounds</p>
+    </div>
+    <div class="card">
+      <h3>✅ Styling</h3>
+      <p>Consistent across elements</p>
+    </div>
+    <div class="card">
+      <h3>✅ No Duplicates</h3>
+      <p>No duplicate IDs</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13: Future Outlook -->
+<div class="slide">
+  <h2>Future Outlook</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>2026–2027</h3>
+      <p>Specialized SVG models, improved complexity handling, multi-agent pipelines, real-time editing</p>
+    </div>
+    <div class="card">
+      <h3>2027–2029</h3>
+      <p>Autonomous design, style-aware generation, cross-format conversion, personalized generation</p>
+    </div>
+    <div class="card">
+      <h3>2029+</h3>
+      <p>End-to-end autonomous design, adaptive generation, collaborative AI-human co-creation</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Key Recommendations -->
+<div class="slide">
+  <h2>Key Recommendations</h2>
+  <div class="two-col">
+    <div>
+      <h3>For Individuals</h3>
+      <ul>
+        <li>Start simple (2-5 elements)</li>
+        <li>Be explicit about viewBox, colors, types</li>
+        <li>Use iterative refinement</li>
+        <li>Provide usage context</li>
+        <li>Learn SVG basics</li>
+      </ul>
+    </div>
+    <div>
+      <h3>For Teams</h3>
+      <ul>
+        <li>Build prompt templates</li>
+        <li>Implement validation pipelines</li>
+        <li>Choose right model per task</li>
+        <li>Maintain SVG component libraries</li>
+        <li>Fine-tune on your style guide</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 15: Key Takeaways -->
+<div class="slide">
+  <h2>Key Takeaways</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>1. SVG Is Text-Native</h3>
+      <p>XML format aligns naturally with LLMs, but complexity remains a fundamental barrier</p>
+    </div>
+    <div class="card">
+      <h3>2. Structure Matters</h3>
+      <p>Effective prompts combine role, subject, structure, styling, constraints, and format</p>
+    </div>
+    <div class="card">
+      <h3>3. Model Choice Matters</h3>
+      <p>Claude leads in understanding, GPT-4o in generation, reasoning models show promise</p>
+    </div>
+    <div class="card">
+      <h3>4. Iterate, Don't Expect Perfection</h3>
+      <p>Multi-pass refinement (5 passes) significantly improves results over single-shot</p>
+    </div>
+    <div class="card">
+      <h3>5. Context & Constraints Help</h3>
+      <p>Specify use case, complexity limits, and validation requirements for better output</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 16: Conclusion -->
+<div class="slide">
+  <h1>SVG Prompting Is a Skill</h1>
+  <p style="font-size: clamp(18px, 2.5vw, 28px); max-width: 800px;">Combine <span class="highlight">technical SVG knowledge</span> with <span class="highlight">model-aware strategies</span> and <span class="highlight">iterative refinement</span> to produce high-quality SVG code that rivals hand-crafted designs.</p>
+  <p style="margin-top: 40px; color: var(--muted);">Research: 116 sources · 78 queries · 7 rounds · July 2026</p>
+</div>
+
+</div>
+
+<div class="nav">
+  <button onclick="prevSlide()">← Prev</button>
+  <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const progress = document.getElementById('progress');
+const dotNav = document.getElementById('dotNav');
+
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToSlide(i);
+  dotNav.appendChild(dot);
+}
+
+function updateSlide() {
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === current);
+  });
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+  progress.style.width = ((current + 1) / total * 100) + '%';
+}
+
+function nextSlide() {
+  if (current < total - 1) { current++; updateSlide(); }
+}
+
+function prevSlide() {
+  if (current > 0) { current--; updateSlide(); }
+}
+
+function goToSlide(i) {
+  current = i;
+  updateSlide();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (diff < -50) nextSlide();
+  if (diff > 50) prevSlide();
+});
+
+updateSlide();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+https://www.reddit.com/r/MachineLearning/comments/1idpqas/r_n_opensource_8b_evaluation_model_beats_gpt4o/
+https://www.trychroma.com/research/context-1
+https://huggingface.co/blog/AtlaAI/selene-1-mini
+https://www.nature.com/articles/s41591-026-04431-5
+https://www.helpnetsecurity.com/2026/07/21/cisco-antares-vulnerability-localization-released/
+https://wavect.io/blog/cisco-antares-local-vulnerability-localization/
+https://www.marktechpost.com/2026/07/21/cisco-foundation-ai-releases-antares-350m-and-1b-open-weight-models-that-localize-known-vulnerabilities-inside-real-codebases/
+https://github.com/WeiboAI/VibeThinker
+https://www.reddit.com/r/LocalLLaMA/comments/1u7u3ls/vibethinker3b_what_is_this_witchcraft_killing_it/
+https://arxiv.org/html/2511.06221v1

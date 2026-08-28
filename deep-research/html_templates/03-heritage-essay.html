@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfcfb;
+    --ink: #1c1917;
+    --muted: #78716c;
+    --accent: #b45309;
+    --accent-light: #fef3c7;
+    --parchment: #f5f0e8;
+    --border: #e7e5e4;
+  }
+
+  * { margin: 0; padding: 0; box-box: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    line-height: 1.8;
+    font-weight: 300;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ——— CENTERED PAPER LAYOUT ——— */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ——— MASTHEAD ——— */
+  .masthead {
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .masthead-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+  }
+
+  .masthead-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .masthead-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .masthead-rule-bottom {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 3rem auto 0;
+  }
+
+  /* ——— ARTICLE SECTIONS ——— */
+  .article {
+    padding: 3rem 0;
+  }
+
+  .article-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-section:first-child {
+    border-top: none;
+  }
+
+  .section-number {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .article-section h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .article-section p {
+    font-size: 1.05rem;
+    color: #44403c;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-section p.lead {
+    font-size: 1.2rem;
+    color: var(--ink);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ——— DECORATIVE DROP CAP ——— */
+  .drop-cap::first-letter {
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  /* ——— TWO COLUMN ——— */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2.5rem 0;
+  }
+
+  .two-col-col h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .two-col-col p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ——— FULL-WIDTH CALLOUT ——— */
+  .callout {
+    background: var(--parchment);
+    padding: 3rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .callout p {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ——— SEPARATOR ——— */
+  .separator {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .separator::before {
+    content: '◆';
+    color: var(--accent-light);
+    font-size: 0.5rem;
+    letter-spacing: 1em;
+  }
+
+  /* ——— REFERENCES ——— */
+  .references {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .ref-list {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  .ref-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    break-inside: avoid;
+  }
+
+  .ref-list li::before {
+    content: '[';
+    color: var(--accent);
+    margin-right: 0.25rem;
+  }
+
+  .ref-list li::after {
+    content: ']';
+    color: var(--accent);
+    margin-left: 0.25rem;
+  }
+
+  /* ——— FOOTER ——— */
+  .report-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .report-footer p {
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 700px) {
+    .page { padding: 0 1.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .ref-list { columns: 1; }
+    .callout { padding: 2rem 1.5rem; }
+    .masthead { padding: 4rem 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-rule"></div>
+  <div class="masthead-tag">Research Report</div>
+  <h1>On the Nature of <em>Deep Research</em></h1>
+  <p class="masthead-sub">A synthesized account of methodology, findings, and implications, drawn from eighty sources across academic and public domains.</p>
+  <div class="masthead-rule-bottom"></div>
+</header>
+
+<!-- ARTICLE -->
+<article class="page article">
+
+  <section class="article-section">
+    <span class="section-number">I</span>
+    <h2>Executive Summary</h2>
+    <p class="lead drop-cap">This report presents the findings of a systematic investigation into deep research methodology — a process combining automated search, academic database querying, content extraction, and thematic synthesis. The resulting analysis is grounded in evidence from dozens of sources and structured to be accessible without sacrificing rigor.</p>
+    <p>The research followed four phases: general web search across diverse queries, targeted academic database searches, PDF content extraction, and finally LLM-powered thematic synthesis. Each phase informed the next, creating a recursive loop of discovery and refinement.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">II</span>
+    <h2>Defining the Territory</h2>
+    <p>At its core, deep research is about going beyond surface-level information retrieval. It is a methodology designed to produce understanding — not just data — by iterating through layers of increasingly targeted inquiry.</p>
+    <div class="two-col">
+      <div class="two-col-col">
+        <h3>Method</h3>
+        <p>Automated query generation, iterative deepening, multi-source extraction, and thematic synthesis into cohesive narrative.</p>
+      </div>
+      <div class="two-col-col">
+        <h3>Output</h3>
+        <p>Structured reports combining definition, evolution, mechanics, challenges, applications, and future outlook with referenced sources.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="article-section">
+    <span class="section-number">III</span>
+    <h2>Evolution & Context</h2>
+    <p>The practice of research has evolved from manual library walks and card catalogs to algorithmic search and, more recently, AI-assisted synthesis. Each evolution has lowered the barrier to entry while simultaneously increasing the complexity of verification.</p>
+    <p>Deep research represents the latest step: not just finding information, but understanding it — surfacing connections between sources that a human reviewer might miss, and synthesizing across domains to produce insights that transcend any single perspective.</p>
+  </section>
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <p>The distinction between information and understanding is the distinction between knowing what sources say and knowing what they mean together.</p>
+  </div>
+
+  <section class="article-section">
+    <span class="section-number">IV</span>
+    <h2>Mechanics</h2>
+    <p>The methodology operates through a carefully structured pipeline. Search queries are generated to cover the topic from multiple angles — overview, technical detail, historical context, comparative analysis, use cases, challenges, and future directions.</p>
+    <p>Results are deduplicated, content is extracted from both web pages and academic PDFs, and the extracted text feeds into a synthesis engine that identifies themes, resolves contradictions, and constructs a coherent narrative. The process typically converges on 80+ unique pages per research cycle.</p>
+  </section>
+
+  <section class="article-section">
+    <span class="section-number">V</span>
+    <h2>Applications & Outlook</h2>
+    <p>Deep research has applications spanning academic literature reviews, industry analysis, competitive intelligence, policy research, and educational content creation. Its impact is measurable in the reduction of time required for comprehensive topic exploration.</p>
+    <p>As the technology matures, we can expect deeper extraction capabilities, better source attribution, and more nuanced synthesis that captures not just what sources agree on, but where productive disagreement exists.</p>
+  </section>
+
+  <!-- REFERENCES -->
+  <div class="references">
+    <h2>References</h2>
+    <ol class="ref-list">
+      <li>Source reference one</li>
+      <li>Source reference two</li>
+      <li>Source reference three</li>
+      <li>Source reference four</li>
+      <li>Source reference five</li>
+      <li>Source reference six</li>
+      <li>Source reference seven</li>
+      <li>Source reference eight</li>
+      <li>Source reference nine</li>
+      <li>Source reference ten</li>
+      <li>Source reference eleven</li>
+      <li>Source reference twelve</li>
+      <li>Source reference thirteen</li>
+      <li>Source reference fourteen</li>
+      <li>Source reference fifteen</li>
+      <li>Source reference sixteen</li>
+      <li>Source reference seventeen</li>
+      <li>Source reference eighteen</li>
+      <li>Source reference nineteen</li>
+      <li>Source reference twenty</li>
+      <li>Source reference twenty one</li>
+      <li>Source reference twenty two</li>
+      <li>Source reference twenty three</li>
+      <li>Source reference twenty four</li>
+      <li>Source reference twenty five</li>
+      <li>Source reference twenty six</li>
+      <li>Source reference twenty seven</li>
+      <li>Source reference twenty eight</li>
+      <li>Source reference twenty nine</li>
+      <li>Source reference thirty</li>
+    </ol>
+  </div>
+
+</article>
+
+<footer class="report-footer page">
+  <p>Deep Research Report &nbsp;·&nbsp; July 2026</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Driven Development Replacing Traditional CI/CD</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --fg: #e2e8f0;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --muted: #94a3b8;
+  --card: #1e293b;
+  --border: #334155;
+}
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg2: #f1f5f9;
+  --fg: #0f172a;
+  --accent: #0284c7;
+  --accent2: #6366f1;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #cbd5e1;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.theme-toggle:hover { background: var(--accent); color: white; }
+.slide-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.slide h1 {
+  font-size: clamp(28px, 4vw, 56px);
+  text-align: center;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.slide h2 {
+  font-size: clamp(22px, 3vw, 40px);
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+.slide h3 {
+  font-size: clamp(16px, 2vw, 24px);
+  color: var(--accent2);
+  margin-bottom: 12px;
+}
+.slide p, .slide li {
+  font-size: clamp(14px, 1.5vw, 20px);
+  line-height: 1.7;
+  max-width: 900px;
+  text-align: center;
+}
+.slide ul, .slide ol {
+  text-align: left;
+  max-width: 800px;
+  list-style: none;
+  padding: 0;
+}
+.slide ul li, .slide ol li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  text-align: left;
+}
+.slide ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 24px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.card h3 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.card p {
+  text-align: center;
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+.nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 100;
+}
+.nav button {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.nav button:hover { background: var(--accent); color: white; }
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.4s ease;
+  z-index: 100;
+}
+.dot-nav {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+}
+.highlight {
+  color: var(--accent);
+  font-weight: 600;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 20px;
+}
+.two-col > div {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+@media (max-width: 768px) {
+  .slide { padding: 40px 24px; }
+  .two-col { grid-template-columns: 1fr; gap: 16px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .dot-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+<div class="progress" id="progress"></div>
+<div class="dot-nav" id="dotNav"></div>
+
+<div class="slide-container">
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+  <h1>AI-Driven Development Replacing Traditional CI/CD</h1>
+  <p style="font-size: clamp(16px, 2vw, 24px); color: var(--muted);">Building Full Agent-Driven Build-Deploy-Test Loops with Human Oversight</p>
+  <p style="margin-top: 32px; color: var(--muted);">Research synthesized from 116 sources · July 2026</p>
+</div>
+
+<!-- Slide 2: The Problem -->
+<div class="slide">
+  <h2>The Problem</h2>
+  <h3>Why Traditional CI/CD Cannot Keep Up</h3>
+  <div class="two-col">
+    <div>
+      <h3>Speed Mismatch</h3>
+      <p>Pipelines take 20–60 min. AI agents work in seconds. The pipeline throttles agents to human speeds.</p>
+    </div>
+    <div>
+      <h3>Context Problem</h3>
+      <p>Agents iterate — generate, test, fix, repeat. Traditional pipelines lose context between stages.</p>
+    </div>
+    <div>
+      <h3>Verification Gap</h3>
+      <p>AI code introduces novel patterns. Traditional test coverage is insufficient for hallucinated imports, context drift, and error propagation.</p>
+    </div>
+    <div>
+      <h3>Cultural Friction</h3>
+      <p>Trust deficits, process inertia, skill gaps, and accountability ambiguity block adoption.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: Loop Engineering -->
+<div class="slide">
+  <h2>Loop Engineering: The New Paradigm</h2>
+  <p>Code quality comes from <span class="highlight">automated iterative refinement</span>, not from a single good prompt.</p>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Iterative Refinement</h3>
+      <p>Agents make multiple passes, improving code with each iteration based on automated feedback</p>
+    </div>
+    <div class="card">
+      <h3>Automated Feedback</h3>
+      <p>Tests, linters, and static analysis provide real-time signals for agents to act on</p>
+    </div>
+    <div class="card">
+      <h3>Context Preservation</h3>
+      <p>Agents maintain state across iterations, learning from previous attempts</p>
+    </div>
+    <div class="card">
+      <h3>Human Oversight</h3>
+      <p>Humans intervene at strategic points, not at every step</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Agent Development Loop -->
+<div class="slide">
+  <h2>The Agent Development Loop</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>1. Task Decomposition</h3>
+      <p>Agent breaks down requirements into subtasks</p>
+    </div>
+    <div class="card">
+      <h3>2. Code Generation</h3>
+      <p>Agents generate code for each subtask</p>
+    </div>
+    <div class="card">
+      <h3>3. Automated Testing</h3>
+      <p>Tests run against generated code</p>
+    </div>
+    <div class="card">
+      <h3>4. Failure Analysis</h3>
+      <p>Agents analyze failures and generate fixes</p>
+    </div>
+    <div class="card">
+      <h3>5. Iterate</h3>
+      <p>Repeat until tests pass or max iterations reached</p>
+    </div>
+    <div class="card">
+      <h3>6. Human Review</h3>
+      <p>Human reviews final output before approval</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Multi-Agent Orchestration -->
+<div class="slide">
+  <h2>Multi-Agent Orchestration</h2>
+  <p>Specialized agents working together through structured protocols</p>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🧠 Planner</h3>
+      <p>Breaks down requirements, creates implementation plans</p>
+    </div>
+    <div class="card">
+      <h3>✍️ Coder</h3>
+      <p>Generates code based on the plan</p>
+    </div>
+    <div class="card">
+      <h3>🔍 Reviewer</h3>
+      <p>Checks quality, security, and correctness</p>
+    </div>
+    <div class="card">
+      <h3>🧪 Tester</h3>
+      <p>Designs tests, analyzes failures</p>
+    </div>
+    <div class="card">
+      <h3>🚀 Deployer</h3>
+      <p>Manages deployment configs and rollouts</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Develop Stage -->
+<div class="slide">
+  <h2>Agent-Driven Development</h2>
+  <div class="two-col">
+    <div>
+      <h3>Current State</h3>
+      <ul>
+        <li>Agents generate code from prompts</li>
+        <li>Quality depends on prompt quality</li>
+        <li>No iterative refinement</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Agent-Driven Approach</h3>
+      <ul>
+        <li>Context-aware generation with full codebase awareness</li>
+        <li>Iterative refinement with linter/static analysis feedback</li>
+        <li>5+ automated passes produce significantly better results</li>
+        <li>Specification-driven development from formal contracts</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Build Stage -->
+<div class="slide">
+  <h2>Agent-Driven Building</h2>
+  <div class="two-col">
+    <div>
+      <h3>Current State</h3>
+      <ul>
+        <li>Deterministic, stateless builds</li>
+        <li>Fixed compilation and dependency resolution</li>
+        <li>No intelligence in build optimization</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Agent-Driven Approach</h3>
+      <ul>
+        <li>Intelligent build optimization based on change analysis</li>
+        <li>Self-healing builds that fix failures automatically</li>
+        <li>Predictive builds using historical data</li>
+        <li>Parallel build orchestration managed by agents</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Test Stage -->
+<div class="slide">
+  <h2>Agent-Driven Testing</h2>
+  <div class="two-col">
+    <div>
+      <h3>Current State</h3>
+      <ul>
+        <li>Fixed test suites run on every change</li>
+        <li>11–27% failure rates from flaky tests</li>
+        <li>Tests are a gate, not a feedback signal</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Agent-Driven Approach</h3>
+      <ul>
+        <li>AI-generated tests focused on changed areas</li>
+        <li>Intelligent test selection — only relevant tests run</li>
+        <li>Self-healing tests that update with legitimate changes</li>
+        <li>Flaky test detection and automatic remediation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 9: Deploy Stage -->
+<div class="slide">
+  <h2>Agent-Driven Deployment</h2>
+  <div class="two-col">
+    <div>
+      <h3>Current State</h3>
+      <ul>
+        <li>Fixed deployment sequences</li>
+        <li>Manual approvals at each stage</li>
+        <li>Limited rollback capabilities</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Agent-Driven Approach</h3>
+      <ul>
+        <li>Risk-aware deployment strategy selection</li>
+        <li>Automated monitoring and instant rollback</li>
+        <li>Progressive rollout management by agents</li>
+        <li>Automated compliance verification</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 10: Challenges -->
+<div class="slide">
+  <h2>Key Challenges & Solutions</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Context Drift</h3>
+      <p><strong>Solution:</strong> Global context manager, dependency graphs, cross-file validation</p>
+    </div>
+    <div class="card">
+      <h3>Error Propagation</h3>
+      <p><strong>Solution:</strong> Isolation boundaries, incremental validation, rollback mechanisms</p>
+    </div>
+    <div class="card">
+      <h3>Verification & Trust</h3>
+      <p><strong>Solution:</strong> Multi-layer verification, human-in-the-loop, explainability</p>
+    </div>
+    <div class="card">
+      <h3>Pipeline Noise</h3>
+      <p><strong>Solution:</strong> AI-powered flaky test detection, intelligent scheduling</p>
+    </div>
+    <div class="card">
+      <h3>Security</h3>
+      <p><strong>Solution:</strong> Security-aware agents, automated scanning, compliance verification</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11: CI/CD Evolution -->
+<div class="slide">
+  <h2>How CI/CD Must Evolve</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Gatekeeper → Supervisor</h3>
+      <p>Real-time feedback, context-aware validation, adaptive thresholds</p>
+    </div>
+    <div class="card">
+      <h3>Linear → Iterative</h3>
+      <p>Support multiple passes, preserve state, integrate feedback</p>
+    </div>
+    <div class="card">
+      <h3>Deterministic → Probabilistic</h3>
+      <p>Probabilistic validation, new quality metrics, adaptive pipelines</p>
+    </div>
+    <div class="card">
+      <h3>Human-Centric → Agent-Centric</h3>
+      <p>Agent APIs, structured protocols, agent authentication, audit trails</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: The Full Loop -->
+<div class="slide">
+  <h2>The Full Loop Architecture</h2>
+  <p>Agent-driven at every stage, human oversight at critical points</p>
+  <div class="card-grid">
+    <div class="card">
+      <h3>1. Requirement</h3>
+      <p>Human provides requirement</p>
+    </div>
+    <div class="card">
+      <h3>2. Decompose</h3>
+      <p>Agent breaks into subtasks</p>
+    </div>
+    <div class="card">
+      <h3>3. Develop Loop</h3>
+      <p>Agent generates, tests, refines iteratively</p>
+    </div>
+    <div class="card">
+      <h3>4. Build Loop</h3>
+      <p>Agent optimizes, builds, validates</p>
+    </div>
+    <div class="card">
+      <h3>5. Test Loop</h3>
+      <p>Agent generates, runs, fixes tests</p>
+    </div>
+    <div class="card">
+      <h3>6. Deploy Loop</h3>
+      <p>Agent deploys, monitors, rolls back</p>
+    </div>
+    <div class="card" style="border-color: var(--accent);">
+      <h3>7. Human Gate ✋</h3>
+      <p>Human reviews and approves final output</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13: Human Intervention -->
+<div class="slide">
+  <h2>Where Humans Intervene</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>🎯 Requirement Clarification</h3>
+      <p>Humans resolve ambiguous requirements</p>
+    </div>
+    <div class="card">
+      <h3>🏗️ Architecture Decisions</h3>
+      <p>Humans approve major architectural changes</p>
+    </div>
+    <div class="card">
+      <h3>🔒 Security Review</h3>
+      <p>Humans review security implications</p>
+    </div>
+    <div class="card">
+      <h3>✅ Final Approval</h3>
+      <p>Humans approve before production deployment</p>
+    </div>
+    <div class="card">
+      <h3>🚨 Incident Response</h3>
+      <p>Humans intervene when agents can't resolve issues</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Future Outlook -->
+<div class="slide">
+  <h2>Future Outlook</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>2026–2027</h3>
+      <p>Agent-native CI/CD platforms, multi-agent orchestration, self-healing pipelines, AI-augmented testing</p>
+    </div>
+    <div class="card">
+      <h3>2027–2029</h3>
+      <p>Autonomous feature delivery, predictive development, adaptive pipelines, cross-organizational agents</p>
+    </div>
+    <div class="card">
+      <h3>2029+</h3>
+      <p>End-to-end autonomous delivery, self-improving pipelines, agent-to-agent collaboration, human-agent symbiosis</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 15: Recommendations -->
+<div class="slide">
+  <h2>Key Recommendations</h2>
+  <div class="two-col">
+    <div>
+      <h3>For Engineering Teams</h3>
+      <ul>
+        <li>Start with agent-assisted development</li>
+        <li>Build agent-native pipelines from day one</li>
+        <li>Invest in agent training on your codebase</li>
+        <li>Establish human oversight protocols</li>
+        <li>Measure agent performance metrics</li>
+      </ul>
+    </div>
+    <div>
+      <h3>For Platform Teams</h3>
+      <ul>
+        <li>Design agent APIs for pipeline interaction</li>
+        <li>Implement secure agent authentication</li>
+        <li>Build comprehensive observability</li>
+        <li>Support iterative pipeline flows</li>
+        <li>Enable self-healing capabilities</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 16: Conclusion -->
+<div class="slide">
+  <h1>The Future is Symbiotic</h1>
+  <p style="font-size: clamp(18px, 2.5vw, 28px); max-width: 800px;">Not human-driven CI/CD. Not fully autonomous agents. A <span class="highlight">symbiotic loop</span> where agents drive the work and humans provide the oversight, with CI/CD evolving to support this new paradigm.</p>
+  <p style="margin-top: 40px; color: var(--muted);">Research: 116 sources · 78 queries · 7 rounds · July 2026</p>
+</div>
+
+</div>
+
+<div class="nav">
+  <button onclick="prevSlide()">← Prev</button>
+  <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const progress = document.getElementById('progress');
+const dotNav = document.getElementById('dotNav');
+
+// Create dots
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToSlide(i);
+  dotNav.appendChild(dot);
+}
+
+function updateSlide() {
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === current);
+  });
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+  progress.style.width = ((current + 1) / total * 100) + '%';
+}
+
+function nextSlide() {
+  if (current < total - 1) { current++; updateSlide(); }
+}
+
+function prevSlide() {
+  if (current > 0) { current--; updateSlide(); }
+}
+
+function goToSlide(i) {
+  current = i;
+  updateSlide();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
+
+// Touch support
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (diff < -50) nextSlide();
+  if (diff > 50) prevSlide();
+});
+
+updateSlide();
+</script>
+</body>
+</html>

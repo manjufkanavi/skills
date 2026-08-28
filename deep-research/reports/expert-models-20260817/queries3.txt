@@ -1,0 +1,20 @@
+Chandra OCR 2 Datalab benchmark
+olmOCR benchmark beats frontier
+Mistral OCR benchmark beats GPT-4o
+specialized math model beats GPT-4o AIME 2026
+DeepSeek math specialist beats frontier
+Qwen math model beats GPT-4o benchmark
+specialized coding model beats GPT-4o SWE-bench 2026
+KAT-Coder benchmark SWE-bench
+Ornith model SWE-bench benchmark
+specialized agentic model beats frontier benchmark
+small model beats GPT-4o function calling benchmark
+specialized model beats frontier model tool use benchmark
+domain model beats GPT-4o sentiment analysis
+specialized model beats frontier model NER benchmark
+tiny model beats GPT-4o text classification
+specialized model beats frontier model summarization benchmark
+small model beats GPT-4o translation benchmark
+domain model beats frontier model speech recognition
+specialized model beats GPT-4o audio transcription benchmark
+tiny model beats frontier model image captioning

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open-Source Antivirus & Threat Detection for Mac & Linux</title>
+<style>
+:root{
+  --bg:#0f1115; --bg2:#161a22; --card:#1b202b; --card2:#222836;
+  --text:#e8ecf4; --muted:#9aa4b8; --accent:#4f8cff; --accent2:#22d3ee;
+  --border:#2a3140; --shadow:0 20px 60px rgba(0,0,0,.5);
+  --chip:#232a38; --chip-text:#c7d2e4;
+}
+[data-theme="light"]{
+  --bg:#f5f7fb; --bg2:#eef1f7; --card:#ffffff; --card2:#f0f3f9;
+  --text:#1a2233; --muted:#5b6b85; --accent:#2563eb; --accent2:#0891b2;
+  --border:#e2e8f0; --shadow:0 20px 60px rgba(30,50,90,.12);
+  --chip:#e8edf6; --chip-text:#33415c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text);
+  overflow:hidden; transition:background .5s,color .5s;
+}
+/* Theme toggle */
+.toggle{
+  position:fixed; top:18px; right:18px; z-index:100;
+  background:var(--card); border:1px solid var(--border); color:var(--text);
+  width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:20px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow); transition:transform .2s;
+}
+.toggle:hover{transform:scale(1.1)}
+/* Progress bar */
+.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:99;transition:width .4s ease}
+/* Slide container */
+.slides{height:100vh;position:relative}
+.slide{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;padding:6vh 8vw;opacity:0;pointer-events:none;
+  transform:translateX(60px) scale(.98);transition:opacity .7s ease,transform .7s ease;
+}
+.slide.active{opacity:1;pointer-events:auto;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.98)}
+/* Typography */
+.kicker{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);font-weight:700;margin-bottom:14px}
+h1{font-size:clamp(28px,5vw,56px);line-height:1.1;font-weight:800;margin-bottom:18px}
+h2{font-size:clamp(22px,3.6vw,40px);font-weight:800;margin-bottom:16px}
+h3{font-size:clamp(16px,2vw,22px);font-weight:700;margin-bottom:10px;color:var(--accent)}
+p{font-size:clamp(14px,1.6vw,18px);line-height:1.65;color:var(--muted);max-width:900px}
+.lead{font-size:clamp(15px,1.9vw,21px);color:var(--text);font-weight:500}
+/* Cards grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:24px}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:20px;box-shadow:var(--shadow);transition:transform .3s,border-color .3s;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.card .name{font-weight:800;font-size:18px;margin-bottom:6px;color:var(--text)}
+.card .cat{font-size:12px;color:var(--accent2);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.card p{font-size:13px;line-height:1.5;color:var(--muted)}
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{background:var(--chip);color:var(--chip-text);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600}
+/* Verdict box */
+.verdict{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:18px 22px;margin-top:20px;max-width:900px}
+.verdict strong{color:var(--accent)}
+/* List */
+ul{list-style:none;margin-top:16px;max-width:900px}
+ul li{position:relative;padding:8px 0 8px 28px;font-size:clamp(14px,1.6vw,18px);color:var(--muted);line-height:1.5}
+ul li::before{content:"▸";position:absolute;left:0;color:var(--accent2);font-weight:700}
+/* Number badge */
+.badge{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:24px;font-weight:800;margin-bottom:16px}
+/* Nav arrows */
+.nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:100}
+.nav button{
+  background:var(--card);border:1px solid var(--border);color:var(--text);
+  width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:18px;
+  box-shadow:var(--shadow);transition:transform .2s,opacity .2s;
+}
+.nav button:hover{transform:scale(1.1)}
+.nav button:disabled{opacity:.3;cursor:default;transform:none}
+.counter{position:fixed;bottom:34px;right:24px;font-size:14px;color:var(--muted);z-index:100;font-weight:600}
+/* Scrollable slide content */
+.scroll{overflow-y:auto;max-height:78vh;padding-right:8px}
+.scroll::-webkit-scrollbar{width:6px}
+.scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+/* Two-col */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;max-width:1000px}
+.cols .col{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
+.cols h4{color:var(--accent2);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+@media(max-width:700px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-theme="dark">
+<div class="progress" id="progress"></div>
+<button class="toggle" id="toggle" title="Toggle theme">🌙</button>
+
+<div class="slides" id="slides">
+
+  <!-- 1: Title -->
+  <section class="slide active">
+    <div class="badge">🛡️</div>
+    <div class="kicker">Deep Research · 2026-08-07</div>
+    <h1>Open-Source Antivirus & Threat Detection<br>for Mac & Linux</h1>
+    <p class="lead">Live monitoring & UI dashboards — the complete open-source security stack, evaluated.</p>
+    <div class="chips">
+      <span class="chip">78 queries</span><span class="chip">3 rounds</span><span class="chip">66 sources</span>
+      <span class="chip">Wazuh</span><span class="chip">OSSEC</span><span class="chip">Falco</span><span class="chip">ClamAV</span>
+    </div>
+  </section>
+
+  <!-- 2: Landscape -->
+  <section class="slide">
+    <div class="kicker">The Landscape</div>
+    <h2>The Open-Source Security Stack</h2>
+    <p class="lead">Mature, self-hosted, no license cost — and several ship full UI dashboards.</p>
+    <div class="grid">
+      <div class="card"><div class="cat">XDR / SIEM</div><div class="name">Wazuh</div><p>Unified endpoint + cloud security with a full web dashboard. 15M+ endpoints.</p></div>
+      <div class="card"><div class="cat">HIDS</div><div class="name">OSSEC</div><p>Log analysis, FIM, rootkit detection. Runs on Windows, Linux, macOS.</p></div>
+      <div class="card"><div class="cat">Runtime</div><div class="name">Falco</div><p>Cloud-native security via eBPF. Containers, K8s, hosts. CNCF-graduated.</p></div>
+      <div class="card"><div class="cat">Antivirus</div><div class="name">ClamAV</div><p>Cisco Talos malware engine. Cross-platform, CLI + daemon.</p></div>
+      <div class="card"><div class="cat">Visibility</div><div class="name">osQuery</div><p>SQL-based endpoint telemetry. FIM, YARA, process/network auditing.</p></div>
+      <div class="card"><div class="cat">Network</div><div class="name">Snort / Suricata</div><p>NIDS/IPS for real-time traffic analysis and packet logging.</p></div>
+    </div>
+  </section>
+
+  <!-- 3: Wazuh -->
+  <section class="slide">
+    <div class="kicker">#1 Recommendation</div>
+    <h2>Wazuh — The Leading Open-Source XDR/SIEM</h2>
+    <p class="lead">The standout choice for Mac + Linux with live monitoring and a polished UI dashboard.</p>
+    <div class="scroll">
+      <ul>
+        <li><strong>Unified XDR + SIEM</strong> — endpoint security, threat intel, security ops, and cloud security in one agent + platform.</li>
+        <li><strong>15M+ protected endpoints</strong>, 100K+ enterprise users, 30M+ downloads/year.</li>
+        <li><strong>Active response</strong> — granular, on-device remediation to keep endpoints clean.</li>
+        <li><strong>Real-time correlation and context</strong> for analysts.</li>
+        <li><strong>Full web SIEM dashboard</strong> — alerts, compliance views, agent management.</li>
+        <li>Integrates with <strong>VirusTotal, TheHive, PagerDuty</strong> and 50+ systems.</li>
+        <li>FIM, log analysis, vulnerability detection, PCI DSS / HIPAA / GDPR compliance.</li>
+      </ul>
+      <div class="verdict"><strong>Verdict:</strong> The best all-in-one open-source choice for Mac + Linux with live monitoring and a UI dashboard.</div>
+    </div>
+  </section>
+
+  <!-- 4: OSSEC -->
+  <section class="slide">
+    <div class="kicker">HIDS Workhorse</div>
+    <h2>OSSEC — The Most Widely Deployed HIDS</h2>
+    <div class="scroll">
+      <ul>
+        <li><strong>Log analysis</strong> across multiple formats.</li>
+        <li><strong>File integrity monitoring</strong> (FIM) — detects unauthorized file changes.</li>
+        <li><strong>Rootkit detection</strong> and active response.</li>
+        <li>Runs on <strong>Windows, Linux, and macOS</strong>.</li>
+        <li>Basic web UI; pair with <strong>Wazuh</strong> (built on OSSEC) or <strong>ELK/OpenSearch</strong> for a full dashboard.</li>
+        <li><strong>OSSEC+</strong> adds ML detection, ELK integration, and threat intel feeds.</li>
+        <li>Managed by <strong>Atomicorp</strong>; ideal for compliance-driven environments.</li>
+      </ul>
+      <div class="verdict"><strong>Verdict:</strong> Battle-tested HIDS. Choose Wazuh for the dashboard out of the box; raw OSSEC for a minimal footprint.</div>
+    </div>
+  </section>
+
+  <!-- 5: Falco -->
+  <section class="slide">
+    <div class="kicker">Cloud-Native</div>
+    <h2>Falco — Runtime Security via eBPF</h2>
+    <div class="scroll">
+      <ul>
+        <li><strong>CNCF-graduated</strong> project for hosts, containers, Kubernetes, and cloud.</li>
+        <li><strong>eBPF-powered</strong> detection of malicious behavior at any scale.</li>
+        <li><strong>Real-time streaming detection</strong> of unexpected behavior, config changes, and attacks.</li>
+        <li><strong>Regulatory compliance</strong> monitoring in cloud-native systems.</li>
+        <li><strong>50+ integrations</strong> — forwards JSON alerts to any SIEM/data lake.</li>
+        <li>Runs on <strong>x64 & ARM</strong>; official Helm chart for Kubernetes.</li>
+        <li>No native dashboard — pair with Wazuh, ELK, or Splunk.</li>
+      </ul>
+      <div class="verdict"><strong>Verdict:</strong> Essential for containerized/K8s environments. Pair with a SIEM for the dashboard.</div>
+    </div>
+  </section>
+
+  <!-- 6: ClamAV -->
+  <section class="slide">
+    <div class="kicker">Malware Engine</div>
+    <h2>ClamAV — The Cross-Platform Antivirus Engine</h2>
+    <div class="scroll">
+      <ul>
+        <li>Developed by <strong>Cisco Talos</strong>; detects trojans, viruses, worms, and malware.</li>
+        <li><strong>Command-line scanner</strong> + automatically updating signature database.</li>
+        <li><strong>Scalable multi-threaded daemon</strong> for high-performance production scanning.</li>
+        <li>Inspects compressed archives, document formats, and executables.</li>
+        <li><strong>Bytecode signature system</strong> for advanced detection logic.</li>
+        <li>Available on <strong>Linux and macOS</strong> (Homebrew: <code>brew install clamav</code>).</li>
+        <li>No native UI — integrate with Wazuh or osQuery for live monitoring.</li>
+      </ul>
+      <div class="verdict"><strong>Verdict:</strong> The go-to open-source malware scanner. Combine with a SIEM for monitoring.</div>
+    </div>
+  </section>
+
+  <!-- 7: osQuery -->
+  <section class="slide">
+    <div class="kicker">Endpoint Visibility</div>
+    <h2>osQuery — SQL-Based Endpoint Visibility</h2>
+    <div class="scroll">
+      <ul>
+        <li><strong>SQL querying</strong> of processes, network connections, file hashes, and more.</li>
+        <li><strong>File integrity monitoring</strong> (FIM) and <strong>YARA scanning</strong>.</li>
+        <li>Process and network auditing via <strong>BPF, Audit, OpenBSM, EndpointSecurity</strong>.</li>
+        <li>Cross-platform: <strong>Linux, macOS, Windows</strong>.</li>
+        <li>No native dashboard — pair with <strong>Fleet</strong> or forward to a SIEM.</li>
+        <li>Excellent for building custom live-monitoring queries.</li>
+      </ul>
+      <div class="verdict"><strong>Verdict:</strong> Powerful for advanced users who want granular, queryable endpoint telemetry.</div>
+    </div>
+  </section>
+
+  <!-- 8: Network + Support -->
+  <section class="slide">
+    <div class="kicker">Network & Support</div>
+    <h2>Snort, Suricata, TheHive & MISP</h2>
+    <div class="cols">
+      <div class="col">
+        <h4>Network IDS/IPS</h4>
+        <ul>
+          <li><strong>Snort</strong> — real-time traffic analysis, packet logging, huge community rule set.</li>
+          <li><strong>Suricata</strong> — high-throughput NIDS/IPS, runs on Linux & macOS, ELK integration.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Incident Response & Intel</h4>
+        <ul>
+          <li><strong>TheHive</strong> — open-source SOAR with full web UI, case management.</li>
+          <li><strong>MISP</strong> — threat intelligence sharing platform with web UI.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><strong>Also:</strong> Cisco Talos ships a full free suite — Snort, ClamAV, PE-Sig, BASS, Mutiny Fuzzer, PyLocky Decryptor, and more.</div>
+  </section>
+
+  <!-- 9: Recommendations -->
+  <section class="slide">
+    <div class="kicker">Recommendations</div>
+    <h2>Stack by Use Case</h2>
+    <div class="cols">
+      <div class="col">
+        <h4>Mac + Linux home lab / SOHO</h4>
+        <ul>
+          <li><strong>Wazuh</strong> — agents on all hosts, unified XDR/SIEM dashboard.</li>
+          <li><strong>ClamAV</strong> — on-demand malware scanning.</li>
+          <li><strong>osQuery</strong> — granular SQL endpoint queries.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Linux servers / containers / K8s</h4>
+        <ul>
+          <li><strong>Falco</strong> — runtime security via eBPF.</li>
+          <li><strong>Wazuh</strong> — SIEM aggregation + dashboard.</li>
+          <li><strong>Suricata</strong> — network-layer IDS/IPS.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Compliance-driven</h4>
+        <ul>
+          <li><strong>OSSEC / Wazuh</strong> — FIM + log analysis.</li>
+          <li><strong>TheHive</strong> — incident response case management.</li>
+          <li><strong>MISP</strong> — threat intelligence sharing.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Layered defense (best results)</h4>
+        <ul>
+          <li>Endpoint: <strong>Wazuh/OSSEC</strong></li>
+          <li>Runtime: <strong>Falco</strong></li>
+          <li>Network: <strong>Suricata</strong></li>
+          <li>Malware: <strong>ClamAV</strong></li>
+          <li>All feeding a central SIEM dashboard.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10: Key Takeaways -->
+  <section class="slide">
+    <div class="kicker">Key Takeaways</div>
+    <h2>What Matters Most</h2>
+    <div class="scroll">
+      <ul>
+        <li><strong>Wazuh is the clear winner</strong> for open-source, cross-platform (Mac + Linux) threat detection with a live monitoring UI dashboard.</li>
+        <li><strong>Falco</strong> is essential for cloud-native/containerized environments.</li>
+        <li><strong>ClamAV</strong> remains the standard open-source malware scanner, but lacks a dashboard — pair it with a SIEM.</li>
+        <li><strong>OSSEC</strong> is battle-tested but its dashboard story is weaker than Wazuh's.</li>
+        <li><strong>osQuery</strong> offers unmatched queryable telemetry for power users.</li>
+        <li><strong>Snort/Suricata</strong> cover the network layer; <strong>TheHive/MISP</strong> cover incident response and threat intel.</li>
+        <li>The best results come from <strong>layering</strong>: endpoint + runtime + network + malware, all feeding a central SIEM dashboard.</li>
+      </ul>
+      <div class="verdict"><strong>Bottom line:</strong> Start with Wazuh for the dashboard, add ClamAV for scanning, Falco for containers, and Suricata for the network layer.</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prev" disabled>←</button>
+  <button id="next">→</button>
+</div>
+<div class="counter" id="counter">1 / 10</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const counter=document.getElementById('counter');
+const prev=document.getElementById('prev');
+const next=document.getElementById('next');
+const progress=document.getElementById('progress');
+const toggle=document.getElementById('toggle');
+let cur=0;
+
+function show(i){
+  slides.forEach((s,idx)=>{
+    s.classList.remove('active','prev');
+    if(idx===i)s.classList.add('active');
+    else if(idx<i)s.classList.add('prev');
+  });
+  cur=i;
+  counter.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;
+  next.disabled=i===slides.length-1;
+  progress.style.width=((i+1)/slides.length*100)+'%';
+}
+prev.onclick=()=>show(Math.max(0,cur-1));
+next.onclick=()=>show(Math.min(slides.length-1,cur+1));
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')next.click();
+  if(e.key==='ArrowLeft')prev.click();
+});
+toggle.onclick=()=>{
+  const d=document.body.dataset.theme==='dark'?'light':'dark';
+  document.body.dataset.theme=d;
+  toggle.textContent=d==='dark'?'🌙':'☀️';
+};
+show(0);
+</script>
+</body>
+</html>

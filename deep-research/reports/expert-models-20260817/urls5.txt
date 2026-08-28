@@ -1,0 +1,10 @@
+https://www.futurehouse.org/research-announcements/ether0-a-scientific-reasoning-model-for-chemistry
+https://arxiv.org/html/2603.23646v1
+https://www.haqq.ai/blog/best-ai-for-legal-work-benchmark
+https://www.reddit.com/r/LocalLLaMA/comments/1rv98wo/qwen359b_on_document_benchmarks_where_it_beats/
+https://friendli.ai/blog/friendli-tools-llama3-outperforms-gpt4o
+https://www.linkedin.com/posts/manoj-kumar-57188b122_agentflow-small-models-big-brains-7b-agents-activity-7415312718968045568-Fk3U
+https://www.agilerl.com/blog/partnering-with-nvidia-for-post-training-nemotron-models-to-beat-frontier-apis
+https://www.reddit.com/r/LLMDevs/comments/1k0lt3p/classification_with_genai_where_gpt4o_falls_short/
+https://www.reddit.com/r/LocalLLaMA/comments/1kgxpww/whats_the_best_model_for_image_captioning_right/
+https://www.lennijusten.com/blog/biology-benchmarks/

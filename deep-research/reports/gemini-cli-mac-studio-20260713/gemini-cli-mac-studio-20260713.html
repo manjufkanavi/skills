@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini CLI on Mac Studio</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{ font-family: 'Inter', system-ui, sans-serif; background: #0a0a1a; color: #e0e0e0; }}
+        .slides {{ position: relative; width: 100vw; height: 100vh; overflow: hidden; }}
+        .slide {{
+            position: absolute; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 60px 80px; opacity: 0; transition: opacity 0.6s; pointer-events: none;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
+        }}
+        .slide.active {{ opacity: 1; pointer-events: auto; }}
+        .slide h1 {{ font-size: 2.5em; color: #4285f4; margin-bottom: 20px; text-align: center; }}
+        .slide h2 {{ font-size: 2em; color: #34a853; margin-bottom: 30px; }}
+        .slide h3 {{ font-size: 1.4em; color: #fbbc04; margin: 15px 0 10px; }}
+        .slide p, .slide li {{ font-size: 1.15em; line-height: 1.8; color: #ccc; max-width: 900px; text-align: center; }}
+        .slide ul {{ text-align: left; max-width: 800px; display: inline-block; }}
+        .slide li {{ margin: 8px 0; text-align: left; }}
+        .slide code {{ background: #1e1e3e; padding: 2px 8px; border-radius: 4px; font-family: monospace; color: #ff6b6b; }}
+        .nav {{ position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }}
+        .nav button {{ background: #4285f4; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 1em; }}
+        .nav button:hover {{ background: #3367d6; }}
+        .dots {{ position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 100; }}
+        .dot {{ width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer; }}
+        .dot.active {{ background: #4285f4; }}
+        .counter {{ position: fixed; top: 20px; right: 30px; color: #555; font-size: 0.9em; z-index: 100; }}
+        table {{ border-collapse: collapse; margin: 20px auto; max-width: 900px; }}
+        th, td {{ border: 1px solid #333; padding: 12px 16px; text-align: left; }}
+        th {{ background: #1a1a3a; color: #4285f4; }}
+        td {{ color: #ccc; }}
+        .highlight {{ color: #34a853; font-weight: bold; }}
+    </style>
+</head>
+<body>
+    <div class="slides">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>🤖 Gemini CLI on Mac Studio</h1>
+            <p>Comprehensive Research Report — July 13, 2026</p>
+            <p style="margin-top: 20px; color: #888;">Mac Studio M4 · google-genai v2.11.0 · GEMINI_API_KEY</p>
+        </div>
+
+        <!-- Slide 2: Executive Summary -->
+        <div class="slide">
+            <h2>📋 Executive Summary</h2>
+            <ul>
+                <li>Google's Gemini API is <span class="highlight">API-first</span> — no native CLI binary</li>
+                <li>Python SDK <code>google-genai</code> is the primary interface</li>
+                <li>35+ models: text, image (Imagen 4.0), video (Veo 3.1), audio, embedding</li>
+                <li>Installed on Mac Studio M4 via <code>uv pip install google-genai</code></li>
+                <li>API key in <code>~/.bash_profile</code> (must read from file)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Models Overview -->
+        <div class="slide">
+            <h2>🎯 Available Models</h2>
+            <table>
+                <tr><th>Category</th><th>Models</th></tr>
+                <tr><td>Text</td><td>gemini-2.0-flash, 2.5-flash, 2.5-pro, 3.1-pro-preview, 3.5-flash</td></tr>
+                <tr><td>Image</td><td>imagen-4.0-generate, ultra, fast</td></tr>
+                <tr><td>Video</td><td>veo-3.1-generate, fast, lite</td></tr>
+                <tr><td>Audio</td><td>gemini-native-audio, lyria-3</td></tr>
+                <tr><td>Embedding</td><td>gemini-embedding-001, 2</td></tr>
+                <tr><td>Specialty</td><td>deep-research, computer-use, robotics</td></tr>
+            </table>
+        </div>
+
+        <!-- Slide 4: Setup -->
+        <div class="slide">
+            <h2>⚙️ Installation & Setup</h2>
+            <h3>1. Install SDK</h3>
+            <code>uv pip install google-genai</code>
+            <h3>2. Set API Key</h3>
+            <code>export GEMINI_API_KEY="..."</code> in <code>~/.bash_profile</code>
+            <h3>3. Initialize Client</h3>
+            <code>client = genai.Client(api_key=key)</code>
+        </div>
+
+        <!-- Slide 5: Core Capabilities -->
+        <div class="slide">
+            <h2>🔧 Core API Capabilities</h2>
+            <ul>
+                <li><span class="highlight">generate_content</span> — Text generation</li>
+                <li><span class="highlight">generate_content_stream</span> — Streaming output</li>
+                <li><span class="highlight">chats.create</span> — Multi-turn conversation</li>
+                <li><span class="highlight">files.upload</span> — Upload any file (PDF, audio, video, images)</li>
+                <li><span class="highlight">count_tokens</span> — Token counting</li>
+                <li><span class="highlight">embeddings.get</span> — Text embeddings</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Image & Video Generation -->
+        <div class="slide">
+            <h2>🎨 Image & Video Generation</h2>
+            <h3>Imagen 4.0 — Image</h3>
+            <ul>
+                <li>Standard, Ultra, and Fast modes</li>
+                <li>Prompt-based generation</li>
+                <li>Integration with Gemini text models</li>
+            </ul>
+            <h3>Veo 3.1 — Video</h3>
+            <ul>
+                <li>Full, Fast, and Lite modes</li>
+                <li>Text-to-video generation</li>
+                <li>Cinematic quality output</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Deep Research -->
+        <div class="slide">
+            <h2>🔬 Deep Research Preview</h2>
+            <ul>
+                <li><span class="highlight">deep-research-preview</span> — Standard depth</li>
+                <li><span class="highlight">deep-research-pro</span> — Pro depth</li>
+                <li><span class="highlight">deep-research-max</span> — Maximum depth</li>
+                <li>Multi-round web search + synthesis</li>
+                <li>Automated report generation</li>
+            </ul>
+        </div>
+
+        <!-- Slide 8: Skill Architecture -->
+        <div class="slide">
+            <h2>📁 Skill Architecture</h2>
+            <code>skills/gemini-cli/</code>
+            <ul>
+                <li><code>gemini_call.py</code> — Core text generation wrapper</li>
+                <li><code>gemini_image.py</code> — Imagen 4.0 image generation</li>
+                <li><code>gemini_video.py</code> — Veo 3.1 video generation</li>
+                <li><code>gemini_file.py</code> — File upload & analysis</li>
+                <li><code>gemini_tool.py</code> — Master CLI entry point</li>
+                <li><code>gemini_search.py</code> — Web search + grounding</li>
+                <li><code>gemini_deep_research.py</code> — Deep research</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Use Cases -->
+        <div class="slide">
+            <h2>🚀 Use Cases</h2>
+            <ul>
+                <li>Software development (code gen, review, debugging)</li>
+                <li>Content creation (poetry analysis, blog posts)</li>
+                <li>Data analysis (PDF/DOCX/XLSX analysis)</li>
+                <li>Creative (images, videos, audio)</li>
+                <li>Research (deep research, literature review)</li>
+                <li>Automation (function calling, web search)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 10: Integration -->
+        <div class="slide">
+            <h2>🔗 Integration with Existing Tools</h2>
+            <ul>
+                <li><span class="highlight">Tiny Fish API</span> — Search → Fetch → Gemini Analyze</li>
+                <li><span class="highlight">Browser Skill</span> — Browse → Extract → Gemini Understand</li>
+                <li><span class="highlight">mflux Image Gen</span> — Gemini describes → mflux creates</li>
+                <li><span class="highlight">Kannada Poet Skill</span> — Gemini-powered lyrics & analysis</li>
+            </ul>
+        </div>
+
+        <!-- Slide 11: Key Commands -->
+        <div class="slide">
+            <h2>⌨️ Quick Start Commands</h2>
+            <ul>
+                <li><code>generate_content(model, contents)</code> — Text generation</li>
+                <li><code>generate_content_stream(...)</code> — Streaming</li>
+                <li><code>chats.create(model)</code> — Chat session</li>
+                <li><code>files.upload(file)</code> — Upload files</li>
+                <li><code>count_tokens(model, contents)</code> — Token counting</li>
+                <li><code>embeddings.get(model, content)</code> — Embeddings</li>
+            </ul>
+        </div>
+
+        <!-- Slide 12: Summary -->
+        <div class="slide">
+            <h1>🎯 Key Takeaways</h1>
+            <ul>
+                <li>Gemini is API-first — <code>google-genai</code> SDK is the tool</li>
+                <li>35+ models covering text, image, video, audio, embedding</li>
+                <li>API key must be read from file (platform truncation)</li>
+                <li>Strong integration with existing Hermes tools</li>
+                <li>Deep research, computer use, and robotics previews available</li>
+                <li>Build skill with modular scripts for each capability</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="counter" id="counter">1 / 12</div>
+    <div class="nav">
+        <button onclick="prev()">← Previous</button>
+        <button onclick="next()">Next →</button>
+    </div>
+    <div class="dots" id="dots"></div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+
+        // Create dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goTo(i);
+            dotsContainer.appendChild(dot);
+        });
+
+        function update() {
+            slides.forEach((s, i) => s.classList.toggle('active', i === current));
+            document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+            document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+        }
+
+        function next() { current = (current + 1) % slides.length; update(); }
+        function prev() { current = (current - 1 + slides.length) % slides.length; update(); }
+        function goTo(i) { current = i; update(); }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') next();
+            if (e.key === 'ArrowLeft') prev();
+            if (e.key === 'Home') { current = 0; update(); }
+            if (e.key === 'End') { current = slides.length - 1; update(); }
+        });
+
+        update();
+    </script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f7;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #c4956a;
+    --accent-light: #f5ece4;
+    --border: #e8e4df;
+    --card: #ffffff;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ——— HERO ——— */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+    opacity: 0.6;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(196,149,106,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin-top: 3rem;
+  }
+
+  /* ——— SECTIONS ——— */
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+  }
+
+  .section p {
+    font-size: 1.05rem;
+    color: #444;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .section p.lead {
+    font-size: 1.25rem;
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  /* ——— DIVIDER ——— */
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .divider-line {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+
+  /* ——— QUOTE ——— */
+  .pull-quote {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .pull-quote blockquote {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 650px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .pull-quote blockquote::before {
+    content: '"';
+    font-size: 6rem;
+    color: var(--accent-light);
+    position: absolute;
+    top: -2rem;
+    left: -1rem;
+    font-family: var(--serif);
+    line-height: 1;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: normal;
+    letter-spacing: 0.1em;
+  }
+
+  /* ——— KEY POINTS ——— */
+  .key-points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .key-point {
+    padding: 2rem;
+    background: var(--card);
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s ease;
+  }
+
+  .key-point:hover {
+    border-color: var(--accent);
+  }
+
+  .key-point-number {
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .key-point h3 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .key-point p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ——— REFERENCES ——— */
+  .references {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .references h2 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 3rem;
+  }
+
+  .ref-list {
+    list-style: none;
+    counter-reset: ref;
+  }
+
+  .ref-list li {
+    counter-increment: ref;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .ref-list li::before {
+    content: '[' counter(ref) ']';
+    color: var(--accent);
+    font-weight: 500;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ——— FOOTER ——— */
+  .report-footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .report-footer p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .key-points { grid-template-columns: 1fr; }
+    .pull-quote blockquote { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Research Report</div>
+  <h1>Understanding <em>Deep Research</em> and Its Impact</h1>
+  <p class="hero-sub">A comprehensive investigation synthesized from dozens of sources, academic papers, and industry analysis into a single cohesive narrative.</p>
+  <div class="hero-line"></div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section class="section">
+  <div class="section-label">Executive Summary</div>
+  <h2>The Landscape in Brief</h2>
+  <p class="lead">This report synthesizes findings from 80+ unique sources across general web, academic research databases, and technical documentation to provide a comprehensive understanding of the topic.</p>
+  <p>Deep research methodology combines automated search, content extraction, and thematic analysis to produce findings that approach the rigor of academic surveys while maintaining accessibility. The process identifies key themes, resolves contradictions between sources, and constructs a narrative that advances understanding beyond what any single source provides.</p>
+  <p>The resulting report balances depth with readability — structured to guide a non-specialist through complex material without sacrificing nuance or evidence.</p>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- KEY FINDINGS -->
+<section class="section">
+  <div class="section-label">Key Findings</div>
+  <h2>Thematic Clusters</h2>
+  <div class="key-points">
+    <div class="key-point">
+      <div class="key-point-number">01</div>
+      <h3>Definition & Scope</h3>
+      <p>Core concepts, boundaries of the field, and how it differs from adjacent disciplines.</p>
+    </div>
+    <div class="key-point">
+      <div class="key-point-number">02</div>
+      <h3>Evolution & Context</h3>
+      <p>Historical development, paradigm shifts, and the forces that shaped current understanding.</p>
+    </div>
+    <div class="key-point">
+      <div class="key-point-number">03</div>
+      <h3>Mechanics & Practice</h3>
+      <p>How the concept works in practice, methodologies, and implementation frameworks.</p>
+    </div>
+    <div class="key-point">
+      <div class="key-point-number">04</div>
+      <h3>Challenges & Tensions</h3>
+      <p>Limitations, open questions, and areas where consensus has not yet formed.</p>
+    </div>
+    <div class="key-point">
+      <div class="key-point-number">05</div>
+      <h3>Applications</h3>
+      <p>Real-world use cases, industry adoption, and measurable impact in practice.</p>
+    </div>
+    <div class="key-point">
+      <div class="key-point-number">06</div>
+      <h3>Future Outlook</h3>
+      <p>Trajectories, emerging trends, and where the field is heading next.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- QUOTE -->
+<div class="pull-quote">
+  <blockquote>
+    The best research doesn't just accumulate information — it reveals patterns invisible to any single perspective.
+  </blockquote>
+  <cite>— Synthesized from source analysis</cite>
+</div>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- REFERENCES -->
+<div class="references">
+  <div class="section-label">Sources</div>
+  <h2>References</h2>
+  <ol class="ref-list">
+    <li>Source reference one — publication, author, year</li>
+    <li>Source reference two — publication, author, year</li>
+    <li>Source reference three — publication, author, year</li>
+    <li>Source reference four — publication, author, year</li>
+    <li>Source reference five — publication, author, year</li>
+    <li>Source reference six — publication, author, year</li>
+    <li>Source reference seven — publication, author, year</li>
+    <li>Source reference eight — publication, author, year</li>
+  </ol>
+</div>
+
+<!-- FOOTER -->
+<footer class="report-footer">
+  <p>Generated by Deep Research &nbsp;·&nbsp; July 2026</p>
+</footer>
+
+</body>
+</html>

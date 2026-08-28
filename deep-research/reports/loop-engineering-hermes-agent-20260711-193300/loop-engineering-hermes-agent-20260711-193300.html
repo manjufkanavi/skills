@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loop Engineering with Hermes Agent</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --text: #e0e0e8;
+    --text-dim: #8888a0;
+    --accent1: #6c5ce7;
+    --accent2: #00cec9;
+    --accent3: #fd79a8;
+    --accent4: #fdcb6e;
+    --accent5: #55efc4;
+    --accent6: #74b9ff;
+    --gradient: linear-gradient(135deg, #6c5ce7, #00cec9);
+    --gradient2: linear-gradient(135deg, #fd79a8, #fdcb6e);
+    --gradient3: linear-gradient(135deg, #55efc4, #74b9ff);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+  }
+  .slide h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .slide h2 {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .slide h3 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--accent2);
+    margin: 15px 0 8px;
+  }
+  .slide p, .slide li {
+    font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+    line-height: 1.7;
+    color: var(--text-dim);
+    max-width: 900px;
+  }
+  .slide ul { list-style: none; padding: 0; }
+  .slide ul li::before { content: "▸ "; color: var(--accent1); }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1100px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid rgba(108,92,231,0.2);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.3s;
+  }
+  .card:hover { border-color: var(--accent1); }
+  .card h3 { margin-top: 0; }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 2px;
+  }
+  .badge-purple { background: rgba(108,92,231,0.2); color: var(--accent1); }
+  .badge-teal { background: rgba(0,206,201,0.2); color: var(--accent2); }
+  .badge-pink { background: rgba(253,121,168,0.2); color: var(--accent3); }
+  .badge-yellow { background: rgba(253,203,110,0.2); color: var(--accent4); }
+  .badge-green { background: rgba(85,239,196,0.2); color: var(--accent5); }
+  .badge-blue { background: rgba(116,185,255,0.2); color: var(--accent6); }
+  .loop-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 20px 0;
+  }
+  .loop-step {
+    background: var(--surface);
+    border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-align: center;
+    position: relative;
+  }
+  .loop-step::after {
+    content: "→";
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent1);
+    font-size: 1.2rem;
+  }
+  .loop-step:last-child::after { display: none; }
+  .loop-step.highlight {
+    border-color: var(--accent2);
+    background: rgba(0,206,201,0.1);
+  }
+  .nav-dots {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  .nav-dots .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .nav-dots .dot.active { background: var(--accent1); }
+  .slide-counter {
+    position: fixed;
+    bottom: 24px;
+    right: 30px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    z-index: 100;
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: var(--surface);
+    border: 1px solid rgba(108,92,231,0.3);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: border-color 0.3s;
+  }
+  .theme-toggle:hover { border-color: var(--accent1); }
+  body.light {
+    --bg: #f5f5fa;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --text-dim: #555570;
+  }
+  body.light .nav-dots .dot { background: rgba(0,0,0,0.15); }
+  body.light .nav-dots .dot.active { background: var(--accent1); }
+  body.light .theme-toggle { border-color: rgba(108,92,231,0.2); }
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 1100px;
+  }
+  .role-card {
+    background: var(--surface);
+    border: 1px solid rgba(108,92,231,0.15);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .role-card h4 {
+    color: var(--accent2);
+    margin: 0 0 8px;
+    font-size: 1rem;
+  }
+  .role-card p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.5;
+  }
+  @media (max-width: 768px) {
+    .slide { padding: 40px 24px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .loop-step::after { display: none; }
+    .loop-diagram { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+
+<!-- Slide 1: Title -->
+<div class="slide active" data-slide="0">
+  <h1>Loop Engineering with Hermes Agent</h1>
+  <p style="text-align:center; max-width:700px; margin:0 auto;">
+    Building a multi-role AI agent team with Product Manager, UX Designer, UI Developer, Backend Engineer, Test Engineers, DevOps, SecOps, and Customer Acceptance Engineer — all communicating in a continuous development loop.
+  </p>
+  <div style="margin-top:30px;">
+    <span class="badge badge-purple">11 Agent Roles</span>
+    <span class="badge badge-teal">Structured Communication</span>
+    <span class="badge badge-pink">Continuous Loop</span>
+  </div>
+</div>
+
+<!-- Slide 2: What is Loop Engineering -->
+<div class="slide" data-slide="1">
+  <h2>What Is Loop Engineering?</h2>
+  <div class="grid-2">
+    <div>
+      <h3>Traditional Prompt Engineering</h3>
+      <ul>
+        <li>One-off query-response pattern</li>
+        <li>AI as a tool, not a team member</li>
+        <li>No state persistence between interactions</li>
+        <li>Human drives every step</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Loop Engineering</h3>
+      <ul>
+        <li>Continuous iterative feedback cycles</li>
+        <li>AI as persistent team members with roles</li>
+        <li>Shared state and artifacts across agents</li>
+        <li>Automated handoffs between phases</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: The Loop -->
+<div class="slide" data-slide="2">
+  <h2>The Development Loop</h2>
+  <div class="loop-diagram">
+    <div class="loop-step highlight">1. Requirement</div>
+    <div class="loop-step highlight">2. Design</div>
+    <div class="loop-step">3. Implement</div>
+    <div class="loop-step">4. Test</div>
+    <div class="loop-step">5. Security</div>
+    <div class="loop-step">6. Deploy</div>
+    <div class="loop-step highlight">7. Accept</div>
+    <div class="loop-step">8. Feedback</div>
+  </div>
+  <p style="text-align:center; margin-top:20px;">
+    Each phase has a responsible agent. Independent phases run in parallel. Phase gates enforce quality before proceeding.
+  </p>
+</div>
+
+<!-- Slide 4: Agent Roles Overview -->
+<div class="slide" data-slide="3">
+  <h2>Agent Roles Overview</h2>
+  <div class="role-grid">
+    <div class="role-card">
+      <h4>📋 Product Manager</h4>
+      <p>Translates business needs into user stories with acceptance criteria. Manages backlog and prioritization.</p>
+    </div>
+    <div class="role-card">
+      <h4>🎨 UX Designer</h4>
+      <p>Creates user flows, wireframes, and interaction specs. Ensures accessibility compliance.</p>
+    </div>
+    <div class="role-card">
+      <h4>💻 UI Developer</h4>
+      <p>Implements frontend from designs. Builds responsive, accessible components with API integration.</p>
+    </div>
+    <div class="role-card">
+      <h4>⚙️ Backend Engineer</h4>
+      <p>Designs APIs, database schemas, and business logic. Documents OpenAPI specifications.</p>
+    </div>
+    <div class="role-card">
+      <h4>🧪 Backend Test Engineer</h4>
+      <p>API integration tests, database tests, load testing, and coverage tracking.</p>
+    </div>
+    <div class="role-card">
+      <h4>🖥️ UI Test Engineer</h4>
+      <p>E2E tests, visual regression, accessibility audits, and cross-browser testing.</p>
+    </div>
+    <div class="role-card">
+      <h4>🚀 DevOps Engineer</h4>
+      <p>CI/CD pipelines, container orchestration, infrastructure as code, and monitoring.</p>
+    </div>
+    <div class="role-card">
+      <h4>🔒 SecOps Engineer</h4>
+      <p>SAST/SCA scans, container security, compliance checks, and threat modeling.</p>
+    </div>
+    <div class="role-card">
+      <h4>✅ Customer Acceptance</h4>
+      <p>Validates features against acceptance criteria. Provides release readiness assessments.</p>
+    </div>
+    <div class="role-card">
+      <h4>🏗️ Architect</h4>
+      <p>Defines system architecture, technology choices, and design patterns. Reviews ADRs.</p>
+    </div>
+    <div class="role-card">
+      <h4>🔧 Developer</h4>
+      <p>General-purpose coding for tasks across the stack. Scripts, docs, and code reviews.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Communication Protocol -->
+<div class="slide" data-slide="4">
+  <h2>Inter-Agent Communication</h2>
+  <div class="grid-2">
+    <div>
+      <h3>Message Bus Topics</h3>
+      <ul>
+        <li><span class="badge badge-purple">feature-requests</span> Product Manager</li>
+        <li><span class="badge badge-teal">design-specs</span> UX Designer</li>
+        <li><span class="badge badge-pink">api-contracts</span> Backend Engineer</li>
+        <li><span class="badge badge-yellow">build-status</span> DevOps Engineer</li>
+        <li><span class="badge badge-green">security-findings</span> SecOps Engineer</li>
+        <li><span class="badge badge-blue">test-results</span> Test Engineers</li>
+        <li><span class="badge badge-purple">acceptance-status</span> Customer Acceptance</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Message Format</h3>
+      <pre style="background:var(--surface);padding:16px;border-radius:8px;font-size:0.8rem;overflow-x:auto;color:var(--accent2);line-height:1.5;">
+{
+  "from": "backend-engineer",
+  "to": "ui-developer",
+  "topic": "api-contracts",
+  "priority": "high",
+  "payload": {
+    "type": "api-contract-update",
+    "endpoint": "/api/v1/users",
+    "changes": ["added pagination"]
+  },
+  "requires_action": true
+}</pre>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Loop Phases Detail -->
+<div class="slide" data-slide="5">
+  <h2>Loop Phases in Detail</h2>
+  <div class="grid-2">
+    <div>
+      <h3>Phase 1: Requirement</h3>
+      <p>Product Manager writes user stories with acceptance criteria. Architect validates technical feasibility.</p>
+      <h3>Phase 2: Design</h3>
+      <p>UX Designer creates user flows and wireframes. Defines accessibility requirements.</p>
+      <h3>Phase 3: Implement (Parallel)</h3>
+      <p>UI Developer builds frontend. Backend Engineer implements APIs. Both sync via API contracts.</p>
+    </div>
+    <div>
+      <h3>Phase 4: Test (Parallel)</h3>
+      <p>Backend Test Engineer runs API tests. UI Test Engineer runs E2E and visual regression tests.</p>
+      <h3>Phase 5: Security</h3>
+      <p>SecOps runs SAST, SCA, and container scans. Gate: must pass all security checks.</p>
+      <h3>Phase 6-8: Deploy, Accept, Feedback</h3>
+      <p>DevOps deploys to staging. Customer Acceptance validates. Loop closes or routes back for fixes.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Best Practices -->
+<div class="slide" data-slide="6">
+  <h2>Best Practices</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>Agent Design</h3>
+      <ul>
+        <li>Single responsibility per agent</li>
+        <li>Structured YAML/JSON profiles</li>
+        <li>Bounded role context</li>
+        <li>Idempotent actions</li>
+        <li>Fallback chains for failures</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Communication</h3>
+      <ul>
+        <li>Structured typed messages</li>
+        <li>Async-first approach</li>
+        <li>Event-driven publishing</li>
+        <li>Message TTL enforcement</li>
+        <li>Explicit acknowledgment</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Loop Management</h3>
+      <ul>
+        <li>Phase gates with criteria</li>
+        <li>Parallel independent phases</li>
+        <li>Phase timeouts</li>
+        <li>Human escalation path</li>
+        <li>Cycle time metrics</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Skillsets -->
+<div class="slide" data-slide="7">
+  <h2>Required Skillsets</h2>
+  <div class="grid-2">
+    <div>
+      <h3>Product & Design</h3>
+      <p><strong>PM:</strong> Requirements engineering, MoSCoW prioritization, Agile/Scrum, stakeholder management</p>
+      <p><strong>UX:</strong> User research, information architecture, wireframing, WCAG 2.1, usability testing</p>
+      <h3>Development</h3>
+      <p><strong>UI Dev:</strong> React/TypeScript, Tailwind, component architecture, accessibility, state management</p>
+      <p><strong>Backend:</strong> REST/GraphQL, database design, OAuth2, caching, microservices, observability</p>
+    </div>
+    <div>
+      <h3>Testing</h3>
+      <p><strong>Backend Test:</strong> API testing, load testing (k6/JMeter), contract testing (Pact), CI integration</p>
+      <p><strong>UI Test:</strong> Playwright/Cypress, visual regression (Percy), axe-core, cross-browser</p>
+      <h3>Operations & Security</h3>
+      <p><strong>DevOps:</strong> Docker, Kubernetes, Terraform, CI/CD, Prometheus/Grafana, cloud platforms</p>
+      <p><strong>SecOps:</strong> SAST/SCA, container scanning, secret scanning, OWASP, threat modeling</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 9: Architecture -->
+<div class="slide" data-slide="8">
+  <h2>Shared Workspace Structure</h2>
+  <pre style="background:var(--surface);padding:24px;border-radius:12px;font-size:0.85rem;overflow-x:auto;line-height:1.8;color:var(--accent2);max-width:800px;">
+workspace/
+├── backlog/
+│   ├── story-001.md          # User story + acceptance criteria
+│   └── story-002.md
+├── designs/
+│   └── story-001/
+│       ├── user-flow.svg
+│       └── wireframes.md
+├── code/
+│   ├── frontend/
+│   └── backend/
+├── tests/
+│   ├── api-tests/
+│   └── ui-tests/
+├── reports/
+│   ├── security-scan.md
+│   ├── test-results.md
+│   └── acceptance.md
+└── status.json               # Current loop state</pre>
+</div>
+
+<!-- Slide 10: Challenges -->
+<div class="slide" data-slide="9">
+  <h2>Key Challenges & Mitigations</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Agent Hallucination</h3>
+      <p>Constrain agents with explicit profiles and validation gates at each phase.</p>
+    </div>
+    <div class="card">
+      <h3>Infinite Loops</h3>
+      <p>Implement phase timeouts and automatic escalation to human when stuck.</p>
+    </div>
+    <div class="card">
+      <h3>Security Bypass</h3>
+      <p>Enforce security gates that cannot be overridden by any agent.</p>
+    </div>
+    <div class="card">
+      <h3>Context Window Limits</h3>
+      <p>Chunk tasks into smaller, focused agent interactions with clear boundaries.</p>
+    </div>
+    <div class="card">
+      <h3>Communication Overhead</h3>
+      <p>Use async message bus with topic-based routing to minimize blocking.</p>
+    </div>
+    <div class="card">
+      <h3>Inconsistent Outputs</h3>
+      <p>Define strict output schemas and validation for each agent role.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11: Roadmap -->
+<div class="slide" data-slide="10">
+  <h2>Implementation Roadmap</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Weeks 1-2: Foundation</h3>
+      <ul>
+        <li>Define agent profiles in YAML/JSON</li>
+        <li>Set up message bus infrastructure</li>
+        <li>Create shared workspace structure</li>
+        <li>Implement basic loop coordinator</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Weeks 3-4: Core Roles</h3>
+      <ul>
+        <li>Implement PM, UX, Backend, UI Dev</li>
+        <li>Establish API contract communication</li>
+        <li>Set up CI/CD pipeline</li>
+        <li>Implement basic test automation</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Weeks 5-6: Quality & Security</h3>
+      <ul>
+        <li>Add test engineer agents</li>
+        <li>Integrate SecOps scanning tools</li>
+        <li>Implement security gates in CI/CD</li>
+        <li>Add visual regression testing</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Weeks 7-10: Operations & Optimize</h3>
+      <ul>
+        <li>DevOps automation and monitoring</li>
+        <li>Customer Acceptance workflow</li>
+        <li>Architect and Developer agents</li>
+        <li>Metrics, dashboards, escalation paths</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: Future Outlook -->
+<div class="slide" data-slide="11">
+  <h2>Future Outlook</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>Self-Healing Loops</h3>
+      <p>Agents detect and fix issues without human intervention, learning from past failures.</p>
+    </div>
+    <div class="card">
+      <h3>Adaptive Roles</h3>
+      <p>Dynamic role reassignment based on task complexity and agent availability.</p>
+    </div>
+    <div class="card">
+      <h3>Cross-Project Learning</h3>
+      <p>Agents share patterns and insights across multiple projects and teams.</p>
+    </div>
+    <div class="card">
+      <h3>Predictive Planning</h3>
+      <p>Agents forecast bottlenecks and optimize loop flow before issues arise.</p>
+    </div>
+    <div class="card">
+      <h3>Multi-Modal Agents</h3>
+      <p>Agents process code, designs, documents, and conversations simultaneously.</p>
+    </div>
+    <div class="card">
+      <h3>Autonomous Scaling</h3>
+      <p>Loop orchestration dynamically scales agent count based on workload demands.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13: Key Takeaways -->
+<div class="slide" data-slide="12">
+  <h2>Key Takeaways</h2>
+  <div style="max-width:800px;">
+    <ul style="list-style:none;padding:0;">
+      <li style="margin:16px 0;"><span style="color:var(--accent1);font-size:1.5rem;">▸</span> <strong style="color:var(--text);">Loop engineering</strong> replaces linear prompts with continuous, iterative AI-driven development cycles</li>
+      <li style="margin:16px 0;"><span style="color:var(--accent2);font-size:1.5rem;">▸</span> <strong style="color:var(--text);">11 specialized agent roles</strong> each have clear responsibilities, structured profiles, and defined outputs</li>
+      <li style="margin:16px 0;"><span style="color:var(--accent3);font-size:1.5rem;">▸</span> <strong style="color:var(--text);">Structured communication</strong> via message bus with typed, topic-based messages replaces free-form chat</li>
+      <li style="margin:16px 0;"><span style="color:var(--accent4);font-size:1.5rem;">▸</span> <strong style="color:var(--text);">Phase gates</strong> ensure quality at every step — security scans, test coverage, and acceptance criteria must pass</li>
+      <li style="margin:16px 0;"><span style="color:var(--accent5);font-size:1.5rem;">▸</span> <strong style="color:var(--text);">Parallel execution</strong> of independent phases (UI + Backend, Backend Test + UI Test) maximizes throughput</li>
+      <li style="margin:16px 0;"><span style="color:var(--accent6);font-size:1.5rem;">▸</span> <strong style="color:var(--text);">Human-in-the-loop</strong> escalation ensures critical decisions and stuck states get human oversight</li>
+    </ul>
+  </div>
+</div>
+
+<div class="nav-dots" id="navDots"></div>
+<div class="slide-counter" id="slideCounter"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+
+  // Create dots
+  const dotsContainer = document.getElementById('navDots');
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+  }
+
+  function updateSlide() {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === currentSlide);
+    });
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === currentSlide);
+    });
+    document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+  }
+
+  function goToSlide(n) {
+    currentSlide = n;
+    updateSlide();
+  }
+
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateSlide();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goToSlide(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goToSlide(totalSlides - 1);
+    }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? nextSlide() : prevSlide();
+    }
+  });
+
+  updateSlide();
+
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+  }
+</script>
+</body>
+</html>
