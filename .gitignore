@@ -3,6 +3,10 @@
 .bundled_manifest
 .curator_state
 
+# Agent runtime state (regenerable / safety net) — never commit
+.hub/
+.curator_backups/
+
 # Large model file (>100MB GitHub limit)
 voice-bridge/assets/kokoro/model.onnx
 __pycache__/
