@@ -1162,7 +1162,7 @@ def generate_report(topic, all_data):
 
 # ── Publish helper: push every run's outputs into the "deep-research" repo ──
 # Layout of that repo (see SKILL.md): raw_data/  json/  markdown/  html/
-DEEP_RESEARCH_REPO = "/Users/manjunathkanavi/deep-research"
+DEEP_RESEARCH_REPO = "/Users/manjunathkanavi/.hermes/git_clone_dir/deep-research"
 
 # Fixed location of the per-run structured data (see generate_report()).
 RESEARCH_DATA_PATH = os.path.join(
@@ -1176,8 +1176,8 @@ def publish_to_deep_research(topic, timestamp, raw_data_path, md_report_path=Non
     The repo layout (one of four top-level categories):
         raw_data/<slug>-<ts>.json   <- scraped items (title, content, url)
         json/<slug>-<ts>.json       <- canonical JSON copy of the same payload
-        markdown/<slug>.md          <- LLM-synthesized report (optional)
-        html/<slug>.html            <- rendered slideshow      (optional)
+        markdown/<slug>-<ts>.md     <- LLM-synthesized report (optional, timestamped)
+        html/<slug>-<ts>.html       <- rendered slideshow      (optional, timestamped)
 
     md_report_path / slide_deck are optional file paths. When both are None only
     the raw data (raw_data/ + json/) is published; otherwise markdown/html are added.
@@ -1205,14 +1205,25 @@ def publish_to_deep_research(topic, timestamp, raw_data_path, md_report_path=Non
     except OSError as e:
         print(f"  ⚠ Could not copy raw data into repo: {e}")
 
-    # 2. markdown/ + html/ — synthesized report and rendered slideshow (optional)
-    if md_report_path is not None:
+    # 2. markdown/ + html/ — synthesized report and rendered slideshow (optional).
+    # TIMESTAMPER: filenames include the timestamp so each research session APPENDS a
+    # NEW file instead of OVERWRITING an earlier run's report (user requirement: no
+    # overriding across research sessions). html is published even when md_report_path
+    # is None (the script writes the slideshow; the agent later adds the .md).
+    if md_report_path is not None or slide_deck:
         try:
             os.makedirs(os.path.join(DEEP_RESEARCH_REPO, "markdown"), exist_ok=True)
             os.makedirs(os.path.join(DEEP_RESEARCH_REPO, "html"), exist_ok=True)
-            shutil.copyfile(md_report_path, os.path.join(DEEP_RESEARCH_REPO, "markdown", f"{slug}.md"))
+            if md_report_path is not None and os.path.exists(md_report_path):
+                shutil.copyfile(
+                    md_report_path,
+                    os.path.join(DEEP_RESEARCH_REPO, "markdown", f"{slug}-{timestamp}.md"),
+                )
             if slide_deck and isinstance(slide_deck, str) and os.path.exists(slide_deck):
-                shutil.copyfile(slide_deck, os.path.join(DEEP_RESEARCH_REPO, "html", f"{slug}.html"))
+                shutil.copyfile(
+                    slide_deck,
+                    os.path.join(DEEP_RESEARCH_REPO, "html", f"{slug}-{timestamp}.html"),
+                )
         except OSError as e:
             print(f"  ⚠ Could not copy report/slideshow into repo: {e}")
 
@@ -1406,7 +1417,7 @@ def run_research(topic):
     # ── Publish raw data (raw_data/ + json/) to the deep-research repo now,
     #     before any early return. The markdown/html summaries are published
     #     separately once I synthesize them (see SKILL.md workflow). ──
-    publish_to_deep_research(topic=topic, timestamp=timestamp, raw_data_path=RESEARCH_DATA_PATH)
+    publish_to_deep_research(topic=topic, timestamp=timestamp, raw_data_path=RESEARCH_DATA_PATH, slide_deck=str(slide_path))
 
     if md_report is None:
         # Report will be synthesized by the agent's LLM from research_data.json
