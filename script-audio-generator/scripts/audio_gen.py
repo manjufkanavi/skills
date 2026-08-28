@@ -23,7 +23,6 @@ import argparse
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -102,11 +101,39 @@ SCENE_CHANGE_PATTERNS = [
 
 
 def split_into_scenes(text: str, max_scenes: int = 12) -> list[str]:
-    """Split text into scene blocks using sentence grouping + transition detection."""
-    norm = (text.replace("\u0964", ". ")     # Indic danda
-            .replace(".", " ").replace("!", "! ")
-            .replace("?", "? "))
-    sentences = [s.strip() for s in re.split(r"[.!?]+", norm) if s.strip()]
+    """Split text into scene blocks using sentence grouping + transition detection.
+
+    Quoted speech is treated as an opaque token so punctuation *inside* dialogue
+    (e.g. "Thank you so much.") does not wrongly split a sentence into its own scene.
+    A sentence boundary is an unquoted . ! ? — or a universal transition connector.
+    """
+    norm = text.replace("\u0964", ". ")  # Indic danda -> period
+
+    # Tokenize: a quoted segment is one opaque token; otherwise run of non-sentence
+    # punctuation characters. This lets us split only on *unquoted* . ! ? and keep
+    # the original text intact for each sentence.
+    TOKEN_RE = re.compile(r'"[^"]*"|\'[^\']*\'|[.!?]+|\S+')
+
+    sentences: list[str] = []
+    current: list[str] = []
+    for tok in TOKEN_RE.findall(norm):
+        stripped = tok.strip()
+        if not stripped:
+            continue
+        current.append(stripped)
+        # A sentence ends at an unquoted terminal mark.
+        if tok in {".", "!", "?"} or re.fullmatch(r"[\.\!\?]+", tok):
+            if current:
+                sentences.append(" ".join(current).strip())
+                current = []
+
+    # Any leftover tokens (no trailing terminal mark) form the final sentence.
+    if current:
+        sentences.append(" ".join(current).strip())
+
+    # Collapse whitespace-only / empty artifacts.
+    sentences = [s.strip() for s in sentences if s.strip()]
+
     if not sentences:
         return []
 
@@ -134,41 +161,119 @@ def split_into_scenes(text: str, max_scenes: int = 12) -> list[str]:
 
 # Matches: "quoted text" — Dev said / Dev:"quote" / <Dev> quote
 _SPEAKER_TAG = re.compile(
-    r'(?:"([^"]+)"|\'([^\']+)\'\|(?:<<[^\>>]+>>)?)'      # the quoted line
+    r'(?:"([^"]+)"|\'([^\']+)\'\|(?:<<[^\\>>]+>>)?)'      # the quoted line
     r'\s*(?:[-–—]\s*)?'                                   # optional " —"
     r'(?:said|asked|whispered|shouted|muttered|growled'  # speech verbs
     r'\b[a-z]+)?\s*'                                     # optional verb...
-    r'(\[[^\]]+\])?'                                    # ...or a [Name] tag...
+    r'(\[[^\\]]+\])?'                                    # ...or a [Name] tag...
     r'([A-Z][a-zA-Z.\'\-]{1,25})?'                      # ...or a Capitalized name
 )
+
+# Narration verbs that tell us WHO is speaking (the subject before/after).
+_SPEAKING_VERBS = {"said", "asked", "replied", "whispered", "shouted",
+                   "muttered", "growled", "answered", "exclaimed"}
+
+# Common nouns -> gender (for boy/girl/young man, etc.).
+_COMMON_NOUN_GENDER = {
+    "boy": "male", "girl": "female", "young man": "male",
+    "young woman": "female", "he": "male", "she": "female",
+}
+
+
+def _narration_speaker(narration: str, direction: str = "after") -> tuple[str, bool] | None:
+    """Find the speaker in a narration segment (before/after a quote).
+
+    Returns ("male"/"female", True) if we can map it to gender, else None.
+    Handles: "the boy said", "she replied", "a young man asked".
+
+    direction="after": narration appears AFTER the quote -> use the FIRST
+        speaking verb (closest to that quote). direction="before": narration
+        appears BEFORE the quote -> use the LAST speaking verb (closest).
+    """
+    low = narration.lower()
+    matches = list(re.finditer(
+        r'(?:the\s+)?([a-z ]{1,20})\s+(said|asked|replied|whispered|shouted'
+        r'|muttered|growled|answered|exclaimed)', low))
+    if not matches:
+        return None
+    m = (matches[-1] if direction == "before" else matches[0])
+    subject = m.group(1).strip()
+    # Map common nouns / pronouns to gender.
+    for token, gender in _COMMON_NOUN_GENDER.items():
+        if subject == token or subject.endswith(" " + token) or re.search(
+                r"\b" + re.escape(token) + r"\b", subject):
+            return (gender, True)
+    return None
 
 
 def extract_dialogue(scene_text: str, known_names: list[str]) -> list[dict]:
     """Pull quoted speech + resolve each line to a speaker.
 
-    Returns list of {"speaker": str, "line": str}. Unattributed quotes -> speaker "" .
+    Uses re.split on quotes so narration parts sit between them:
+        [narr, quote, narr, quote, ..., arr]
+    Each narration part is gender-detected (boy->male, girl->female, he/she) and
+    attributed to the quote before it (e.g. "the boy said,") or after it
+    (e.g. '," the boy said'). Returns list of {"speaker": "male"/"female",
+    "line": str}. Unattributed quotes -> "".
+
+    Quotes are stripped of their surrounding quotation marks so the line is clean
+    dialogue with no leading/trailing quote characters.
     """
-    lines = []
-    # Normalize smart quotes to straight for consistent matching.
+    lines: list[dict] = []
     clean = (scene_text.replace("\u201c", '"').replace("\u201d", '"')
                    .replace("\u2018", "'").replace("\u2019", "'"))
 
-    for m in _SPEAKER_TAG.finditer(clean):
-        quoted = (m.group(1) or m.group(2) or "").strip()
-        bracket_tag = (m.group(3) or "").strip("[]")
-        name_after = m.group(4).strip() if (m.lastindex and m.lastindex >= 3) else ""
-        if not quoted:
+    # Split keeping quotes as separate tokens: [narr, quote, narr, quote, ...].
+    parts = re.split(r'("[^"]*"|\'[^\']*\')', clean)
+    # parts: even indices (0,2,...) are narration; odd indices (1,3,...) are quotes.
+    # Drop the trailing empty string from split when text ends after a quote.
+    if parts and parts[-1].strip() == "":
+        parts = parts[:-1]
+
+    # Determine the gender each narration part implies.
+    narr_genders: list[str | None] = []  # aligned to even indices (narration parts)
+    narr_indices: list[int] = []         # actual index in `parts` for each narration part
+    for idx, p in enumerate(parts):
+        if idx % 2 == 0:  # narration part
+            gender = _narration_speaker(p)
+            narr_genders.append(gender[0] if gender else None)
+            narr_indices.append(idx)
+
+    # For each quote (odd index), find the nearest narration part before and after,
+    # and take that gender. Prefer nearer; if tie or none, "".
+    for q_idx in range(1, len(parts), 2):
+        quote = parts[q_idx].strip().strip('"').strip("'").strip()
+        if not quote:
             continue
 
-        # Resolve speaker priority: [Name] tag > capitalized name after verb.
-        if bracket_tag and re.match(r"^[A-Z][a-zA-Z.\'\-]{0,24}$", bracket_tag):
-            speaker = re.sub(r"\s+", " ", bracket_tag).strip()
-        elif name_after:
-            speaker = re.sub(r"\s+", " ", name_after).strip()
-        else:
-            speaker = ""  # unattributed -> unknown (resolved later by context)
+        # Nearest narration before this quote (largest narr_idx < q_idx).
+        best_before_i = None
+        for ng_i, narr_idx in enumerate(narr_indices):
+            if narr_idx < q_idx:
+                best_before_i = ng_i
 
-        lines.append({"speaker": speaker, "line": quoted})
+        # Nearest narration after this quote (smallest narr_idx > q_idx).
+        best_after_i = None
+        for ng_i, narr_idx in enumerate(narr_indices):
+            if narr_idx > q_idx:
+                best_after_i = ng_i
+                break  # first match is nearest (indices are ascending)
+
+        gender: str | None = None
+        # Prefer the immediately adjacent narration (distance 1 part apart), but only
+        # if that narration actually yields a gender; otherwise fall through to the
+        # other side so an attribution like ', "the boy said"' is still picked up.
+        if best_before_i is not None and narr_indices[best_before_i] == q_idx - 1:
+            g = _narration_speaker(parts[narr_indices[best_before_i]], direction="before")
+            if g is not None:
+                gender = g[0]
+        if gender is None and best_after_i is not None \
+                and narr_indices[best_after_i] == q_idx + 1:
+            g = _narration_speaker(parts[narr_indices[best_after_i]], direction="after")
+            if g is not None:
+                gender = g[0]
+
+        lines.append({"speaker": gender or "", "line": quote})
     return lines
 
 
@@ -196,32 +301,6 @@ _NAME_GENDER = {
     "henry": "male", "alexander": "male", "charles": "male",
 }
 
-PRONOUN_GENDER = {
-    "she": "female", "her": "female", "hers": "female", "herself": "female",
-    "he": "male", "him": "male", "his": "male", "himself": "male",
-}
-
-
-def detect_gender(text: str, name_hint: str | None = None) -> tuple[str, bool]:
-    """Return (gender, detected). gender is "male"/"female"; detected=False if unknown.
-
-    Uses pronoun voting over the text, falling back to a name lexicon for names
-    not tracked via pronouns.
-    """
-    votes = {"male": 0, "female": 0}
-    for pronoun, gender in PRONOUN_GENDER.items():
-        votes[gender] += len(re.findall(r"\b" + pronoun + r"\b", text, re.IGNORECASE))
-
-    detected = votes["male"] > 0 or votes["female"] > 0
-    if not detected and name_hint:
-        base = re.sub(r"[^a-z]", "", name_hint.lower())
-        if base in _NAME_GENDER:
-            return _NAME_GENDER[base], True
-
-    if votes["female"] > votes["male"]:
-        return "female", detected
-    # Male >= female (covers both tie and male-majority).
-    return "male", detected
 
 
 def collect_characters(text: str) -> list[str]:
@@ -557,12 +636,11 @@ def main(argv: list[str] | None = None) -> int:
             info = data["cast"][char_name]
             return info["voice"], info.get("from_override", False)
 
-        # Gather this speaker's lines across all scenes for pronoun voting.
-        text = " ".join(
-            d["line"] for sc in data["scenes"] for d in sc.get("dialogue", [])
-            if d["speaker"] == char_name)
 
-        gender, detected = detect_gender(text, name_hint=char_name)
+        # The speaker label is already the resolved gender ("male"/"female");
+        # do NOT re-detect from content, which misclassifies pronouns.
+        gender = char_name if char_name in ("male", "female") else ""
+        detected = True if char_name in ("male", "female") else False
         voice, from_override = cast_voice(gender, overrides)
 
         # Unknown + no override -> leave voice blank; manifest flags it for eyeballing.
