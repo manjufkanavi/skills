@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovation — Rose & Graphite</title>
+<style>
+@page { size: A4; margin: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #1C1C22; --surface: #232328; --ink: #E8E8EC; --muted: #8E8E9A;
+  --accent: #D4626E; --accent-light: #E8898F; --border: #3A3A45; --rule: #2E2E38;
+  --font: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; --mono: 'SF Mono', 'Menlo', monospace;
+  --page-min: 210mm; --page-max: 100vw;
+  --padding: clamp(12mm,5vw,18mm); --gap: clamp(12px,2vw,28px);
+}
+body { background: var(--bg); display: flex; flex-direction: column; align-items: center; font-family: var(--font); color: var(--ink); padding: 20px; gap: 0; }
+.page { width: var(--page-max); min-height: 297mm; max-width: var(--page-min); background: var(--surface); position: relative; padding: var(--padding); display: flex; flex-direction: column; page-break-after: always; break-after: page; }
+.page::before { content: ''; position: absolute; top: clamp(5mm,2vw,8mm); left: clamp(5mm,2vw,8mm); right: clamp(5mm,2vw,8mm); bottom: clamp(5mm,2vw,8mm); border: 0; pointer-events: none; }
+/* Unique rose frame with accent corners */
+.page::after { content: ''; position: absolute; top: clamp(5mm,2vw,8mm); left: clamp(5mm,2vw,8mm); right: clamp(5mm,2vw,8mm); bottom: clamp(5mm,2vw,8mm); pointer-events: none; }
+.page::after {
+  border-top: 2.5px solid var(--accent);
+  border-bottom: 2.5px solid var(--accent);
+  /* no side borders — unique: top & bottom only */
+}
+/* Corner diamonds */
+.corner-mark { position: absolute; width: clamp(14px,1.2vw,20px); height: clamp(14px,1.2vw,20px); transform: rotate(45deg); background: var(--accent); opacity: 0.6; }
+.corner-mark-tl { top: clamp(3mm,1vw,5mm); left: clamp(3mm,1vw,5mm); }
+.corner-mark-tr { top: clamp(3mm,1vw,5mm); right: clamp(3mm,1vw,5mm); }
+.corner-mark-bl { bottom: clamp(3mm,1vw,5mm); left: clamp(3mm,1vw,5mm); }
+.corner-mark-br { bottom: clamp(3mm,1vw,5mm); right: clamp(3mm,1vw,5mm); }
+
+h1 { font-size: clamp(20pt,4vw,32pt); font-weight: 200; letter-spacing: -0.02em; line-height: 1.15; }
+h2 { font-size: clamp(16pt,3vw,24pt); font-weight: 200; letter-spacing: -0.02em; line-height: 1.15; }
+h3 { font-size: clamp(13pt,2.5vw,18pt); font-weight: 300; }
+h4 { font-size: clamp(11pt,2vw,14pt); font-weight: 300; }
+p, li, span, div { font-size: clamp(9pt,1.5vw,12pt); line-height: 1.7; color: var(--ink); }
+.muted { color: var(--muted); }
+.divider { height: 1px; background: var(--rule); margin: clamp(12px,2vw,24px) 0; }
+.accent-bar { width: clamp(32px,4vw,48px); height: 2px; background: var(--accent); margin-bottom: clamp(12px,2vw,24px); }
+.header-bar { display: flex; justify-content: space-between; align-items: center; padding-bottom: clamp(6px,1vw,12px); margin-bottom: clamp(10px,2vw,20px); border-bottom: 1px solid var(--rule); font-size: clamp(7pt,1vw,9pt); color: var(--muted); flex-shrink: 0; }
+.footer-bar { display: flex; justify-content: space-between; align-items: center; padding-top: clamp(6px,1vw,12px); font-size: clamp(6pt,0.8vw,8pt); color: var(--muted); flex-shrink: 0; }
+.cover { display: flex; flex-direction: column; justify-content: center; flex: 1; text-align: center; }
+.content { flex: 1; display: flex; flex-direction: column; }
+.slide-title { font-size: clamp(14pt,2.5vw,22pt); font-weight: 200; margin-bottom: clamp(4px,1vw,6px); }
+.slide-subtitle { font-size: clamp(8pt,1.2vw,11pt); color: var(--muted); margin-bottom: clamp(10px,2vw,24px); }
+.body { flex: 1; }
+.num-list { list-style: none; padding: 0; counter-reset: num; }
+.num-list li { padding: clamp(6px,1vw,12px) 0 clamp(6px,1vw,12px) clamp(16px,3vw,32px); position: relative; counter-increment: num; }
+.num-list li::before { content: counter(num, decimal-leading-zero); position: absolute; left: 0; font-family: var(--mono); font-size: clamp(8pt,1vw,10pt); color: var(--accent-light); }
+.num-list li { border-bottom: 1px solid var(--rule); }
+.bullets { list-style: none; padding: 0; }
+.bullets li { padding: clamp(4px,0.5vw,8px) 0 clamp(4px,0.5vw,8px) clamp(12px,2vw,20px); position: relative; border-bottom: 1px solid var(--rule); }
+.bullets li:last-child { border-bottom: none; }
+.bullets li::before { content: '◆'; position: absolute; left: 0; color: var(--accent); font-size: 8pt; }
+.section { padding: clamp(16px,3vw,32px) clamp(12px,2vw,24px); margin: clamp(10px,2vw,20px) 0; background: #2A2A30; }
+.two-col, .three-col { display: grid; gap: var(--gap); }
+.two-col { grid-template-columns: 1fr; } .three-col { grid-template-columns: 1fr; }
+@media (min-width: 600px) { .two-col { grid-template-columns: 1fr 1fr; } .three-col { grid-template-columns: 1fr 1fr 1fr; } }
+.card { border: 1px solid var(--border); padding: clamp(12px,2vw,20px); background: #2A2A30; }
+.card:hover { border-color: var(--accent); }
+.stat { text-align: center; padding: clamp(12px,2vw,20px); }
+.stat .number { font-size: clamp(18pt,3.5vw,36pt); font-weight: 200; color: var(--accent-light); line-height: 1; margin-bottom: clamp(4px,1vw,8px); }
+.stat .label { font-size: clamp(7pt,1vw,10pt); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+@media screen { .page { margin-bottom: 30px; box-shadow: 0 4px 40px rgba(0,0,0,0.3); border-radius: 2px; } }
+@media print { body { background: white; padding: 0; } .page { margin: 0; box-shadow: none; background: #FAFAF8; } .page::after { border-top-color: #D4626E; border-bottom-color: #D4626E; } .corner-mark { background: #D4626E !important; } .accent-bar { background: #D4626E !important; } .stat .number { color: #D4626E !important; } .card, .section { background: #F5F5F5 !important; border-color: #DDD !important; } .nav-bar, .top-bar { display: none !important; } }
+.nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; background: rgba(30,30,35,0.9); padding: 10px 20px; border-radius: 24px; z-index: 1000; border: 1px solid rgba(212,98,110,0.3); }
+.nav-bar button { background: rgba(212,98,110,0.3); border: 1px solid rgba(212,98,110,0.4); color: var(--accent-light); padding: 8px 16px; border-radius: 16px; cursor: pointer; font-size: 13px; font-family: inherit; }
+.top-bar { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+.top-bar button { padding: 8px 18px; border: 1px solid rgba(212,98,110,0.4); background: rgba(30,30,35,0.9); color: var(--accent-light); cursor: pointer; font-size: 12px; font-family: inherit; border-radius: 6px; }
+.top-bar button.print-btn { background: var(--accent); color: white; border-color: var(--accent); }
+@media print { .nav-bar, .top-bar { display: none !important; } }
+</style>
+</head>
+<body>
+<div class="top-bar"><button onclick="window.print()" class="print-btn">🖨 Print PDF</button></div>
+<div class="nav-bar"><button onclick="goSlide(-1)">◀ Prev</button><span id="navInfo" style="color:var(--muted);font-size:12px;display:flex;align-items:center;padding:0 8px">1 / 8</span><button onclick="goSlide(1)">Next ▶</button></div>
+
+<div class="page" data-slide="1">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="cover"><div class="accent-bar"></div><h1>Innovation</h1><p class="muted" style="font-size:clamp(9pt,1.5vw,14pt);margin-bottom:clamp(12px,2vw,32px);font-weight:200">Transforming Vision Into Reality</p><div class="divider" style="width:100%;opacity:0.3"></div><p class="muted" style="font-size:clamp(7pt,1vw,10pt);letter-spacing:0.05em">Rose & Graphite · Helvetica Neue · Dark Minimal</p></div>
+  <div class="footer-bar"><span>Innovation</span><span>01 / 08</span></div>
+</div>
+<div class="page" data-slide="2">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content"><div class="header-bar"><span>Innovation</span><span>02 / 08</span></div><p class="slide-subtitle">Roadmap</p><h2 class="slide-title">Agenda</h2><div class="divider"></div><div class="body"><ol class="num-list"><li>Vision and opportunity mapping</li><li>Ideation and validation</li><li>Rapid prototyping</li><li>Launch and scale</li><li>Continuous iteration</li></ol></div></div>
+  <div class="footer-bar"><span>Innovation</span><span>02 / 08</span></div>
+</div>
+<div class="page" data-slide="3">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content"><div class="header-bar"><span>Innovation</span><span>03 / 08</span></div><h2 class="slide-title">The Innovation Cycle</h2><p class="slide-subtitle">From insight to impact</p><div class="divider"></div><div class="body"><div class="three-col"><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Discover</h4><p class="muted">Find the untapped need. Talk to users, observe behavior, find the gap.</p></div><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Develop</h4><p class="muted">Rapid prototypes. Test with real users. Iterate ruthlessly.</p></div><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Deliver</h4><p class="muted">Ship fast. Measure adoption. Let data guide the next cycle.</p></div></div></div></div>
+  <div class="footer-bar"><span>Innovation</span><span>03 / 08</span></div>
+</div>
+<div class="page" data-slide="4">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content"><div class="header-bar"><span>Innovation</span><span>04 / 08</span></div><h2 class="slide-title">Measuring Innovation</h2><p class="slide-subtitle">Metrics that matter</p><div class="divider"></div><div class="body"><div class="three-col" style="margin-top:clamp(8px,1vw,16px)"><div class="stat"><div class="number">35%</div><div class="label">Revenue from<br>new products</div></div><div class="stat"><div class="number">200+</div><div class="label">Ideas tested<br>this year</div></div><div class="stat"><div class="number">4.2×</div><div class="label">ROI on R&D</div></div></div><div class="divider"></div><div class="two-col"><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Velocity</h4><p class="muted">Cycle time from idea to launch. Under 6 weeks target.</p></div><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Learning Rate</h4><p class="muted">Insights per sprint. More failed experiments = more learning.</p></div></div></div></div>
+  <div class="footer-bar"><span>Innovation</span><span>04 / 08</span></div>
+</div>
+<div class="page" data-slide="5">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content"><div class="header-bar"><span>Innovation</span><span>05 / 08</span></div><h2 class="slide-title">Culture of Innovation</h2><p class="slide-subtitle">What it takes</p><div class="divider"></div><div class="body"><ul class="bullets"><li>Psychological safety — fail forward, never punish</li><li>Time for exploration — 20% innovation time</li><li>Diverse perspectives — homogeneous teams produce homogeneous ideas</li><li>Executive sponsorship — innovation needs a champion</li><li>User obsession — solve real problems, not imagined ones</li></ul></div></div>
+  <div class="footer-bar"><span>Innovation</span><span>05 / 08</span></div>
+</div>
+<div class="page" data-slide="6">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content"><div class="header-bar"><span>Innovation</span><span>06 / 08</span></div><h2 class="slide-title">Disrupt or Die</h2><p class="slide-subtitle">The innovation imperative</p><div class="divider"></div><div class="body"><div class="three-col"><div class="section" style="margin:0"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Create</h4><p class="muted">Build what doesn't exist. Pioneer new categories.</p></div><div class="section" style="margin:0"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Improve</h4><p class="muted">Make existing things 10x better, faster, cheaper.</p></div><div class="section" style="margin:0"><h4 style="color:var(--accent-light);margin-bottom:clamp(4px,0.5vw,8px)">Adapt</h4><p class="muted">Pivot when the market shifts. Stay relevant or fade.</p></div></div></div></div>
+  <div class="footer-bar"><span>Innovation</span><span>06 / 08</span></div>
+</div>
+<div class="page" data-slide="7">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content"><div class="header-bar"><span>Innovation</span><span>07 / 08</span></div><h2 class="slide-title">Tech Stack</h2><p class="slide-subtitle">Tools enabling innovation</p><div class="divider"></div><div class="body three-col"><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(6px,1vw,12px);font-size:clamp(10pt,1.5vw,13pt)">Design</h4><p class="muted" style="font-family:var(--mono)">Figma, Miro, Whimsical</p></div><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(6px,1vw,12px);font-size:clamp(10pt,1.5vw,13pt)">Build</h4><p class="muted" style="font-family:var(--mono)">React, Next.js, Supabase</p></div><div class="card"><h4 style="color:var(--accent-light);margin-bottom:clamp(6px,1vw,12px);font-size:clamp(10pt,1.5vw,13pt)">Ship</h4><p class="muted" style="font-family:var(--mono)">Vercel, Netlify, Docker</p></div></div></div>
+  <div class="footer-bar"><span>Innovation</span><span>07 / 08</span></div>
+</div>
+<div class="page" data-slide="8">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div><div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="cover"><div class="accent-bar"></div><h1>Innovate<br>Relentlessly</h1><p class="muted" style="font-size:clamp(9pt,1.5vw,14pt);margin-bottom:clamp(12px,2vw,32px);font-weight:200">The future belongs to the curious.</p><div class="divider" style="width:100%;opacity:0.3"></div><p class="muted" style="font-size:clamp(7pt,1vw,10pt);letter-spacing:0.05em">Innovation · Rose & Graphite</p></div>
+  <div class="footer-bar"><span>Innovation</span><span>08 / 08</span></div>
+</div>
+
+<script>
+let cur = 1; const total = 8; const pages = document.querySelectorAll('.page');
+function goSlide(d) { cur = Math.max(1, Math.min(total, cur + d)); showPage(cur); }
+function showPage(n) { pages.forEach((p,i) => { p.style.display = i === n-1 ? 'flex' : 'none'; }); document.getElementById('navInfo').textContent = n + ' / ' + total; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+showPage(1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goSlide(1); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goSlide(-1); } });
+</script>
+</body>
+</html>

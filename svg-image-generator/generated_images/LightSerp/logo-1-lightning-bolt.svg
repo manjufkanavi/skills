@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="logo1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E676"/>
+      <stop offset="100%" style="stop-color:#00B0FF"/>
+    </linearGradient>
+    <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD600"/>
+      <stop offset="100%" style="stop-color:#FF6D00"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Clean white background -->
+  <rect width="512" height="512" fill="white"/>
+  
+  <!-- Lightning bolt shape forming the serpent body -->
+  <path d="M256 40 L200 200 L240 200 L210 320 L280 200 L240 200 Z" 
+        fill="url(#logo1Grad)" stroke="#00E676" stroke-width="2"/>
+  
+  <!-- Serpent head integrated into the bolt -->
+  <circle cx="256" cy="100" r="35" fill="url(#logo1Grad)"/>
+  
+  <!-- Eye -->
+  <circle cx="265" cy="95" r="8" fill="white"/>
+  <circle cx="267" cy="93" r="4" fill="#1A1A2E"/>
+  <circle cx="268" cy="91" r="1.5" fill="white"/>
+  
+  <!-- Magnifying glass lens forming the 'O' in Light -->
+  <circle cx="140" cy="260" r="50" fill="none" stroke="url(#logo1Grad)" stroke-width="8"/>
+  <circle cx="140" cy="260" r="35" fill="rgba(0,230,118,0.08)"/>
+  <line x1="172" y1="292" x2="200" y2="320" stroke="url(#logo1Grad)" stroke-width="10" stroke-linecap="round"/>
+  
+  <!-- Data dots inside magnifying glass -->
+  <circle cx="130" cy="250" r="4" fill="#00E676" opacity="0.6"/>
+  <circle cx="150" cy="265" r="3" fill="#00B0FF" opacity="0.6"/>
+  <circle cx="125" cy="270" r="3.5" fill="#00E676" opacity="0.5"/>
+  <circle cx="145" cy="245" r="2.5" fill="#00B0FF" opacity="0.5"/>
+  
+  <!-- Sparkle accents -->
+  <circle cx="380" cy="180" r="6" fill="#FFD600"/>
+  <circle cx="400" cy="220" r="4" fill="#00E676"/>
+  <circle cx="360" cy="300" r="5" fill="#00B0FF"/>
+</svg>

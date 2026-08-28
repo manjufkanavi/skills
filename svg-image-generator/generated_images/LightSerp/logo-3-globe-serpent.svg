@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="logo3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6F00"/>
+      <stop offset="50%" style="stop-color:#FFB300"/>
+      <stop offset="100%" style="stop-color:#FFD54F"/>
+    </linearGradient>
+    <linearGradient id="webGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8A65"/>
+      <stop offset="100%" style="stop-color:#FFB74D"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Clean white background -->
+  <rect width="512" height="512" fill="white"/>
+  
+  <!-- Globe wireframe -->
+  <g stroke="url(#webGrad)" stroke-width="3" fill="none" opacity="0.5">
+    <circle cx="256" cy="256" r="140"/>
+    <ellipse cx="256" cy="256" rx="140" ry="60"/>
+    <ellipse cx="256" cy="256" rx="140" ry="110"/>
+    <ellipse cx="256" cy="256" rx="60" ry="140"/>
+    <ellipse cx="256" cy="256" rx="110" ry="140"/>
+    <line x1="116" y1="256" x2="396" y2="256"/>
+    <line x1="256" y1="116" x2="256" y2="396"/>
+  </g>
+  
+  <!-- Serpent wrapping around globe as the 'S' -->
+  <path d="M200 160 C180 160 160 180 160 210 C160 240 190 250 210 250 C230 250 240 270 240 290 C240 310 220 330 200 330 C180 330 170 310 170 290" 
+        fill="none" stroke="url(#logo3Grad)" stroke-width="18" stroke-linecap="round"/>
+  
+  <!-- Serpent head at top -->
+  <circle cx="200" cy="140" r="22" fill="url(#logo3Grad)"/>
+  
+  <!-- Eye -->
+  <circle cx="208" cy="136" r="5" fill="white"/>
+  <circle cx="209" cy="135" r="2.5" fill="#1A1A2E"/>
+  
+  <!-- Web nodes on globe -->
+  <circle cx="180" cy="180" r="6" fill="#FF8A65"/>
+  <circle cx="320" cy="200" r="5" fill="#FFB74D"/>
+  <circle cx="280" cy="320" r="6" fill="#FF8A65"/>
+  <circle cx="160" cy="300" r="5" fill="#FFB74D"/>
+  <circle cx="340" cy="280" r="4" fill="#FF8A65"/>
+  
+  <!-- Connection lines between nodes -->
+  <g stroke="url(#webGrad)" stroke-width="1.5" opacity="0.4">
+    <line x1="180" y1="180" x2="320" y2="200"/>
+    <line x1="320" y1="200" x2="340" y2="280"/>
+    <line x1="340" y1="280" x2="280" y2="320"/>
+    <line x1="280" y1="320" x2="160" y2="300"/>
+    <line x1="160" y1="300" x2="180" y2="180"/>
+  </g>
+  
+  <!-- Search cursor / blinking line -->
+  <line x1="256" y1="420" x2="256" y2="440" stroke="url(#logo3Grad)" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="256" cy="445" r="3" fill="url(#logo3Grad)"/>
+</svg>

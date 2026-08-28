@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Thinking — Nordic Minimal</title>
+<style>
+/* ============================================
+   NORDIC MINIMAL — Snow & Charcoal — Helvetica
+   Responsive (phone → desktop) + A4 print
+   ============================================ */
+
+@page { size: A4; margin: 0; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFAF8;
+  --surface: #FFFFFF;
+  --ink: #1A1A1A;
+  --muted: #6B6B6B;
+  --accent: #2D2D2D;
+  --border: #E0DED8;
+  --rule: #D4D2CC;
+  --font: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --mono: 'SF Mono', 'Menlo', monospace;
+  --page-min: 210mm;
+  --page-max: 100vw;
+  --padding: clamp(12mm, 5vw, 18mm);
+  --gap: clamp(12px, 2vw, 28px);
+}
+
+body {
+  background: #e8e4df;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font);
+  color: var(--ink);
+  padding: 20px;
+  gap: 0;
+}
+
+/* --- SCREEN MODE: centered cards --- */
+body.screen-mode { padding: 20px; }
+
+.page {
+  width: var(--page-max);
+  min-height: 297mm;
+  max-width: var(--page-min);
+  background: var(--surface);
+  position: relative;
+  padding: var(--padding);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  page-break-after: always;
+  break-after: page;
+}
+
+/* Double border frame */
+.page::before {
+  content: '';
+  position: absolute;
+  top: clamp(5mm, 2vw, 8mm);
+  left: clamp(5mm, 2vw, 8mm);
+  right: clamp(5mm, 2vw, 8mm);
+  bottom: clamp(5mm, 2vw, 8mm);
+  border: 1.5px solid var(--rule);
+  pointer-events: none;
+}
+.page::after {
+  content: '';
+  position: absolute;
+  top: clamp(6mm, 2.5vw, 10mm);
+  left: clamp(6mm, 2.5vw, 10mm);
+  right: clamp(6mm, 2.5vw, 10mm);
+  bottom: clamp(6mm, 2.5vw, 10mm);
+  border: 0.5px solid var(--rule);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Corner marks */
+.corner-mark {
+  position: absolute;
+  width: clamp(16px, 1.5vw, 24px);
+  height: clamp(16px, 1.5vw, 24px);
+}
+.corner-mark-tl { top: clamp(4mm, 1.5vw, 6mm); left: clamp(4mm, 1.5vw, 6mm); border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner-mark-tr { top: clamp(4mm, 1.5vw, 6mm); right: clamp(4mm, 1.5vw, 6mm); border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.corner-mark-bl { bottom: clamp(4mm, 1.5vw, 6mm); left: clamp(4mm, 1.5vw, 6mm); border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner-mark-br { bottom: clamp(4mm, 1.5vw, 6mm); right: clamp(4mm, 1.5vw, 6mm); border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+
+/* Typography — scales responsively */
+h1 { font-size: clamp(20pt, 4vw, 32pt); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; }
+h2 { font-size: clamp(16pt, 3vw, 24pt); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; }
+h3 { font-size: clamp(13pt, 2.5vw, 18pt); font-weight: 400; }
+h4 { font-size: clamp(11pt, 2vw, 14pt); font-weight: 400; }
+p, li, span, div { font-size: clamp(9pt, 1.5vw, 12pt); line-height: 1.6; color: var(--ink); }
+.muted { color: var(--muted); }
+
+.divider { height: clamp(1px, 0.15vw, 1.5px); background: var(--rule); margin: clamp(12px, 2vw, 24px) 0; }
+.accent-bar { width: clamp(32px, 4vw, 48px); height: 3px; background: var(--accent); margin-bottom: clamp(12px, 2vw, 24px); }
+
+.header-bar { display: flex; justify-content: space-between; align-items: center; padding-bottom: clamp(6px, 1vw, 12px); margin-bottom: clamp(10px, 2vw, 20px); border-bottom: 1px solid var(--rule); font-size: clamp(7pt, 1vw, 9pt); color: var(--muted); flex-shrink: 0; }
+.footer-bar { display: flex; justify-content: space-between; align-items: center; padding-top: clamp(6px, 1vw, 12px); font-size: clamp(6pt, 0.8vw, 8pt); color: var(--muted); flex-shrink: 0; }
+
+.cover { display: flex; flex-direction: column; justify-content: center; flex: 1; text-align: center; }
+.content { flex: 1; display: flex; flex-direction: column; }
+.slide-title { font-size: clamp(14pt, 2.5vw, 22pt); font-weight: 400; margin-bottom: clamp(4px, 1vw, 6px); }
+.slide-subtitle { font-size: clamp(8pt, 1.2vw, 11pt); color: var(--muted); margin-bottom: clamp(10px, 2vw, 24px); }
+.body { flex: 1; }
+
+/* Lists */
+.num-list { list-style: none; padding: 0; counter-reset: num; }
+.num-list li { padding: clamp(6px, 1vw, 12px) 0 clamp(6px, 1vw, 12px) clamp(16px, 3vw, 32px); position: relative; border-bottom: 1px solid var(--rule); counter-increment: num; }
+.num-list li::before { content: counter(num, decimal-leading-zero); position: absolute; left: 0; font-family: var(--mono); font-size: clamp(8pt, 1vw, 10pt); color: var(--accent); }
+
+.bullets { list-style: none; padding: 0; }
+.bullets li { padding: clamp(4px, 0.5vw, 8px) 0 clamp(4px, 0.5vw, 8px) clamp(12px, 2vw, 20px); position: relative; border-bottom: 1px solid var(--rule); }
+.bullets li:last-child { border-bottom: none; }
+.bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* Section with left accent */
+.section { padding: clamp(16px, 3vw, 32px) clamp(12px, 2vw, 24px); margin: clamp(10px, 2vw, 20px) 0; border-left: 3px solid var(--accent); }
+
+/* Grids — stack on phone */
+.two-col, .three-col { display: grid; gap: var(--gap); }
+.two-col { grid-template-columns: 1fr; }
+.three-col { grid-template-columns: 1fr; }
+@media (min-width: 600px) {
+  .two-col { grid-template-columns: 1fr 1fr; }
+  .three-col { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* Cards */
+.card { border: 1px solid var(--border); padding: clamp(12px, 2vw, 20px); background: var(--surface); }
+
+/* Stats */
+.stat { text-align: center; padding: clamp(12px, 2vw, 20px); }
+.stat .number { font-size: clamp(20pt, 4vw, 36pt); font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: clamp(4px, 1vw, 8px); }
+.stat .label { font-size: clamp(7pt, 1vw, 10pt); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Screen: stack pages with spacing */
+@media screen {
+  .page { margin-bottom: 30px; box-shadow: 0 4px 40px rgba(0,0,0,0.08); border-radius: 4px; }
+}
+
+/* Print: remove shadows, full width */
+@media print {
+  body { background: white; padding: 0; margin: 0; }
+  .page { margin: 0; box-shadow: none; border-radius: 0; width: 100%; min-height: 297mm; }
+  .page:last-child { page-break-after: avoid; }
+}
+
+/* Screen-only controls */
+.nav-bar {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 12px; background: rgba(30,30,30,0.85); padding: 10px 20px;
+  border-radius: 24px; z-index: 1000; backdrop-filter: blur(10px);
+}
+.nav-bar button { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 16px; cursor: pointer; font-size: 13px; font-family: inherit; }
+.nav-bar button:hover { background: rgba(255,255,255,0.25); }
+.nav-bar .info { color: rgba(255,255,255,0.6); font-size: 12px; display: flex; align-items: center; padding: 0 8px; }
+.top-bar { position: fixed; top: 20px; right: 20px; display: flex; gap: 8px; z-index: 1000; }
+.top-bar button { padding: 8px 18px; border: 1px solid rgba(0,0,0,0.15); background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); cursor: pointer; font-size: 12px; font-family: inherit; border-radius: 6px; }
+.top-bar button:hover { background: white; }
+.top-bar button.print-btn { background: rgba(0,0,0,0.85); color: white; border-color: rgba(0,0,0,0.85); }
+
+@media print { .nav-bar, .top-bar { display: none !important; } }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <button onclick="window.print()" class="print-btn">🖨 Print PDF</button>
+</div>
+<div class="nav-bar">
+  <button onclick="goSlide(-1)">◀ Prev</button>
+  <span class="info" id="navInfo">1 / 8</span>
+  <button onclick="goSlide(1)">Next ▶</button>
+</div>
+
+<!-- SLIDE 1: Cover -->
+<div class="page" data-slide="1">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="cover">
+    <div class="accent-bar"></div>
+    <h1>Design Thinking</h1>
+    <p class="muted" style="font-size:clamp(9pt,1.5vw,14pt);margin-bottom:clamp(12px,2vw,32px);font-weight:300">A Process for Creative Problem Solving</p>
+    <div class="divider" style="width:100%;opacity:0.3"></div>
+    <p class="muted" style="font-size:clamp(7pt,1vw,10pt);letter-spacing:0.05em">Nordic Minimal · Helvetica Neue · Snow &amp; Charcoal</p>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>01 / 08</span></div>
+</div>
+
+<!-- SLIDE 2: Agenda -->
+<div class="page" data-slide="2">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content">
+    <div class="header-bar"><span>Design Thinking</span><span>02 / 08</span></div>
+    <p class="slide-subtitle">Overview</p>
+    <h2 class="slide-title">Agenda</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <ol class="num-list">
+        <li>Empathize — Understand the user</li>
+        <li>Define — Frame the core problem</li>
+        <li>Ideate — Generate creative solutions</li>
+        <li>Prototype — Build to think</li>
+        <li>Test — Learn through iteration</li>
+      </ol>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>02 / 08</span></div>
+</div>
+
+<!-- SLIDE 3: Five Stages -->
+<div class="page" data-slide="3">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content">
+    <div class="header-bar"><span>Design Thinking</span><span>03 / 08</span></div>
+    <h2 class="slide-title">The Five Stages</h2>
+    <p class="slide-subtitle">Design thinking is non-linear and iterative</p>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="three-col">
+        <div class="card"><h4 style="margin-bottom:clamp(4px,0.5vw,8px);color:var(--accent)">Empathize</h4><p class="muted">Research your users' needs. Observe, engage, and absorb to understand their experience.</p></div>
+        <div class="card"><h4 style="margin-bottom:clamp(4px,0.5vw,8px);color:var(--accent)">Define</h4><p class="muted">Synthesize findings into a human-centered problem statement. Focus on the real need.</p></div>
+        <div class="card"><h4 style="margin-bottom:clamp(4px,0.5vw,8px);color:var(--accent)">Ideate</h4><p class="muted">Challenge assumptions and explore radical solutions. Quantity over quality.</p></div>
+      </div>
+      <div class="divider"></div>
+      <div class="two-col">
+        <div class="card"><h4 style="margin-bottom:clamp(4px,0.5vw,8px);color:var(--accent)">Prototype</h4><p class="muted">Make ideas tangible. Low-fidelity models help you learn fast.</p></div>
+        <div class="card"><h4 style="margin-bottom:clamp(4px,0.5vw,8px);color:var(--accent)">Test</h4><p class="muted">Put prototypes in front of users. Every test teaches something new.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>03 / 08</span></div>
+</div>
+
+<!-- SLIDE 4: Core Principles -->
+<div class="page" data-slide="4">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content">
+    <div class="header-bar"><span>Design Thinking</span><span>04 / 08</span></div>
+    <h2 class="slide-title">Core Principles</h2>
+    <p class="slide-subtitle">What makes design thinking effective</p>
+    <div class="divider"></div>
+    <div class="body two-col">
+      <div><ul class="bullets"><li>User-centered, not technology-driven</li><li>Embrace ambiguity and exploration</li><li>Bias toward action over analysis</li><li>Show, don't tell — make ideas visible</li></ul></div>
+      <div><ul class="bullets"><li>Iterate fast, fail early, learn always</li><li>Radical collaboration across disciplines</li><li>Optimize for learning, not delivery</li><li>Design for the edge, not the average</li></ul></div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>04 / 08</span></div>
+</div>
+
+<!-- SLIDE 5: Stats -->
+<div class="page" data-slide="5">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content">
+    <div class="header-bar"><span>Design Thinking</span><span>05 / 08</span></div>
+    <h2 class="slide-title">Why It Matters</h2>
+    <p class="slide-subtitle">Evidence from design-driven organizations</p>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="three-col" style="margin-top:clamp(8px,1vw,16px)">
+        <div class="stat"><div class="number">211%</div><div class="label">ROI growth</div></div>
+        <div class="stat"><div class="number">88%</div><div class="label">Satisfaction</div></div>
+        <div class="stat"><div class="number">3×</div><div class="label">Faster iteration</div></div>
+      </div>
+      <div class="divider"></div>
+      <p class="muted" style="text-align:center;font-size:clamp(7pt,1vw,10pt)">Design-driven companies outperform the S&amp;P 500 by over 200%.<br>Source: Design Value Index, IDEO</p>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>05 / 08</span></div>
+</div>
+
+<!-- SLIDE 6: Double Diamond -->
+<div class="page" data-slide="6">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content">
+    <div class="header-bar"><span>Design Thinking</span><span>06 / 08</span></div>
+    <h2 class="slide-title">The Double Diamond</h2>
+    <p class="slide-subtitle">Discover · Define · Develop · Deliver</p>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="section"><h3 style="margin-bottom:clamp(4px,0.5vw,8px)">Divergent Thinking</h3><p class="muted">Open the frame. Explore broadly. Gather diverse perspectives. The diamond widens.</p></div>
+      <div class="section"><h3 style="margin-bottom:clamp(4px,0.5vw,8px)">Convergent Thinking</h3><p class="muted">Focus the insights. Make decisions. Commit to the right problem. The diamond narrows.</p></div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>06 / 08</span></div>
+</div>
+
+<!-- SLIDE 7: Toolkit -->
+<div class="page" data-slide="7">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="content">
+    <div class="header-bar"><span>Design Thinking</span><span>07 / 08</span></div>
+    <h2 class="slide-title">Toolkit</h2>
+    <p class="slide-subtitle">Methods for each stage</p>
+    <div class="divider"></div>
+    <div class="body two-col">
+      <div><h4 style="color:var(--accent);margin-bottom:clamp(6px,1vw,12px)">Discovery</h4><ul class="bullets"><li>Stakeholder interviews</li><li>Contextual inquiry</li><li>Journey mapping</li><li>Empathy mapping</li></ul></div>
+      <div><h4 style="color:var(--accent);margin-bottom:clamp(6px,1vw,12px)">Delivery</h4><ul class="bullets"><li>Wireframes & prototypes</li><li>A/B testing</li><li>Usability sessions</li><li>Design sprints</li></ul></div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>07 / 08</span></div>
+</div>
+
+<!-- SLIDE 8: Closing -->
+<div class="page" data-slide="8">
+  <div class="corner-mark corner-mark-tl"></div><div class="corner-mark corner-mark-tr"></div>
+  <div class="corner-mark corner-mark-bl"></div><div class="corner-mark corner-mark-br"></div>
+  <div class="cover">
+    <div class="accent-bar"></div>
+    <h1>Thank You</h1>
+    <p class="muted" style="font-size:clamp(9pt,1.5vw,14pt);margin-bottom:clamp(12px,2vw,32px);font-weight:300">Start designing. Start iterating. Start learning.</p>
+    <div class="divider" style="width:100%;opacity:0.3"></div>
+    <p class="muted" style="font-size:clamp(7pt,1vw,10pt);letter-spacing:0.05em">Contact @designthinking · designthinking.co</p>
+  </div>
+  <div class="footer-bar"><span>Design Thinking</span><span>08 / 08</span></div>
+</div>
+
+<script>
+let cur = 1; const total = 8; const pages = document.querySelectorAll('.page');
+function goSlide(d) { cur = Math.max(1, Math.min(total, cur + d)); showPage(cur); }
+function showPage(n) { pages.forEach((p,i) => { p.style.display = i === n-1 ? 'flex' : 'none'; }); document.getElementById('navInfo').textContent = n + ' / ' + total; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+// Init: show first page, hide others
+showPage(1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goSlide(1); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goSlide(-1); } });
+</script>
+</body>
+</html>

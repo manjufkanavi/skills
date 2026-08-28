@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimalist Presentation Decks — 4 Themes</title>
+<style>
+/* ============================================
+   GLOBAL RESET & PRINT SETUP
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --page-w: 210mm;
+  --page-h: 297mm;
+  --margin: 18mm;
+  --gap: 24px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #e8e4df;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+/* ============================================
+   THEME DEFINITIONS
+   ============================================ */
+
+/* — THEME 1: Nordic Minimal — Snow & Charcoal — Helvetica Neue — */
+.theme-nordic {
+  --bg: #FAFAF8;
+  --surface: #FFFFFF;
+  --ink: #1A1A1A;
+  --ink-muted: #6B6B6B;
+  --accent: #2D2D2D;
+  --border: #E0DED8;
+  --border-thick: #1A1A1A;
+  --rule: #D4D2CC;
+  --section-bg: transparent;
+  --page-font: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --heading-font: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --mono-font: 'SF Mono', 'Menlo', 'monospace';
+  --accent-dark: #111111;
+  --rule-width: 1.5px;
+}
+
+/* — THEME 2: Kyoto Warm — Cream & Ochre — Georgia — */
+.theme-kyoto {
+  --bg: #F5EDE0;
+  --surface: #FDF9F3;
+  --ink: #3B2F2F;
+  --ink-muted: #8B7A6A;
+  --accent: #C4956A;
+  --accent-dark: #A67B52;
+  --border: #E8D9C8;
+  --border-thick: #3B2F2F;
+  --rule: #DED0BC;
+  --section-bg: transparent;
+  --page-font: 'Georgia', 'Palatino', 'Times New Roman', serif;
+  --heading-font: 'Georgia', 'Palatino', 'Times New Roman', serif;
+  --mono-font: 'Courier New', monospace;
+  --rule-width: 2px;
+}
+
+/* — THEME 3: Helvetica — Deep Blue & White — Neue Helvetica — */
+.theme-helvetica {
+  --bg: #0B1628;
+  --surface: #111D33;
+  --ink: #FFFFFF;
+  --ink-muted: #8EA4C4;
+  --accent: #4A90D9;
+  --accent-dark: #6BADEB;
+  --border: #1E3050;
+  --border-thick: #2A4470;
+  --rule: #2A3A55;
+  --section-bg: #0D1B30;
+  --page-font: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --heading-font: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --mono-font: 'SF Mono', 'Menlo', 'monospace';
+  --rule-width: 1px;
+}
+
+/* — THEME 4: Mint & Sand — Sage & Sand — Gill Sans — */
+.theme-mint {
+  --bg: #F4F1EC;
+  --surface: #FFFFFF;
+  --ink: #2C3E3A;
+  --ink-muted: #7A908A;
+  --accent: #6B9E8A;
+  --accent-dark: #4E806E;
+  --border: #D8D5CF;
+  --border-thick: #2C3E3A;
+  --rule: #C5C0B8;
+  --section-bg: #F8F6F2;
+  --page-font: 'Gill Sans', 'Gill Sans MT', 'Helvetica Neue', sans-serif;
+  --heading-font: 'Gill Sans', 'Gill Sans MT', 'Helvetica Neue', sans-serif;
+  --mono-font: 'SF Mono', 'Menlo', 'monospace';
+  --rule-width: 1.5px;
+}
+
+/* ============================================
+   PAGE FRAME — A4
+   ============================================ */
+.page-frame {
+  width: var(--page-w);
+  min-height: var(--page-h);
+  background: var(--surface);
+  position: relative;
+  padding: var(--margin);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+  page-break-after: always;
+  break-after: page;
+}
+
+/* Decorative border */
+.page-frame::before {
+  content: '';
+  position: absolute;
+  top: 8mm;
+  left: 8mm;
+  right: 8mm;
+  bottom: 8mm;
+  border: var(--rule-width) solid var(--rule);
+  pointer-events: none;
+}
+
+.page-frame::after {
+  content: '';
+  position: absolute;
+  top: 10mm;
+  left: 10mm;
+  right: 10mm;
+  bottom: 10mm;
+  border: 0.5px solid var(--rule);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Accent corner marks */
+.corner-mark {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+.corner-mark-tl { top: 6mm; left: 6mm; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner-mark-tr { top: 6mm; right: 6mm; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.corner-mark-bl { bottom: 6mm; left: 6mm; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner-mark-br { bottom: 6mm; right: 6mm; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.page-frame {
+  font-family: var(--page-font);
+  color: var(--ink);
+}
+
+.page-frame h1,
+.page-frame h2,
+.page-frame h3,
+.page-frame h4 {
+  font-family: var(--heading-font);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.page-frame h1 { font-size: 32pt; font-weight: 400; }
+.page-frame h2 { font-size: 24pt; font-weight: 400; }
+.page-frame h3 { font-size: 18pt; font-weight: 400; }
+.page-frame h4 { font-size: 14pt; font-weight: 400; }
+
+.page-frame p,
+.page-frame li,
+.page-frame span,
+.page-frame div {
+  font-size: 12pt;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.page-frame .muted {
+  color: var(--ink-muted);
+}
+
+.page-frame a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.page-frame .mono {
+  font-family: var(--mono-font);
+  font-size: 10pt;
+}
+
+/* ============================================
+   LAYOUT COMPONENTS
+   ============================================ */
+
+/* Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 9pt;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+
+/* Section (full width background block) */
+.section {
+  padding: 32px 24px;
+  margin: 20px 0;
+  background: var(--section-bg);
+  border-left: 3px solid var(--accent);
+}
+
+/* Two-column grid */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+/* Three-column grid */
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+/* Bullet list */
+.bullets {
+  list-style: none;
+  padding: 0;
+}
+.bullets li {
+  padding: 8px 0 8px 20px;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+}
+.bullets li:last-child { border-bottom: none; }
+.bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* Numbered list */
+.num-list {
+  list-style: none;
+  padding: 0;
+  counter-reset: num;
+}
+.num-list li {
+  padding: 12px 0 12px 32px;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+  counter-increment: num;
+}
+.num-list li::before {
+  content: counter(num, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--mono-font);
+  font-size: 10pt;
+  color: var(--accent);
+}
+
+/* Divider */
+.divider {
+  height: var(--rule-width);
+  background: var(--rule);
+  margin: 24px 0;
+}
+
+/* Stat box */
+.stat {
+  text-align: center;
+  padding: 20px;
+}
+.stat .number {
+  font-size: 36pt;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat .label {
+  font-size: 10pt;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Card */
+.card {
+  border: 1px solid var(--border);
+  padding: 20px;
+  background: var(--surface);
+}
+
+/* ============================================
+   COVER SLIDE
+   ============================================ */
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+}
+.cover h1 {
+  font-size: 36pt;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+.cover .subtitle {
+  font-size: 14pt;
+  color: var(--ink-muted);
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+.cover .meta {
+  font-size: 10pt;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+}
+.cover .accent-bar {
+  width: 48px;
+  height: 3px;
+  background: var(--accent);
+  margin: 0 auto 24px auto;
+}
+
+/* ============================================
+   CONTENT SLIDE
+   ============================================ */
+.content-slide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.content-slide .slide-title {
+  font-size: 22pt;
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.content-slide .slide-subtitle {
+  font-size: 11pt;
+  color: var(--ink-muted);
+  margin-bottom: 24px;
+}
+.content-slide .body {
+  flex: 1;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  font-size: 8pt;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   ON-SCREEN NAV (hidden in print)
+   ============================================ */
+.on-screen-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  background: rgba(30,30,30,0.85);
+  padding: 10px 20px;
+  border-radius: 24px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+.on-screen-nav button {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+.on-screen-nav button:hover {
+  background: rgba(255,255,255,0.25);
+}
+.on-screen-nav .theme-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 0;
+  border: 2px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+}
+.on-screen-nav .theme-btn.active {
+  border-color: white;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+}
+.on-screen-nav .nav-info {
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+/* Theme tabs for screen view */
+.theme-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+}
+.theme-selector button {
+  padding: 8px 18px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.theme-selector button:hover {
+  background: white;
+  border-color: rgba(0,0,0,0.3);
+}
+.theme-selector button.active {
+  background: rgba(0,0,0,0.85);
+  color: white;
+  border-color: rgba(0,0,0,0.85);
+}
+
+/* ============================================
+   SCREEN: Show only active theme
+   ============================================ */
+.deck-section {
+  display: none;
+}
+.deck-section.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+
+  .theme-selector,
+  .on-screen-nav {
+    display: none !important;
+  }
+
+  .deck-section {
+    display: flex !important;
+    gap: 0;
+  }
+
+  .page-frame {
+    box-shadow: none;
+    margin: 0;
+    page-break-after: always;
+    break-after: page;
+    width: 100%;
+    min-height: 297mm;
+  }
+
+  .page-frame:last-child {
+    page-break-after: avoid;
+  }
+
+  /* When printing a specific theme, only show that one */
+  body.print-theme-1 .deck-section:not(.theme-nordic) { display: none !important; }
+  body.print-theme-2 .deck-section:not(.theme-kyoto) { display: none !important; }
+  body.print-theme-3 .deck-section:not(.theme-helvetica) { display: none !important; }
+  body.print-theme-4 .deck-section:not(.theme-mint) { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Theme selector (screen only) -->
+<div class="theme-selector">
+  <button class="active" onclick="showTheme('nordic')">1. Nordic</button>
+  <button onclick="showTheme('kyoto')">2. Kyoto</button>
+  <button onclick="showTheme('helvetica')">3. Deep Blue</button>
+  <button onclick="showTheme('mint')">4. Mint</button>
+  <button onclick="printAll()" style="background:rgba(0,0,0,0.85);color:white;border-color:rgba(0,0,0,0.85)">🖨 Print All</button>
+</div>
+
+<!-- Nav -->
+<div class="on-screen-nav">
+  <button onclick="prevSlide()">◀ Prev</button>
+  <span class="nav-info" id="navInfo">1 / 8</span>
+  <button onclick="nextSlide()">Next ▶</button>
+</div>
+
+<!-- ============================================
+     THEME 1: NORDIC MINIMAL
+     ============================================ -->
+<div class="deck-section active theme-nordic" id="theme-nordic">
+
+  <!-- Slide 1: Cover -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar"></div>
+      <h1>Design Thinking</h1>
+      <p class="subtitle">A Process for Creative Problem Solving</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Nordic Minimal &nbsp;·&nbsp; Helvetica Neue &nbsp;·&nbsp; Snow &amp; Charcoal</p>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>01 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 2: Agenda -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <p class="slide-subtitle">Overview</p>
+      <h2 class="slide-title">Agenda</h2>
+      <div class="divider"></div>
+      <div class="body">
+        <ol class="num-list">
+          <li>Empathize — Understand the user</li>
+          <li>Define — Frame the core problem</li>
+          <li>Ideate — Generate creative solutions</li>
+          <li>Prototype — Build to think</li>
+          <li>Test — Learn through iteration</li>
+        </ol>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>02 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 3: The Process -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">The Five Stages</h2>
+      <p class="slide-subtitle">Design thinking is non-linear and iterative</p>
+      <div class="divider"></div>
+      <div class="body">
+        <div class="three-col">
+          <div class="card">
+            <h4 style="margin-bottom:8px;color:var(--accent)">Empathize</h4>
+            <p class="muted" style="font-size:10.5pt">Research your users' needs. Observe, engage, and absorb to understand their experience and motivations.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:8px;color:var(--accent)">Define</h4>
+            <p class="muted" style="font-size:10.5pt">Synthesize findings into a human-centered problem statement. Focus on the real need, not the symptoms.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:8px;color:var(--accent)">Ideate</h4>
+            <p class="muted" style="font-size:10.5pt">Challenge assumptions and explore radical solutions. Quantity over quality at this stage.</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="card">
+            <h4 style="margin-bottom:8px;color:var(--accent)">Prototype</h4>
+            <p class="muted" style="font-size:10.5pt">Make ideas tangible. Low-fidelity models help you learn fast and fail cheap.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:8px;color:var(--accent)">Test</h4>
+            <p class="muted" style="font-size:10.5pt">Put prototypes in front of users. Every test teaches you something new about your solution.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>03 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 4: Key Principles -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Core Principles</h2>
+      <p class="slide-subtitle">What makes design thinking effective</p>
+      <div class="divider"></div>
+      <div class="body two-col">
+        <div>
+          <ul class="bullets">
+            <li>User-centered, not technology-driven</li>
+            <li>Embrace ambiguity and exploration</li>
+            <li>Bias toward action over analysis</li>
+            <li>Show, don't tell — make ideas visible</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="bullets">
+            <li>Iterate fast, fail early, learn always</li>
+            <li>Radical collaboration across disciplines</li>
+            <li>Optimize for learning, not delivery</li>
+            <li>Design for the edge, not the average</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>04 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 5: Stats -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Why It Matters</h2>
+      <p class="slide-subtitle">Evidence from design-driven organizations</p>
+      <div class="divider"></div>
+      <div class="body">
+        <div class="three-col" style="margin-top:16px">
+          <div class="stat">
+            <div class="number">211%</div>
+            <div class="label">ROI growth</div>
+          </div>
+          <div class="stat">
+            <div class="number">88%</div>
+            <div class="label">Customer satisfaction</div>
+          </div>
+          <div class="stat">
+            <div class="number">3×</div>
+            <div class="label">Faster iteration</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <p class="muted" style="text-align:center;font-size:10pt">Design-driven companies outperform the S&amp;P 500 by over 200% over 11 years.<br>Source: Design Value Index, IDEO &amp; D&bull;Q</p>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>05 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 6: Framework -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">The Double Diamond</h2>
+      <p class="slide-subtitle">Discover · Define · Develop · Deliver</p>
+      <div class="divider"></div>
+      <div class="body">
+        <div class="section" style="margin-bottom:16px">
+          <h3 style="font-size:16pt;margin-bottom:8px">Divergent Thinking</h3>
+          <p class="muted" style="font-size:11pt">Open the frame. Explore broadly. Gather diverse perspectives. Resist the urge to narrow too early. The diamond widens.</p>
+        </div>
+        <div class="section">
+          <h3 style="font-size:16pt;margin-bottom:8px">Convergent Thinking</h3>
+          <p class="muted" style="font-size:11pt">Focus the insights. Make decisions. Commit to the right problem and the right solution. The diamond narrows.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>06 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 7: Tools -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Toolkit</h2>
+      <p class="slide-subtitle">Methods for each stage</p>
+      <div class="divider"></div>
+      <div class="body two-col">
+        <div>
+          <h4 style="color:var(--accent);margin-bottom:12px">Discovery</h4>
+          <ul class="bullets">
+            <li>Stakeholder interviews</li>
+            <li>Contextual inquiry</li>
+            <li>Journey mapping</li>
+            <li>Empathy mapping</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--accent);margin-bottom:12px">Delivery</h4>
+          <ul class="bullets">
+            <li>Wireframes & prototypes</li>
+            <li>A/B testing</li>
+            <li>Usability sessions</li>
+            <li>Design sprints</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>07 / 08</span>
+    </div>
+  </div>
+
+  <!-- Slide 8: Closing -->
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar"></div>
+      <h1>Thank You</h1>
+      <p class="subtitle">Start designing. Start iterating. Start learning.</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Contact @designthinking &nbsp;·&nbsp; designthinking.co</p>
+    </div>
+    <div class="page-footer">
+      <span>Design Thinking</span>
+      <span>08 / 08</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     THEME 2: KYOTO WARM
+     ============================================ -->
+<div class="deck-section theme-kyoto" id="theme-kyoto">
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar"></div>
+      <h1>Art of Simplicity</h1>
+      <p class="subtitle">Embracing Minimalism in Modern Design</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Kyoto Warm &nbsp;·&nbsp; Georgia Serif &nbsp;·&nbsp; Cream &amp; Ochre</p>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>01 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <p class="slide-subtitle">Agenda</p>
+      <h2 class="slide-title">What We'll Explore</h2>
+      <div class="divider"></div>
+      <div class="body">
+        <ol class="num-list">
+          <li>What is minimalist design and why it matters</li>
+          <li>Less is more — the philosophy behind simplicity</li>
+          <li>White space as a design element</li>
+          <li>Typography hierarchy without clutter</li>
+          <li>Color palettes that breathe</li>
+        </ol>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>02 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Less Is More</h2>
+      <p class="slide-subtitle">The core philosophy</p>
+      <div class="divider"></div>
+      <div class="body">
+        <div class="section" style="font-size:14pt;line-height:1.8;font-style:italic;color:var(--ink)">
+          "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away."
+        </div>
+        <p class="muted" style="text-align:right;margin-top:8px;font-size:10pt">— Antoine de Saint-Exupéry</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div>
+            <h4 style="margin-bottom:8px;color:var(--accent-dark)">Remove Distractions</h4>
+            <p class="muted" style="font-size:10.5pt">Every element must earn its place. If it doesn't communicate, eliminate it.</p>
+          </div>
+          <div>
+            <h4 style="margin-bottom:8px;color:var(--accent-dark)">Amplify What Matters</h4>
+            <p class="muted" style="font-size:10.5pt">When there is less noise, the signal becomes clearer and more powerful.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>03 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">The Power of White Space</h2>
+      <p class="slide-subtitle">Space is not empty — it is active</p>
+      <div class="divider"></div>
+      <div class="body">
+        <div class="three-col">
+          <div class="stat">
+            <div class="number" style="font-size:28pt;color:var(--accent)">3×</div>
+            <div class="label">Better retention</div>
+          </div>
+          <div class="stat">
+            <div class="number" style="font-size:28pt;color:var(--accent)">40%</div>
+            <div class="label">Faster comprehension</div>
+          </div>
+          <div class="stat">
+            <div class="number" style="font-size:28pt;color:var(--accent)">2×</div>
+            <div class="label">More engagement</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <p class="muted" style="text-align:center;font-size:10.5pt">White space guides the eye, creates breathing room, and elevates every element surrounding it. It is the silence between musical notes that gives music its shape.</p>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>04 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Typography as Structure</h2>
+      <p class="slide-subtitle">Let type do the heavy lifting</p>
+      <div class="divider"></div>
+      <div class="body two-col">
+        <div>
+          <h3 style="font-size:28pt;margin-bottom:8px;color:var(--accent-dark)">Large</h3>
+          <p class="muted" style="font-size:10.5pt">Headlines grab attention. Use a single font family with bold weight for hierarchy. No icons needed.</p>
+          <h4 style="font-size:16pt;margin:16px 0 8px 0;color:var(--ink)">Medium</h4>
+          <p class="muted" style="font-size:10.5pt">Subheads create sections. Regular weight with generous spacing between lines.</p>
+          <p style="font-size:11pt;margin-top:16px;color:var(--ink)">Small</p>
+          <p class="muted" style="font-size:10.5pt">Body text should be comfortable to read at 10-12pt. Emphasize through weight, not color.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <p class="muted" style="font-size:11pt;line-height:1.8">The key is restraint. One typeface. Two weights. Generous line height. The type hierarchy replaces the need for decorative borders, icons, and color blocks.</p>
+          <div class="divider" style="margin:20px 0"></div>
+          <p class="muted" style="font-size:11pt;line-height:1.8">Bold carries the message. The rest follows in quiet support. This is the essence of typographic minimalism.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>05 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Color Palettes</h2>
+      <p class="slide-subtitle">Warm and restrained</p>
+      <div class="divider"></div>
+      <div class="body">
+        <div class="three-col">
+          <div>
+            <div style="width:100%;height:80px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:12px"></div>
+            <h4 style="font-size:12pt;margin-bottom:4px">Cream</h4>
+            <p class="muted mono">#FDF9F3</p>
+          </div>
+          <div>
+            <div style="width:100%;height:80px;background:var(--accent);border-radius:4px;margin-bottom:12px"></div>
+            <h4 style="font-size:12pt;margin-bottom:4px;color:var(--accent-dark)">Ochre</h4>
+            <p class="muted mono">#C4956A</p>
+          </div>
+          <div>
+            <div style="width:100%;height:80px;background:var(--ink);border-radius:4px;margin-bottom:12px"></div>
+            <h4 style="font-size:12pt;margin-bottom:4px;color:var(--ink)">Warm Black</h4>
+            <p class="muted mono">#3B2F2F</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <p class="muted" style="text-align:center;font-size:10.5pt">Three colors are enough. A warm background, an earthy accent, and dark ink. Everything else is white space.</p>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>06 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Rules of Minimalism</h2>
+      <p class="slide-subtitle">A practical checklist</p>
+      <div class="divider"></div>
+      <div class="body">
+        <ul class="bullets">
+          <li>One type family per design</li>
+          <li>One accent color — no more</li>
+          <li>Every element must serve a purpose</li>
+          <li>Use space as a design tool, not a byproduct</li>
+          <li>Let content breathe with generous padding</li>
+          <li>Typography alone should create hierarchy</li>
+          <li>Align everything — even asymmetry needs alignment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>07 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar"></div>
+      <h1>Simplicity Is the<br>Ultimate Sophistication</h1>
+      <p class="subtitle">— Leonardo da Vinci</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Art of Simplicity &nbsp;·&nbsp; Kyoto Warm</p>
+    </div>
+    <div class="page-footer">
+      <span>Art of Simplicity</span>
+      <span>08 / 08</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     THEME 3: DEEP BLUE
+     ============================================ -->
+<div class="deck-section theme-helvetica" id="theme-helvetica">
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar"></div>
+      <h1 style="color:#fff">Future Systems</h1>
+      <p class="subtitle" style="color:var(--ink-muted)">Building Architecture for Tomorrow</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Deep Blue &nbsp;·&nbsp; Helvetica Neue &nbsp;·&nbsp; Night Mode</p>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>01 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <p class="slide-subtitle">Overview</p>
+      <h2 class="slide-title" style="color:#fff">Agenda</h2>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <ol class="num-list">
+          <li style="color:var(--ink-muted)">Infrastructure as code and abstraction</li>
+          <li style="color:var(--ink-muted)">Distributed systems at scale</li>
+          <li style="color:var(--ink-muted)">Observability and monitoring</li>
+          <li style="color:var(--ink-muted)">Security by design</li>
+          <li style="color:var(--ink-muted)">The path to autonomy</li>
+        </ol>
+      </div>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>02 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title" style="color:#fff">Infrastructure Layer</h2>
+      <p class="slide-subtitle">The foundation of modern systems</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <div class="three-col">
+          <div class="card" style="background:#111D33;border-color:var(--border)">
+            <h4 style="color:var(--accent-dark);margin-bottom:8px">Compute</h4>
+            <p class="muted" style="font-size:10.5pt">Container orchestration, serverless functions, edge computing. Abstract away the hardware.</p>
+          </div>
+          <div class="card" style="background:#111D33;border-color:var(--border)">
+            <h4 style="color:var(--accent-dark);margin-bottom:8px">Data</h4>
+            <p class="muted" style="font-size:10.5pt">Distributed databases, streaming pipelines, event sourcing. Data is the new currency.</p>
+          </div>
+          <div class="card" style="background:#111D33;border-color:var(--border)">
+            <h4 style="color:var(--accent-dark);margin-bottom:8px">Network</h4>
+            <p class="muted" style="font-size:10.5pt">Service meshes, zero-trust networking, CDN architectures. Connectivity is everything.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>03 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title" style="color:#fff">Metrics That Matter</h2>
+      <p class="slide-subtitle">System health at a glance</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <div class="three-col" style="margin-top:16px">
+          <div class="stat">
+            <div class="number" style="color:var(--accent);font-size:36pt">99.99%</div>
+            <div class="label">Uptime target</div>
+          </div>
+          <div class="stat">
+            <div class="number" style="color:var(--accent);font-size:36pt">< 50ms</div>
+            <div class="label">Latency p99</div>
+          </div>
+          <div class="stat">
+            <div class="number" style="color:var(--accent);font-size:36pt">50K+</div>
+            <div class="label">Requests/sec</div>
+          </div>
+        </div>
+        <div class="divider" style="background:var(--rule)"></div>
+        <div class="two-col">
+          <div class="card" style="background:#111D33;border-color:var(--border)">
+            <h4 style="color:var(--accent-dark);margin-bottom:8px;font-size:13pt">Observability</h4>
+            <p class="muted" style="font-size:10.5pt">Logs, metrics, traces. Three pillars of understanding. Every request must be instrumented from start to finish.</p>
+          </div>
+          <div class="card" style="background:#111D33;border-color:var(--border)">
+            <h4 style="color:var(--accent-dark);margin-bottom:8px;font-size:13pt">Resilience</h4>
+            <p class="muted" style="font-size:10.5pt">Circuit breakers, retries, bulkheads. Assume failure is inevitable. Design for graceful degradation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>04 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title" style="color:#fff">Security by Design</h2>
+      <p class="slide-subtitle">Zero trust, defense in depth</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <ul class="bullets">
+          <li style="color:var(--ink-muted)">Identity-first authentication and authorization</li>
+          <li style="color:var(--ink-muted)">End-to-end encryption for data at rest and in transit</li>
+          <li style="color:var(--ink-muted)">Automated vulnerability scanning and patching</li>
+          <li style="color:var(--ink-muted)">Immutable infrastructure — never patch, always rebuild</li>
+          <li style="color:var(--ink-muted)">Principle of least privilege across all services</li>
+        </ul>
+      </div>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>05 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title" style="color:#fff">Path to Autonomy</h2>
+      <p class="slide-subtitle">From manual to self-healing systems</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <div class="section" style="background:var(--section-bg);border-left:3px solid var(--accent)">
+          <h4 style="font-size:14pt;color:var(--accent-dark);margin-bottom:8px">Level 1 — Manual Ops</h4>
+          <p class="muted" style="font-size:11pt">Human-driven deployment, monitoring, and incident response.</p>
+        </div>
+        <div class="section" style="background:var(--section-bg);border-left:3px solid var(--accent);margin-top:8px">
+          <h4 style="font-size:14pt;color:var(--accent-dark);margin-bottom:8px">Level 2 — Automated</h4>
+          <p class="muted" style="font-size:11pt">CI/CD pipelines, automated scaling, scripted remediation.</p>
+        </div>
+        <div class="section" style="background:var(--section-bg);border-left:3px solid var(--accent);margin-top:8px">
+          <h4 style="font-size:14pt;color:var(--accent-dark);margin-bottom:8px">Level 3 — Autonomous</h4>
+          <p class="muted" style="font-size:11pt">Self-healing, predictive scaling, AI-driven anomaly detection. Systems that manage themselves.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>06 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title" style="color:#fff">Tech Stack</h2>
+      <p class="slide-subtitle">Modern tooling for modern problems</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body three-col">
+        <div class="card" style="background:#111D33;border-color:var(--border)">
+          <h4 style="color:var(--accent-dark);margin-bottom:12px;font-size:13pt">Infrastructure</h4>
+          <p class="mono muted">Kubernetes, Terraform, Nomad</p>
+        </div>
+        <div class="card" style="background:#111D33;border-color:var(--border)">
+          <h4 style="color:var(--accent-dark);margin-bottom:12px;font-size:13pt">Observability</h4>
+          <p class="mono muted">Prometheus, Grafana, Jaeger</p>
+        </div>
+        <div class="card" style="background:#111D33;border-color:var(--border)">
+          <h4 style="color:var(--accent-dark);margin-bottom:12px;font-size:13pt">Security</h4>
+          <p class="mono muted">OPA, Vault, SPIFFE/SPIRE</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>07 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame" style="background:#0B1628;color:#fff">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar"></div>
+      <h1 style="color:#fff">The Future<br>Is Now</h1>
+      <p class="subtitle" style="color:var(--ink-muted)">Build for what comes next.</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">future.systems &nbsp;·&nbsp; @futuresys</p>
+    </div>
+    <div class="page-footer" style="color:var(--ink-muted)">
+      <span>Future Systems</span>
+      <span>08 / 08</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     THEME 4: MINT & SAND
+     ============================================ -->
+<div class="deck-section theme-mint" id="theme-mint">
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar" style="background:var(--accent)"></div>
+      <h1>Growth & Strategy</h1>
+      <p class="subtitle">A Framework for Sustainable Scaling</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Mint & Sand &nbsp;·&nbsp; Gill Sans &nbsp;·&nbsp; Sage Accent</p>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>01 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <p class="slide-subtitle">Outline</p>
+      <h2 class="slide-title">What We'll Cover</h2>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <ol class="num-list">
+          <li>Market positioning and differentiation</li>
+          <li>Product-led growth levers</li>
+          <li>Customer retention and expansion</li>
+          <li>Team scaling and org design</li>
+          <li>Measuring what matters</li>
+        </ol>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>02 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">The Growth Framework</h2>
+      <p class="slide-subtitle">Three engines of sustainable growth</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <div class="three-col">
+          <div class="card" style="border-top:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:12px">Acquisition</h4>
+            <p class="muted" style="font-size:10.5pt">Content marketing, SEO, partnerships. Attract users through value, not noise.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:12px">Activation</h4>
+            <p class="muted" style="font-size:10.5pt">Onboarding, first-value moment, habit formation. Convert visitors into engaged users.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:12px">Retention</h4>
+            <p class="muted" style="font-size:10.5pt">Feature velocity, support quality, community. Keep users coming back through delight.</p>
+          </div>
+        </div>
+        <div class="divider" style="background:var(--rule);margin:20px 0"></div>
+        <div class="three-col">
+          <div class="card" style="border-top:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:12px">Revenue</h4>
+            <p class="muted" style="font-size:10.5pt">Pricing strategy, upsell paths, packaging. Monetize value without friction.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:12px">Referral</h4>
+            <p class="muted" style="font-size:10.5pt">Product virality, network effects, ambassador programs. Turn users into advocates.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:12px">Expansion</h4>
+            <p class="muted" style="font-size:10.5pt">New markets, new features, new segments. Grow beyond your current ceiling.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>03 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Unit Economics</h2>
+      <p class="slide-subtitle">Know your numbers</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <div class="three-col" style="margin-top:8px">
+          <div class="stat">
+            <div class="number" style="font-size:28pt;color:var(--accent-dark)">CAC</div>
+            <div class="label">Cost to Acquire</div>
+          </div>
+          <div class="stat">
+            <div class="number" style="font-size:28pt;color:var(--accent-dark)">LTV</div>
+            <div class="label">Lifetime Value</div>
+          </div>
+          <div class="stat">
+            <div class="number" style="font-size:28pt;color:var(--accent-dark)">3:1</div>
+            <div class="label">LTV to CAC Ratio</div>
+          </div>
+        </div>
+        <div class="divider" style="background:var(--rule);margin:20px 0"></div>
+        <div class="two-col">
+          <div>
+            <h4 style="color:var(--accent-dark);margin-bottom:8px">Payback Period</h4>
+            <p class="muted" style="font-size:10.5pt">Target under 12 months. Every month of delay burns cash and extends the path to profitability.</p>
+          </div>
+          <div>
+            <h4 style="color:var(--accent-dark);margin-bottom:8px">Net Revenue Retention</h4>
+            <p class="muted" style="font-size:10.5pt">Target over 110%. Expansion revenue should outpace churn — your existing customers should grow.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>04 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Team Scaling</h2>
+      <p class="slide-subtitle">Building the right organization</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <div class="section" style="border-left:3px solid var(--accent)">
+          <h4 style="font-size:14pt;margin-bottom:8px;color:var(--accent-dark)">Principle: Span of Control</h4>
+          <p class="muted" style="font-size:11pt">Aim for 5-8 direct reports. Beyond that, information flow breaks down and decisions slow.</p>
+        </div>
+        <div class="section" style="border-left:3px solid var(--accent);margin-top:8px">
+          <h4 style="font-size:14pt;margin-bottom:8px;color:var(--accent-dark)">Principle: Team Autonomy</h4>
+          <p class="muted" style="font-size:11pt">Small teams, clear ownership, decision rights at the edge. Centralize only what needs consistency.</p>
+        </div>
+        <div class="section" style="border-left:3px solid var(--accent);margin-top:8px">
+          <h4 style="font-size:14pt;margin-bottom:8px;color:var(--accent-dark)">Principle: Hire for Growth</h4>
+          <p class="muted" style="font-size:11pt">Each hire should make the team 10x better, not just add headcount. Culture compounds.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>05 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">Key Metrics</h2>
+      <p class="slide-subtitle">What to measure and why</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body">
+        <ul class="bullets">
+          <li>MRR / ARR — Monthly and annual recurring revenue</li>
+          <li>Churn Rate — Percentage of customers lost per period</li>
+          <li>Activation Rate — Percentage reaching the "aha" moment</li>
+          <li>NPS — Net Promoter Score as a proxy for loyalty</li>
+          <li>CAC Payback — Months to recover acquisition cost</li>
+        </ul>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>06 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="content-slide">
+      <h2 class="slide-title">The Path Forward</h2>
+      <p class="slide-subtitle">Three priorities for the next quarter</p>
+      <div class="divider" style="background:var(--rule)"></div>
+      <div class="body two-col">
+        <div>
+          <div class="card" style="border-left:3px solid var(--accent);margin-bottom:16px">
+            <h4 style="color:var(--accent-dark);margin-bottom:6px">1. Product-Led Growth</h4>
+            <p class="muted" style="font-size:10.5pt">Build self-serve onboarding. Every feature should teach itself.</p>
+          </div>
+          <div class="card" style="border-left:3px solid var(--accent);margin-bottom:16px">
+            <h4 style="color:var(--accent-dark);margin-bottom:6px">2. Expand the Team</h4>
+            <p class="muted" style="font-size:10.5pt">Hire for the next stage, not the current one. Culture carriers first.</p>
+          </div>
+          <div class="card" style="border-left:3px solid var(--accent)">
+            <h4 style="color:var(--accent-dark);margin-bottom:6px">3. Enter New Markets</h4>
+            <p class="muted" style="font-size:10.5pt">Validate demand before investing. Pilot, measure, scale.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center">
+            <div style="font-size:72pt;font-weight:300;color:var(--accent);line-height:1">↑</div>
+            <p class="muted" style="font-size:11pt;margin-top:8px">Sustainable growth<br>is a marathon,<br>not a sprint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>07 / 08</span>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="corner-mark corner-mark-tl"></div>
+    <div class="corner-mark corner-mark-tr"></div>
+    <div class="corner-mark corner-mark-bl"></div>
+    <div class="corner-mark corner-mark-br"></div>
+    <div class="cover">
+      <div class="accent-bar" style="background:var(--accent)"></div>
+      <h1>Grow with<br>Intention</h1>
+      <p class="subtitle">Strategy is choosing what not to do.</p>
+      <div class="divider" style="width:100%;opacity:0.3"></div>
+      <p class="meta">Growth &amp; Strategy &nbsp;·&nbsp; Mint &amp; Sand</p>
+    </div>
+    <div class="page-footer">
+      <span>Growth & Strategy</span>
+      <span>08 / 08</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let currentTheme = 'nordic';
+let currentSlide = 0;
+
+function getActiveSlides() {
+  const section = document.getElementById('theme-' + currentTheme);
+  return section.querySelectorAll('.page-frame');
+}
+
+function showTheme(theme) {
+  currentTheme = theme;
+  document.querySelectorAll('.deck-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('theme-' + theme).classList.add('active');
+  document.querySelectorAll('.theme-selector button').forEach(b => b.classList.remove('active'));
+  document.querySelector('.theme-selector button[onclick="showTheme(\'' + theme + '\')"]').classList.add('active');
+  currentSlide = 0;
+  updateNav();
+}
+
+function nextSlide() {
+  const slides = getActiveSlides();
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateNav();
+  }
+}
+
+function prevSlide() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    const slides = getActiveSlides();
+    slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateNav();
+  }
+}
+
+function updateNav() {
+  const slides = getActiveSlides();
+  document.getElementById('navInfo').textContent = (currentSlide + 1) + ' / ' + slides.length;
+}
+
+function printAll() {
+  // Print all themes
+  window.print();
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+    e.preventDefault();
+    nextSlide();
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    prevSlide();
+  } else if (e.key === 'Home') {
+    e.preventDefault();
+    const slides = getActiveSlides();
+    if (slides.length) { slides[0].scrollIntoView({ behavior: 'smooth', block: 'start' }); currentSlide = 0; updateNav(); }
+  } else if (e.key === 'End') {
+    e.preventDefault();
+    const slides = getActiveSlides();
+    if (slides.length) { slides[slides.length-1].scrollIntoView({ behavior: 'smooth', block: 'start' }); currentSlide = slides.length-1; updateNav(); }
+  }
+});
+
+// Scroll spy
+window.addEventListener('scroll', function() {
+  const slides = getActiveSlides();
+  let found = false;
+  for (let i = 0; i < slides.length; i++) {
+    const rect = slides[i].getBoundingClientRect();
+    if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+      if (!found || i < currentSlide) {
+        currentSlide = i;
+        updateNav();
+        found = true;
+        break;
+      }
+    }
+  }
+});
+
+// Init
+updateNav();
+</script>
+
+</body>
+</html>

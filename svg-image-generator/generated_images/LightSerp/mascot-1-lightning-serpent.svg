@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E676"/>
+      <stop offset="100%" style="stop-color:#00B0FF"/>
+    </linearGradient>
+    <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD600"/>
+      <stop offset="100%" style="stop-color:#FF6D00"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#F5F5F5"/>
+  
+  <!-- Lightning bolt behind serpent -->
+  <path d="M340 60 L280 200 L320 200 L260 340 L340 180 L300 180 Z" fill="#FFD600" opacity="0.3"/>
+  
+  <!-- Serpent body - coiled in a friendly S-curve -->
+  <path d="M256 380 C200 380 160 340 160 280 C160 220 200 200 230 200 C260 200 280 230 280 260 C280 290 260 310 240 310 C220 310 210 290 210 270" 
+        fill="none" stroke="url(#bodyGrad)" stroke-width="36" stroke-linecap="round"/>
+  
+  <!-- Serpent head -->
+  <ellipse cx="290" cy="170" rx="50" ry="45" fill="url(#bodyGrad)" filter="url(#shadow)"/>
+  
+  <!-- Eyes - big and expressive -->
+  <ellipse cx="270" cy="160" rx="14" ry="16" fill="white"/>
+  <ellipse cx="310" cy="160" rx="14" ry="16" fill="white"/>
+  <circle cx="274" cy="158" r="8" fill="#1A1A2E"/>
+  <circle cx="314" cy="158" r="8" fill="#1A1A2E"/>
+  <circle cx="277" cy="154" r="3" fill="white"/>
+  <circle cx="317" cy="154" r="3" fill="white"/>
+  
+  <!-- Friendly smile -->
+  <path d="M275 185 Q290 200 305 185" fill="none" stroke="#1A1A2E" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Explorer hat -->
+  <ellipse cx="290" cy="130" rx="45" ry="12" fill="#8D6E63"/>
+  <path d="M260 130 L265 95 Q290 80 315 95 L320 130" fill="#A1887F" stroke="#6D4C41" stroke-width="2"/>
+  <rect x="275" y="100" width="30" height="8" rx="2" fill="#FFD600"/>
+  
+  <!-- Backpack -->
+  <rect x="175" y="260" width="50" height="60" rx="8" fill="#5C6BC0" filter="url(#shadow)"/>
+  <rect x="180" y="265" width="40" height="25" rx="4" fill="#7986CB"/>
+  <rect x="185" y="295" width="30" height="18" rx="3" fill="#3F51B5"/>
+  
+  <!-- Magnifying glass in right hand -->
+  <circle cx="370" cy="230" r="30" fill="none" stroke="#424242" stroke-width="6"/>
+  <circle cx="370" cy="230" r="22" fill="rgba(0,230,118,0.15)"/>
+  <line x1="392" y1="252" x2="420" y2="280" stroke="#424242" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Sparkle particles -->
+  <circle cx="140" cy="150" r="5" fill="#FFD600"/>
+  <circle cx="400" cy="120" r="4" fill="#00E676"/>
+  <circle cx="120" cy="300" r="3" fill="#00B0FF"/>
+  <circle cx="420" cy="320" r="5" fill="#FF6D00"/>
+  
+  <!-- Data dots being searched -->
+  <circle cx="150" cy="200" r="4" fill="#424242" opacity="0.4"/>
+  <circle cx="130" cy="230" r="3" fill="#424242" opacity="0.3"/>
+  <circle cx="145" cy="260" r="4" fill="#424242" opacity="0.4"/>
+  <circle cx="160" cy="180" r="3" fill="#424242" opacity="0.3"/>
+</svg>

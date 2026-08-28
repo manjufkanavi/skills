@@ -1,0 +1,94 @@
+{
+  "title": "Santa Shishunala Sharifa — Tatvapadagalu",
+  "theme": "sunset",
+  "duration_per_scene": 4.0,
+  "transition_duration": 0.8,
+  "narration_voice": "bf_isabella",
+  "narration_speed": 1.0,
+  "scenes": [
+    {
+      "type": "title",
+      "title": "Santa Shishunala Sharifa",
+      "subtitle": "Tatvapadagalu — The Philosophical Poems",
+      "decorative_icon": "☽",
+      "narration": "Santa Shishunala Sharifa, the mystic poet of Karnataka, wove profound philosophy into folk songs that still echo through the villages of the Deccan."
+    },
+    {
+      "type": "image",
+      "title": "The Mystic Poet",
+      "subtitle": "Born 1819 — Samadhi 1889",
+      "images": [{"url": "https://upload.wikimedia.org/wikipedia/en/3/39/Santa-Shishunala-Sharifa-pic.jpg", "caption": "Santa Shishunala Sharifa"}],
+      "image_urls": ["https://upload.wikimedia.org/wikipedia/en/3/39/Santa-Shishunala-Sharifa-pic.jpg"],
+      "narration": "Born in Shishuvinahala village in Haveri district, Sharifa was raised in a unique Hindu-Muslim household and became a bridge builder between faiths."
+    },
+    {
+      "type": "timeline",
+      "title": "Life Journey",
+      "steps": [
+        {"title": "1819", "description": "Born in Shishuvinahala, Haveri district"},
+        {"title": "Guru Milana", "description": "Met Govindabhatta, studied Advaita philosophy"},
+        {"title": "Tatvapadagalu", "description": "Composed over 200 philosophical folk poems"},
+        {"title": "1889", "description": "Attained Samadhi at Shishuvinahala"}
+      ],
+      "narration": "His life spanned the 19th century, a time when the Bhakti tradition met rational thought, and he became its brightest voice."
+    },
+    {
+      "type": "image",
+      "title": "The Village Saint",
+      "subtitle": "Shishuvinahala, Haveri District",
+      "images": [{"url": "https://images.unsplash.com/photo-1634874706682-3468a6e421ba?fm=jpg&w=1920&q=80&fit=crop", "caption": "Karnataka countryside"}],
+      "image_urls": ["https://images.unsplash.com/photo-1634874706682-3468a6e421ba?fm=jpg&w=1920&q=80&fit=crop"],
+      "narration": "Sharifa never left his village, yet his wisdom spread across linguistic and religious boundaries, sung by both Hindus and Muslims alike."
+    },
+    {
+      "type": "stat",
+      "title": "Legacy in Numbers",
+      "stat": "200+",
+      "stat_label": "Tatvapadagalu — Philosophical Poems",
+      "description": "Blending Advaita Vedanta with Sufi mysticism in simple Kannada",
+      "narration": "Over two hundred philosophical poems known as Tatvapadagalu, composed in the simple Kannada of everyday folk."
+    },
+    {
+      "type": "list",
+      "title": "Famous Tatvapadagalu",
+      "items": [
+        "Muddada Muttu — The Pearl of Love",
+        "Alabeda Thangi — Fear Not, Sister",
+        "Yako Ninge Yochane — Why Worry?",
+        "Naataka Saaligondu Nityada — Eternal Play",
+        "Baaluva Aata — Life is a Game"
+      ],
+      "highlight_index": 0,
+      "narration": "Each poem used folk metaphors to convey the deepest truths of Vedanta, wrapped in melodies that farmers and weavers could sing."
+    },
+    {
+      "type": "image",
+      "title": "Where Sufi Meets Vedanta",
+      "subtitle": "Philosophy of Oneness",
+      "images": [{"url": "https://images.unsplash.com/photo-1566837945700-30057527ade0?fm=jpg&w=1920&q=80&fit=crop", "caption": "The eternal light of wisdom"}],
+      "image_urls": ["https://images.unsplash.com/photo-1566837945700-30057527ade0?fm=jpg&w=1920&q=80&fit=crop"],
+      "narration": "His core teaching was simple: God is one, all paths lead to the same truth. He rejected caste and dogma, calling love the only religion."
+    },
+    {
+      "type": "quote",
+      "title": "A Glimpse of His Wisdom",
+      "quote": "Muddada muttannu nambade — olavannu nambi nodu. Banda nodu baa ninna — olavina belakinalli.",
+      "attribution": "— Shishunala Sharifa",
+      "narration": "Do not believe the pearl to be the true gem, he said. Seek love instead, and see the world in the light of that love."
+    },
+    {
+      "type": "image",
+      "title": "Living Legacy",
+      "subtitle": "Carried Forward by Folk Traditions",
+      "images": [{"url": "https://images.unsplash.com/photo-1640253252475-1b82fe83e580?fm=jpg&w=1920&q=80&fit=crop", "caption": "Karnataka's timeless landscapes"}],
+      "image_urls": ["https://images.unsplash.com/photo-1640253252475-1b82fe83e580?fm=jpg&w=1920&q=80&fit=crop"],
+      "narration": "His Tatvapadagalu are still sung by folk troupes across Karnataka, carrying the saint's message of unity across generations."
+    },
+    {
+      "type": "closing",
+      "title": "ತತ್ವಪದಗಳು",
+      "subtitle": "Shishunala Sharifa — The Eternal Wisdom",
+      "narration": "The poems of Shishunala Sharifa remind us that wisdom needs no temple, no mosque, only an open heart."
+    }
+  ]
+}

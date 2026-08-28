@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8 Presentation Themes — All Responsive</title>
+<style>
+/* ============================================
+   COMBINED: 8 responsive presentation themes
+   Click to preview any theme
+   Print prints ALL pages from all themes
+   ============================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #e8e4df; font-family: system-ui, sans-serif; padding: 0; }
+
+/* --- Landing / Theme Selector --- */
+#theme-selector {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  z-index: 10000; padding: 40px 20px;
+}
+#theme-selector h1 { color: #fff; font-size: clamp(20pt,4vw,36pt); margin-bottom: 8px; font-weight: 300; }
+#theme-selector p { color: rgba(255,255,255,0.5); font-size: 12pt; margin-bottom: 40px; }
+.theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 900px; width: 100%; }
+.theme-btn {
+  padding: 20px; border-radius: 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05); color: white; text-align: left; transition: all 0.2s;
+  font-size: 14pt;
+}
+.theme-btn:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+.theme-btn .label { font-size: 9pt; opacity: 0.6; margin-top: 4px; }
+.theme-btn .swatch { display: flex; gap: 4px; margin-bottom: 8px; }
+.theme-btn .swatch span { width: 20px; height: 20px; border-radius: 4px; }
+
+@media print {
+  #theme-selector { display: none !important; }
+  .nav-bar, .top-bar, .screen-overlay { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ THEME SELECTOR ============ -->
+<div id="theme-selector">
+  <h1>Presentation Decks</h1>
+  <p>8 themes · All responsive · A4 print-friendly</p>
+  <div class="theme-grid">
+    <div class="theme-btn" onclick="openTheme('1_nordic_minimal_design_thinking.html','Nordic Minimal','Snow & Charcoal')">
+      <div class="swatch"><span style="background:#FAFAF8"></span><span style="background:#1A1A1A"></span><span style="background:#2D2D2D"></span></div>
+      1. Nordic Minimal<div class="label">Design Thinking · Helvetica</div>
+    </div>
+    <div class="theme-btn" onclick="openTheme('2_kyoto_warm_art_of_simplicity.html','Kyoto Warm','Cream & Ochre')">
+      <div class="swatch"><span style="background:#FDF9F3"></span><span style="background:#C4956A"></span><span style="background:#3B2F2F"></span></div>
+      2. Kyoto Warm<div class="label">Art of Simplicity · Georgia Serif</div>
+    </div>
+    <div class="theme-btn" onclick="openTheme('3_deep_blue_future_systems.html','Deep Blue','Navy & White')">
+      <div class="swatch"><span style="background:#0B1628"></span><span style="background:#4A90D9"></span><span style="background:#FFFFFF"></span></div>
+      3. Deep Blue<div class="label">Future Systems · Night Mode</div>
+    </div>
+    <div class="theme-btn" onclick="openTheme('4_mint_sand_growth_strategy.html','Mint & Sand','Sage & Sand')">
+      <div class="swatch"><span style="background:#F8F6F2"></span><span style="background:#6B9E8A"></span><span style="background:#2C3E3A"></span></div>
+      4. Mint & Sand<div class="label">Growth & Strategy · Gill Sans</div>
+    </div>
+    <div class="theme-btn" onclick="openTheme('5_rose_graphite_innovation.html','Rose & Graphite','Dark Minimal')">
+      <div class="swatch"><span style="background:#232328"></span><span style="background:#D4626E"></span><span style="background:#E8E8EC"></span></div>
+      5. Rose & Graphite<div class="label">Innovation · Dark Minimal</div>
+    </div>
+    <div class="theme-btn" onclick="openTheme('6_electric_violet_tech_vision.html','Electric Violet','Neon & Dark')">
+      <div class="swatch"><span style="background:#0E0E1A"></span><span style="background:#7C3AED"></span><span style="background:#A78BFA"></span></div>
+      6. Electric Violet<div class="label">Tech Vision · System UI</div>
+    </div>
+    <div class="theme-btn" onclick="openTheme('7_coral_sky_people_first.html','Coral & Sky','Warm Earth')">
+      <div class="swatch"><span style="background:#FFFFFF"></span><span style="background:#E07A5F"></span><span style="background:#FFF8F5"></span></div>
+      7. Coral & Sky<div class="label">People First · Georgia Serif</div>
+    </div>
+    <div class="theme-btn" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div style="font-size:24pt;margin-bottom:4px;">🖨</div>
+      Print All<div class="label">All 8 themes, 64 pages</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openTheme(file, name, desc) {
+  window.location.href = file;
+}
+</script>
+</body>
+</html>

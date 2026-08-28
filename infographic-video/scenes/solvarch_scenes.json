@@ -1,0 +1,147 @@
+{
+  "title": "Solvarch — Mid-Semester Report",
+  "theme": "ocean",
+  "duration_per_scene": 5.0,
+  "transition_duration": 0.8,
+  "narration_voice": "bf_isabella",
+  "narration_speed": 1.0,
+  "scenes": [
+    {
+      "type": "title",
+      "title": "Solvarch",
+      "subtitle": "Retrieval-Augmented, Domain-Adapted Small Language Model for Multi-Pillar AWS Cloud Architecture Decision Support",
+      "decorative_icon": "⚡",
+      "narration": "Solvarch. A retrieval-augmented, domain-adapted small language model for multi-pillar AWS cloud architecture decision support. This is the mid-semester report for my M.Tech dissertation at BITS Pilani, supervised by Dr. Kishore Anand at Cisco Systems."
+    },
+    {
+      "type": "stat",
+      "title": "The Problem & The Approach",
+      "stat": "0.127",
+      "stat_label": "Gap between frontier LLM and local 3B model",
+      "description": "Frontier DeepSeek scores 0.710 against Qwen2.5-Coder-3B at 0.583. Frontier models achieve only 20-30% first-attempt IaC deployability. Only 7% generate secure IaC by default. Solvarch bridges this with retrieval and domain adaptation.",
+      "narration": "Frontier models like DeepSeek score zero point seven one zero, while the local Qwen2.5-Coder-3B scores just zero point five eight three. That gap of zero point one two seven represents invented services, outdated API knowledge, and weak multi-constraint reasoning. Solvarch bridges this gap with retrieval-augmented generation and fine-tuning."
+    },
+    {
+      "type": "list",
+      "title": "Key Metrics at a Glance",
+      "items": [
+        "479 validated AWS documents curated across 6 Well-Architected pillars",
+        "60 benchmark questions — 10 per pillar with gold rationale",
+        "70+ AWS service categories with metadata for filtered retrieval",
+        "Hybrid retrieval: BM25 lexical + FAISS dense + RRF fusion + cross-encoder reranker",
+        "Baseline: DeepSeek v4 Flash (0.710) vs Qwen2.5-Coder-3B (0.583)"
+      ],
+      "highlight_index": 0,
+      "narration": "Four hundred and seventy-nine validated AWS documents across six Well-Architected pillars. Sixty benchmark questions with gold rationale, ten per pillar. Seventy-plus service categories. A hybrid retrieval pipeline combining BM25, FAISS dense embeddings, RRF fusion, and a cross-encoder reranker. Two baselines established: DeepSeek at zero point seven one zero, and Qwen2.5-Coder-3B at zero point five eight three."
+    },
+    {
+      "type": "comparison",
+      "title": "Solvarch System Architecture",
+      "left_title": "Corpus & Retrieval",
+      "right_title": "Model & Generation",
+      "left_items": [
+        "479 AWS docs — 6 pillars, 70+ services",
+        "BM25 (Whoosh) — lexical TF-IDF, ~5ms per query",
+        "FAISS (MiniLM) — 22M params, 384-dim dense embeddings",
+        "RRF Fusion k=60 — parameter-free rank aggregation",
+        "Cross-Encoder reranker — top-100 to top-10, ~200ms"
+      ],
+      "right_items": [
+        "Qwen2.5-Coder-3B base model, 4-bit quantized",
+        "LoRA / QLoRA fine-tuning — rank=64, alpha=128",
+        "Instruction data via Evol-Instruct & OSS-Instruct",
+        "Optional DPO for multi-pillar trade-off alignment",
+        "Grounding check + hallucination detection in output"
+      ],
+      "narration": "The architecture has two halves. On the left, the corpus and retrieval pipeline: four hundred and seventy-nine AWS documents indexed with BM25 for lexical search, FAISS for dense semantic search, fused via reciprocal rank fusion with a cross-encoder reranker. On the right, the model and generation pipeline: Qwen2.5-Coder-3B fine-tuned with LoRA, trained on synthetically generated instruction data, with grounding checks and hallucination detection."
+    },
+    {
+      "type": "timeline",
+      "title": "Hybrid Retrieval Pipeline",
+      "steps": [
+        {"title": "BM25 Sparse Search", "description": "Lexical TF-IDF scoring on title, content, pillar, and services. ~5ms query time. Best for exact term matching like service names and specific architecture patterns."},
+        {"title": "FAISS Dense Search", "description": "all-MiniLM-L6-v2 embeddings — 22 million parameters, 384 dimensions. Captures semantic similarity beyond exact terms, e.g. 'high availability' matches 'failover' patterns. ~2ms."},
+        {"title": "RRF Fusion k=60", "description": "Reciprocal rank fusion combines BM25 top-100 and FAISS top-100. Sum of 1 over k plus rank. Parameter-free, preserves monotonic rank ordering."},
+        {"title": "Cross-Encoder Reranker", "description": "ms-marco-MiniLM-L-6-v2 pairwise query-doc scoring. Refines top-100 to top-10. ~200ms. Toggleable in config.yaml for production speed."},
+        {"title": "Metadata Filters", "description": "AND/OR combinations on 6 pillars and 70+ services. Applied pre-fusion to narrow the search space and post-fusion for re-ranking filtered results."}
+      ],
+      "narration": "The retrieval pipeline has five stages. BM25 provides fast lexical matching in about five milliseconds. FAISS dense search captures semantic meaning. Reciprocal rank fusion merges both result sets without tuning parameters. A cross-encoder reranker refines the top hundred down to the top ten results. And metadata filters on pillars and services narrow the search space at every stage."
+    },
+    {
+      "type": "chart_bar",
+      "title": "DeepSeek v4 Flash — 0.710 Overall",
+      "bars": [
+        {"label": "Security", "value": 83, "color": "#2980b9"},
+        {"label": "OpEx", "value": 80, "color": "#27ae60"},
+        {"label": "Sustainability", "value": 75, "color": "#8b5cf6"},
+        {"label": "Reliability", "value": 71, "color": "#f59e0b"},
+        {"label": "Performance", "value": 64, "color": "#e74c3c"},
+        {"label": "Cost", "value": 53, "color": "#ff2d95"}
+      ],
+      "narration": "DeepSeek v4 Flash scores zero point seven one zero overall. Security and operational excellence are strongest above eighty percent. Sustainability and reliability are solid around seventy-five and seventy-one. Performance efficiency drops to sixty-four, and cost optimisation is the weakest pillar at just fifty-three, with a twenty percent hallucination rate on cost questions."
+    },
+    {
+      "type": "chart_bar",
+      "title": "Qwen2.5-Coder-3B — 0.583 Overall",
+      "bars": [
+        {"label": "Security", "value": 69, "color": "#2980b9"},
+        {"label": "OpEx", "value": 65, "color": "#27ae60"},
+        {"label": "Reliability", "value": 61, "color": "#8b5cf6"},
+        {"label": "Performance", "value": 53, "color": "#f59e0b"},
+        {"label": "Sustainability", "value": 52, "color": "#e74c3c"},
+        {"label": "Cost", "value": 50, "color": "#ff2d95"}
+      ],
+      "narration": "Qwen2.5-Coder-3B scores zero point five eight three overall. Security tops at sixty-nine, followed by operational excellence at sixty-five and reliability at sixty-one. But factuality across pillars averages just thirty-eight percent — the model lacks specific AWS knowledge. Interestingly, it hallucinates less than DeepSeek at just one point seven percent. It knows what to check, but not what to recommend."
+    },
+    {
+      "type": "stat",
+      "title": "Closing the 0.127 Gap",
+      "stat": "0.685",
+      "stat_label": "Solvarch projected score",
+      "description": "79% of the gap (0.101) comes from factuality — solved by RAG injecting AWS knowledge at inference. 23% (0.030) from constraints — solved by fine-tuning on 1000-5000 Q&A pairs. Qwen already wins on hallucination. Baseline 0.583 + RAG (+0.082) + fine-tuning (+0.020) = 0.685 projected. With DPO: 0.750+.",
+      "narration": "Closing the gap. Seventy-nine percent of the gap, zero point one zero one, comes from factuality — solved by RAG injecting AWS knowledge at inference. Twenty-three percent, zero point zero three zero, comes from constraints — solved by fine-tuning on one to five thousand question-answer pairs. Zero point five eight three plus zero point zero eight two from RAG plus zero point zero two zero from fine-tuning equals zero point six eight five projected. With DPO, zero point seven five plus."
+    },
+    {
+      "type": "stat",
+      "title": "Retrieval Evaluation",
+      "stat": "1.000",
+      "stat_label": "MRR@10, NDCG@10 & Precision@10",
+      "description": "437 self-retrieval queries — perfect precision: the target document is always ranked #1. BM25 exact match + semantic embeddings are highly effective. Recall@100 is 0.229 (many docs share the same pillar, so retrieval finds relevant ones across categories). Per-query latency: ~50ms without reranker, ~500ms with cross-encoder.",
+      "narration": "Retrieval evaluation shows perfect precision. MRR at ten, NDCG at ten, and precision at ten all score a perfect one point zero zero zero. The target document is always ranked first. BM25 exact matching combined with semantic embeddings is highly effective for this domain. Recall at one hundred is lower at twenty-three percent, because many documents share the same pillar. Per query latency is about fifty milliseconds."
+    },
+    {
+      "type": "list",
+      "title": "Corpus & Pillar Distribution",
+      "items": [
+        "Performance Efficiency — 133 docs (27.8%) — Best covered",
+        "Security — 100 docs (20.9%) — Well covered",
+        "Operational Excellence — 82 docs (17.1%) — Adequate",
+        "Cost Optimisation — 61 docs (12.7%) — Needs more",
+        "Reliability — 49 docs (10.2%) — Adequate",
+        "Sustainability — only 8 docs (1.7%) — Critical gap",
+        "46 uncategorized docs flagged for review"
+      ],
+      "highlight_index": 5,
+      "narration": "The corpus contains four hundred and seventy-nine valid documents across six pillars. Performance efficiency is best covered with one hundred and thirty-three docs. Security has one hundred. Operational excellence eighty-two. Cost optimisation sixty-one. Reliability forty-nine. But sustainability has only eight documents — a critical gap that needs addressing. Forty-six uncategorized documents are flagged for review."
+    },
+    {
+      "type": "timeline",
+      "title": "Progress & Remaining Work",
+      "steps": [
+        {"title": "Phase 1 — Done", "description": "Literature Review & Corpus Collection. 60+ references on RAG, code LLMs, PEFT. 672 AWS docs collected, cleaned to 479. Jun 1 - Jun 30."},
+        {"title": "Phase 2 — Done", "description": "Retrieval Pipeline & Baseline Harness. BM25+FAISS+RRF+Cross-Encoder built. 437 docs indexed. DeepSeek & Qwen baselines on 60 questions. Jul 1 - Jul 31."},
+        {"title": "Phase 3 — In Progress", "description": "Synthetic Instruction-Tuning Data. Architecture-decision dialogues via Evol-Instruct and OSS-Instruct. Target: 1000-5000 high-quality Q&A pairs. Aug 1 - Aug 31."},
+        {"title": "Phase 4 — Upcoming", "description": "LoRA/QLoRA Fine-Tuning. Qwen2.5-Coder-3B with rank=64, alpha=128, 4-bit. Ablation: retrieval-aware vs retrieval-blind. Optional DPO. Sep 1 - Sep 30."},
+        {"title": "Phase 5 — Upcoming", "description": "Full Benchmark Run & Ablations. Run Solvarch and baselines on 60 questions. Error analysis, human architect review. Oct 1 - Nov 30."},
+        {"title": "Phase 6 — Upcoming", "description": "Dissertation Writing & Submission. Write chapters, prepare reviews, submit. Dec 1 - Dec 31."}
+      ],
+      "narration": "Project progress. Phase one, literature review and corpus collection, is complete. Phase two, the retrieval pipeline and baseline harness, is complete — that's where we are today. Phase three, synthetic instruction data generation, is currently in progress for August. Then LoRA fine-tuning in September, full benchmark runs and ablations through October and November, and final dissertation writing and submission in December."
+    },
+    {
+      "type": "closing",
+      "title": "Solvarch",
+      "subtitle": "Qwen2.5-3B + RAG + LoRA/QLoRA + DPO → Target: 0.685–0.750\nOutperform or match frontier models on multi-pillar architectural decision support\n\nManjunath Kanavi · 2024CS05005 · BITS Pilani\nSupervisor: Dr. Kishore Anand, Cisco Systems",
+      "narration": "To summarise: Solvarch combines Qwen2.5-Coder-3B with hybrid retrieval, LoRA fine-tuning, and optional preference optimisation. The target score is zero point six eight five to zero point seven five zero, outperforming or matching frontier models on multi-pillar AWS architectural decision support. This is my M.Tech dissertation at BITS Pilani, supervised by Dr. Kishore Anand at Cisco Systems. Thank you."
+    }
+  ]
+}

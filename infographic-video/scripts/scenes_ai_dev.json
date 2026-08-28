@@ -1,0 +1,94 @@
+{
+  "title": "AI Is Changing Software Development",
+  "theme": "ocean",
+  "transition_duration": 0.8,
+  "narration_voice": "bf_isabella",
+  "narration_speed": 1.0,
+  "scenes": [
+    {
+      "type": "title",
+      "title": "AI Is Rewriting Software Development",
+      "subtitle": "How artificial intelligence is transforming how we build software in 2026",
+      "decorative_icon": "⟠",
+      "narration": "Artificial intelligence is fundamentally reshaping how software is built, tested, and deployed in 2026."
+    },
+    {
+      "type": "stat",
+      "title": "Developer Adoption",
+      "stat": "85%",
+      "stat_label": "of developers now use AI tools regularly",
+      "description": "Up from 44% in 2023 — crossing the mainstream threshold in just three years. Source: JetBrains 2025 Ecosystem Survey",
+      "narration": "Eighty-five percent of professional developers now use AI tools regularly, up from just 44 percent in 2023."
+    },
+    {
+      "type": "stat",
+      "title": "AI-Generated Code",
+      "stat": "46%",
+      "stat_label": "of all new code is AI-assisted",
+      "description": "Projected to reach 60% by end of 2026. GitHub Copilot alone has 20 million users across 90% of Fortune 100 companies.",
+      "narration": "Nearly half of all new code is now AI-assisted, projected to reach 60 percent by the end of 2026."
+    },
+    {
+      "type": "list",
+      "title": "How Coding Is Changing",
+      "items": [
+        "Writing code feels more like editing than typing from scratch",
+        "Junior devs reach productivity milestones faster with AI guidance",
+        "Senior devs use AI mainly for refactoring and code review",
+        "Developers save 3.6 hours per week on average",
+        "Code documentation quality improves with AI support"
+      ],
+      "highlight_index": 0,
+      "narration": "Writing code now feels more like editing than typing from scratch, with developers saving an average of 3.6 hours per week."
+    },
+    {
+      "type": "chart_bar",
+      "title": "AI Coding Tools Market",
+      "bars": [
+        {"label": "GitHub Copilot", "value": 42, "color": "#5dade2"},
+        {"label": "Cursor", "value": 28, "color": "#2980b9"},
+        {"label": "Claude Code", "value": 18, "color": "#1abc9c"},
+        {"label": "OpenAI Codex", "value": 12, "color": "#3498db"}
+      ],
+      "narration": "The AI coding tools market reached 7.37 billion dollars in 2025, with GitHub Copilot holding 42 percent enterprise share."
+    },
+    {
+      "type": "comparison",
+      "title": "Before AI vs With AI",
+      "left_title": "Traditional Dev",
+      "right_title": "AI-Assisted Dev",
+      "left_items": ["Manual boilerplate code", "Slow context switching", "Test creation is tedious", "Security checks are late", "Waterfall documentation"],
+      "right_items": ["AI generates boilerplate", "Instant code suggestions", "50% faster test creation", "Vulnerabilities flagged early", "Docs generated automatically"],
+      "narration": "AI absorbs the friction of software development — automating boilerplate, tests, and documentation so teams focus on architecture."
+    },
+    {
+      "type": "stat",
+      "title": "Productivity Impact",
+      "stat": "55%",
+      "stat_label": "faster task completion with AI",
+      "description": "GitHub study of 4,800 developers. AI users merge 60% more pull requests. But gains concentrate on well-defined repetitive tasks.",
+      "narration": "A study of 4,800 developers found tasks completed 55 percent faster with AI assistance, with users merging 60 percent more pull requests."
+    },
+    {
+      "type": "stat",
+      "title": "The Security Reality",
+      "stat": "2.74×",
+      "stat_label": "more vulnerabilities in AI code",
+      "description": "45% of AI-generated code samples fail security tests. Human review is still essential — AI writes fast, but oversight matters.",
+      "narration": "AI-generated code contains 2.74 times more vulnerabilities than human-written code. Human oversight remains essential."
+    },
+    {
+      "type": "quote",
+      "title": "The Verdict",
+      "quote": "AI is not replacing developers. It is absorbing friction.",
+      "attribution": "Teams that embrace AI thoughtfully build better software and healthier teams",
+      "narration": "The future of development is not human versus machine. It is human supported by machine."
+    },
+    {
+      "type": "closing",
+      "title": "Human + Machine",
+      "subtitle": "Shifting from writing code to designing systems",
+      "narration": "AI is shifting the developer role from writing code to designing systems. The question isn't if you'll use AI, but how deeply."
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" width="900" height="1100" role="img" aria-label="Map of India with all states, union territories, and their capitals clearly labeled">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F4FF"/>
+      <stop offset="100%" stop-color="#E0E7FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+    <style>
+      .state-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: 600; fill: #1E293B; }
+      .capital-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 7.5px; font-weight: 500; fill: #334155; }
+      .capital-dot { fill: #DC2626; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 22px; font-weight: 700; fill: #1E293B; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #64748B; }
+      .legend-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #1E293B; }
+      .legend-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 8px; fill: #475569; }
+      .border { stroke: #FFFFFF; stroke-width: 1.2; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="1100" rx="16" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="450" y="42" text-anchor="middle" class="title">Republic of India</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">States and Union Territories with Capitals</text>
+
+  <!-- Map Container -->
+  <g transform="translate(80, 80)" filter="url(#shadow)">
+    <rect width="740" height="940" rx="12" fill="#FFFFFF" opacity="0.5"/>
+
+    <!-- Jammu & Kashmir -->
+    <path class="border" d="M280,30 L310,25 L340,35 L355,55 L350,80 L330,95 L300,100 L275,90 L260,70 L265,45 Z" fill="#FF6B6B"/>
+    <text x="305" y="65" text-anchor="middle" class="state-label">Jammu &amp; Kashmir</text>
+    <text x="305" y="76" text-anchor="middle" class="capital-label">Srinagar (Summer)</text>
+
+    <!-- Ladakh -->
+    <path class="border" d="M355,55 L380,50 L400,60 L405,85 L395,105 L375,110 L355,100 L350,80 Z" fill="#FF8E8E"/>
+    <text x="378" y="82" text-anchor="middle" class="state-label">Ladakh</text>
+    <text x="378" y="93" text-anchor="middle" class="capital-label">Leh</text>
+
+    <!-- Himachal Pradesh -->
+    <path class="border" d="M260,70 L300,100 L330,95 L350,110 L345,135 L320,145 L290,140 L265,125 L255,100 Z" fill="#FFB347"/>
+    <text x="300" y="120" text-anchor="middle" class="state-label">Himachal Pradesh</text>
+    <text x="300" y="131" text-anchor="middle" class="capital-label">Shimla</text>
+
+    <!-- Uttarakhand -->
+    <path class="border" d="M350,110 L375,110 L400,115 L410,135 L395,150 L370,155 L345,145 L345,135 Z" fill="#FFD93D"/>
+    <text x="372" y="135" text-anchor="middle" class="state-label">Uttarakhand</text>
+    <text x="372" y="146" text-anchor="middle" class="capital-label">Dehradun</text>
+
+    <!-- Punjab -->
+    <path class="border" d="M220,100 L260,70 L265,125 L290,140 L285,165 L260,175 L230,170 L215,145 L210,120 Z" fill="#6BCB77"/>
+    <text x="248" y="140" text-anchor="middle" class="state-label">Punjab</text>
+    <text x="248" y="151" text-anchor="middle" class="capital-label">Chandigarh</text>
+
+    <!-- Haryana -->
+    <path class="border" d="M260,175 L285,165 L310,170 L320,195 L310,215 L285,220 L260,210 L250,190 Z" fill="#4D96FF"/>
+    <text x="285" y="195" text-anchor="middle" class="state-label">Haryana</text>
+    <text x="285" y="206" text-anchor="middle" class="capital-label">Chandigarh</text>
+
+    <!-- Delhi -->
+    <path class="border" d="M310,170 L330,165 L340,180 L335,195 L320,200 L310,190 Z" fill="#FF6B9D"/>
+    <text x="325" y="185" text-anchor="middle" class="state-label">Delhi</text>
+    <circle cx="325" cy="185" r="3" class="capital-dot"/>
+    <text x="325" y="196" text-anchor="middle" class="capital-label">New Delhi</text>
+
+    <!-- Rajasthan -->
+    <path class="border" d="M180,170 L220,160 L260,175 L285,220 L280,260 L250,290 L210,300 L175,285 L155,250 L150,210 L165,185 Z" fill="#C084FC"/>
+    <text x="218" y="235" text-anchor="middle" class="state-label">Rajasthan</text>
+    <text x="218" y="246" text-anchor="middle" class="capital-label">Jaipur</text>
+
+    <!-- Uttar Pradesh -->
+    <path class="border" d="M345,145 L370,155 L400,150 L430,155 L455,170 L460,200 L445,230 L410,245 L370,240 L340,225 L320,200 L310,170 L330,165 L340,180 Z" fill="#F472B6"/>
+    <text x="390" y="195" text-anchor="middle" class="state-label">Uttar Pradesh</text>
+    <text x="390" y="206" text-anchor="middle" class="capital-label">Lucknow</text>
+
+    <!-- Bihar -->
+    <path class="border" d="M460,200 L490,195 L520,200 L535,220 L525,245 L500,255 L470,250 L455,230 Z" fill="#34D399"/>
+    <text x="495" y="225" text-anchor="middle" class="state-label">Bihar</text>
+    <text x="495" y="236" text-anchor="middle" class="capital-label">Patna</text>
+
+    <!-- Jharkhand -->
+    <path class="border" d="M455,230 L470,250 L500,255 L510,275 L495,295 L465,295 L445,280 L440,255 Z" fill="#FBBF24"/>
+    <text x="478" y="270" text-anchor="middle" class="state-label">Jharkhand</text>
+    <text x="478" y="281" text-anchor="middle" class="capital-label">Ranchi</text>
+
+    <!-- West Bengal -->
+    <path class="border" d="M525,245 L535,220 L555,225 L570,245 L575,275 L565,305 L545,320 L525,310 L515,285 L510,275 Z" fill="#A78BFA"/>
+    <text x="545" y="275" text-anchor="middle" class="state-label">West Bengal</text>
+    <text x="545" y="286" text-anchor="middle" class="capital-label">Kolkata</text>
+
+    <!-- Odisha -->
+    <path class="border" d="M510,275 L525,310 L545,320 L555,345 L540,370 L515,375 L495,360 L490,330 L500,300 Z" fill="#FB923C"/>
+    <text x="522" y="330" text-anchor="middle" class="state-label">Odisha</text>
+    <text x="522" y="341" text-anchor="middle" class="capital-label">Bhubaneswar</text>
+
+    <!-- Chhattisgarh -->
+    <path class="border" d="M410,245 L445,280 L465,295 L495,295 L500,300 L490,330 L460,335 L430,325 L410,305 L400,275 Z" fill="#38BDF8"/>
+    <text x="450" y="300" text-anchor="middle" class="state-label">Chhattisgarh</text>
+    <text x="450" y="311" text-anchor="middle" class="capital-label">Raipur</text>
+
+    <!-- Madhya Pradesh -->
+    <path class="border" d="M280,260 L310,250 L340,255 L370,240 L410,245 L400,275 L410,305 L430,325 L410,350 L370,365 L330,360 L295,345 L270,320 L260,290 Z" fill="#E879F9"/>
+    <text x="345" y="305" text-anchor="middle" class="state-label">Madhya Pradesh</text>
+    <text x="345" y="316" text-anchor="middle" class="capital-label">Bhopal</text>
+
+    <!-- Gujarat -->
+    <path class="border" d="M150,210 L175,285 L210,300 L250,290 L280,260 L260,290 L270,320 L250,350 L210,370 L170,365 L140,340 L120,300 L115,255 L130,225 Z" fill="#F43F5E"/>
+    <text x="195" y="295" text-anchor="middle" class="state-label">Gujarat</text>
+    <text x="195" y="306" text-anchor="middle" class="capital-label">Gandhinagar</text>
+
+    <!-- Maharashtra -->
+    <path class="border" d="M250,350 L270,320 L295,345 L330,360 L370,365 L410,350 L430,325 L460,335 L470,365 L455,400 L420,420 L380,425 L340,415 L300,395 L270,370 L250,350 Z" fill="#8B5CF6"/>
+    <text x="355" y="380" text-anchor="middle" class="state-label">Maharashtra</text>
+    <text x="355" y="391" text-anchor="middle" class="capital-label">Mumbai</text>
+
+    <!-- Karnataka -->
+    <path class="border" d="M300,395 L340,415 L380,425 L420,420 L455,400 L470,430 L460,470 L430,500 L390,510 L350,500 L315,480 L295,450 L290,420 Z" fill="#10B981"/>
+    <text x="380" y="460" text-anchor="middle" class="state-label">Karnataka</text>
+    <text x="380" y="471" text-anchor="middle" class="capital-label">Bengaluru</text>
+
+    <!-- Kerala -->
+    <path class="border" d="M315,480 L350,500 L390,510 L400,540 L390,580 L370,620 L345,640 L325,620 L315,580 L310,540 L305,510 Z" fill="#06B6D4"/>
+    <text x="355" y="560" text-anchor="middle" class="state-label">Kerala</text>
+    <text x="355" y="571" text-anchor="middle" class="capital-label">Thiruvananthapuram</text>
+
+    <!-- Tamil Nadu -->
+    <path class="border" d="M390,510 L430,500 L460,470 L490,480 L510,510 L515,550 L500,590 L470,620 L435,640 L400,635 L375,610 L370,580 L390,580 L400,540 Z" fill="#F59E0B"/>
+    <text x="445" y="565" text-anchor="middle" class="state-label">Tamil Nadu</text>
+    <text x="445" y="576" text-anchor="middle" class="capital-label">Chennai</text>
+
+    <!-- Andhra Pradesh -->
+    <path class="border" d="M460,470 L470,430 L500,420 L530,430 L545,460 L540,500 L520,530 L490,540 L465,530 L455,500 L470,480 Z" fill="#EC4899"/>
+    <text x="500" y="485" text-anchor="middle" class="state-label">Andhra Pradesh</text>
+    <text x="500" y="496" text-anchor="middle" class="capital-label">Amaravati</text>
+
+    <!-- Telangana -->
+    <path class="border" d="M420,420 L455,400 L470,430 L460,470 L455,500 L430,500 L410,485 L405,455 Z" fill="#6366F1"/>
+    <text x="438" y="460" text-anchor="middle" class="state-label">Telangana</text>
+    <text x="438" y="471" text-anchor="middle" class="capital-label">Hyderabad</text>
+
+    <!-- Goa -->
+    <path class="border" d="M290,420 L305,415 L315,425 L310,440 L295,445 L285,435 Z" fill="#14B8A6"/>
+    <text x="300" y="433" text-anchor="middle" class="state-label">Goa</text>
+    <text x="300" y="444" text-anchor="middle" class="capital-label">Panaji</text>
+
+    <!-- Sikkim -->
+    <path class="border" d="M570,155 L585,150 L595,160 L590,175 L575,180 L565,170 Z" fill="#84CC16"/>
+    <text x="580" y="168" text-anchor="middle" class="state-label">Sikkim</text>
+    <text x="580" y="179" text-anchor="middle" class="capital-label">Gangtok</text>
+
+    <!-- West Bengal (Siliguri corridor) -->
+    <path class="border" d="M555,140 L570,135 L580,145 L575,160 L565,170 L555,165 L550,150 Z" fill="#A78BFA"/>
+
+    <!-- Assam -->
+    <path class="border" d="M590,175 L620,165 L650,170 L670,185 L675,210 L660,230 L635,235 L610,225 L595,210 L590,190 Z" fill="#22C55E"/>
+    <text x="632" y="200" text-anchor="middle" class="state-label">Assam</text>
+    <text x="632" y="211" text-anchor="middle" class="capital-label">Dispur</text>
+
+    <!-- Northeast States -->
+    <!-- Arunachal Pradesh -->
+    <path class="border" d="M650,170 L680,160 L710,165 L730,180 L735,205 L720,225 L695,230 L670,220 L660,200 L655,185 Z" fill="#F97316"/>
+    <text x="695" y="195" text-anchor="middle" class="state-label">Arunachal Pradesh</text>
+    <text x="695" y="206" text-anchor="middle" class="capital-label">Itanagar</text>
+
+    <!-- Nagaland -->
+    <path class="border" d="M670,220 L695,230 L710,245 L705,265 L685,275 L665,265 L660,245 Z" fill="#EF4444"/>
+    <text x="688" y="250" text-anchor="middle" class="state-label">Nagaland</text>
+    <text x="688" y="261" text-anchor="middle" class="capital-label">Kohima</text>
+
+    <!-- Manipur -->
+    <path class="border" d="M685,275 L705,265 L715,280 L710,305 L695,315 L675,305 L670,285 Z" fill="#0EA5E9"/>
+    <text x="695" y="295" text-anchor="middle" class="state-label">Manipur</text>
+    <text x="695" y="306" text-anchor="middle" class="capital-label">Imphal</text>
+
+    <!-- Mizoram -->
+    <path class="border" d="M665,265 L685,275 L670,285 L660,305 L645,315 L635,300 L640,280 L650,265 Z" fill="#A855F7"/>
+    <text x="655" y="290" text-anchor="middle" class="state-label">Mizoram</text>
+    <text x="655" y="301" text-anchor="middle" class="capital-label">Aizawl</text>
+
+    <!-- Meghalaya -->
+    <path class="border" d="M610,225 L635,235 L645,250 L640,270 L620,275 L605,265 L600,245 Z" fill="#D946EF"/>
+    <text x="622" y="255" text-anchor="middle" class="state-label">Meghalaya</text>
+    <text x="622" y="266" text-anchor="middle" class="capital-label">Shillong</text>
+
+    <!-- Tripura -->
+    <path class="border" d="M575,275 L595,270 L605,285 L600,305 L585,315 L570,305 L565,290 Z" fill="#FB7185"/>
+    <text x="585" y="295" text-anchor="middle" class="state-label">Tripura</text>
+    <text x="585" y="306" text-anchor="middle" class="capital-label">Agartala</text>
+
+    <!-- Bangladesh (background label) -->
+    <text x="540" y="200" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8" font-style="italic">Bangladesh</text>
+
+    <!-- Pakistan (background label) -->
+    <text x="180" y="140" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8" font-style="italic">Pakistan</text>
+
+    <!-- Arabian Sea -->
+    <text x="100" y="500" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#93C5FD" font-style="italic" transform="rotate(-90, 100, 500)">Arabian Sea</text>
+
+    <!-- Bay of Bengal -->
+    <text x="650" y="450" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#93C5FD" font-style="italic">Bay of Bengal</text>
+
+    <!-- Indian Ocean -->
+    <text x="400" y="700" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#93C5FD" font-style="italic">Indian Ocean</text>
+
+    <!-- Lakshadweep Islands -->
+    <circle cx="140" cy="480" r="3" fill="#60A5FA"/>
+    <circle cx="135" cy="490" r="2.5" fill="#60A5FA"/>
+    <circle cx="145" cy="495" r="2.5" fill="#60A5FA"/>
+    <text x="140" y="510" text-anchor="middle" class="capital-label">Lakshadweep</text>
+
+    <!-- Andaman & Nicobar -->
+    <path class="border" d="M680,520 L685,510 L690,515 L688,530 L682,535 Z" fill="#38BDF8"/>
+    <path class="border" d="M685,545 L690,538 L695,542 L693,555 L687,558 Z" fill="#38BDF8"/>
+    <text x="690" y="575" text-anchor="middle" class="state-label">A&amp;N Islands</text>
+    <text x="690" y="586" text-anchor="middle" class="capital-label">Port Blair</text>
+
+    <!-- Nepal -->
+    <text x="430" y="140" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8" font-style="italic">Nepal</text>
+
+    <!-- China -->
+    <text x="550" y="100" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8" font-style="italic">China</text>
+
+    <!-- Myanmar -->
+    <text x="720" y="300" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8" font-style="italic">Myanmar</text>
+
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(80, 1030)">
+    <rect width="740" height="50" rx="8" fill="#FFFFFF" opacity="0.8"/>
+    <text x="20" y="22" class="legend-title">States &amp; Union Territories</text>
+    <text x="20" y="38" class="legend-text">28 States · 8 Union Territories · 1 National Capital Territory</text>
+    <circle cx="680" cy="22" r="5" class="capital-dot"/>
+    <text x="695" y="26" class="legend-text">= Capital City</text>
+  </g>
+
+</svg>

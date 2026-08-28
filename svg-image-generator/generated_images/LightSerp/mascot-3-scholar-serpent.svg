@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bodyGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6F00"/>
+      <stop offset="50%" style="stop-color:#FFB300"/>
+      <stop offset="100%" style="stop-color:#FFD54F"/>
+    </linearGradient>
+    <linearGradient id="webGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8A65"/>
+      <stop offset="100%" style="stop-color:#FFB74D"/>
+    </linearGradient>
+    <filter id="shadow3" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#FFF8E1"/>
+  
+  <!-- Globe / web grid behind serpent -->
+  <g opacity="0.12" stroke="#FF8A65" stroke-width="1.5" fill="none">
+    <ellipse cx="256" cy="256" rx="180" ry="80"/>
+    <ellipse cx="256" cy="256" rx="180" ry="140"/>
+    <ellipse cx="256" cy="256" rx="80" ry="240"/>
+    <ellipse cx="256" cy="256" rx="140" ry="240"/>
+    <line x1="76" y1="256" x2="436" y2="256"/>
+    <line x1="256" y1="76" x2="256" y2="436"/>
+  </g>
+  
+  <!-- Serpent body - wrapping around the globe -->
+  <path d="M256 390 C180 390 130 340 130 260 C130 180 180 130 256 130 C332 130 382 180 382 260 C382 340 332 390 256 390" 
+        fill="none" stroke="url(#bodyGrad3)" stroke-width="30" stroke-linecap="round"/>
+  
+  <!-- Serpent head - wise and confident -->
+  <ellipse cx="256" cy="100" rx="45" ry="40" fill="url(#bodyGrad3)" filter="url(#shadow3)"/>
+  
+  <!-- Glasses - intellectual look -->
+  <circle cx="238" cy="95" r="16" fill="none" stroke="#4E342E" stroke-width="3"/>
+  <circle cx="274" cy="95" r="16" fill="none" stroke="#4E342E" stroke-width="3"/>
+  <line x1="254" y1="95" x2="258" y2="95" stroke="#4E342E" stroke-width="3"/>
+  <line x1="222" y1="95" x2="210" y2="90" stroke="#4E342E" stroke-width="2"/>
+  <line x1="290" y1="95" x2="302" y2="90" stroke="#4E342E" stroke-width="2"/>
+  
+  <!-- Eyes behind glasses -->
+  <circle cx="238" cy="95" r="7" fill="#1A1A2E"/>
+  <circle cx="274" cy="95" r="7" fill="#1A1A2E"/>
+  <circle cx="240" cy="93" r="2.5" fill="white"/>
+  <circle cx="276" cy="93" r="2.5" fill="white"/>
+  
+  <!-- Confident smirk -->
+  <path d="M240 115 Q256 125 272 115" fill="none" stroke="#4E342E" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Graduation cap / scholar hat -->
+  <polygon points="256,55 300,70 256,85 212,70" fill="#5D4037"/>
+  <rect x="248" y="60" width="16" height="25" rx="2" fill="#4E342E"/>
+  <line x1="300" y1="70" x2="300" y2="90" stroke="#FFD600" stroke-width="2"/>
+  <circle cx="300" cy="92" r="4" fill="#FFD600"/>
+  
+  <!-- Scroll / diploma in hand -->
+  <g transform="translate(340, 200) rotate(15)">
+    <rect x="0" y="0" width="50" height="20" rx="2" fill="#FFF9C4" stroke="#FFB300" stroke-width="2"/>
+    <rect x="-5" y="-2" width="10" height="24" rx="5" fill="#FFB300"/>
+    <rect x="45" y="-2" width="10" height="24" rx="5" fill="#FFB300"/>
+    <line x1="8" y1="10" x2="42" y2="10" stroke="#FF8A65" stroke-width="1.5"/>
+    <line x1="8" y1="14" x2="35" y2="14" stroke="#FF8A65" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Floating web icons -->
+  <g opacity="0.5">
+    <!-- Globe icon -->
+    <circle cx="100" cy="160" r="15" fill="none" stroke="#FF8A65" stroke-width="2"/>
+    <line x1="85" y1="160" x2="115" y2="160" stroke="#FF8A65" stroke-width="1.5"/>
+    <ellipse cx="100" cy="160" rx="6" ry="15" fill="none" stroke="#FF8A65" stroke-width="1.5"/>
+    
+    <!-- Link chain icon -->
+    <g transform="translate(400, 140)">
+      <ellipse cx="0" cy="0" rx="10" ry="6" fill="none" stroke="#FFB74D" stroke-width="2" transform="rotate(-20)"/>
+      <ellipse cx="12" cy="0" rx="10" ry="6" fill="none" stroke="#FFB74D" stroke-width="2" transform="rotate(20)"/>
+    </g>
+    
+    <!-- Data points -->
+    <circle cx="90" cy="320" r="6" fill="#FF8A65"/>
+    <circle cx="110" cy="340" r="4" fill="#FFB74D"/>
+    <circle cx="410" cy="300" r="5" fill="#FF8A65"/>
+    <circle cx="390" cy="340" r="7" fill="#FFB74D"/>
+  </g>
+</svg>

@@ -1,0 +1,73 @@
+{
+  "title": "Santa Shishunala Sharifa — The Voice of Tatvapadagalu",
+  "theme": "purple",
+  "duration_per_scene": 4.0,
+  "transition_duration": 0.8,
+  "narration_voice": "bf_isabella",
+  "narration_speed": 1.1,
+  "scenes": [
+    {
+      "type": "image",
+      "title": "Santa Shishunala Sharifa",
+      "subtitle": "1819 — 1889",
+      "body": "A nineteenth-century Kannada saint-poet with a long grey beard wearing white robes, standing in a rustic temple doorway, warm golden sunbeams filtering through dust particles, spiritual atmosphere with earthy brown and amber tones",
+      "narration": "Santa Shishunala Sharifa. A nineteenth century Kannada saint-poet who blended Sufi mysticism with Hindu Bhakti. His philosophical songs are called Tatvapadagalu."
+    },
+    {
+      "type": "image",
+      "title": "The Mystical Beginnings",
+      "subtitle": "Born in Shishunala, North Karnataka",
+      "body": "A peaceful rural Karnataka village at dawn, mud houses with tiled roofs, lush green fields, an old banyan tree, soft golden sunrise light with early morning mist, a young boy sitting under the tree in contemplation",
+      "narration": "Born in the village of Shishunala, Sharifa was drawn to the divine from childhood. His Hindu guru Sri Gurulinga Dikshita recognised his spiritual calling and initiated him."
+    },
+    {
+      "type": "image",
+      "title": "What are Tatvapadagalu?",
+      "subtitle": "Philosophical Songs of Truth",
+      "body": "Ancient palm-leaf manuscripts stacked on a wooden desk, glowing with golden text, warm candlelight illuminating the scene, mystical amber atmosphere, symbolic composition with ethereal light beams, a quill and ink pot nearby",
+      "narration": "Tatvapadagalu are philosophical folk songs exploring the nature of truth, the self, and the divine — all in simple Kannada that farmers and villagers could understand."
+    },
+    {
+      "type": "image",
+      "title": "The Wild Horse Mind",
+      "subtitle": "Mind is the Battlefield",
+      "body": "A powerful wild horse galloping across a misty landscape at twilight, dramatic storm clouds overhead, dynamic motion with mane flying in the wind, dark moody sky with a break of golden light on the horizon, epic cinematic scale",
+      "narration": "His most powerful metaphor: the mind is a wild horse. Restless, untamed. The spiritual journey is learning to steady this horse through awareness and devotion."
+    },
+    {
+      "type": "image",
+      "title": "Beyond Caste & Creed",
+      "subtitle": "A Revolutionary Voice",
+      "body": "A lone figure in white robes standing at a crossroads, dramatic chiaroscuro lighting casting long shadows, one path dark and narrow the other bright and open, symbolic composition with intense blue and amber tones, cinematic documentary style",
+      "narration": "Sharifa was a revolutionary. He rejected caste, empty rituals, and religious hypocrisy. For him, true spirituality knew no religion, no caste, no creed."
+    },
+    {
+      "type": "image",
+      "title": "Sufi-Bhakti Fusion",
+      "subtitle": "One River, Two Streams",
+      "body": "Two mystical rivers of different colours converging into one golden glowing stream at a sacred confluence, warm amber and rose-gold light, ethereal atmosphere with sacred geometry patterns rippling in the water, divine spiritual glow",
+      "narration": "His genius was fusing Sufi divine love with Hindu Bhakti. He showed seekers that the mystical path is one river, regardless of what name you call it by."
+    },
+    {
+      "type": "image",
+      "title": "Wisdom for Seekers",
+      "subtitle": "Timeless Spiritual Guidance",
+      "body": "A spiritual seeker meditating on a mountaintop at sunrise, warm golden light illuminating their peaceful face, panoramic view of misty valleys below, clouds catching the first light, serene contemplative mood, cinematic wide shot",
+      "narration": "For spiritual seekers, Tatvapadagalu are timeless. They teach inward looking, questioning dogma, ethical living, and experiencing the formless divine."
+    },
+    {
+      "type": "image",
+      "title": "Living Metaphors",
+      "subtitle": "Village Wisdom, Universal Truth",
+      "body": "A traditional Indian grinding stone and an old oil lamp placed on a woven mat, warm amber light from a diya casting gentle shadows, rope from a well coiled beside, shallow depth of field with rustic mud wall background, contemplative mood",
+      "narration": "Sharifa used ordinary village objects as metaphors. Grinding stones, rope wells, bullock carts — each carried profound Vedantic wisdom for every soul."
+    },
+    {
+      "type": "image",
+      "title": "An Eternal Voice",
+      "subtitle": "Sharifa's Legacy Lives On",
+      "body": "A breathtaking sunset over a tranquil Indian landscape, golden orange and purple sky blending into twilight, silhouette of a lone figure in meditation pose on a hill, peaceful eternal atmosphere with warm glow spreading across the horizon",
+      "narration": "Sharifa's Tatvapadagalu live on. His message is eternal: truth has no religion. Only the silent, boundless language of the heart."
+    }
+  ]
+}

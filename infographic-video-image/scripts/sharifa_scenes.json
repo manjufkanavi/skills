@@ -1,0 +1,82 @@
+{
+  "title": "Shishunala Sharifa — The Saint Poet of Karnataka",
+  "theme": "sunset",
+  "duration_per_scene": 4.0,
+  "transition_duration": 0.8,
+  "narration_voice": "bf_isabella",
+  "narration_speed": 1.0,
+  "scenes": [
+    {
+      "type": "image",
+      "title": "Shishunala Sharifa",
+      "subtitle": "1819 – 1889",
+      "body": "Saint-poet, social reformer, and the first Muslim poet of Kannada literature",
+      "narration": "Shishunala Sharifa. Born 1819, died 1889. He was a saint poet, a social reformer, and the first Muslim poet in Kannada literature. His life and work transcended religious boundaries.",
+      "gen_prompt": "A mystical 19th century portrait of a bearded Sufi saint in traditional attire, warm golden sunset lighting, spiritual atmosphere, ambient glow, historical Indian aesthetic"
+    },
+    {
+      "type": "image",
+      "title": "The Unifier",
+      "subtitle": "Sufi meets Bhakti",
+      "body": "Fused Islamic Sufi mysticism with Hindu Bhakti tradition in his poetry",
+      "narration": "Sharifa was a rare unifier. He fused Islamic Sufi mysticism with the Hindu Bhakti tradition. His poetry spoke one language — the language of the heart.",
+      "gen_prompt": "An old Indian temple and a mosque side by side, golden hour light, spiritual harmony, architectural fusion, warm earthy tones, peaceful atmosphere"
+    },
+    {
+      "type": "image",
+      "title": "Tatvapadagalu",
+      "subtitle": "Philosophical Poems",
+      "body": "Simple Kannada verses carrying profound spiritual truths about life, mind, and the divine",
+      "narration": "His Tatvapadagalu are philosophical poems. Simple Kannada verses that carry profound spiritual truths. Each poem is a mirror held up to the human condition.",
+      "gen_prompt": "Ancient Kannada palm leaf manuscripts with poetic script, warm candlelight illumination, rustic Indian setting, spiritual scholarly atmosphere, deep amber tones"
+    },
+    {
+      "type": "image",
+      "title": "The Wild Horse",
+      "subtitle": "Mind as Battlefield",
+      "body": "His most famous metaphor — the restless mind is a wild horse that must be tamed through self-awareness",
+      "narration": "His most famous metaphor: the mind is a wild horse. It gallops unrestrained through desires and fears. His poetry teaches us to tame this horse through self-awareness.",
+      "gen_prompt": "A majestic wild horse galloping freely across an open field at sunset, dramatic sky, motion blur, spiritual symbolism, wide landscape, golden and amber tones"
+    },
+    {
+      "type": "image",
+      "title": "Beyond Labels",
+      "subtitle": "Formless Divine",
+      "body": "Rejected caste, creed, and ritual — taught devotion to a formless divine through ethical living",
+      "narration": "Sharifa rejected caste, creed, and empty ritual. He taught devotion to a formless divine. Not through temples or mosques, but through ethical living and inner purity.",
+      "gen_prompt": "A luminous abstract formless light radiating through clouds, spiritual transcendence, ethereal golden beams, people from diverse backgrounds looking upward, unity in diversity"
+    },
+    {
+      "type": "image",
+      "title": "Question Everything",
+      "subtitle": "Social Critique",
+      "body": "Used biting satire to expose hypocrisy in religious orthodoxy and superstition",
+      "narration": "He used biting satire to expose hypocrisy. Religious orthodoxy, superstition, empty rituals — nothing escaped his sharp poetic critique. His words cut through pretense.",
+      "gen_prompt": "A wise old figure speaking to a gathered crowd in a village square, dramatic storytelling scene, warm sunset lighting, rustic Indian village setting, thought-provoking atmosphere"
+    },
+    {
+      "type": "image",
+      "title": "For Spiritual Speakers",
+      "subtitle": "Timeless Relevance",
+      "body": "His poetry provides ready metaphors for modern spiritual discourse across all faiths",
+      "narration": "For today's spiritual speaker, Sharifa is gold. His poems offer ready metaphors that work across any faith. The wild horse, the mirror, the lamp — these images speak directly.",
+      "gen_prompt": "A modern speaker addressing an attentive audience on a stage, warm stage lighting, inspirational atmosphere, diverse listeners, fusion of old wisdom and new presentation"
+    },
+    {
+      "type": "image",
+      "title": "The Lamp Within",
+      "subtitle": "Universal Wisdom",
+      "body": "His message: the divine is not outside you — it is the lamp already burning within",
+      "narration": "His core message: the divine is not outside you. It never was. It is the lamp already burning within. His Tatvapadagalu simply help you turn your gaze inward.",
+      "gen_prompt": "A single glowing oil lamp illuminating darkness, warm golden light, spiritual metaphor, minimalist composition, deep shadows and warm highlights, peaceful meditative mood"
+    },
+    {
+      "type": "image",
+      "title": "Shishunala Sharifa",
+      "subtitle": "Eternal Guide",
+      "body": "His Tatvapadagalu continue to guide seekers across religions, cultures, and generations",
+      "narration": "Shishunala Sharifa passed away in 1889. But his Tatvapadagalu live on. They continue to guide seekers across religions, cultures, and generations. A poet for all time.",
+      "gen_prompt": "A luminous ancient banyan tree with glowing roots and branches, spiritual energy emanating from its core, mystical forest setting, warm golden light, timeless wisdom symbolism"
+    }
+  ]
+}
