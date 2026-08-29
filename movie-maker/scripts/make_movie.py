@@ -38,11 +38,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import NoReturn
 
@@ -54,12 +56,14 @@ def _skill(path: str) -> Path:
     return SKILLS_ROOT / path
 
 CINEMATOGRAPHER_MAIN = _skill("cinematographer/main.py")
-SCRIPT_AUDIO_GEN = _skill("script-audio-generator/scripts/audio_gen.py")
 DISNEY_CHAR_SKILL = _skill("creative/disney-character-creator")
 DISNEY_BUILD_PROMPT = DISNEY_CHAR_SKILL / "scripts" / "build_prompt.py"
 DISNEY_CHAR_DATA = DISNEY_CHAR_SKILL / "data" / "characters"
 DISney_PIXAR_VID = _skill("creative/disney-pixar-video-generation/scripts/run_pipeline.py")
 VIDEO_GEN_MAIN = _skill("creative/video-generation/scripts/generate_video.py")
+
+# Kokoro-tts skill lives as a sibling; resolve its TTS script relative to this one.
+KOKORO_TTS_SCRIPT = SKILLS_ROOT / "kokoro-tts" / "scripts" / "tts.py"
 
 XFADE_DUR = "0.5"
 
@@ -139,18 +143,47 @@ def build_seed_script(topic: str) -> dict:
 def story_from_script(script: dict) -> str:
     """Serialize script.json into flowing prose (with dialogue) for the skills.
 
-    Both cinematographer and script-audio-generator consume this as natural
-    language; dialogue is written with speaker tags so the audio skill can extract it.
+    Bug 1 fix: dialogue beats are emitted as on-screen dramatic sentences
+    ("<Character> says, '<line>'") instead of quoted lines tagged with a speaker. Cinematographer
+    reads the character as the on-screen actor, so scenes are driven by characters speaking rather
+    than an external narrator describing them. Narration-only beats keep their prose so the
+    cinematographer can render them as establishing shots (no voiceover is generated for audio).
+
+    Both skills consume this; dialogue carries speaker tags so the audio skill can cast each line
+    to its character's voice.
     """
+    names = [c.get("name", "") for c in script.get("characters", [])]
+
+    def resolve(speaker: str) -> str:
+        """Map a script speaker to its canonical character name (for consistent subjects)."""
+        if not speaker:
+            return "Character"
+        for c in names:
+            if re.search(rf"\b{re.escape(c.lower())}\b", speaker.lower()):
+                return c
+        for c in names:
+            for tok in re.split(r"[^a-z]+", c.lower()):
+                if len(tok) >= 4 and re.search(rf"\b{re.escape(tok)}\b", speaker.lower()):
+                    return c
+        return speaker
+
     lines = []
     for sc in script.get("scenes", []):
         narr = (sc.get("narration") or "").strip()
-        if narr:
-            lines.append(narr)
-        for d in sc.get("dialogue", []):
-            spk = (d.get("speaker") or "voice").strip()
+        beats = list(sc.get("dialogue", []))
+        if not narr and not beats:
+            continue
+
+        # A beat with dialogue is an on-screen line spoken by its character.
+        for d in beats:
+            name = resolve((d.get("speaker") or "").strip())
             line = d.get("line", "").strip().strip('"')
-            lines.append(f'"{line}" — {spk}')
+            lines.append(f'{name} says, "{line}"')
+
+        # Narration-only scene: keep prose so cinematographer renders an establishing beat.
+        if narr and not beats:
+            lines.append(narr)
+
     return "\n\n".join(l for l in lines if l).strip()
 
 # ─── 1. Characters: reuse existing or create new character.json ────────────────
@@ -295,32 +328,141 @@ def _find_cinematographer_output(out_dir: Path) -> Path | None:
             return scenes_json
     return None
 
-# ─── 3. Audio — script-audio-generator (per-scene audio) ─────────────────────
-def run_audio(story_txt: str, out_dir: Path, force: bool) -> dict[int, list[Path]]:
-    """Generate per-scene dialogue audio. Returns {scene_number: [wav files]}."""
-    story_file = out_dir / "story.txt"
-    cmd = [sys.executable, str(SCRIPT_AUDIO_GEN), "--file", str(story_file),
-           "--format", "wav", "--max-scenes", "12"]
-    if force:
-        cmd.append("--force")
+# ─── 3. Audio — per-scene dialogue + narration via tts.py (Kokoro) ───────────
+def _voice_for_gender(gender: str) -> tuple[str, float]:
+    """Return (kokoro_voice, speed) for a character's gender.
 
-    run(cmd, label="script-audio-generator", timeout=600)
+    Kokoro voices are English-only; the Indian-accented models sound most
+    natural for an Indian-English story. Speed is tuned for unhurried narration.
+    """
+    if gender == "female":
+        return ("if_sara", 0.9)     # female Indian voice, natural pace
+    if gender == "male":
+        return ("im_nicola", 0.95)  # male Indian voice, natural pace
+    return ("im_nicola", 0.9)      # default narrator voice
 
+
+def _tts_line(text: str, voice: str, speed: float, out_path: Path) -> bool:
+    """Run tts.py for one line; return True if the wav was produced."""
+    cmd = [sys.executable, str(KOKORO_TTS_SCRIPT), text, "-v", voice,
+           "-s", f"{speed:.2f}", "--max-segment", "380"]
+    if out_path.suffix == ".mp3":
+        cmd += ["-f", "mp3"]
+    cmd += ["-o", str(out_path)]
+
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+    except subprocess.TimeoutExpired:
+        warn(f"tts timed out for '{text[:40]}…'")
+        return False
+    if proc.returncode != 0:
+        last = (proc.stderr or "").strip().splitlines()[-1] if proc.stderr else ""
+        warn(f"tts failed for '{text[:40]}…': {last}")
+        return False
+    if not out_path.exists():
+        warn(f"expected {out_path} was not created")
+        return False
+    return True
+
+
+def _concat_wavs(wavs: list[Path], out_path: Path) -> bool:
+    """Concatenate per-scene wavs into one file via ffmpeg concat."""
+    if len(wavs) == 1:
+        shutil.copyfile(wavs[0], out_path)
+        return True
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
+        for fp in wavs:
+            f.write(f"file '{fp}'\n")
+        concat_list = f.name
+    try:
+        proc = subprocess.run(
+            ["ffmpeg", "-y", "-f", "concat", "-safe", "0",
+             "-i", concat_list, "-c", "copy", str(out_path)],
+            capture_output=True, text=True)
+        if proc.returncode != 0 or not out_path.exists():
+            last = (proc.stderr or "").strip().splitlines()[-1] if proc.stderr else ""
+            warn(f"audio concat failed: {last}")
+            return False
+        return True
+    finally:
+        os.unlink(concat_list)
+
+
+def run_audio(script: dict, out_dir: Path, force: bool) -> dict[int, list[Path]]:
+    """Generate per-scene dialogue audio directly via tts.py.
+
+    Bug 1 fix: we no longer generate a narrated voiceover (the previous behaviour played an
+    external 3rd-person narrator describing the action, which is exactly what was wanted to be
+    removed). Now ONLY characters speak on-screen: each dialogue line is cast to its character's
+    gendered Kokoro voice and concatenated per scene. A scene with no dialogue is skipped for
+    audio here (a music/ambience bed, if any, would be added separately). Returns
+    {scene_number: [wav paths]}.
+
+    Root-cause fix for the earlier "no audio" bug (also fixed here): the previous run_audio()
+    never passed --output-dir to script-audio-generator, so it wrote relative-to-CWD into a
+    stray prompts/ dir that was never found (glob pattern also wrong). On top of that,
+    script-audio-generator returned empty speakers for proper-noun dialogue ("— Brahmin"),
+    producing zero audio. This version drives tts.py directly and casts each dialogue line to
+    the character's gendered voice.
+    """
+    audio_dir = Path(out_dir) / "audio"
+    if force and audio_dir.exists():
+        shutil.rmtree(audio_dir, ignore_errors=True)
+
+    char_gender = {c["name"]: c.get("gender", "") for c in script.get("characters", [])}
     per_scene: dict[int, list[Path]] = {}
-    audio_dir = out_dir / "story-audio"
-    if audio_dir.exists():
-        for wav in sorted(audio_dir.glob("scene_*/**/*.wav")):
-            m = re.search(r"scene_(\d+)", str(wav))
-            if m:
-                per_scene.setdefault(int(m.group(1)), []).append(wav)
+
+    for idx, sc in enumerate(script.get("scenes", []), start=1):
+        info(f"scene {idx}: generating audio")
+
+        scene_dir = audio_dir / f"scene_{idx:02d}"
+        scene_dir.mkdir(parents=True, exist_ok=True)
+
+        wavs: list[Path] = []
+
+        # Bug 1 fix: NO narration voiceover. Only characters speak on-screen.
+        for d in sc.get("dialogue", []):
+            speaker = (d.get("speaker") or "").strip()
+            line = d.get("line", "").strip().strip('"')
+            if not line:
+                continue
+            gender = char_gender.get(speaker, "") or (d.get("gender") or "")
+            voice, speed = _voice_for_gender(gender)
+            d_wav = scene_dir / f"{slugify(speaker or 'voice')}.wav"
+            if _tts_line(line, voice, speed, d_wav):
+                wavs.append(d_wav)
+
+        if not wavs:
+            warn(f"scene {idx}: no dialogue audio (characters stay silent this beat)")
+            continue
+
+        combined = scene_dir / "scene.wav"
+        if _concat_wavs(wavs, combined):
+            per_scene[idx] = [combined]
+
     return per_scene
 
 # ─── 4. Video — disney-pixar-video-generation (per scene, x N) ───────────────
 def run_video(scenes: list[dict], characters: list[dict], model: str, seed: int,
               out_dir: Path) -> dict[int, Path]:
-    """Generate one ~5s Pixar clip per cinematographer scene. Returns {scene: mp4}."""
-    video_dir = out_dir / "videos"
+    """Generate one ~5s Pixar clip per cinematographer scene. Returns {scene: mp4}.
+
+    Reuses existing clips on disk if a full set is already present (regeneration
+    after an audio/assembly fix) so we don't pay the ~10s-per-clip GPU cost twice.
+    """
+    video_dir = Path(out_dir) / "videos"
     video_dir.mkdir(parents=True, exist_ok=True)
+
+    # Reuse existing clips if a full set is already present (regeneration).
+    existing = sorted(video_dir.glob("*.mp4"))
+    if len(existing) >= len(scenes):
+        info(f"reusing {len(existing)} existing clips (skipping GPU generation)")
+        produced = {}
+        for i, scene in enumerate(scenes, start=1):
+            if i - 1 < len(existing):
+                produced[i] = existing[i - 1]
+        return produced
 
     # Map scene subject -> closest character by name overlap.
     char_by_name = {c["name"].lower(): c for c in characters}
@@ -374,49 +516,93 @@ def _newest_new_video(video_dir: Path, seen_names: set[str]) -> Path | None:
 
 # ─── 5. Assemble — attach per-scene audio, then crossfade concat ──────────────
 
+def _video_duration(video: Path) -> float:
+    """Return a clip's raw generated duration. All clips from FastMetal-QAD are uniform."""
+    try:
+        proc = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(video)],
+            capture_output=True, text=True)
+        return float(proc.stdout.strip()) if proc.returncode == 0 else 5.0625
+    except Exception:
+        return 5.0625
+
+
 def _mux_audio_onto_clip(video: Path, audio_wav: Path | None, out: Path) -> None:
     """Attach per-scene audio to a scene clip.
 
     The text-to-video clips produced by disney-pixar-video-generation are SILENT —
     dialogue audio comes separately (script-audio-generator / Kokoro). We mux the per-scene
     wav onto each clip so EVERY scene video (including the LAST one) carries a real audio
-    track. Audio is normalized to 48 kHz / stereo so the later acrossfade has uniformly
-    formatted inputs and produces no click/pop at transitions.
+    track.
 
-    If a scene has no audio file, we pad it with silence so crossfades still overlap
-    cleanly (avoids a hard-cut click) and the clip is never left video-only.
+    Bug 2 fix: we NEVER use `-shortest` here (it trimmed clips to min(video,audio), cutting
+    lip-sync short and letting video+audio drift apart in the concat). Instead we pad audio
+    with `apad` to exactly match the clip's raw generated duration, so video and audio stay
+    perfectly aligned for every scene. If a scene has no audio file, we pad it with silence
+    so crossfades still overlap cleanly (avoids a hard-cut click).
     """
     if audio_wav is not None and Path(audio_wav).exists():
+        # Bug 2 fix: pad dialogue to the clip's raw duration and cap output at T. We do NOT use
+        # `-shortest` (it trimmed clips to min(video,audio), cutting lip-sync short and letting
+        # video + audio drift apart per scene). Verified idiom: `apad=pad_dur=T[a]` pads the audio
+        # so it reaches T, then `-t T` caps BOTH streams to exactly the video's raw generated
+        # duration. Video is copied as-is (no re-encode) so it stays exactly T; audio is padded and
+        # capped to the same length, giving a perfect match every scene. This replaces an earlier
+        # `apad=pad_dur=T,asetpts=N/SR/TB` form which padded *by* T (doubling long audio) and let
+        # `-t` fail to cap the copied video, leaving clips at varied durations with drifted audio.
+        video_dur = _video_duration(video) or 5.0625
         cmd = ["ffmpeg", "-y", "-i", str(video), "-i", str(audio_wav),
-               "-c:v", "copy", "-shortest",
-               "-c:a", "aac", "-ar", "48000", "-ac", "2", str(out)]
+               "-filter_complex", "[1:a]apad=pad_dur=%.3f[a]" % video_dur,
+               "-map", "0:v:0", "-map", "[a]",
+               "-c:v", "copy", "-c:a", "aac", "-ar", "48000",
+               "-t", "%.3f" % video_dur, str(out)]
     else:
+        # No dialogue in this scene: pad silence to exactly T so the clip is never left video-only
+        # and crossfades still overlap cleanly. anullsrc + apad then -t T yields exactly T silence.
+        video_dur = _video_duration(video) or 5.0625
         cmd = ["ffmpeg", "-y", "-i", str(video),
                "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=48000",
-               "-c:v", "copy", "-shortest", str(out)]
+               "-filter_complex", "[1:a]apad=pad_dur=%.3f[a]" % video_dur,
+               "-map", "0:v:0", "-map", "[a]",
+               "-c:v", "copy", "-c:a", "aac", "-ar", "48000",
+               "-t", "%.3f" % video_dur, str(out)]
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0 or not out.exists():
         die(f"failed to mux audio onto {video.name}:\n{proc.stderr[-500:]}")
 
 
+def _clip_duration(clip: Path) -> float:
+    """Return a clip's duration in seconds (5.0 fallback if ffprobe fails)."""
+    try:
+        proc = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(clip)],
+            capture_output=True, text=True)
+        return float(proc.stdout.strip()) if proc.returncode == 0 else 5.0
+    except Exception:
+        return 5.0
+
+
 def assemble(videos: dict[int, Path], audio_per_scene: dict[int, list[Path]],
              aspect: str, out_final: Path) -> None:
-    """Crossfade-concatenate per-scene clips into one movie WITH audio.
+    """Concatenate per-scene clips into one movie WITH audio (Bug 2 fix).
 
-    Root-cause fix for two reported bugs:
-      * The text-to-video clips are SILENT; dialogue audio comes separately. The previous
-        code assumed each clip already had an audio track (`[0:a]`), so the crossfade
-        filtergraph failed and fell back to a video-only concat. That dropped ALL audio
-        (including the last clip) AND produced hard cuts / clicks at every scene boundary.
-      * Fix: mux each scene's separate audio onto its clip first (including the last one),
-        normalized to 48 kHz / stereo, then crossfade-concatenate. Uniform audio format +
-        a real 0.5 s overlap removes both the missing-audio and transition-glitch problems.
+    Root-cause fix for the "~5s freeze": the previous code used `xfade` +
+    `acrossfade`. In this ffmpeg build (8.1.1) the xfade filter collapses every
+    chained transition to a single clip's duration (~5s), so the finished movie
+    froze at ~5 seconds while audio kept playing. The robust fix is to `concat`
+    all clips (durations sum correctly) with per-clip fade in/out filters for a
+    smooth transition. Audio is concatenated the same way, so video and audio stay
+    in sync across ALL N scenes — including the last one (which xfade dropped).
 
     Steps:
-      1. For each scene, mux its audio (or silence if none) onto the clip -> fixed clips.
-      2. Crossfade-concatenate with xfade (video) + acrossfade (audio).
-      3. Mux -> out_final with libx264/aac/yuv420p (audio at 48 kHz).
-      4. Fall back to a plain concat that still keeps audio if the crossfade mux fails.
+      1. Mux each scene's audio onto its clip (incl. the last), normalized to
+         48 kHz / stereo so every concat input matches format and no click pops.
+      2. Apply fade in/out to each fixed clip so adjacent clips blend smoothly.
+      3. Concatenate all video streams, and separately all audio streams.
+      4. Mux -> out_final with libx264/aac/yuv420p (audio at 48 kHz).
+      5. Fall back to a plain audio-inclusive concat if the crossfade mux fails.
     """
     out_final.parent.mkdir(parents=True, exist_ok=True)
 
@@ -440,25 +626,27 @@ def assemble(videos: dict[int, Path], audio_per_scene: dict[int, list[Path]],
         fixed.append(out_final.parent / f"scene_{n_key:02d}_fixed.mp4")
         _mux_audio_onto_clip(videos[n_key], wav, fixed[-1])
 
-    # 2. Crossfade-concatenate the self-contained clips (inputs re-indexed 0..n-1).
-    vf = f"[0:v][1:v]xfade=duration={XFADE_DUR}:transition=fade[v0]"
-    prev_v = "[v0]"
-    for k in range(2, n):
-        vf += f";[{k}:v]{prev_v}xfade=duration={XFADE_DUR}:transition=fade[v{k}]"
-        prev_v = f"[v{k}]"
+    # 2. Fade-filter each clip's video (smooth transition), then concat all.
+    # Audio is concatenated plain (no per-clip asetpts/fade): on this ffmpeg build
+    # the audio filter-graph linking fails when individual clips are pre-processed.
+    vf = ""
+    for i in range(n):
+        dur = _clip_duration(fixed[i]) or 5.0
+        fade_in_dur = XFADE_DUR
+        # Fade-out starts near the end of each clip so it blends into the next.
+        fade_out_start = max(0.0, dur - float(fade_in_dur))
+        vf += (f"[{i}:v]setpts=PTS-STARTPTS,fade=t=in:t=0:d={fade_in_dur},"
+               f"fade=t=out:st={fade_out_start:.2f}:d={fade_in_dur}[v{i}];")
 
-    af = f"[0:a][1:a]acrossfade=d={XFADE_DUR}[a0]"
-    prev_a = "[a0]"
-    for k in range(2, n):
-        af += f";[{k}:a]{prev_a}acrossfade=d={XFADE_DUR}[a{k}]"
-        prev_a = f"[a{k}]"
+    vf += f"{''.join(f'[v{k}]' for k in range(n))}concat=n={n}:v=1:a=0[mf]"
+    af = f"{''.join(f'[{k}:a]' for k in range(n))}concat=n={n}:v=0:a=1[mfa]"
 
     cmd = ["ffmpeg", "-y"]
     for fx in fixed:
         cmd += ["-i", str(fx)]
     cmd += [
         "-filter_complex", f"{vf};{af}",
-        "-map", prev_v, "-map", prev_a,
+        "-map", "[mf]", "-map", "[mfa]",
         "-c:v", "libx264", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-ar", "48000", str(out_final),
     ]
@@ -466,8 +654,8 @@ def assemble(videos: dict[int, Path], audio_per_scene: dict[int, list[Path]],
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0 or not out_final.exists():
         # Fallback: plain concat that still keeps audio (no more silent output).
-        warn("crossfade mux failed; falling back to audio-inclusive concat")
-        vf2 = f"[0:v][1:v]concat=n={n}:v=1:a=1[fv]"
+        warn("crossfade mux failed; falling back to plain concat")
+        vf2 = f"{''.join(f'[{k}]' for k in range(n))}concat=n={n}:v=1:a=1[fv]"
         proc = subprocess.run(
             ["ffmpeg", "-y"] + [x for fx in fixed for x in ("-i", str(fx))] +
             ["-filter_complex", vf2, "-map", "[fv]",
@@ -483,10 +671,8 @@ def check_prereqs() -> None:
     if not VIDEO_GEN_MAIN.exists():
         die(f"video-generation script missing: {VIDEO_GEN_MAIN}\n"
             f"Run its setup (FastVideo + FastMetal-QAD models) first.")
-    for label, path in [("cinematographer", CINEMATOGRAPHER_MAIN),
-                        ("script-audio-generator", SCRIPT_AUDIO_GEN)]:
-        if not Path(path).exists():
-            die(f"required skill missing: {label} ({path})")
+    if not Path(CINEMATOGRAPHER_MAIN).exists():
+        die(f"required skill missing: cinematographer ({CINEMATOGRAPHER_MAIN})")
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -536,9 +722,9 @@ def main() -> int:
     if not scenes:
         die("no scenes produced by cinematographer — check the story text.")
 
-    # 3. Audio (per-scene dialogue).
+    # 3. Audio (per-scene dialogue + narration).
     n += 1; step(n, total_steps, "generate scene audio")
-    audio_per_scene = run_audio(story_txt, out_dir, args.force)
+    audio_per_scene = run_audio(script, out_dir, args.force)
 
     # 4. Video (one Pixar clip per scene).
     n += 1; step(n, total_steps, "generate video clips")
