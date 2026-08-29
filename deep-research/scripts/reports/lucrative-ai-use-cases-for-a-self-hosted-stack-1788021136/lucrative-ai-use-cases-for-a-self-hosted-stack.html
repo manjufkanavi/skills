@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfcfb;
+    --ink: #1c1917;
+    --muted: #78716c;
+    --accent: #b45309;
+    --accent-light: #fef3c7;
+    --parchment: #f5f0e8;
+    --border: #e7e5e4;
+  }
+
+  * { margin: 0; padding: 0; box-box: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    line-height: 1.8;
+    font-weight: 300;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ——— CENTERED PAPER LAYOUT ——— */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ——— MASTHEAD ——— */
+  .masthead {
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .masthead-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+  }
+
+  .masthead-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .masthead-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .masthead-rule-bottom {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 3rem auto 0;
+  }
+
+  /* ——— ARTICLE SECTIONS ——— */
+  .article {
+    padding: 3rem 0;
+  }
+
+  .article-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-section:first-child {
+    border-top: none;
+  }
+
+  .section-number {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .article-section h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .article-section p {
+    font-size: 1.05rem;
+    color: #44403c;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-section p.lead {
+    font-size: 1.2rem;
+    color: var(--ink);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ——— DECORATIVE DROP CAP ——— */
+  .drop-cap::first-letter {
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  /* ——— TWO COLUMN ——— */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2.5rem 0;
+  }
+
+  .two-col-col h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .two-col-col p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ——— FULL-WIDTH CALLOUT ——— */
+  .callout {
+    background: var(--parchment);
+    padding: 3rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .callout p {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ——— SEPARATOR ——— */
+  .separator {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .separator::before {
+    content: '◆';
+    color: var(--accent-light);
+    font-size: 0.5rem;
+    letter-spacing: 1em;
+  }
+
+  /* ——— REFERENCES ——— */
+  .references {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .ref-list {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  .ref-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    break-inside: avoid;
+  }
+
+  .ref-list li::before {
+    content: '[';
+    color: var(--accent);
+    margin-right: 0.25rem;
+  }
+
+  .ref-list li::after {
+    content: ']';
+    color: var(--accent);
+    margin-left: 0.25rem;
+  }
+
+  /* ——— FOOTER ——— */
+  .report-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .report-footer p {
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 700px) {
+    .page { padding: 0 1.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .ref-list { columns: 1; }
+    .callout { padding: 2rem 1.5rem; }
+    .masthead { padding: 4rem 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-rule"></div>
+  <div class="masthead-tag">Research Report</div>
+  <h1>Lucrative AI Use Cases for a Self-Hosted Stack</h1>
+  <p class="masthead-sub">A synthesized opportunity map for a Linux (32 GB) + Mac Studio local-LLM stack, drawn from 109 sources.</p>
+  <div class="masthead-rule-bottom"></div>
+</header>
+
+<!-- ARTICLE -->
+<article class="page article">
+
+  <section class="article-section">
+    <span class="section-number">I</span>
+    <h2>Market Signals &amp; Opportunity Landscape</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>$10k/mo AI SaaS Businesses to Start As a Solopreneur (Top 5) : r/SaaS<br><small>r/SaaS 6mo ago Realistic\_Ad5728 # $10k/mo AI SaaS Businesses to Start As a Solopreneur (Top 5) 1. AI Content Creation for Founder…</small></li><li>- YouTube<br><small>About Press Copyright Contact us Creators Advertise Developers Terms Privacy Policy &amp; Safety How YouTube works Test new features N…</small></li><li>The Economics of AI-First B2B SaaS in 2026<br><small>Frameworks, core principles and top case studies for SaaS pricing, learnt and refined over 28+ years of SaaS-monetization experien…</small></li><li>- YouTube<br><small>About Press Copyright Contact us Creators Advertise Developers Terms Privacy Policy &amp; Safety How YouTube works Test new features N…</small></li><li>- YouTube<br><small>About Press Copyright Contact us Creators Advertise Developers Terms Privacy Policy &amp; Safety How YouTube works Test new features N…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">II</span>
+    <h2>Voice + OCR Document Automation</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>Startup Idea Validator 2026 - AI Market Analysis in 120s | IdeaProof<br><small>Micro-saas ideas # 50 Micro-SaaS Ideas for Solo Founders 2026 | Costs, Revenue &amp; How to Build Every micro-SaaS idea includes start…</small></li><li>10 Micro SaaS Ideas for Solopreneurs in 2026 - Build Without Code | Lovable<br><small>Published December 30, 2025 in Business &amp; App Ideas # Micro SaaS Ideas for Solopreneurs in 2026 Author: Lovable Team at Lovable Th…</small></li><li>Best 20 Micro SaaS Startup Ideas in 2026 for Entrepreneurs<br><small># 20 Profitable Micro SaaS Startup Ideas 2026 Written by * Fazle Rabbi * Last updated on Jun. 02, 2026 ## Table of Contents ## Rea…</small></li><li>Top 50 Micro SaaS Ideas for Solopreneurs in 2026: What to Build, Who Pays, and How Mu<br><small># Top 50 Micro SaaS Ideas for Solopreneurs in 2026: What to Build, Who Pays, and How Much The micro SaaS segment is growing at rou…</small></li><li>Top AI SaaS Niches to Build a Micro SaaS in 2026<br><small>## Key Takeaways * The AI agents market is on track to pass $10.9 billion in 2026 and grow at a ~46% CAGR through 2030—vertical AI…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">III</span>
+    <h2>Privacy-First &amp; Self-Hosted AI Products</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>20 Profitable Micro SaaS Ideas for 2026 (Low Competition, Real Demand)<br><small># 20 Profitable SaaS &amp; Micro-SaaS Ideas for 2026 (Backed by 273K+ Real Reviews) Most &quot;SaaS idea&quot; lists are written by people who h…</small></li><li>Best Micro SaaS Ideas for Solo Developers in 2026<br><small>## Key Takeaways * Solo developers have a unique moat: the ability to ship production-grade tools without hiring anyone * GitHub-f…</small></li><li>Building a Generative AI-Powered SaaS: A Solo Developer’s Guide<br><small># Building a Generative AI-Powered SaaS: A Solo Developer’s Guide I have a ChatGPT Pro subscription and was wondering what Deep Re…</small></li><li>Best Deployment Platforms for Solo Developers 2026<br><small># Best Deployment Platforms for Solo Developers 2026 Solo developers need a platform that gets an app live fast without a DevOps t…</small></li><li>Global Citizenship Hub | Best Open Source and Offline AI Tools in 2026: Privacy-First<br><small>Best Open Source and Offline AI Tools in 2026: Privacy-First AI Solutions The artificial intelligence landscape has transformed dr…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">IV</span>
+    <h2>Profitable Micro-SaaS Niches 2026</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>SaaS or Micro-SaaS: What Should a Solo Founder Build in 2026? : r/saasbuild<br><small>r/saasbuild 6mo ago Infamous-Engine-8835 # SaaS or Micro-SaaS: What Should a Solo Founder Build in 2026? Hey everyone, I’m explori…</small></li><li>Is trying to develop a SAAS as a solo developer even worth it? : r/webdev<br><small>r/webdev 5y ago Mattpat98 # Is trying to develop a SAAS as a solo developer even worth it? Question Hello everyone, I have been lo…</small></li><li>AI: Artificial Intelligence | Is it possible for AI to suggest niche business ideas b<br><small>Can AI identify unmet market needs for niche business ideas? Summarized by AI from the post below Is it possible for AI to suggest…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">V</span>
+    <h2>n8n Workflow-Automation Agency Model</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>How to Make Money with n8n Workflow Automation 2026<br><small>Introduction Discover 6 profitable n8n template types and 4 monetization strategies. Learn how to make money with n8n workflow aut…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">VI</span>
+    <h2>Compliance &amp; Vulnerability-Reporting SaaS</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>Profitable Micro SaaS Ideas 2026: 12 Unsexy Niches | Redwerk<br><small># Boring Micro SaaS Ideas That Print Money: 12 Unsexy Niches Solo Founders Are Winning in 2026 * June 15, 2026 * Building a tech s…</small></li><li>20 Micro-SaaS Ideas for 2026 (That AI Won&#x27;t Kill)<br><small>**$2 trillion in software sector market cap evaporated between January and February 2026** (FinancialContent, 2026). Not a typo. T…</small></li><li>The 2026 State of AI and Data Privacy Report | Perforce Software<br><small>Report # The 2026 State of AI and Data Privacy Report AI, Data Management Back to top ## Executive Summary: AI/ML Investment, Data…</small></li><li>AI Agent Security: Protect Data &amp; Prevent Breaches in 2026<br><small>AI agents are rewriting how marketing teams work. They answer ad-hoc queries, automate reporting, and surface insights from dozens…</small></li><li>AI Agents and Data Privacy: A 2026 Compliance Guide  - MTM Blog<br><small>Back to Blog # AI Agents and Data Privacy: A 2026 Compliance Guide --- Posted 4/29/26 --- When an AI agent accesses your client da…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <div class="references">
+    <h2>References</h2>
+    <ol class="ref-list">
+      <li>$10k/mo AI SaaS Businesses to Start As a Solopreneur (Top 5) : r/SaaS</li>
+      <li>- YouTube</li>
+      <li>The Economics of AI-First B2B SaaS in 2026</li>
+      <li>Startup Idea Validator 2026 - AI Market Analysis in 120s | IdeaProof</li>
+      <li>10 Micro SaaS Ideas for Solopreneurs in 2026 - Build Without Code | Lo</li>
+      <li>Best 20 Micro SaaS Startup Ideas in 2026 for Entrepreneurs</li>
+      <li>20 Profitable Micro SaaS Ideas for 2026 (Low Competition, Real Demand)</li>
+      <li>Best Micro SaaS Ideas for Solo Developers in 2026</li>
+      <li>Building a Generative AI-Powered SaaS: A Solo Developer’s Guide</li>
+      <li>SaaS or Micro-SaaS: What Should a Solo Founder Build in 2026? : r/saas</li>
+      <li>Is trying to develop a SAAS as a solo developer even worth it? : r/web</li>
+      <li>AI: Artificial Intelligence | Is it possible for AI to suggest niche b</li>
+      <li>How to Make Money with n8n Workflow Automation 2026</li>
+      <li>Profitable Micro SaaS Ideas 2026: 12 Unsexy Niches | Redwerk</li>
+      <li>20 Micro-SaaS Ideas for 2026 (That AI Won&#x27;t Kill)</li>
+      <li>The 2026 State of AI and Data Privacy Report | Perforce Software</li>
+    </ol>
+  </div>
+
+</article>
+
+<footer class="report-footer page">
+  <p>Deep Research Report &nbsp;·&nbsp;August 2026</p>
+</footer>
+
+</body>
+</html>
