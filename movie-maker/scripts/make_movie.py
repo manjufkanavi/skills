@@ -629,7 +629,11 @@ def _concat_wavs(wavs: list[Path], out_path: Path) -> bool:
         graph = "".join(f"[{i}:a]" for i in range(len(wavs)))
         cmd = ["ffmpeg", "-y"] + inputs + [
             "-filter_complex", f"{graph}concat=n={len(wavs)}:v=0:a=1[out]",
-            "-map", "[out]", "-c:a", "copy", str(out_path),
+            "-map", "[out]", # NOTE: must re-encode to AAC — ffmpeg rejects -c:a copy when the
+            # output stream comes from a complex filtergraph ("Filtering and streamcopy cannot be used together").
+            # This only affects multi-speaker scenes (len(wavs) >= 2); single-line scenes use the
+            # shutil.copyfile branch above and never reach here.
+            "-c:a", "aac", "-ar", "48000", str(out_path),
         ]
         try:
             proc = subprocess.run(cmd, capture_output=True, text=True)
