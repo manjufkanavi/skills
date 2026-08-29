@@ -1,0 +1,95 @@
+{
+  "aspect_ratio": "16:9",
+  "resolution": "1920x1080",
+  "fps": 24,
+  "shots": [
+    {
+      "scene_number": 1,
+      "title": "A bloodthirsty lion terrorized the",
+      "video_prompt": "bloodthirsty lion doing terrorized the forest, killing animals every single day set in killing animals every single day photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 2,
+      "title": "Terrified, the animals agreed to",
+      "video_prompt": "Terrified, the animals agreed doing to send one of their own to the lion's den each day to save themselves set in the animals agreed to send one of their own to the lion's den each day to save themselves photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: haunting, dread-filled. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 3,
+      "title": "When it was the hare's",
+      "video_prompt": "When it doing was the hare's turn, he did not weep — instead he devised a clever plan to outwit the lion set in he did not weep — instead he devised a clever plan to outwit the lion photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 4,
+      "title": "Hare says, \"Great Lion, forgive",
+      "video_prompt": "Hare says, \"Great Lion, doing forgive me set in forgive me photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 5,
+      "title": "Another lion blocked my path",
+      "video_prompt": "Another lion doing blocked my path and ate my meal first set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 6,
+      "title": "I barely escaped with my",
+      "video_prompt": "I barely doing escaped with my life.\" Lion says, \"Another lion Show me this rival at once, or you shall be my next meal!\" Hare says, \"R set in at photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 7,
+      "title": "Look into the well —",
+      "video_prompt": "Look into the well doing — he hides within and mocks you.\"\n\nThe lion peered into the water and saw only his own reflection staring back at him set in into into at photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 8,
+      "title": "Lion says, \"I will teach",
+      "video_prompt": "Lion says, \"I will doing teach you to challenge me!\"\n\nFrom that day on, the forest was at peace — and wits had conquered brute force set in at photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    }
+  ]
+}

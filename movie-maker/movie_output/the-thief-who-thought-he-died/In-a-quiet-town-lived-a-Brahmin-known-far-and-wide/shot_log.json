@@ -1,0 +1,139 @@
+{
+  "aspect_ratio": "16:9",
+  "resolution": "1920x1080",
+  "fps": 24,
+  "shots": [
+    {
+      "scene_number": 1,
+      "title": "In a quiet town lived",
+      "video_prompt": "In a quiet town doing lived a Brahmin known far and wide as a thief set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 2,
+      "title": "Four Brahmins arrived to sell",
+      "video_prompt": "Four Brahmins doing arrived to sell their wares, earning a small purse of coins set in earning a small purse of coins photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 3,
+      "title": "The thief slipped in as",
+      "video_prompt": "thief doing slipped in as a friend, quoting the sacred texts with honeyed words set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 4,
+      "title": "\"Your wisdom shines like the",
+      "video_prompt": "\"Your wisdom shines like the doing morning sun, honoured sages.\" — Thief Brahmin Trusting him, they made him their travelling helper and guide set in they made him their travelling helper and guide photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 5,
+      "title": "\"You shall be our helper",
+      "video_prompt": "\"You doing shall be our helper on this journey, good sir.\" — Head Brahmin They sold all their goods and bought glittering jewels wi set in on photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 6,
+      "title": "Cutting their thighs, they hid",
+      "video_prompt": "Cutting their thighs, they doing hid the jewels inside and healed the wounds with ointment set in they hid the jewels inside and healed the wounds with ointment photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 7,
+      "title": "The thief saw everything and",
+      "video_prompt": "thief saw doing everything and locked the hiding place in his mind set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 8,
+      "title": "\"(to himself) The jewels are",
+      "video_prompt": "\"(to himself) The jewels doing are sewn into their very flesh set in into photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 9,
+      "title": "Tonight, I take them all.\"",
+      "video_prompt": "Tonight, I take them doing all.\" — Thief Brahmin\n\nThat night by the fire, the wise Head Brahmin read the thief's greedy heart set in the wise head brahmin read the thief's greedy heart photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 10,
+      "title": "\"(aside) This one plots harm",
+      "video_prompt": "\"(aside) This one plots doing harm set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 11,
+      "title": "Let us teach him a",
+      "video_prompt": "Let us teach him a lesson he doing will never forget.\" — Head Brahmin They slipped a sleeping draught into his food, and he sank into deep sleep set in into into photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 12,
+      "title": "They bound him, dragged him",
+      "video_prompt": "They bound him, dragged doing him to the town gate, and left him in a muddy ditch Waking, half-deaf with fear, he swore he had died and been judged fo set in in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: tense, anxious. slow push-in camera movement. Lighting: moody low-key lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    }
+  ]
+}

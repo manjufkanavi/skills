@@ -1,0 +1,81 @@
+{
+  "title": "The Thief Who Thought He Died",
+  "genre": "drama",
+  "characters": [
+    {
+      "name": "The Thief Brahmin",
+      "gender": "male",
+      "description": "a gaunt, shifty-eyed Brahmin with a scraggly beard and a worn saffron dhoti; speaks with an oily, flattering smile"
+    },
+    {
+      "name": "Head Brahmin",
+      "gender": "male",
+      "description": "a wise, elder Brahmin with silver hair and a neat grey beard; calm eyes and an upright posture"
+    },
+    {
+      "name": "Young Brahmin",
+      "gender": "male",
+      "description": "a middle-aged Brahmin with a dark brown beard and anxious, watchful eyes"
+    }
+  ],
+  "scenes": [
+    {
+      "narration": "In a quiet town lived a Brahmin known far and wide as a thief.",
+      "dialogue": []
+    },
+    {
+      "narration": "Four Brahmins arrived to sell their wares, earning a small purse of coins.",
+      "dialogue": []
+    },
+    {
+      "narration": "The thief slipped in as a friend, quoting the sacred texts with honeyed words.",
+      "dialogue": [
+        {"speaker": "Thief Brahmin", "line": "Your wisdom shines like the morning sun, honoured sages."}
+      ]
+    },
+    {
+      "narration": "Trusting him, they made him their travelling helper and guide.",
+      "dialogue": [
+        {"speaker": "Head Brahmin", "line": "You shall be our helper on this journey, good sir."}
+      ]
+    },
+    {
+      "narration": "They sold all their goods and bought glittering jewels with the coins.",
+      "dialogue": []
+    },
+    {
+      "narration": "Cutting their thighs, they hid the jewels inside and healed the wounds with ointment.",
+      "dialogue": []
+    },
+    {
+      "narration": "The thief saw everything and locked the hiding place in his mind.",
+      "dialogue": [
+        {"speaker": "Thief Brahmin", "line": "(to himself) The jewels are sewn into their very flesh. Tonight, I take them all."}
+      ]
+    },
+    {
+      "narration": "That night by the fire, the wise Head Brahmin read the thief's greedy heart.",
+      "dialogue": [
+        {"speaker": "Head Brahmin", "line": "(aside) This one plots harm. Let us teach him a lesson he will never forget."}
+      ]
+    },
+    {
+      "narration": "They slipped a sleeping draught into his food, and he sank into deep sleep.",
+      "dialogue": []
+    },
+    {
+      "narration": "They bound him, dragged him to the town gate, and left him in a muddy ditch.",
+      "dialogue": []
+    },
+    {
+      "narration": "Waking, half-deaf with fear, he swore he had died and been judged for his crimes.",
+      "dialogue": [
+        {"speaker": "Thief Brahmin", "line": "(waking in terror) I am dead! The gods have punished me for my theft!"}
+      ]
+    },
+    {
+      "narration": "From that day he never stole again, for he feared the truth of his own soul.",
+      "dialogue": []
+    }
+  ]
+}

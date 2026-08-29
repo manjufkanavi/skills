@@ -1,0 +1,73 @@
+{
+  "aspect_ratio": "16:9",
+  "resolution": "1920x1080",
+  "fps": 24,
+  "shots": [
+    {
+      "scene_number": 1,
+      "title": "A young boy ran across",
+      "video_prompt": "young boy ran doing across the beach toward the sea set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 2,
+      "title": "\"Look at that big kite!\"",
+      "video_prompt": "\"Look at that big doing kite!\" — Ravi\n\nHe tripped and the kite fell into the surf set in at into photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 3,
+      "title": "\"No",
+      "video_prompt": "\"No set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 4,
+      "title": "My kite!\" — Ravi An",
+      "video_prompt": "My kite!\" — Ravi An old woman doing waded in and handed it back, smiling set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 5,
+      "title": "\"Hold the string tight, little",
+      "video_prompt": "\"Hold the doing string tight, little one.\" — Ani The boy smiled and let the kite fly again set in little one.\" — ani\n\nthe boy smiled and let the kite fly again photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    },
+    {
+      "scene_number": 6,
+      "title": "\"Again, higher this time.\" —",
+      "video_prompt": "\"Again, higher this time.\" doing — Ani set in higher this time.\" — ani photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "aspect_ratio": "16:9",
+      "duration_sec": 5,
+      "fps": 24,
+      "motion_strength": 0.7,
+      "seed": null
+    }
+  ]
+}

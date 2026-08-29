@@ -1,0 +1,429 @@
+{
+  "title": "In-a-quiet-town-lived-a-Brahmin-known-far-and-wide",
+  "generated_at": "2026-08-29T07:45:26.773007+00:00",
+  "generator": "cinematographer (offline heuristic engine)",
+  "style": "cinematic",
+  "aspect_ratio": "16:9",
+  "max_scenes": 12,
+  "total_scenes": 12,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "title": "In a quiet town lived",
+      "narrative_purpose": "establish scene",
+      "emotional_target": "neutral",
+      "text_segment": "In a quiet town lived a Brahmin known far and wide as a thief",
+      "visual_description": "In a quiet town lived a brahmin known far and wide as a thief in in — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "",
+        "carried_over": []
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "In a quiet town doing lived a Brahmin known far and wide as a thief set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "In a quiet town"
+      ],
+      "setting": "in",
+      "seed": null
+    },
+    {
+      "scene_number": 2,
+      "title": "Four Brahmins arrived to sell",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "Four Brahmins arrived to sell their wares, earning a small purse of coins",
+      "visual_description": "Four Brahmins arrived to sell their wares, earning a small purse of coins in earning a small purse of coins — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "Four Brahmins doing arrived to sell their wares, earning a small purse of coins set in earning a small purse of coins photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "Four Brahmins"
+      ],
+      "setting": "earning a small purse of coins",
+      "seed": null
+    },
+    {
+      "scene_number": 3,
+      "title": "The thief slipped in as",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "The thief slipped in as a friend, quoting the sacred texts with honeyed words",
+      "visual_description": "thief slipped in as a friend, quoting the sacred texts with honeyed words in in — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "thief doing slipped in as a friend, quoting the sacred texts with honeyed words set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "thief"
+      ],
+      "setting": "in",
+      "seed": null
+    },
+    {
+      "scene_number": 4,
+      "title": "\"Your wisdom shines like the",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"Your wisdom shines like the morning sun, honoured sages.\" — Thief Brahmin\n\nTrusting him, they made him their travelling helper and guide",
+      "visual_description": "\"Your wisdom shines like the morning sun, honoured sages.\" — thief brahmin trusting him, they made him their travelling helper and guide in they made him their travelling helper and guide — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"Your wisdom shines like the doing morning sun, honoured sages.\" — Thief Brahmin Trusting him, they made him their travelling helper and guide set in they made him their travelling helper and guide photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"Your wisdom shines like the"
+      ],
+      "setting": "they made him their travelling helper and guide",
+      "seed": null
+    },
+    {
+      "scene_number": 5,
+      "title": "\"You shall be our helper",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"You shall be our helper on this journey, good sir.\" — Head Brahmin\n\nThey sold all their goods and bought glittering jewels with the coins",
+      "visual_description": "\"You shall be our helper on this journey, good sir.\" — head brahmin they sold all their goods and bought glittering jewels wi in on — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"You doing shall be our helper on this journey, good sir.\" — Head Brahmin They sold all their goods and bought glittering jewels wi set in on photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"You"
+      ],
+      "setting": "on",
+      "seed": null
+    },
+    {
+      "scene_number": 6,
+      "title": "Cutting their thighs, they hid",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "Cutting their thighs, they hid the jewels inside and healed the wounds with ointment",
+      "visual_description": "Cutting their thighs, they hid the jewels inside and healed the wounds with ointment in they hid the jewels inside and healed the wounds with ointment — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "Cutting their thighs, they doing hid the jewels inside and healed the wounds with ointment set in they hid the jewels inside and healed the wounds with ointment photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "Cutting their thighs, they"
+      ],
+      "setting": "they hid the jewels inside and healed the wounds with ointment",
+      "seed": null
+    },
+    {
+      "scene_number": 7,
+      "title": "The thief saw everything and",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "The thief saw everything and locked the hiding place in his mind",
+      "visual_description": "thief saw everything and locked the hiding place in his mind in in — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "thief saw doing everything and locked the hiding place in his mind set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "thief saw"
+      ],
+      "setting": "in",
+      "seed": null
+    },
+    {
+      "scene_number": 8,
+      "title": "\"(to himself) The jewels are",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"(to himself) The jewels are sewn into their very flesh",
+      "visual_description": "\"(to himself) The jewels are sewn into their very flesh in into — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"(to himself) The jewels doing are sewn into their very flesh set in into photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"(to himself) The jewels"
+      ],
+      "setting": "into",
+      "seed": null
+    },
+    {
+      "scene_number": 9,
+      "title": "Tonight, I take them all.\"",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "Tonight, I take them all.\" — Thief Brahmin\n\nThat night by the fire, the wise Head Brahmin read the thief's greedy heart",
+      "visual_description": "Tonight, I take them all.\" — thief brahmin\n\nthat night by the fire, the wise head brahmin read the thief's greedy heart in the wise head brahmin read the thief's greedy heart — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "Tonight, I take them doing all.\" — Thief Brahmin\n\nThat night by the fire, the wise Head Brahmin read the thief's greedy heart set in the wise head brahmin read the thief's greedy heart photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "Tonight, I take them"
+      ],
+      "setting": "the wise Head Brahmin read the thief's greedy heart",
+      "seed": null
+    },
+    {
+      "scene_number": 10,
+      "title": "\"(aside) This one plots harm",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"(aside) This one plots harm",
+      "visual_description": "\"(aside) This one plots harm in general setting — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"(aside) This one plots doing harm set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"(aside) This one plots"
+      ],
+      "setting": "general setting",
+      "seed": null
+    },
+    {
+      "scene_number": 11,
+      "title": "Let us teach him a",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "Let us teach him a lesson he will never forget.\" — Head Brahmin\n\nThey slipped a sleeping draught into his food, and he sank into deep sleep",
+      "visual_description": "Let us teach him a lesson he will never forget.\" — head brahmin they slipped a sleeping draught into his food, and he sank into deep sleep in into into — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "Let us teach him a lesson he doing will never forget.\" — Head Brahmin They slipped a sleeping draught into his food, and he sank into deep sleep set in into into photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "Let us teach him a lesson he"
+      ],
+      "setting": "into into",
+      "seed": null
+    },
+    {
+      "scene_number": 12,
+      "title": "They bound him, dragged him",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "tense, anxious",
+      "text_segment": "They bound him, dragged him to the town gate, and left him in a muddy ditch Waking, half-deaf with fear, he swore he had died and been judged for his crimes \"(waking in terror) I am dead The gods have punished me for my theft!\" — Thief Brahmin From that day he never stole again, ",
+      "visual_description": "They bound him, dragged him to the town gate, and left him in a muddy ditch waking, half-deaf with fear, he swore he had died and been judged fo in in in — mood: tense, anxious.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-878",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "moody low-key lighting",
+        "color_palette": "desaturated cool blues and greys with deep shadows",
+        "composition": "rule of thirds",
+        "mood": "tense, anxious"
+      },
+      "video_prompt": "They bound him, dragged doing him to the town gate, and left him in a muddy ditch Waking, half-deaf with fear, he swore he had died and been judged fo set in in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: tense, anxious. slow push-in camera movement. Lighting: moody low-key lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "They bound him, dragged"
+      ],
+      "setting": "in in",
+      "seed": null
+    }
+  ]
+}

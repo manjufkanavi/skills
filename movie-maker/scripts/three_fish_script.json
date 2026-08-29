@@ -1,0 +1,18 @@
+{
+  "title": "The Three Fish",
+  "genre": "drama",
+  "characters": [
+    {"name": "First Fish", "gender": "male", "description": "a small golden fish who is very smart and cautious"},
+    {"name": "Second Fish", "gender": "male", "description": "a quick-witted silver fish who knows how to get out of trouble"},
+    {"name": "Third Fish", "gender": "male", "description": "a stubborn blue fish who hates change and stays put"}
+  ],
+  "scenes": [
+    {"narration": "In a calm lake, three fish who were great friends swam together among the gentle reeds.", "dialogue": []},
+    {"narration": "The first fish overheard a fisherman's conversation about coming back the next day to catch them.", "dialogue": [{"speaker": "First Fish", "line": "We must leave this lake before tomorrow."}]},
+    {"narration": "The second fish replied that he would stay and find a way out if caught.", "dialogue": [{"speaker": "Second Fish", "line": "I will stay here and find a way out if I'm caught."}]},
+    {"narration": "The third fish refused to move, stubborn and afraid of change.", "dialogue": [{"speaker": "Third Fish", "line": "I do not want to move. I will remain here, and if I have to get caught, I will."}]},
+    {"narration": "The next day the fisherman's net swept through the lake and caught the two who stayed.", "dialogue": []},
+    {"narration": "The second fish cleverly escaped by pretending to be dead.", "dialogue": []},
+    {"narration": "The third fish did nothing and was caught.", "dialogue": []}
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "title": "Birbal and the Growing Stick",
+  "genre": "drama",
+  "characters": [
+    {
+      "name": "Birbal",
+      "gender": "male",
+      "description": "a wise, calm advisor of Emperor Akbar with a neatly trimmed beard and simple white robe"
+    },
+    {
+      "name": "Emperor Akbar",
+      "gender": "male",
+      "description": "the great Mughal emperor wearing a jeweled crown, royal robe and a richly embroidered turban"
+    },
+    {
+      "name": "The Thief",
+      "gender": "male",
+      "description": "a nervous, ordinary-looking man in a plain brown tunic with worried eyes"
+    }
+  ],
+  "scenes": [
+    {
+      "narration": "In the great kingdom of Akbar, a robbery left the royal treasury empty.",
+      "dialogue": []
+    },
+    {
+      "narration": "Every suspect was summoned to the grand Mughal court, where Emperor Akbar sat in silence.",
+      "dialogue": [
+        { "speaker": "Emperor Akbar", "line": "Bring in the accused. Today, truth will be revealed." }
+      ]
+    },
+    {
+      "narration": "Clever Birbal stepped forward and handed each suspect a wooden stick.",
+      "dialogue": [
+        { "speaker": "Birbal", "line": "Take home this stick tonight. The thief's own stick will grow two inches by dawn." }
+      ]
+    },
+    {
+      "narration": "That night, the suspects slept uneasily. Only one man could not rest.",
+      "dialogue": []
+    },
+    {
+      "narration": "By candlelight, the thief took his knife and cut two inches off the end of his own stick.",
+      "dialogue": [
+        { "speaker": "The Thief", "line": "If it grows overnight, mine will stand out. I must trim it short." }
+      ]
+    },
+    {
+      "narration": "At dawn, Birbal inspected every stick laid upon the marble floor.",
+      "dialogue": []
+    },
+    {
+      "narration": "One stick was clearly two inches shorter than all the rest.",
+      "dialogue": []
+    },
+    {
+      "narration": "Birbal pointed straight at the nervous man in brown.",
+      "dialogue": [
+        { "speaker": "Birbal", "line": "Only a guilty man would have cut his stick short last night. He is the thief." }
+      ]
+    },
+    {
+      "narration": "The thief's confession silenced the court, and wisdom had spoken once more.",
+      "dialogue": []
+    }
+  ]
+}

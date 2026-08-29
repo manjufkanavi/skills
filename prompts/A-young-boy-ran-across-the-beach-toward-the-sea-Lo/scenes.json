@@ -1,0 +1,219 @@
+{
+  "title": "A-young-boy-ran-across-the-beach-toward-the-sea-Lo",
+  "generated_at": "2026-08-29T04:08:42.744924+00:00",
+  "generator": "cinematographer (offline heuristic engine)",
+  "style": "cinematic",
+  "aspect_ratio": "16:9",
+  "max_scenes": 12,
+  "total_scenes": 6,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "title": "A young boy ran across",
+      "narrative_purpose": "establish scene",
+      "emotional_target": "neutral",
+      "text_segment": "A young boy ran across the beach toward the sea",
+      "visual_description": "young boy ran across the beach toward the sea in general setting — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-5712",
+        "preceding_shot_rule": "",
+        "carried_over": []
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "young boy ran doing across the beach toward the sea set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "young boy ran"
+      ],
+      "setting": "general setting",
+      "seed": null
+    },
+    {
+      "scene_number": 2,
+      "title": "\"Look at that big kite!\"",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"Look at that big kite!\" — Ravi\n\nHe tripped and the kite fell into the surf",
+      "visual_description": "\"Look at that big kite!\" — ravi\n\nhe tripped and the kite fell into the surf in at into — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-5712",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"Look at that big doing kite!\" — Ravi\n\nHe tripped and the kite fell into the surf set in at into photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"Look at that big"
+      ],
+      "setting": "at into",
+      "seed": null
+    },
+    {
+      "scene_number": 3,
+      "title": "\"No",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"No",
+      "visual_description": "\"No  in general setting — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-5712",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"No set in general setting photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"No"
+      ],
+      "setting": "general setting",
+      "seed": null
+    },
+    {
+      "scene_number": 4,
+      "title": "My kite!\" — Ravi An",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "My kite!\" — Ravi\n\nAn old woman waded in and handed it back, smiling",
+      "visual_description": "My kite!\" — Ravi An old woman waded in and handed it back, smiling in in — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-5712",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "My kite!\" — Ravi An old woman doing waded in and handed it back, smiling set in in photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "My kite!\" — Ravi An old woman"
+      ],
+      "setting": "in",
+      "seed": null
+    },
+    {
+      "scene_number": 5,
+      "title": "\"Hold the string tight, little",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"Hold the string tight, little one.\" — Ani\n\nThe boy smiled and let the kite fly again",
+      "visual_description": "\"Hold the string tight, little one.\" — ani the boy smiled and let the kite fly again in little one.\" — ani\n\nthe boy smiled and let the kite fly again — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-5712",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"Hold the doing string tight, little one.\" — Ani The boy smiled and let the kite fly again set in little one.\" — ani\n\nthe boy smiled and let the kite fly again photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"Hold the"
+      ],
+      "setting": "little one.\" — Ani\n\nThe boy smiled and let the kite fly again",
+      "seed": null
+    },
+    {
+      "scene_number": 6,
+      "title": "\"Again, higher this time.\" —",
+      "narrative_purpose": "advance plot",
+      "emotional_target": "neutral",
+      "text_segment": "\"Again, higher this time.\" — Ani",
+      "visual_description": "\"Again, higher this time.\" — ani in higher this time.\" — ani — mood: neutral.",
+      "continuity": {
+        "visual_contract_id": "vc-cin-5712",
+        "preceding_shot_rule": "matching-action cut from previous shot",
+        "carried_over": [
+          "emotional_target"
+        ]
+      },
+      "cinematography": {
+        "camera": "slow push-in",
+        "lens": "35mm",
+        "lighting": "balanced cinematic lighting",
+        "color_palette": "balanced natural tones",
+        "composition": "rule of thirds",
+        "mood": "neutral"
+      },
+      "video_prompt": "\"Again, higher this time.\" doing — Ani set in higher this time.\" — ani photorealistic cinematic look, shallow depth of field, anamorphic lens feel, film grain, professional color grading. Mood: neutral. slow push-in camera movement. Lighting: balanced cinematic lighting. Aspect ratio cinematic widescreen aspect ratio 16:9. Single continuous 5-second shot at 24fps. [negative: blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark]",
+      "negative_prompt": "blurry, low quality, deformed hands or faces, extra limbs, jittery motion, glitching artifacts, strobing lights, text overlays, watermark",
+      "motion_params": {
+        "motion_strength": 0.7,
+        "duration_sec": 5
+      },
+      "model_recommendation": "Sora 2 Pro",
+      "characters": [
+        "\"Again, higher this time.\""
+      ],
+      "setting": "higher this time.\" — Ani",
+      "seed": null
+    }
+  ]
+}

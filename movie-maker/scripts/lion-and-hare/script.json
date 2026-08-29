@@ -1,0 +1,74 @@
+{
+  "title": "The Lion and the Clever Hare",
+  "genre": "drama",
+  "characters": [
+    {
+      "name": "Lion",
+      "gender": "male",
+      "description": "a massive tawny lion with a dark mane, fierce eyes, muscular build — the bloodthirsty king of this forest"
+    },
+    {
+      "name": "Hare",
+      "gender": "male",
+      "description": "a small brown hare with large ears and bright alert eyes, slender and quick — clever and unafraid"
+    }
+  ],
+  "scenes": [
+    {
+      "narration": "A bloodthirsty lion terrorized the forest, killing animals every single day.",
+      "dialogue": []
+    },
+    {
+      "narration": "Terrified, the animals agreed to send one of their own to the lion's den each day to save themselves.",
+      "dialogue": []
+    },
+    {
+      "narration": "When it was the hare's turn, he did not weep — instead he devised a clever plan to outwit the lion.",
+      "dialogue": []
+    },
+    {
+      "narration": "The hare arrived at the den late, bowing apologetically.",
+      "dialogue": [
+        {
+          "speaker": "Hare",
+          "line": "Great Lion, forgive me! Another lion blocked my path and ate my meal first. I barely escaped with my life."
+        }
+      ]
+    },
+    {
+      "narration": "The lion's fury flared — another lion dared challenge his throne?",
+      "dialogue": [
+        {
+          "speaker": "Lion",
+          "line": "Another lion? Show me this rival at once, or you shall be my next meal!"
+        }
+      ]
+    },
+    {
+      "narration": "The hare led him to a deep well in the old ruins and pointed down into the still water.",
+      "dialogue": [
+        {
+          "speaker": "Hare",
+          "line": "Right here, Great Lion. Look into the well — he hides within and mocks you."
+        }
+      ]
+    },
+    {
+      "narration": "The lion peered into the water and saw only his own reflection staring back at him.",
+      "dialogue": []
+    },
+    {
+      "narration": "Thinking it was a true rival, the lion let out a deafening roar and leapt into the deep well to attack — meeting his end at once.",
+      "dialogue": [
+        {
+          "speaker": "Lion",
+          "line": "I will teach you to challenge me!"
+        }
+      ]
+    },
+    {
+      "narration": "From that day on, the forest was at peace — and wits had conquered brute force.",
+      "dialogue": []
+    }
+  ]
+}

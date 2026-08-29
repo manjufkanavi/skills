@@ -1,0 +1,15 @@
+{
+  "title": "story",
+  "generator": "script-audio-generator (offline heuristic)",
+  "scenes": [
+    {
+      "scene_number": 1,
+      "text_segment": "A curious robot named B seven discovers a glowing flower in the forest.",
+      "dialogue": [],
+      "characters": [],
+      "emotional_target": "neutral",
+      "speed": 0.9
+    }
+  ],
+  "cast": {}
+}

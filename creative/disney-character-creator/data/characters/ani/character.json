@@ -1,0 +1,37 @@
+{
+  "name": "Ani",
+  "species": "an old woman who mends nets by the shore",
+  "appearance_age": null,
+  "gender": "female",
+  "traits": [
+    "curious",
+    "brave",
+    "kind"
+  ],
+  "motivation": "",
+  "flaw_or_arc": "",
+  "body_proportions": "rounded, friendly proportions",
+  "face_shape": "round",
+  "eyes": {
+    "size": "large and expressive",
+    "color": "warm brown"
+  },
+  "hair_color_texture_style": "short dark hair",
+  "skin_tone": "warm tan",
+  "relative_height": "average height",
+  "clothing": [
+    "a simple dress"
+  ],
+  "palette": [
+    "warm amber",
+    "soft teal"
+  ],
+  "signature_accessory": "",
+  "setting": "",
+  "camera_direction": "slow dolly-in on the character, gentle handheld feel",
+  "aspect_ratio": "16:9",
+  "render_intensity": 0.5,
+  "seed": 997301,
+  "model": "flux2-klein-9b",
+  "video_model": "Kling 3.0"
+}

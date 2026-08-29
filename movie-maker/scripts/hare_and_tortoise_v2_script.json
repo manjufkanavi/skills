@@ -1,0 +1,49 @@
+{
+  "title": "The Hare and the Tortoise",
+  "genre": "fable",
+  "characters": [
+    {
+      "name": "Hare",
+      "gender": "male",
+      "description": "a fast, lean athletic hare with a glossy brown coat and an arrogant smirk"
+    },
+    {
+      "name": "Tortoise",
+      "gender": "male",
+      "description": "a slow, resolute tortoise with a rugged mossy shell and calm wise eyes"
+    }
+  ],
+  "scenes": [
+    {
+      "narration": "One day, a hare was showing off how fast he could run. He laughed at the turtle for being so slow.",
+      "dialogue": [
+        { "speaker": "Hare", "line": "Look at me go! No one could ever be as fast as I am!" }
+      ]
+    },
+    {
+      "narration": "The overconfident hare mocked the slow tortoise, who calmly challenged him to a race.",
+      "dialogue": [
+        { "speaker": "Tortoise", "line": "I race you, and I will win." },
+        { "speaker": "Hare", "line": "You? Race me? Fine! I accept!" }
+      ]
+    },
+    {
+      "narration": "The race began and the hare shot ahead, racing far down the path in a blur.",
+      "dialogue": []
+    },
+    {
+      "narration": "Sure he had plenty of time, the hare stopped under a tree and fell fast asleep.",
+      "dialogue": []
+    },
+    {
+      "narration": "The tortoise kept walking slowly and steadily, never stopping along the whole path.",
+      "dialogue": []
+    },
+    {
+      "narration": "The hare woke to see the tortoise already crossing the finish line on the opposite side.",
+      "dialogue": [
+        { "speaker": "Hare", "line": "How did you get ahead of me?" }
+      ]
+    }
+  ]
+}
