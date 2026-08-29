@@ -135,8 +135,70 @@ def _extract_subject(beat: dict, character_names: list[str]) -> str:
     return "Character"
 
 
-def _extract_setting(beat: dict, character_names: list[str]) -> str:
-    """Best-effort setting from narration (prepositional / locative cues)."""
+# ─── Shared world geography (one continuous setting across every shot) ─────────────
+def _build_world(plan: dict, beats: list[dict]) -> tuple[str, list[str]]:
+    """Derive a shared primary setting + landmarks for the whole film.
+
+    A single continuous world (the same meadow/path/tree/finish-line) injected into every
+    scene is what makes clips read as ONE story instead of disconnected shots.
+
+    Priority: plan["world"] (explicit) → first beat's explicit setting/landmarks → locative
+    cues pulled from narration. Returns (primary_setting, landmarks).
+
+    `beats` is passed in so we can scan narration for locative cues when no explicit world
+    was provided.
+    """
+    w = plan.get("world") or {}
+
+    # Explicit world from the plan wins.
+    primary = (w.get("primary_setting") or "").strip()
+    landmarks = list(w.get("landmarks", []) or [])
+
+    if not primary:
+        # First beat's explicit setting becomes the default world.
+        for b in beats:
+            s = (b.get("setting") or "").strip()
+            if s and not primary:
+                primary = s
+        # Fallback: pull a locative phrase from the first narration.
+        if not primary and beats:
+            narr = (beats[0].get("narration") or "").strip()
+            loc = re.findall(
+                r"\b(in|into|at|on|near|beside|under|above|behind|through|within)[^,.;:!?]{2,40}",
+                narr.lower())
+            if loc:
+                primary = " ".join(loc).strip() or "a natural outdoor setting"
+
+    # If still empty, default to a generic natural setting.
+    if not primary:
+        primary = "a natural outdoor meadow"
+
+    # Collect any landmarks carried in individual beats.
+    for b in beats:
+        for lm in (b.get("landmarks") or []):
+            if lm and lm not in landmarks:
+                landmarks.append(lm)
+
+    return primary, landmarks
+
+
+def _describe_world(primary: str, landmarks: list[str]) -> str:
+    """Human-readable setting string injected identically into every scene's prompt."""
+    # Strip a leading locative so the video prompt's "set in {primary}" reads naturally
+    # ("the meadow" not the redundant "in the meadow").
+    primary = re.sub(
+        r"^\b(in|into|at|on|near|beside|under|above|behind|through|within)\b\s*",
+        "", primary, flags=re.IGNORECASE).strip()
+    if landmarks:
+        return f"{primary}; setting details include {', '.join(landmarks)}."
+    return primary
+
+
+def _extract_setting(beat: dict, character_names: list[str], world_primary: str) -> str:
+    """Best-effort setting from narration (prepositional / locative cues).
+
+    Falls back to the shared primary world so every scene shares geography.
+    """
     narr = (beat.get("narration") or "").strip()
 
     # Strip the leading subject/character name so we don't capture it as a setting.
@@ -144,7 +206,7 @@ def _extract_setting(beat: dict, character_names: list[str]) -> str:
         narr = re.sub(rf"\b{re.escape(name)}\b", "", narr, flags=re.IGNORECASE).strip()
 
     loc = re.findall(
-        r"\b(in|into|at|on|near|beside|under|above|behind|through|within)\b[^,.;:!?]{2,30}",
+        r"\b(in|into|at|on|near|beside|under|above|behind|through|within)[^,.;:!?]{2,30}",
         narr.lower())
     if loc:
         return " ".join(loc).strip()
@@ -152,7 +214,112 @@ def _extract_setting(beat: dict, character_names: list[str]) -> str:
     tail = re.search(r"\b(in|at|on|near|beside)\s+[^,.;:!?]+$", narr)
     if tail:
         return tail.group(0).strip()
-    # Dialogue-only beat — keep empty; scene_assembly fills a default below.
+    # Dialogue-only beat — fall back to the shared primary world.
+    return world_primary if world_primary.strip() else "general forest setting"
+
+
+def _extract_action(beat: dict) -> str:
+    """Return a clean, short concrete action for the video prompt.
+
+    One clear verb phrase per 5s shot — text-to-video models can't render a long,
+    compound sentence. Prefers narration (the visible on-screen action) over dialogue so
+    a beat that carries both doesn't dump the whole quote. Leading article/subject and any
+    trailing prepositional phrase ("in the meadow") are stripped so it reads as a pure
+    predicate that pairs with the subject. Explicit beat["action"] always wins.
+    """
+    narr = (beat.get("narration") or "").strip()
+
+    # Explicit action wins.
+    act = (beat.get("action") or "").strip()
+    if act:
+        return re.sub(r"\s+", " ", act).strip(".,;:")[:80]
+
+    # Prefer narration — it's the visible on-screen action for a 5s shot.
+    if narr:
+        clause = re.split(r"[,;]", narr)[0]
+
+        # Strip a leading subject ("The race", "A hare") so we get the predicate.
+        clause = re.sub(r"^(the|a|an)\s+[A-Za-z]+", "", clause, count=1, flags=re.IGNORECASE)
+        # Drop a leading conjunction.
+        clause = re.sub(r"^\s*(and|but)\s+", "", clause, flags=re.IGNORECASE)
+
+        # Drop a trailing prepositional phrase ("in the meadow", "down the path").
+        clause = re.sub(
+            r"\s+\b(in|into|at|on|near|beside|under|above|behind)\b.*$",
+            "", clause, flags=re.IGNORECASE)
+
+        # Drop a leftover leading article.
+        clause = re.sub(r"^(the|a|an)\b\s+", "", clause)
+
+        return " ".join(clause.split()).strip(".,;:")
+
+    # Dialogue-only beat — the subject performs/reads its line (kept short).
+    if beat.get("dialogue"):
+        return "speaking"
+
+    return ""
+
+
+def _extract_camera_move(beat: dict) -> str:
+    """Pick a camera move from the beat's shot_type / emotion, not always 'slow push-in'."""
+    st = (beat.get("shot_type") or "").lower()
+    if "establishing" in st or "wide" in st:
+        return "slow slow pull-out to establish the scene"
+    if "close-up" in st or "reaction" in st:
+        return "static close-up hold with subtle handheld drift"
+    if "tracking" in st or "following" in st:
+        return "smooth tracking shot following the subject"
+    if "overhead" in st or "aerial" in st:
+        return "slow descending overhead reveal"
+
+    # Fall back to emotion-driven camera.
+    narr = (beat.get("narration") or "").lower()
+    emotion, _ = _detect_emotion(narr)
+    return _camera_for(emotion)
+
+
+def _extract_shot_type(beat: dict, idx: int) -> str:
+    """Determine the shot type for a beat (establishing/medium/close-up/reaction).
+
+    Uses an explicit shot_type when present; otherwise derives a sensible variety so the film
+    isn't every medium shot. The first scene is an establishing wide; later scenes vary.
+    """
+    st = (beat.get("shot_type") or "").strip().lower()
+    if st:
+        return re.sub(r"\s+", " ", st)
+
+    # Dialogue-heavy beats tend to be medium/close reaction shots.
+    if beat.get("dialogue"):
+        return "medium shot"
+
+    # First scene establishes the world.
+    if idx == 0:
+        return "establishing wide shot"
+
+    # Narration-only beats default to medium.
+    return "medium shot"
+
+
+def _extract_screen_direction(beat: dict) -> str:
+    """Screen direction for the scene (left / right / none).
+
+    Tracks where characters move so consecutive shots respect 180° continuity (a character
+    running right in scene 3 should still be moving right when they reach the tree). Driven by
+    explicit beat["screen_direction"] or motion verbs in narration; empty when ambiguous.
+    """
+    sd = (beat.get("screen_direction") or "").strip().lower()
+    if sd:
+        return re.sub(r"\s+", " ", sd)
+
+    narr = (beat.get("narration") or "").lower()
+    if re.search(r"\b(ahead|ahead of|forward|racing ahead|charging)\b", narr):
+        return "left to right"
+    if re.search(r"\b(back|away|returning|retreating)\b", narr):
+        return "right to left"
+    if re.search(r"\b(fell asleep|stopped|rested)\b", narr):
+        return "none"
+    if re.search(r"\b(cross|finishing|arrived)\b", narr):
+        return "left to right"
     return ""
 
 
@@ -214,9 +381,17 @@ def _shot_rule(prev_beat: dict | None, curr_beat: dict) -> str:
     """Compute the continuity rule linking prev scene to this one.
 
     This is where 180°/30°/eyeline/matching-action rules are actually COMPUTED (not declared).
-    We approximate using the plan's dialogue structure: if both prev and current scenes have a
-    speaker, they are likely in the same spatial geography (same conversation) → matching-action /
-    eyeline match is appropriate. If the narration signals a location/time change, we note it.
+    We approximate using the plan's dialogue + screen-direction structure:
+
+      * first scene → establishing shot
+      * same speaker adjacent (or dialogue ↔ narration) → matching-action / reaction continuity
+      * characters moving in the SAME screen direction as prev beat → sustained tracking (the
+        race reads as one continuous motion across shots)
+      * screen direction flips or a location/landmark change → matching-action cut to re-anchor
+        geography
+
+    `curr_beat`/`prev_beat` may carry an explicit "screen_direction" field ("left to right",
+    etc.) that drives the 180° reasoning.
     """
     if prev_beat is None:
         return "establishing shot"
@@ -229,6 +404,9 @@ def _shot_rule(prev_beat: dict | None, curr_beat: dict) -> str:
     if curr_beat.get("dialogue"):
         curr_speaker = (curr_beat["dialogue"][0].get("speaker") or "").strip()
 
+    prev_dir = (prev_beat.get("screen_direction") or "").strip().lower()
+    curr_dir = (curr_beat.get("screen_direction") or "").strip().lower()
+
     # Same speaker adjacent → eyeline match / reaction shot (conversation continuity).
     if prev_speaker and curr_speaker and prev_speaker == curr_speaker:
         return "eyeline match / reaction shot (same speaker continuity)"
@@ -238,6 +416,17 @@ def _shot_rule(prev_beat: dict | None, curr_beat: dict) -> str:
         return "matching-action cut from previous beat"
 
     # Both narration-only, no speaker change → 30° rule (avoid jump cut).
+    if not prev_speaker and not curr_speaker:
+        # Sustained tracking when motion continues in the same screen direction.
+        if prev_dir and curr_dir and prev_dir == curr_dir:
+            return f"180° sustained tracking ({curr_dir}) — same motion across shots"
+        if curr_dir:
+            return f"180° re-anchor on {curr_dir} motion (match action across beat)"
+        return "30-degree camera shift to avoid jump cut"
+
+    # Motion continuity between dialogue beats.
+    if prev_dir and curr_dir and prev_dir == curr_dir:
+        return f"180° sustained tracking ({curr_dir}) — same motion across shots"
     return "30-degree camera shift to avoid jump cut"
 
 
@@ -253,22 +442,21 @@ def _build_video_prompt(beat: dict, subject: str, setting: str, emotion: str,
     The shared Pixar-look style-lock block is appended IDENTICALLY to every scene so the render
     engine never drifts. Per-character canonical descriptions are injected where a character is
     the subject, so identity stays consistent shot-to-shot (consistency = bookkeeping).
+
+    The scene's camera move is chosen by its shot_type/emotion (variety across the film), and a
+    clean, concrete action phrase is used instead of dumping whole narration.
     """
     style_desc = "Disney/Pixar-style 3D animation"
 
-    # Normalize leading article + lowercase verb for the "doing <action>" fragment.
-    subj = re.sub(r"^(a|an|the)\b\s+", "", subject.strip())
+    # Clean, concrete action (one clear verb phrase per shot) instead of full narration.
+    action = _extract_action(beat).strip()
 
-    parts = [subj]
-    # Action: first verb phrase of narration, or the dialogue line itself.
-    narr = (beat.get("narration") or "").strip()
-    if narr:
-        action = " ".join(narr.split())[:80]
-        parts.append(f"doing {action.lower() if action[0].isupper() else action}")
-    elif beat.get("dialogue"):
-        # Dialogue-only scene: the subject is performing the line.
-        parts.append("speaking")
+    parts = [subject]
+    if action:
+        verb = re.sub(r"^(a|an|the)\b\s+", "", action)
+        parts.append(f"{verb.lower() if verb[0].isupper() else verb}")
 
+    # Setting: keep the shared primary world (and its landmarks) so geography is continuous.
     if setting.strip():
         parts.append(f"set in {setting.lower().strip()}")
 
@@ -282,7 +470,7 @@ def _build_video_prompt(beat: dict, subject: str, setting: str, emotion: str,
         if cp and spk not in char_notes:
             char_notes.append(spk)
 
-    modifier = (f" {style_desc}. Mood: {emotion.strip()}. {_camera_for(emotion)} camera "
+    modifier = (f" {style_desc}. Mood: {emotion.strip()}. {_extract_camera_move(beat)} camera "
                 f"movement. Lighting: {SHARED_LIGHTING}. Aspect ratio cinematic widescreen aspect "
                 f"ratio 16:9. Single continuous 5-second shot at 24fps.")
     prompt = (prompt + modifier).strip()
@@ -358,6 +546,10 @@ def assemble_scenes(plan: dict, max_scenes: int = 12) -> dict:
         char_prompt_by_name[name] = vp
         char_seed_by_name[name] = seed  # real per-character consistency seed (NOT a hash)
 
+    # Shared world geography computed ONCE, injected identically into every scene so clips read
+    # as ONE continuous story (same meadow/path/tree/finish-line) rather than disconnected shots.
+    world_primary, world_landmarks = _build_world(plan, beats)
+
     # Visual contract computed ONCE, shared across all scenes.
     theme = plan.get("theme", "").strip()
     visual_contract_id = f"vc-{_slugify(theme[:20])}-{abs(hash(str(plan.get('characters','')))) % 1000}"
@@ -366,6 +558,9 @@ def assemble_scenes(plan: dict, max_scenes: int = 12) -> dict:
     character_names = [(c.get("name") or "").strip() for c in plan.get("characters", [])]
     character_names = [n for n in character_names if n]
 
+    # Shared world string (primary + landmarks) injected into every scene's setting.
+    shared_world_str = _describe_world(world_primary, world_landmarks)
+
     scenes: list[dict] = []
     prev_emotion = ""
     prev_beat = None
@@ -373,16 +568,28 @@ def assemble_scenes(plan: dict, max_scenes: int = 12) -> dict:
     for idx, beat in enumerate(beats):
         narr = (beat.get("narration") or "").strip()
         subject = _extract_subject(beat, character_names)
-        setting = _extract_setting(beat, character_names) or "general forest setting"
-        emotion, _has_emotion = _detect_emotion(narr)
 
-        camera_move = _camera_for(emotion)
+        # Setting: prefer this beat's explicit setting/landmark; fall back to the shared world.
+        bsetting = (beat.get("setting") or "").strip()
+        setting = bsetting if bsetting else shared_world_str
+
+        emotion, _has_emotion = _detect_emotion(narr)
+        # If the beat carries an explicit emotion, use it (overrides keyword detection).
+        if beat.get("emotion"):
+            emotion = re.sub(r"\s+", " ", (beat.get("emotion") or "").strip()).lower()
+
+        shot_type = _extract_shot_type(beat, idx)
+        camera_move = _extract_camera_move(beat)
+        screen_dir = _extract_screen_direction(beat)
+
+        # Emotion-driven palette/lighting modulation (shared world keeps geography continuous).
         palette = _palette_for(emotion)
 
         # Continuity: carried-over emotional/lighting state from the previous scene.
         carried_over = []
         if idx > 0:
             carried_over.append("emotional_target")
+            carried_over.append("shared_world_geography")
             if prev_emotion and emotion != "neutral":
                 carried_over.append("lighting")
 
@@ -420,6 +627,8 @@ def assemble_scenes(plan: dict, max_scenes: int = 12) -> dict:
                                   ([subject] if subject else []),
             "dialogue": beat.get("dialogue", []),  # NEW: per-scene "who says what" (explicit data)
             "narration": narr,
+            "shot_type": shot_type,                    # NEW: directorial shot choice (variety)
+            "screen_direction": screen_dir,             # NEW: 180° continuity anchor
             "visual_description": visual_description,
             "continuity": {
                 "visual_contract_id": visual_contract_id,

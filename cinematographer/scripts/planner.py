@@ -81,10 +81,14 @@ def build_plan_from_plot(plan: dict) -> dict:
         if not narr and not dialogue:
             continue
 
-        beats_out.append({
-            "narration": narr,
-            "dialogue": dialogue,
-        })
+        # Preserve directorial fields (shot_type, screen_direction) so the
+        # cinematographer's deterministic assembly can vary camera + continuity.
+        beat_out = {"narration": narr, "dialogue": dialogue}
+        for field in ("shot_type", "screen_direction"):
+            if b.get(field):
+                beat_out[field] = b.get(field)
+
+        beats_out.append(beat_out)
 
     if not beats_out:
         raise ValueError(
