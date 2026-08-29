@@ -290,22 +290,80 @@ def resolve_characters(script: dict) -> list[dict]:
         })
     return results
 
-# ─── 2. Cinematographer — visual scene breakdown (N scenes) ──────────────────
-def run_cinematographer(story_txt: str, out_dir: Path) -> list[dict]:
-    """Run cinematographer and return the parsed scenes.
+# ─── Build a structured plan for cinematographer Mode A from script.json ──────
+def build_plan_from_script(script: dict) -> dict:
+    """Build {theme, characters[], beats[]} for cinematographer's --plan (Mode A).
 
-    Cinematographer computes its own slug from the input text, so we point
-    --output at out_dir and then locate whatever <out_dir>/<slug>/scenes.json it
-    produced rather than assuming a fixed slug.
+    This is the fix for "only one character in every clip". Mode B (plain --file)
+    hardcodes characters_present=[] and strips all character data, so the video step's
+    fallback always renders the first character. Mode A populates characters_present,
+    per-scene dialogue attribution and canonical character descriptors from this plan.
+
+    Each script scene becomes one beat; dialogue carries {speaker, line} so the
+    cinematographer can attribute on-screen lines and mark which characters are present.
+    """
+    theme = (script.get("title") or "").strip()
+
+    characters: list[dict] = []
+    for c in script.get("characters", []):
+        name = (c.get("name") or "").strip()
+        if not name:
+            continue
+        gender = (c.get("gender") or "").strip().lower()
+        characters.append({
+            "name": name,
+            "gender": gender if gender in ("male", "female") else "neutral",
+            "description": (c.get("description") or "").strip(),
+        })
+
+    beats: list[dict] = []
+    for sc in script.get("scenes", []):
+        narr = (sc.get("narration") or "").strip()
+        dialogue: list[dict] = []
+        for d in sc.get("dialogue", []):
+            speaker = (d.get("speaker") or "").strip()
+            line = (d.get("line") or "").strip().strip('"').strip("'").strip()
+            if not speaker or not line:
+                continue  # drop half-empty dialogue; narration-only scene still counts
+            dialogue.append({"speaker": speaker, "line": line})
+
+        if not narr and not dialogue:
+            continue  # no-op scene, skip it
+
+        beats.append({"narration": narr, "dialogue": dialogue})
+
+    if not characters:
+        raise ValueError("script has no named characters — cannot drive Mode A")
+    if not beats:
+        raise ValueError("script has no scenes — cannot drive Mode A")
+
+    return {"theme": theme, "characters": characters, "beats": beats}
+
+
+# ─── 2. Cinematographer — visual scene breakdown (N scenes) ──────────────────
+def run_cinematographer(script: dict, out_dir: Path) -> list[dict]:
+    """Run cinematographer (Mode A plan path) and return the parsed scenes.
+
+    We build a structured plan from script.json (characters + beats with dialogue) and
+    pass it via --plan so Mode A populates characters_present, per-scene dialogue
+    attribution and canonical character descriptors. This is the fix for "only one
+    character in every clip": Mode B (plain --file) hardcodes characters_present=[].
+
+    Cinematographer computes its own slug from the plan theme, so we point --output at
+    out_dir and then locate whatever <out_dir>/<slug>/scenes.json it produced rather than
+    assuming a fixed slug.
     """
     scenes_json = _find_cinematographer_output(out_dir)
     if scenes_json is not None:
         info(f"reusing existing {scenes_json}")
         return json.loads(scenes_json.read_text(encoding="utf-8"))["scenes"]
 
+    plan = build_plan_from_script(script)
+    (out_dir / "plan.json").write_text(json.dumps(plan, indent=2), encoding="utf-8")
+
     run(
-        [sys.executable, str(CINEMATOGRAPHER_MAIN), "--file", str(out_dir / "story.txt"),
-         "--style", "cinematic", "--max-scenes", "12",
+        [sys.executable, str(CINEMATOGRAPHER_MAIN), "--plan", str(out_dir / "plan.json"),
+         "--max-scenes", "12",
          "--output", str(out_dir)],
         label="cinematographer scene breakdown", timeout=180,
     )
@@ -472,27 +530,47 @@ def run_video(scenes: list[dict], characters: list[dict], model: str, seed: int,
     for i, scene in enumerate(scenes, start=1):
         step(i, total, f"generate video scene {i}")
 
-        subject = (scene.get("characters") or [""])[0]
-        char = None
-        for cname in char_by_name:
-            if re.search(rf"\b{re.escape(cname)}\b", subject.lower()):
-                char = char_by_name[cname]
-                break
-        if char is None and characters:
-            char = characters[0]
+        # Which characters are actually on screen this beat? Mode A (cinematographer plan
+        # path) fills characters_present with the canonical identities for this scene. We pass
+        # ALL of them so multi-character scenes render every character that is present — this
+        # is the fix for "only one character in every clip": the old code read only
+        # characters_present[0] and, when that was empty (Mode B), fell back to characters[0],
+        # so the first character was rendered in every single scene.
+        on_screen = [s for s in (scene.get("characters_present") or []) if s]
+        if not on_screen:  # narration-only scene — no dialogue attribution yet
+            subject = (scene.get("subject") or "").strip()
+            on_screen = [subject] if subject else []
 
-        character_desc = (char["char_desc"] if char else "")
+        descs: list[str] = []
+        for name in on_screen:
+            match = None
+            for cname in char_by_name:
+                if re.search(rf"\b{re.escape(cname)}\b", name.lower()):
+                    match = char_by_name[cname]
+                    break
+            if match is None and characters:  # unknown subject — keep the first as last resort
+                match = characters[0]
+            if match and (match["char_desc"] not in descs):
+                descs.append(match["char_desc"])
+
         scene_setting = f"{scene.get('visual_description', '')} {scene.get('setting', '')}".strip()
 
         # Snapshot existing clips so we can detect the one just produced
         # (the video skill names outputs like video_<ts>.mp4, not clip_01.mp4).
         before = {p.name for p in video_dir.glob("*.mp4")}
 
+        # Pass EACH on-screen character as its own --character flag so enrich_prompt's CLI
+        # sees multiple and routes through build_prompt_multi (every identity rendered). With a
+        # single character it still works; with zero we fall back to the neutral subject. This is
+        # what fixes "only one character in every clip".
+        char_flags = []
+        for d in descs:
+            char_flags += ["--character", d]
+
         run(
             [sys.executable, str(DISney_PIXAR_VID), "--model", model,
              "--seed", str(seed if seed >= 0 else -1),
-             "--output-dir", str(video_dir),
-             "--character", character_desc or "a person",
+             "--output-dir", str(video_dir)] + char_flags + [
              "--scene", scene_setting.strip()[:200] or "a softly lit room"],
             label=f"video scene {i}", timeout=600,
         )
@@ -716,9 +794,10 @@ def main() -> int:
     n += 1; step(n, total_steps, "resolve characters")
     characters = resolve_characters(script)
 
-    # 2. Cinematographer scenes (visuals).
+    # 2. Cinematographer scenes (visuals). Mode A plan path populates characters_present,
+    # per-scene dialogue attribution and canonical character descriptors from the script.
     n += 1; step(n, total_steps, "cinematographer scene breakdown")
-    scenes = run_cinematographer(story_txt, out_dir)
+    scenes = run_cinematographer(script, out_dir)
     if not scenes:
         die("no scenes produced by cinematographer — check the story text.")
 
