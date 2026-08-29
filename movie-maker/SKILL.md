@@ -33,16 +33,22 @@ generation, and final assembly.
 
 ```
 brief + story ──▶ characters (reuse-or-create) ──▶ cinematographer scenes
-        │                                              │
-        ▼                    story.txt (prose + dialogue)       ▼
+        │                                              ▲
+        ▼                                              │ --plan (structured plan)
     character.json ──▶ disney-pixar-video-generation ◀── scenes.json (visuals)
-        │                                              │
-        ▼                    script-audio-generator          │
-    audio/scene_nn.wav ─────────▶ per-scene dialogue ◀───────┘
+        │                                              ▲
+        ▼                    script-audio-generator    │ --plan (beats + dialogue)
+    audio/scene_nn.wav ─────────▶ per-scene dialogue ◀───┘
                                     │
                                    ▼
                         ffmpeg crossfade concat + audio sync
 ```
+
+> **Cinematographer runs in Mode A (`--plan`), never plain-text `--file`.** The orchestrator
+> builds a structured plan (`{theme, characters[], beats[]}` with per-scene dialogue) and passes
+> it via `--plan`. This is essential: plain-text Mode B hardcodes `characters_present=[]` and
+> strips all character data, which makes the video step fall back to rendering the *first*
+> character in every scene (see pitfall below). Do not pass `--file` with narration prose.
 
 ## Pipeline (5 steps, in order)
 
@@ -128,3 +134,19 @@ For higher-quality output than `--topic` seeding:
 - Pick a fixed `--seed` so the same characters reappear across scenes.
 - Keep narration tight (one short sentence per scene) so each 5s clip has a clear subject.
 - If the topic is long, split it into multiple short movies rather than one 12-scene epic.
+
+## Pitfalls (learned the hard way)
+
+- **Only one character appears in every clip.** If you see, e.g. a tortoise story where *every*
+  scene shows the hare, root cause is almost always one of: (1) cinematographer ran in plain-text
+  `--file` mode instead of Mode A `--plan`, OR (2) the video step passed only a single
+  character. Plain-text Mode B hardcodes `characters_present=[]` and strips all character data, so
+  the video step's fallback renders characters[0] in every scene. **Fix:** always drive
+  cinematographer via `--plan` (structured plan with characters + beats), and pass *each*
+  on-screen character as its own `--character` flag to disney-pixar-video-generation so
+  `build_prompt_multi()` renders every identity. Verify before generating: open the generated
+  scenes.json and confirm `characters_present` is populated per scene, not empty.
+- **Verify character data survives between steps.** The pipeline has three stages that each touch
+  characters (resolve → cinematographer → video). If a downstream stage drops them, only one
+  character renders. Sanity-check scenes.json's `characters_present` and the video skill's prompt
+  output before spending GPU cycles on all N clips.
