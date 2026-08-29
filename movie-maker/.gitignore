@@ -1,0 +1,3 @@
+# Generated pipeline artifacts (not source) — keep the repo lean.
+scripts/movie_output/
+scripts/prompts/
