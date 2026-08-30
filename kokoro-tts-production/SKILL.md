@@ -59,7 +59,8 @@ valid key → HTTP 200 + valid audio (verified: ~11 KB MP3 for short text).
 
 ## Voice Languages & Tuning Reference
 
-Kokoro-82M is multilingual. See `references/voices.md` for the full table. Quick
+Kokoro-82M is multilingual. See `references/voices.md` for the full table, and
+`references/deployment-scaling.md` for scaling replicas + concurrency behavior. Quick
 defaults:
 
 | Language | Female voices | Male voices | Notes |
