@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfcfb;
+    --ink: #1c1917;
+    --muted: #78716c;
+    --accent: #b45309;
+    --accent-light: #fef3c7;
+    --parchment: #f5f0e8;
+    --border: #e7e5e4;
+  }
+
+  * { margin: 0; padding: 0; box-box: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    line-height: 1.8;
+    font-weight: 300;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ——— CENTERED PAPER LAYOUT ——— */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ——— MASTHEAD ——— */
+  .masthead {
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .masthead-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+  }
+
+  .masthead-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .masthead-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .masthead-rule-bottom {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 3rem auto 0;
+  }
+
+  /* ——— ARTICLE SECTIONS ——— */
+  .article {
+    padding: 3rem 0;
+  }
+
+  .article-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-section:first-child {
+    border-top: none;
+  }
+
+  .section-number {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .article-section h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .article-section p {
+    font-size: 1.05rem;
+    color: #44403c;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-section p.lead {
+    font-size: 1.2rem;
+    color: var(--ink);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ——— DECORATIVE DROP CAP ——— */
+  .drop-cap::first-letter {
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  /* ——— TWO COLUMN ——— */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2.5rem 0;
+  }
+
+  .two-col-col h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .two-col-col p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ——— FULL-WIDTH CALLOUT ——— */
+  .callout {
+    background: var(--parchment);
+    padding: 3rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .callout p {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ——— SEPARATOR ——— */
+  .separator {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .separator::before {
+    content: '◆';
+    color: var(--accent-light);
+    font-size: 0.5rem;
+    letter-spacing: 1em;
+  }
+
+  /* ——— REFERENCES ——— */
+  .references {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .ref-list {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  .ref-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    break-inside: avoid;
+  }
+
+  .ref-list li::before {
+    content: '[';
+    color: var(--accent);
+    margin-right: 0.25rem;
+  }
+
+  .ref-list li::after {
+    content: ']';
+    color: var(--accent);
+    margin-left: 0.25rem;
+  }
+
+  /* ——— FOOTER ——— */
+  .report-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .report-footer p {
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 700px) {
+    .page { padding: 0 1.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .ref-list { columns: 1; }
+    .callout { padding: 2rem 1.5rem; }
+    .masthead { padding: 4rem 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-rule"></div>
+  <div class="masthead-tag">Research Report</div>
+  <h1>How to Become a Better QA Engineer and Lead a Team</h1>
+  <p class="masthead-sub">A synthesized research report for aspiring QA engineers and emerging team leads, drawn from 103 sources.</p>
+  <div class="masthead-rule-bottom"></div>
+</header>
+
+<!-- ARTICLE -->
+<article class="page article">
+
+  <section class="article-section">
+    <span class="section-number">I</span>
+    <h2>The Modern QA Landscape: From Gatekeeper to Quality Engineer</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>QA Roadmap: Learn to become a modern QA engineer<br><small># QA Engineer Steps to follow in order to become a modern QA Engineer in 2026 Steps to follow in order to become a modern QA Engin…</small></li><li>Digital Transformation Services &amp; IT Consulting Partner<br><small># Transform Your Business with NextGen Digital Solutions Faster &amp; Smarter AI That Drives Impact Cloud. Modernization. Scale. Accel…</small></li><li>Software Testing - Boundary Value Analysis vs Equivalence Partitioning - GeeksforGeek<br><small>* Courses * Tutorials * Interview Prep # Software Testing - Boundary Value Analysis vs Equivalence Partitioning Last Updated : 23 …</small></li><li>Equivalence class partioning and boundary value analysis - TestBench<br><small>Test methods **Februar 5, 2025** ## Equivalence class partioning and boundary value analysis **Data Driven Testing uses equivalenc…</small></li><li>Home<br><small>Deterministic AI End-to-end Testing # Keep AI code in check with proven Visual AI validation Your AI tools generate code fast, but…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">II</span>
+    <h2>Career Roadmap: Skills, Tools &amp; Compensation</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>Full-Stack QA Roadmap for Non-CS Graduates (2025)<br><small>Blogs | New Batches | Hire From Us | +91 8179191999 | [email protected] | +91 8179191999 | [email protected] | Full-Stack QA Roadm…</small></li><li>How to Become a QA Engineer: A Complete Roadmap<br><small>Courses About us Reviews Prices 424-444-4522 Call Experts Offers * Program * Schedule 424-444-4522 # How to Become a QA Engineer: …</small></li><li>Staff, Principal, Distinguished Engineer Roles<br><small>* 1.07.2024. * Career * Marin Pavelić # Staff, principal, distinguished: Engineering career levels explained A well-defined hierar…</small></li><li>Engineering Career Paths at Big Tech and High-Growth Startups<br><small>👋 Hi, this is Gergely with the Pragmatic Engineer Newsletter. In every issue, I cover challenges at big tech and high-growth start…</small></li><li>Your Guide to QA Engineer Salary Ranges in 2026<br><small>Let&#x27;s get straight to the point: a competitive QA engineer salary starts around $60,000 for entry-level roles and can easily surpa…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">III</span>
+    <h2>Test Design Fundamentals That Separate Good from Great QA</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>Boundary Value Analysis and Equivalence Partitioning: Software Testing Tutorial<br><small>Boundary Value Analysis and Equivalence Partitioning: Software Testing Tutorial we have already learned that exhaustive testing is…</small></li><li>Efficient Test Cases with Equivalence Partitioning &amp; BVA - Software Testing and Devel<br><small>QA / Software Testing # Efficient Test Cases with Equivalence Partitioning &amp; BVA JIN Jul 14, 2021 Table of contents Table of conte…</small></li><li>Equivalence Partitioning and Boundary Value Analysis<br><small># Equivalence Partitioning and Boundary Value Analysis Alan Liew Jul 14, 2024 -- The easiest explanation you could find on the web…</small></li><li>Comprehensive Guide to Equivalence Partitioning Testing<br><small>Guide # Equivalence Partitioning: A Detailed Guide to for Smart Testing #### Jayesh Karkar September 12, 2024 8 mins read Summariz…</small></li><li>BVA &amp; EP Testing: Key Methods of Black box testing - Ficode<br><small>14 ##### Sep # Boundary Value Analysis (BVA) and Equivalence Partitioning (EP) testing Table of Contents Toggle share Boundary Val…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">IV</span>
+    <h2>Automation Strategy: Selenium, Playwright &amp; CI/CD</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>How to Become a QA Automation Engineer in 2025: The Ultimate Step-by-Step Roadmap<br><small>Are you thinking about switching careers and becoming a QA Automation Engineer? In this article, we’ll walk you through a clear, p…</small></li><li>Software Testing &amp; Automation<br><small># Learn Software Testing and Selenium Tutorials Test Automation is an Art. To master it, you need to change your mindset, layout s…</small></li><li>13 QA Testing Best Practices For 2024 | Testlio<br><small># QA Testing Best Practices Today, as businesses invest approximately 23% of their annual IT budget in QA and testing, the field o…</small></li><li>Shift-Left Software Testing: What It Is and How to Implement It | Momentic<br><small>Resources # Shift-Left Software Testing: What It Is and How to Implement It Your 101 guide to all shift-left software testing: wha…</small></li><li>How to Shift Left Testing Across the SDLC - Parasoft<br><small>Discover the industry&#x27;s first TÜV-certified GoogleTest &amp; Agentic AI solution for C/C++ testing! Get the Details » Discover TÜV-cer…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">V</span>
+    <h2>Shift-Left Testing: Catching Bugs Before They Ship</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>Shift left: Testing, approach and strategy<br><small>What is a shift left strategy? In software development, “shift left” refers to moving tasks, processes, and activities in a produc…</small></li><li>What is Shift Left Testing and Why is It Critical for DevOps Success?<br><small># What is Shift Left Testing and Why is It Critical for DevOps Success? ## A practical guide to embedding quality earlier in your …</small></li><li>Shift-Left vs. Shift-Right Testing in DevOps and Agile<br><small># Shift Left vs Shift Right Testing in Software Development ## Introduction Software testing is the backbone of delivering high-qu…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">VI</span>
+    <h2>AI-Assisted Testing: The 2025 Opportunity Wave</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>TestGuild: Automation Testing Webinars, Courses &amp; Tools<br><small>#### TestGuild - The Practitioner Community for Software Testing &amp; Automation # Where 41,000+ Automation Engineers Build, Script, …</small></li><li>Sauce Labs: AI-Unified Release Assurance Platform<br><small>Learn about Sauce Labs&#x27; AURA platform: live launch event, August 19. REGISTER NOW X #### WHY SAUCELABS ### Why Sauce Your solution…</small></li><li>AI-Based Test Automation Tool [2026] - testRigor Software Testing<br><small># #1 Generative AI-based Test Automation Tool With testRigor, you can use free-flowing plain English to build test automation. tes…</small></li><li>Enterprise API Testing — Self-Hosted LLM | Total Shift Left<br><small># Modern enterprise API testing. AI-native. Self-hosted. Built for regulated industries that can&#x27;t ship API specs to OpenAI. A mod…</small></li><li>Test Automation Platform for Enterprise - Virtuoso QA<br><small>4.5 100+ Reviews # AI Test Automation Platform for Enterprise Software Delivery Automate end-to-end testing with Agentic AI that t…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">VII</span>
+    <h2>Measuring What Matters: Metrics That Prove QA&#x27;s Value</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>Software Testing &amp; QA Services Company | ThinkSys<br><small># YOUR PROVEN PARTNER FOR END-TO-END SOFTWARE QA. From ad-hoc testing to a full Quality Center of Excellence, ThinkSys combines te…</small></li><li>Software Testing Metrics - Types, Formula, and Calculation<br><small>Software testing metrics are quantifiable measures used to evaluate the effectiveness, efficiency, and quality of testing activiti…</small></li><li>Software Testing Metrics That Matter | Perforce BlazeMeter<br><small>Blog December 4, 2024 # Software Testing Metrics That Matter Continuous Testing, Functional Testing Your software testing process …</small></li><li>METRICS for TESTING: A Comprehensive Guide – Money Forward Developers Blog<br><small># METRICS for TESTING: A Comprehensive Guide ## **Overview** --- Testing your software is one challenge; measuring its quality and…</small></li><li>QA &amp; Software Quality Metrics That Actually Matter<br><small># QA Metrics: Software Testing Metrics That Actually Matter #automation testing #qa process Mykhailo Poliarush Update Jun 11, 2026…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <section class="article-section">
+    <span class="section-number">VIII</span>
+    <h2>Leading a QA Team: From Engineer to Manager</h2>
+    <ul style="margin-left:1.25rem;line-height:1.9;"><li>QA Engineers, what skills, tools, or habits helped you grow the most in your career? <br><small>r/QualityAssurance 1y ago patriciaytm # QA Engineers, what skills, tools, or habits helped you grow the most in your career? shopi…</small></li><li>QA Engineer Roadmap 2025: Learn Basics to Advanced Skills | Setty Rajeshwar Rao Naidu<br><small>QA Engineer Roadmap (2025 Edition) 🟢 Phase 1: Foundations (0–2 months) 📌 Learn the Basics of QA What is QA? Difference between QA,…</small></li><li>ESSENTIAL SKILLS FOR QA PROFESSIONALS IN 2025 | Ivano M.<br><small>ESSENTIAL SKILLS FOR QA PROFESSIONALS IN 2025 These skills are your roadmap to success: Test automation is crucial. Here’s what yo…</small></li><li>Leapwork | The Continuous Validation Platform<br><small>CONTINUOUS VALIDATION PLATFORM # **Move Fast. Build Trust.** Leapwork is the trust layer for enterprise software delivery, combini…</small></li><li>The Club: Software Testing &amp; Quality Engineering Community Forum | Ministry of Testin<br><small>Welcome to The Club by Ministry of Testing 0 8722 13 December 2016 Can personal projects realistically close professional gaps aft…</small></li></ul>
+  </section>
+
+  <div class="separator"></div>
+
+
+  <div class="references">
+    <h2>References</h2>
+    <ol class="ref-list">
+      <li>QA Roadmap: Learn to become a modern QA engineer</li>
+      <li>Digital Transformation Services &amp; IT Consulting Partner</li>
+      <li>Software Testing - Boundary Value Analysis vs Equivalence Partitioning</li>
+      <li>Full-Stack QA Roadmap for Non-CS Graduates (2025)</li>
+      <li>How to Become a QA Engineer: A Complete Roadmap</li>
+      <li>Staff, Principal, Distinguished Engineer Roles</li>
+      <li>Boundary Value Analysis and Equivalence Partitioning: Software Testing</li>
+      <li>Efficient Test Cases with Equivalence Partitioning &amp; BVA - Software Te</li>
+      <li>Equivalence Partitioning and Boundary Value Analysis</li>
+      <li>How to Become a QA Automation Engineer in 2025: The Ultimate Step-by-S</li>
+      <li>Software Testing &amp; Automation</li>
+      <li>13 QA Testing Best Practices For 2024 | Testlio</li>
+      <li>Shift left: Testing, approach and strategy</li>
+      <li>What is Shift Left Testing and Why is It Critical for DevOps Success?</li>
+      <li>Shift-Left vs. Shift-Right Testing in DevOps and Agile</li>
+      <li>TestGuild: Automation Testing Webinars, Courses &amp; Tools</li>
+      <li>Sauce Labs: AI-Unified Release Assurance Platform</li>
+      <li>AI-Based Test Automation Tool [2026] - testRigor Software Testing</li>
+      <li>Software Testing &amp; QA Services Company | ThinkSys</li>
+      <li>Software Testing Metrics - Types, Formula, and Calculation</li>
+      <li>Software Testing Metrics That Matter | Perforce BlazeMeter</li>
+      <li>QA Engineers, what skills, tools, or habits helped you grow the most i</li>
+      <li>QA Engineer Roadmap 2025: Learn Basics to Advanced Skills | Setty Raje</li>
+      <li>ESSENTIAL SKILLS FOR QA PROFESSIONALS IN 2025 | Ivano M.</li>
+    </ol>
+  </div>
+
+</article>
+
+<footer class="report-footer page">
+  <p>Deep Research Report &nbsp;·&nbsp; July 2026</p>
+</footer>
+
+</body>
+</html>
