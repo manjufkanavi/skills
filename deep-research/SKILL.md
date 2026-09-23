@@ -150,3 +150,9 @@ Both files go into a new `<topic-slug>-<timestamp>` directory under `skills/deep
 
 - IEEE Xplore and Semantic Scholar consistently return HTML instead of binary PDFs
 - Report generation must support thematic synthesis, not just concatenation
+
+## TinyFish API Rate Limits (operational)
+
+- The TinyFish search/fetch APIs **rate-limit when calls are parallelized**. Never fire multiple `tinyfish_search` or `tinyfish_fetch` requests concurrently — **serialize** them (one at a time, with a small delay between queries).
+- On an `403 Forbidden` from the Firecrawl-backed search endpoint, wait **~60 seconds**, then proceed (retry). Do not escalate it as a broken tool.
+- Pacing pattern: one search query → collect URLs → fetch those pages (batched, but sequentially) → then the next query. This keeps you under the rate limit while still scraping in batches of ~10.
