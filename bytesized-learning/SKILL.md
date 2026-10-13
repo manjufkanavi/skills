@@ -27,9 +27,42 @@ This is educational cinema. Every frame teaches. Every animation reveals structu
 
 **Cohesive visual language.** All scenes share a color palette, consistent typography sizing, matching animation speeds. A technically correct video where every scene uses random different colors is an aesthetic failure.
 
+**Proper Introduction is Mandatory.** Every explainer must open with an engaging Introduction scene (Scene 1) introducing the topic name, why it matters, and the core mental model. Never jump cold into raw code syntax or error traces without establishing context first.
+
+**Strict Bounding Box Containment.** Text, code strings, and badges must NEVER spill or clip outside their surrounding rectangles, cards, or boxes. Always derive box widths dynamically from the text (`box = SurroundingRectangle(content, buff=0.25)` or `width=max(min_w, content.width + 0.6)`), or scale down long text lines (`content.scale_to_fit_width(max_w)`). Use `helpers.components` primitives (`auto_card`, `chip_badge`, `slot_box`) for automated containment.
+
+---
+
+## Master Teacher AI: The 60-Second Video Standard
+
+For beginner explainers, every video must follow the **Fixed 60-Second Blueprint** to guarantee consistent quality and runtime across all topics:
+
+### 1. Timing & Word Budget (Word-to-Second Formula)
+- **Speaking Rate (Kokoro `af_bella`):** ~2.4 words per second (145 WPM).
+- **Total Duration Target:** Exactly **60 seconds ($\pm 2\text{s}$)**.
+- **Strict Word Budget:** **135 to 145 words total**, divided across 5 scenes (~27 words per scene).
+- **Rule:** Never start coding until the narration script meets the word budget.
+
+### 2. The 5-Phase Master Arc
+| Phase | Time Window | Word Budget | Pedagogical Goal |
+|---|---|---|---|
+| **Phase 1: The Hook & Analogy** | 0:00 – 0:12 | ~28 words | Real-world physical comparison (stadium seats, duffel bag, pizza orders). Zero jargon. |
+| **Phase 2: The Friction** | 0:12 – 0:24 | ~28 words | Show the rigid way and why it breaks when inputs vary. |
+| **Phase 3: The Breakthrough Hero** | 0:24 – 0:36 | ~28 words | Reveal the syntax hero with visual packing animation. |
+| **Phase 4: Real-World Power** | 0:36 – 0:48 | ~28 words | Practical developer scenario (custom options, unpacking, wrappers). |
+| **Phase 5: The Golden Rule** | 0:48 – 1:00 | ~26 words | 1-line rule + clean summary cheat sheet card. |
+
+### 3. Reusable Components & Automated Production
+- **Component Primitives:** Use `helpers.components` for layout (`auto_card`, `chip_badge`, `slot_box`).
+- **Analogy Catalog:** Consult `references/analogies.md` before scripting.
+- **Automated Production & QA:** Use `python3 scripts/produce.py` to synthesize audio, measure durations, render Manim, re-encode with `libx264 high`, and run automated critic checks.
+
+
 ## Prerequisites
 
-Run `scripts/setup.sh` to verify all dependencies. Requires: Python 3.10+, Manim Community Edition v0.21+ (`pip install manim`), LaTeX (`texlive-full` on Linux, `mactex` on macOS), ffmpeg, and Kokoro TTS. Reference docs tested against Manim CE v0.21.0. See `references/troubleshooting.md` for 0.21 compatibility gotchas (`Number` removed, `Arrow` needs `Create()`, `dash_ratio` gone, `DOWN_LEFT` → `DOWN + LEFT`, background in `setup()`).
+Run `scripts/setup.sh` to verify all dependencies. Requires: Python 3.10+, Manim Community Edition v0.21+ (`pip install manim`), LaTeX (`texlive-full` on Linux, `mactex` on macOS), ffmpeg, and Kokoro TTS. Reference docs target Manim CE 0.22+; run everything in a Python <=3.12 venv (Manim's C deps do not build on 3.14+). See `references/troubleshooting.md` for 0.21 compatibility gotchas (`Number` removed, `Arrow` needs `Create()`, `dash_ratio` gone, `DOWN_LEFT` → `DOWN + LEFT`, background in `setup()`).
+
+For 0.22 API changes (CENTER unexported, get_center_x removed, Create-on-Group, Triangle kwarg) plus the ffmpeg last-frame trick and audio pitfalls, see `references/manim-021-kokoro-fixes.md`.
 
 ## Modes
 
@@ -210,14 +243,20 @@ manim -ql script.py Scene1_Introduction Scene2_CoreConcept  # draft
 manim -qh script.py Scene1_Introduction Scene2_CoreConcept  # production
 ```
 
-### Step 4: Stitch
+### Step 4: Stitch & Synchronize
+
+Always re-encode with `libx264` and `yuv420p` when stitching clips or padding last frames. Never use `-c copy` when combining synthetic or padded clips, as mismatched SPS/PPS or timestamp jumps will cause media players to freeze or break after the first scene.
 
 ```bash
 cat > concat.txt << 'EOF'
-file 'media/videos/script/480p15/Scene1_Introduction.mp4'
-file 'media/videos/script/480p15/Scene2_CoreConcept.mp4'
+file 'media/videos/script/1080p60/Scene1_Introduction.mp4'
+file 'media/videos/script/1080p60/Scene2_CoreConcept.mp4'
 EOF
-ffmpeg -y -f concat -safe 0 -i concat.txt -c copy final.mp4
+
+# Stitch and re-encode to a seamless, standard H.264 stream
+ffmpeg -y -f concat -safe 0 -i concat.txt \
+  -c:v libx264 -pix_fmt yuv420p -profile:v high -level 4.2 \
+  -movflags +faststart final.mp4
 ```
 
 ### Step 5: Kokoro Audio
@@ -240,7 +279,8 @@ EOF
 ffmpeg -y -f concat -safe 0 -i audio_concat.txt -c copy full_narration.wav
 
 # Mux narration with video
-ffmpeg -y -i final.mp4 -i full_narration.wav -c:v copy -c:a aac -b:a 192k -shortest final_narrated.mp4
+ffmpeg -y -i final.mp4 -i full_narration.wav \
+  -c:v copy -c:a aac -b:a 192k -movflags +faststart -shortest final_narrated.mp4
 ```
 
 ### Step 6: Review
