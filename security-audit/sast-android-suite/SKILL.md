@@ -92,7 +92,7 @@ Real static-analysis architecture checks wired into the Gradle build. Coordinate
 
 **Gotchas (each breaks the build if wrong):**
 - WRONG coordinates 404: `consista/*` or `tschuchortdev/konsist`. The correct Maven group is **`com.lemonappdev`** (GitHub LemonAppDev/konsist, docs `docs.konsist.lemonappdev.com`).
-- Use **0.17.3**, NOT 0.18.x: `com.lemonappdev:konsist` **0.18.0 targets Kotlin 2.4.x** (stdlib-embeddable `2.4.21`), which breaks this project's **Kotlin 2.1.0** compiler with "expected version is 2.1.0" (metadata mismatch). 0.17.3 targets Kotlin 2.0.x → compatible.
+- **Match the library's Kotlin ABI to your project, not its latest version.** `com.lemonappdev:konsist` **0.18.0 targets Kotlin 2.4.x** (stdlib-embeddable `2.4.21`); a newer stdlib breaks an older compiler with "expected version is X" (metadata mismatch). This project's Kotlin 2.1.0 needs **0.17.3** (built against Kotlin 2.0.x). When a new release breaks the build, check `pom.xml` for its kotlin-stdlib version and pick the newest release built against a Kotlin ≤ your compiler — don't chase `latest`.
 - `Konsist.scopeFromProject()` still scans generated files under `build/` (Room/Hilt/KSP codegen) — the test slices those paths out to avoid false positives.
 
 Run (JDK 17 required, same as other Gradle tasks):
