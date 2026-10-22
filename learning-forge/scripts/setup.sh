@@ -11,6 +11,10 @@ if [ ! -x "$SKILL_DIR/.venv/bin/python" ]; then
   command -v "$PYBIN" >/dev/null 2>&1 || {
     echo "ERROR: $PYBIN not found. Install with: brew install python@3.11"; exit 1; }
   "$PYBIN" -m venv "$SKILL_DIR/.venv"
+  if grep -q "/uv/" "$SKILL_DIR/.venv/pyvenv.cfg" 2>/dev/null; then
+    echo "WARNING: venv built on a uv-managed base (fragile: uv prunes its installs). Prefer a stable base, e.g. /opt/homebrew/bin/python3.11"
+  fi
+  "$SKILL_DIR/.venv/bin/python" -c "import sys; print('stdlib OK')"
   "$SKILL_DIR/.venv/bin/pip" install -q -U pip
   echo "==> installing: manim kokoro-onnx onnxruntime scipy numpy"
   "$SKILL_DIR/.venv/bin/pip" install -q manim kokoro-onnx onnxruntime scipy numpy

@@ -103,8 +103,16 @@ def synth_scenes(script, out_dir):
     results = {}
     total_words = 0
     for sc in script["scenes"]:
-        sid = sc["id"]; voice = sc.get("voice") or script.get("voice", {}).get("main", "af_bella")
-        if voice == "second": voice = script["voice"]["second"]
+        sid = sc["id"]
+        roles = script.get("voice", {"main": "af_bella"})
+        def _resolve(v, default=None):
+            v = v or default or roles.get("main", "af_bella")
+            v = roles.get(v, v)  # role name -> real voice; pass through if already real
+            if v not in k.voices:
+                progress(f"  WARN: voice {v} unavailable, falling back to af_bella")
+                v = "af_bella"
+            return v
+        voice = _resolve(sc.get("voice"))
         segs, line_info = [], []
         for ln in sc["lines"]:
             text = ln["text"].strip()
@@ -112,7 +120,7 @@ def synth_scenes(script, out_dir):
             t0 = time.time()
             pieces = []
             for chunk in split_sentences(text):
-                a, s = k.create(chunk, voice=voice, speed=float(ln.get("speed", 1.0)))
+                a, s = k.create(chunk, voice=_resolve(ln.get("voice"), voice), speed=float(ln.get("speed", 1.0)))
                 pieces.append(to_np(a))
             a = np.concatenate(pieces)
             pb = int(ln.get("pause_before_ms", 0) / 1000 * sr)
@@ -154,7 +162,7 @@ def make_music(total_dur, out_dir):
     ffmpeg(["-f", "lavfi", "-i", "sine=f=110", "-f", "lavfi", "-i", "sine=f=164.81",
             "-f", "lavfi", "-i", "sine=f=220", "-f", "lavfi", "-i", "sine=f=293.66",
             "-filter_complex",
-            "[0][1][2][3]amix=inputs=4:normalize=0,lowpass=f=650,tremolo=f=0.07:d=0.35,volume=0.055[a]",
+            "[0][1][2][3]amix=inputs=4:normalize=0,lowpass=f=650,tremolo=f=0.1:d=0.35,volume=0.055[a]",
             "-t", f"{total_dur:.2f}", "-map", "[a]", "-ar", "24000", "-ac", "1", str(p)])
     progress(f"music bed generated ({total_dur:.0f}s)")
     return p
@@ -180,6 +188,16 @@ def align_scene(clip, scene_dur, fps, w, h, work_dir, sid):
     """Match clip to narration length WITHOUT freezing: slow push-in (zoompan) on last frame."""
     work_dir = Path(work_dir)
     d = probe_dur(clip)
+    if d >= scene_dur + 0.10:
+        # Beats outran the narration (dwell overshoot). Trim the trailing dwell
+        # so the scene ends when the voice does — otherwise the -shortest final
+        # cut silently amputates the video's tail.
+        trimmed = work_dir / f"{sid}_trimmed.mp4"
+        ffmpeg(["-i", str(clip), "-t", f"{scene_dur:.2f}",
+                "-c:v", "libx264", "-preset", "fast", "-crf", "18",
+                "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.2", str(trimmed)])
+        progress(f"  {sid}: clip {d:.1f}s -> trimmed to {scene_dur:.1f}s (audio {scene_dur:.1f}s)")
+        return trimmed, probe_dur(trimmed)
     if d >= scene_dur - 0.05:
         return clip, d
     extra = math.ceil((scene_dur - d) * 2) / 2.0
@@ -232,6 +250,8 @@ def main():
     progress(f"TTS total {time.time()-t0:.0f}s")
 
     progress("STEP 2/6 render Manim scenes")
+    (proj / "scene_targets.json").write_text(json.dumps(
+        {sc["id"]: round(scene_results[sc["id"]]["dur"] + 0.30, 2) for sc in script["scenes"]}))
     clips = render_scenes(manim_py, script_py, script["scenes"], a.quality, work)
 
     progress("STEP 3/6 align clips to narration (no-freeze push-in)")
@@ -262,14 +282,15 @@ def main():
     if music:
         ffmpeg(["-i", str(master), "-i", str(narr), "-i", str(music),
                 "-filter_complex",
-                "[1:a]aformat=sample_rates=24000[voice];"
-                "[2:a]aformat=sample_rates=24000,sidechaincompress=threshold=0.02:ratio=8:attack=20:release=350[mus];"
-                "[voice][mus]amix=inputs=2:normalize=0,loudnorm=I=-16:TP=-1.5:LRU=-13[a]",
+                "[1:a]aformat=sample_rates=24000,asplit=2[v1][v2];"
+                "[2:a]aformat=sample_rates=24000[m1];"
+                "[m1][v1]sidechaincompress=threshold=0.02:ratio=8:attack=20:release=350[m2];"
+                "[v2][m2]amix=inputs=2:normalize=0,loudnorm=I=-16:TP=-1.5[a]",
                 "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
                 "-movflags", "+faststart", "-shortest", str(final)])
     else:
         ffmpeg(["-i", str(master), "-i", str(narr),
-                "-filter_complex", "[1:a]loudnorm=I=-16:TP=-1.5:LRU=-13[a]",
+                "-filter_complex", "[1:a]loudnorm=I=-16:TP=-1.5[a]",
                 "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
                 "-movflags", "+faststart", "-shortest", str(final)])
 

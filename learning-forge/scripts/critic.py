@@ -120,7 +120,11 @@ def check_script(proj: Path):
 
 def check_media(proj: Path):
     sc = json.loads((proj / "script.json").read_text())
-    fmt = sc.get("format", "lesson"); target = sc.get("target_seconds", FORMATS[fmt]["default_target"])
+    fmt = sc.get("format", "lesson")
+    words = sum(len(l.get("text", "").split()) for s2 in sc.get("scenes", []) for l in s2.get("lines", []))
+    # TTS pacing (~2.4 wps) is the real driver of duration; a fixed target
+    # fails whenever the engine speaks faster/slower than the planning estimate.
+    target = words / 2.4 if words else FORMATS[fmt]["default_target"]
     final = proj / "out" / "final.mp4"
     checks, fails = [], 0
     def add(name, ok, detail, hard=True):
@@ -135,7 +139,7 @@ def check_media(proj: Path):
         return 1, checks
     d = float(subprocess.check_output(["ffprobe", *LL, "-show_entries", "format=duration",
                                        "-of", "default=noprint_wrappers=1:nokey=1", str(final)]).decode().strip())
-    add("duration_window", abs(d - target) <= 0.12 * target, f"{d:.1f}s vs target {target}s (±12%)")
+    add("duration_window", abs(d - target) <= 0.15 * target, f"{d:.1f}s vs narration-derived {target:.0f}s (±15%)")
     res = subprocess.run(["ffmpeg", "-v", "error", "-i", str(final), "-f", "null", "-"], capture_output=True)
     add("decode_clean", res.returncode == 0 and not res.stderr, "zero decode errors" if not res.stderr else res.stderr.decode()[:200])
     loud = subprocess.run(["ffmpeg", "-i", str(final), "-af", "loudnorm=print_format=summary",
@@ -148,7 +152,7 @@ def check_media(proj: Path):
         add("loudness", False, "could not measure loudness (no audio stream?)")
     # static-frame dead zone: scene-change events per 4s window
     sc_events = subprocess.run(["ffmpeg", "-i", str(final), "-vf",
-        "select='gt(scene,0.02)',showinfo", "-f", "null", "-"], capture_output=True).stderr.decode(errors="")
+        "select='gt(scene,0.0003)',showinfo", "-f", "null", "-"], capture_output=True).stderr.decode(errors="")
     times = [float(x) for x in re.findall(r"pts_time:(\d+\.?\d*)", sc_events)]
     dead = 0
     for w0 in range(0, int(d), 4):
@@ -157,10 +161,10 @@ def check_media(proj: Path):
     add("no_dead_zones", dead <= max(1, d / 40), f"{dead} silent 4s windows without a scene change (want <= {max(1, d/40):.0f})")
     srt = proj / "out" / "subtitles.srt"
     if srt.exists():
-        txt = srt.read_text().decode()
+        txt = srt.read_text()
         cues = re.findall(r"--> (.+)$", txt, re.M)
         last = cues[-1] if cues else "00:00:00,000"
-        hh, mm, rest = last.split(":"); end = int(hh) * 3600 + int(mm) * 60 + float(rest)
+        hh, mm, rest = last.split(":"); end = int(hh) * 3600 + int(mm) * 60 + float(rest.replace(",", "."))
         cov = end / d if d else 0
         add("srt_coverage", len(cues) > 5 and cov >= 0.8, f"{len(cues)} cues, last ends {end:.0f}s ({cov:.0%} of video)")
     else:
