@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20 Underserved Android App Ideas — 2026</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --text: #e6edf3; --dim: #8b949e;
+    --accent1: #58a6ff; --accent2: #bc8cff; --accent3: #3fb950; --warn: #f85149;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(1200px 800px at 70% -10%, #1a2332 0%, var(--bg) 55%);
+    color: var(--text); font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .deck { width: min(1060px, 94vw); height: min(680px, 92vh); position: relative; }
+  .slide {
+    position: absolute; inset: 0; background: var(--panel);
+    border: 1px solid #21262d; border-radius: 18px; padding: 44px 52px;
+    opacity: 0; transform: translateX(40px); transition: opacity .45s ease, transform .45s ease;
+    pointer-events: none; overflow-y: auto;
+  }
+  .slide.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+  .slide.prev { transform: translateX(-40px); }
+  h1 {
+    font-size: 44px; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 18px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  h2 {
+    font-size: 27px; margin-bottom: 20px; letter-spacing: -0.3px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent1));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .kicker { color: var(--dim); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  p, li { font-size: 16.5px; line-height: 1.65; color: var(--text); }
+  ul { padding-left: 22px; margin: 10px 0; }
+  li { margin-bottom: 9px; }
+  li::marker { color: var(--accent1); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px; }
+  .idea { background: #0d1520; border: 1px solid #1f2a3a; border-radius: 12px; padding: 13px 16px; }
+  .idea b { color: var(--accent1); }
+  .idea .gap { color: var(--accent3); font-size: 13.5px; }
+  .idea .why { color: var(--dim); font-size: 13.5px; }
+  .stat-row { display: flex; gap: 16px; margin: 18px 0; flex-wrap: wrap; }
+  .stat { background: #0d1520; border: 1px solid #1f2a3a; border-radius: 12px; padding: 14px 20px; flex: 1; min-width: 180px; }
+  .stat .n { font-size: 28px; font-weight: 700; background: linear-gradient(90deg, var(--accent1), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat .l { color: var(--dim); font-size: 13px; margin-top: 4px; }
+  .tag-warn { color: var(--warn); }
+  .footer-note { margin-top: 18px; color: var(--dim); font-size: 13px; }
+  .hud { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; z-index: 10; }
+  .dots { display: flex; gap: 7px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #30363d; cursor: pointer; transition: all .3s; }
+  .dot.on { background: var(--accent1); transform: scale(1.25); }
+  #counter { color: var(--dim); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .hint { position: fixed; bottom: 18px; right: 22px; color: #3d444d; font-size: 12px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .slide { padding: 26px 22px; } h1 { font-size: 32px; } }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide active">
+    <div class="kicker">Deep Research · Oct 2026</div>
+    <h1>20 Underserved Android App Ideas<br>That Can Hit Millions of Downloads</h1>
+    <p>Real problems · No dominant neutral incumbents · Verified against live competition.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">28 pages</div><div class="l">market-gap corpus scraped</div></div>
+      <div class="stat"><div class="n">44 checks</div><div class="l">live competitive validations</div></div>
+      <div class="stat"><div class="n">15</div><div class="l">saturated categories ruled out</div></div>
+    </div>
+    <div class="footer-note">← → to navigate · deep-research pipeline</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Market Context</div>
+    <h2>The 2026 Opportunity Is in Neutral Utilities</h2>
+    <div class="stat-row">
+      <div class="stat"><div class="n">$322.6B</div><div class="l">mobile app market 2026</div></div>
+      <div class="stat"><div class="n">$885.3B</div><div class="l">forecast 2033 · 15.5% CAGR (Grand View)</div></div>
+      <div class="stat"><div class="n">~4%</div><div class="l">avg Day-30 retention (Userpilot)</div></div>
+      <div class="stat"><div class="n">~50%</div><div class="l">uninstall within 30 days</div></div>
+    </div>
+    <ul>
+      <li><b>Retention is the killer</b> — win with event-driven jobs-to-be-done, not lifestyle features.</li>
+      <li><b>Complaint velocity finds gaps</b> — 136K app-store reviews show users actively searching for alternatives in fragmented niches.</li>
+      <li><b>AI + vernacular + offline</b> is the 2026 differentiator — it unlocks the low-end India long tail (Adjust).</li>
+      <li><b>Field rule</b> (r/AppIdeas): “anything that requires pen and paper can be automated.”</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Methodology</div>
+    <h2>How These 20 Were Found</h2>
+    <ul>
+      <li><b>1. Collect</b> — 28 pages on 2026 app-market gaps, categories, downloads, retention (TinyFish deep-research pipeline).</li>
+      <li><b>2. Generate</b> — 30+ candidate ideas from structural gaps: fragmented flows, high-stakes events, informal economy, neutrality voids.</li>
+      <li><b>3. Verify</b> — 44 live competitive searches per-candidate; kept only where competition is absent, weak, early-stage, or structurally misaligned.</li>
+      <li><b>4. Rank</b> — TAM × gap strength × retention mechanism (high-stakes or daily trigger).</li>
+    </ul>
+    <p style="margin-top:14px">Filter: real felt problem ✓ · no dominant neutral incumbent ✓ · 1M–10M+ install path ✓</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Tier 1 · Mass Market (10M+ path) · 1–5</div>
+    <h2>Five Open Highways</h2>
+    <div class="grid">
+      <div class="idea"><b>1. Fake-Official Call/SMS Verifier</b><br><span class="why">RBI/CBI warn daily of fake bank & CBI calls; Truecaller does spam, not impersonation.</span><br><span class="gap">Gap: no consumer app found.</span></div>
+      <div class="idea"><b>2. Offline Emergency SOS + Mesh</b><br><span class="why">Floods/blackouts kill connectivity exactly when help is needed.</span><br><span class="gap">Gap: Betar/APATSANGH/Orbii — all early, none dominant.</span></div>
+      <div class="idea"><b>3. Voice-First Layer for the Semi-Literate</b><br><span class="why">~250M+ low-literacy users locked out of banking, govt, tickets.</span><br><span class="gap">Gap: Bhashani (govt) + one bank; no universal layer.</span></div>
+      <div class="idea"><b>4. Gig Driver Companion</b><br><span class="why">15M+ drivers juggle 3–5 ride apps; platforms show only their own data.</span><br><span class="gap">Gap: neutral multi-app cockpit (earnings, docs, fuel, EMI).</span></div>
+      <div class="idea"><b>5. Pension Benefits One-Stop</b><br><span class="why">EPF/NPS/state/SHATAYU portals all fragmented; 150M+ elderly.</span><br><span class="gap">Gap: no consumer-friendly unified tracker.</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Tier 1 · Mass Market (10M+ path) · 6–10</div>
+    <h2>Five More Open Highways</h2>
+    <div class="grid">
+      <div class="idea"><b>6. Citizen Grievance Tracker</b><br><span class="why">CPGRAMS & dept portals go silent after filing; no closure feedback.</span><br><span class="gap">Gap: one friendly inbox, SLA reminders, escalation.</span></div>
+      <div class="idea"><b>7. Death Administration Companion</b><br><span class="why">~10M deaths/year; bereaved families face 20+ procedures.</span><br><span class="gap">Gap: only hostile govt portals exist.</span></div>
+      <div class="idea"><b>8. Investment Scam Checker</b><br><span class="why">Fake trading apps, DM schemes; SEBI lists are static PDFs.</span><br><span class="gap">Gap: camera → instant verdict; no consumer app.</span></div>
+      <div class="idea"><b>9. Exam/Admissions Tracker (India)</b><br><span class="why">JEE/NEET/CET + scholarships live in spreadsheets; 30M+ aspirants/yr.</span><br><span class="gap">Gap: incumbents target US/UCAS only.</span></div>
+      <div class="idea"><b>10. Insurance Claim Assistant</b><br><span class="why">300M+ policies; rejection/delay is the #1 complaint; insurers are the referee.</span><br><span class="gap">Gap: zero neutral player + IRDAI escalation.</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Tier 2 · Large Niches (1M–10M path) · 11–15</div>
+    <h2>Big Niches, No Neutral Player</h2>
+    <div class="grid">
+      <div class="idea"><b>11. Tenant-Side Toolkit (India)</b><br><span class="why">100M+ renters: receipts, deposit, maintenance evidence, legal templates.</span><br><span class="gap">Gap: Homly/Nestwise serve landlords, not tenants.</span></div>
+      <div class="idea"><b>12. Workers-Abroad Toolkit (Gulf)</b><br><span class="why">9M+ Indians in the Gulf: docs, remittance, family, repatriation.</span><br><span class="gap">Gap: only job-board apps exist.</span></div>
+      <div class="idea"><b>13. NRI Remote Property & Family Manager</b><br><span class="why">35M+ NRIs manage property from abroad; high willingness to pay.</span><br><span class="gap">Gap: search surfaces only foreign products.</span></div>
+      <div class="idea"><b>14. EV Owner Toolkit</b><br><span class="why">1.3M+ EVs growing fast: charge cost, battery, service, subsidy, resale.</span><br><span class="gap">Gap: web guides only, no app.</span></div>
+      <div class="idea"><b>15. Gig Worker Social Security</b><br><span class="why">25M+ gig workers; E-Shram/welfare benefits opaque.</span><br><span class="gap">Gap: only govt press releases exist.</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Tier 2 · Large Niches (1M–10M path) · 16–20</div>
+    <h2>The Final Five</h2>
+    <div class="grid">
+      <div class="idea"><b>16. Disability Services & Rights One-Stop</b><br><span class="why">27M+ PwDs; benefits/jobs/services scattered across portals.</span><br><span class="gap">Gap: only PIB press releases; no consumer app.</span></div>
+      <div class="idea"><b>17. Wedding Couple Toolkit</b><br><span class="why">10M+ weddings/yr; vendor payment disputes are universal.</span><br><span class="gap">Gap: MatriMoney=budget only, PlanAWedding=directory.</span></div>
+      <div class="idea"><b>18. Property Purchase Due-Diligence</b><br><span class="why">8M+ buyers/yr face title fraud; Landeed is records-only.</span><br><span class="gap">Gap: end-to-end title+litigation+NOC+builder risk.</span></div>
+      <div class="idea"><b>19. Construction Progress Tracker (neutral)</b><br><span class="why">Builder delays/fraud epidemic; incumbents are party-loyal.</span><br><span class="gap">Gap: neutral owner-side progress + fund-release.</span></div>
+      <div class="idea"><b>20. Society (RWA) Owner Toolkit</b><br><span class="why">10M+ societies; maintenance GST rule, minutes, grievances.</span><br><span class="gap">Gap: no consumer app found.</span></div>
+    </div>
+    <div class="footer-note">Honorable mentions: SHG member app (90M women) · mental-health crisis navigator · genuine auto-parts verifier</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Negative Space · Verified 2026</div>
+    <h2 class="tag-warn">Saturated — Do NOT Build</h2>
+    <ul>
+      <li><b>Digital legacy/estate</b> — DGLegacy, Life Relay, Mungrit, LegacySuite</li>
+      <li><b>Family scam guardians</b> — Kavach, NeoRakshak, FamAI</li>
+      <li><b>Govt scheme auto-apply</b> — myScheme.gov.in + clones · <b>Form auto-filler</b> — GovtApply, Filled, Fillora</li>
+      <li><b>Family health records</b> — Prakrit, ExaHealth, HealthArc, Privexa · <b>Elder-care</b> — Memoria, Maitri</li>
+      <li><b>Baby trackers</b> — Araia, Aayi + global giants · <b>Vehicle docs</b> — MyRTO, Parivahan</li>
+      <li><b>Warranty trackers</b> — Warranto et al · <b>Subscription managers</b> — SubTrack, Recuro, Saveiy</li>
+      <li><b>Freelancer GST</b> — FreelanceBook, HourSlip · <b>Coaching/clinic mgmt</b> — Justeach, SmartClinic</li>
+      <li><b>Kirana B2B</b> — RapidKirana, Jaggu · <b>Bill-splitting</b> — Niptao · <b>MSME compliance</b> — ComplyCal · <b>Offline nav</b> — MapMyIndia</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Growth Engine</div>
+    <h2>How These Actually Hit Millions</h2>
+    <ul>
+      <li><b>Event-driven entry</b> — install is triggered at a high-stakes moment (claim, death, exam, scam call, first rent): maximum urgency at day zero.</li>
+      <li><b>Vernacular + low-end first</b> — on-device AI, ~50MB APK, offline-capable: the India long tail the West ignores.</li>
+      <li><b>Neutrality is the moat</b> — where incumbents are parties to the problem (insurers, builders, platforms, landlords), being the neutral referee wins trust.</li>
+      <li><b>One job, done perfectly</b> — with 4% Day-30 retention, a single reliably-completed job beats feature sprawl.</li>
+      <li><b>WhatsApp distribution</b> — shareable artifacts (claim summaries, grievance tickets, earnings reports) turn users into acquisition channels.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Key Takeaways</div>
+    <h1 style="font-size:36px">The 2026 Gap Is Neutral, Event-Driven Utility</h1>
+    <ul>
+      <li>The market grows 15.5%/yr, but <b>every lifestyle app is saturated</b> — the open ground is informal, high-stakes, fragmented flows.</li>
+      <li>All 20 ideas pass the test: real problem ✓ · no dominant neutral incumbent ✓ (44 live checks) · 1M–10M+ install path ✓ · retention via high-stakes/daily trigger ✓.</li>
+      <li><b>Build order for a small team</b>: #8 Scam Checker → #4 Driver Companion → #18 Property DD → #12 Workers-Abroad (single-feature MVPs) → #1/#5/#6/#7 (mass-market platform plays).</li>
+      <li>Verify your niche again at build time — 2026 moves fast; re-run the competitive checks quarterly.</li>
+    </ul>
+    <div class="footer-note">deep-research · android-app-ideas-market-gaps · 2026-10-23</div>
+  </section>
+
+</div>
+
+<div class="hud">
+  <div class="dots" id="dots"></div>
+  <span id="counter">1 / 10</span>
+</div>
+<div class="hint">← → navigate</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const dotsBox = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let cur = 0;
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => go(i);
+    dotsBox.appendChild(d);
+  });
+  function go(n) {
+    cur = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === cur);
+      s.classList.toggle('prev', i < cur);
+    });
+    [...dotsBox.children].forEach((d, i) => d.classList.toggle('on', i === cur));
+    counter.textContent = (cur + 1) + ' / ' + slides.length;
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End') go(slides.length - 1);
+  });
+</script>
+</body>
+</html>

@@ -558,5 +558,35 @@
     "total_queries": 78,
     "rounds": 3,
     "timestamp": "2026-08-22T23:12:37.623609+00:00"
+  },
+  "best-japanese-learning-resources-by-jlpt-level-n5-to-n2": {
+    "raw_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/raw/best-japanese-learning-resources-by-jlpt-level-n5-to-n2",
+    "synthesized_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/synthesized/best-japanese-learning-resources-by-jlpt-level-n5-to-n2",
+    "pages_count": 118,
+    "pdfs_count": 0,
+    "research_count": 9,
+    "total_queries": 78,
+    "rounds": 3,
+    "timestamp": "2026-10-17T16:40:04.517373+00:00"
+  },
+  "top-10-best-books-to-learn-aws-cloud-computing": {
+    "raw_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/raw/top-10-best-books-to-learn-aws-cloud-computing",
+    "synthesized_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/synthesized/top-10-best-books-to-learn-aws-cloud-computing",
+    "pages_count": 56,
+    "pdfs_count": 0,
+    "research_count": 9,
+    "total_queries": 56,
+    "rounds": 3,
+    "timestamp": "2026-10-20T21:54:19.462658+00:00"
+  },
+  "android-app-ideas-market-gaps": {
+    "raw_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/raw/android-app-ideas-market-gaps",
+    "synthesized_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/synthesized/android-app-ideas-market-gaps",
+    "pages_count": 28,
+    "pdfs_count": 0,
+    "research_count": 0,
+    "total_queries": 15,
+    "rounds": 1,
+    "timestamp": "2026-10-22T18:39:21.938104+00:00"
   }
 }
