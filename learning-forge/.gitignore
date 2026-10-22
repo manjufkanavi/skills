@@ -1,0 +1,7 @@
+.venv/
+projects/
+assets/kokoro/*.onnx
+assets/kokoro/*.bin
+__pycache__/
+*.pyc
+media/

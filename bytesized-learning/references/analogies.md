@@ -2,6 +2,12 @@
 
 A reference catalog for Master Teacher AI explainers. Compare technical systems to everyday, intuitive physical objects.
 
+> **Seed catalog only.** Ten rows is not a content library. For any topic not
+> listed below, mine analogies from the topic's research (learning-forge's
+> pedagogy stage requires ≥2 analogies, each with a "where it breaks" note).
+> Never recycle a metaphor whose mechanics you cannot explain — an analogy that
+> cannot be retired is a liability.
+
 ---
 
 ## Python Concepts

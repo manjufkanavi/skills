@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Generate a synthesized Kannada research report from research_data.json using agy."""
+"""LEGACY one-off: Kannada news-video script via agy (2026-07, Bengaluru water
+cut topic). Reference only — not part of the current pipeline. Learning-video
+production now lives in the learning-forge skill.
+"""
 import json, subprocess, os, sys
 from datetime import datetime
 

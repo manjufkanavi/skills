@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "learning-forge script",
+  "type": "object",
+  "required": [
+    "topic",
+    "format",
+    "target_seconds",
+    "scenes",
+    "voice",
+    "music"
+  ],
+  "properties": {
+    "topic": {
+      "type": "string"
+    },
+    "format": {
+      "enum": [
+        "pulse",
+        "lesson",
+        "deep_dive"
+      ]
+    },
+    "target_seconds": {
+      "type": "number"
+    },
+    "title_candidates": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "voice": {
+      "type": "object",
+      "required": [
+        "main"
+      ],
+      "properties": {
+        "main": {
+          "type": "string"
+        },
+        "second": {
+          "type": "string"
+        }
+      }
+    },
+    "music": {
+      "type": "boolean"
+    },
+    "open_loops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "promise",
+          "opened_in",
+          "closed_in"
+        ],
+        "properties": {
+          "promise": {
+            "type": "string"
+          },
+          "opened_in": {
+            "type": "integer"
+          },
+          "closed_in": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "lines"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "valid python class name, e.g. Scene01_Hook"
+          },
+          "role": {
+            "enum": [
+              "hook",
+              "friction",
+              "promise",
+              "sugar",
+              "wrapper",
+              "example",
+              "twist",
+              "misconception",
+              "quiz",
+              "recap",
+              "cta",
+              "beat",
+              "demo",
+              "payoff"
+            ]
+          },
+          "chapter_title": {
+            "type": "string"
+          },
+          "duration_target": {
+            "type": "number"
+          },
+          "voice": {
+            "enum": [
+              "main",
+              "second"
+            ]
+          },
+          "lines": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "text",
+                "visual"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "speed": {
+                  "type": "number",
+                  "minimum": 0.9,
+                  "maximum": 1.1
+                },
+                "pause_before_ms": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "visual": {
+                  "type": "string",
+                  "description": "what CHANGES on screen during this line"
+                },
+                "claims": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "ids into pedagogy claims/misconceptions"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

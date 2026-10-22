@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """Synthesis runner for curated deep research.
 
-Re-fetches content (via Tiny-Fish) only for pages flagged preview_len>100 in
-research_data.json, synthesizes a markdown report AND renders an HTML slideshow
-from the heritage-essay template (structural replacement of masthead + article body).
+**LEGACY — topic-hardcoded. Do not run on new topics.** Theme groupings,
+summary copy, masthead text, and the "10yr SWE experience" advice are baked in
+from one prior run. See references/runner-adaptation.md and write a fresh
+synthesis per run instead.
+
+Re-fetches content (via Tiny-Fish, SERIALIZED — the old ThreadPool fetch
+violated the documented rate-limit pacing) only for pages flagged
+preview_len>100 in research_data.json, and renders an HTML slideshow from the
+heritage-essay template (structural replacement of masthead + article body).
 
 Progress is flushed so it never runs silently in the background.
 """
@@ -58,18 +64,17 @@ def main():
     topic_slug = slugify(topic_label)
 
     urls = [s["url"] for s in data["sources"] if s.get("preview_len", 0) > 100]
-    progress(f"Re-fetching content for {len(urls)} qualifying pages")
+    progress(f"Re-fetching content for {len(urls)} qualifying pages (serialized — TinyFish rate-limits parallel fetches)")
 
     collected = []  # (title, clean_content)
-    for i in range(0, len(urls), 10):
-        batch = urls[i:i+10]
-        with ThreadPoolExecutor(max_workers=5) as ex:
-            results = list(ex.map(fetch, batch))
-        for url, (content, title) in zip(batch, results):
-            c = clean(content)
-            if len(c) > 150:
-                collected.append((title[:200] or url, c))
-        progress(f"  fetched {min(i+10, len(urls))}/{len(urls)} (articles: {len(collected)})")
+    for i, url in enumerate(urls, 1):
+        content, title = fetch(url)
+        c = clean(content)
+        if len(c) > 150:
+            collected.append((title[:200] or url, c))
+        if i % 10 == 0 or i == len(urls):
+            progress(f"  fetched {i}/{len(urls)} (articles: {len(collected)})")
+        time.sleep(1.0)
 
     if not collected:
         progress("No usable content fetched. Aborting.")

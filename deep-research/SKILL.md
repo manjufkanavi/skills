@@ -84,12 +84,13 @@ After generating both files:
 
 ## Report Structure (Markdown)
 
-1. What Is Loop Engineering? (Definition)
-2. From Prompt to Loop: The Paradigm Shift (Evolution)
-3. How Loop Engineering Works (Mechanics)
-4. Common Problems & Fixes (Challenges)
-5. Real-World Applications
-6. Future Outlook
+Generic — adapt the headings to the topic, never ship another topic's structure:
+1. Definition (what it is)
+2. Evolution (why it emerged)
+3. Mechanics (how it works)
+4. Challenges & common problems
+5. Real-world applications
+6. Future outlook
 7. References (top 30 sources)
 
 ## Slideshow Features
@@ -109,11 +110,16 @@ After generating both files:
 - **Deduplication**: Use `` tags during generation to facilitate duplicate removal
 - **Text cleaning**: Aggressively strips YouTube metadata, Instagram boilerplate, Reddit headers, and creator names
 - **PDF extraction**: IEEE Xplore and Semantic Scholar return HTML wrappers — extraction will fail on these sources
-- **Retention**: Keep only the latest report per topic; delete previous iterations
+- **Retention**: Keep only the latest *report* per topic; **never delete raw data** (`data/raw/<slug>/pages.json`, `pdfs.json`) — downstream consumers (e.g. the learning-forge video pipeline) re-derive scenes from it on later runs
 - **Synthesis**: Use the agent's own LLM for report synthesis, NOT Tiny Fish API
 - **New directory per run**: Every research creates a fresh `<topic-slug>-<timestamp>` subdirectory — never reuse or overwrite
 - **Both files mandatory**: Every run must produce both `.md` and `.html` — no exceptions
-- **Git commit + push mandatory**: After generating files, always commit and push to origin/master
+- **Git commit + push mandatory**: After generating files, commit and push with `git push origin HEAD` (the skills repo default branch is `main` — never origin/master)
+
+## Synthesis Pitfalls (grounded content)
+
+- **Confirm the collector persisted full text before synthesizing.** Length-limited scrapers and custom collectors often store only a preview length, metadata, or URL — not the cleaned body. Before synthesizing grounded content, check that your collected data (e.g. `pages.json`) actually contains full text; if it stores only lengths/metadata, re-fetch the authoritative/official URLs (serialized and paced for Tiny Fish rate limits) and synthesize from that. Never author grounded content from thin air, and never paste raw scraped HTML into a report.
+- **Validate authored artifacts against the downstream consumer's parse format before committing.** A markdown compiler may require a specific shape — for example `---` frontmatter with `topic`/`source`, and non-empty `## Section` bodies. Mirror the consumer's parser in a small validation script (frontmatter-fence + `##`-split regex) and fix format errors before commit rather than shipping artifacts the consumer rejects.
 
 ## Output Format
 
@@ -141,6 +147,14 @@ Both files go into a new `<topic-slug>-<timestamp>` directory under `skills/deep
 
 - **Do NOT use shell `exec` to read `research_data.json`** — safety guards block access to `skills/` directory from exec sandbox. Use the `read_file` tool instead.
 - Exec sandbox is restricted to workspace directory only.
+- **Run non-trivial Python from a file, not inline `python3 -c`** — shell mangling of f-strings/nested quotes wastes turns. Write the script to a file and run `python3 path.py`.
+
+See `references/runner-adaptation.md` for adapting the bundled runners to rate limits and arbitrary topics.
+
+## Bundled runners: legacy status
+
+- `scripts/run_synthesize.py` is a **topic-hardcoded legacy example** (theme map, copy, and advice strings baked in from one prior topic). Do not run it on new topics — follow `references/runner-adaptation.md` and write a fresh synthesis per run.
+- `synthesize_for_video.py` is a one-off Kannada news-video experiment (agy-based); reference only.
 
 ## Dependencies
 
@@ -156,3 +170,4 @@ Both files go into a new `<topic-slug>-<timestamp>` directory under `skills/deep
 - The TinyFish search/fetch APIs **rate-limit when calls are parallelized**. Never fire multiple `tinyfish_search` or `tinyfish_fetch` requests concurrently — **serialize** them (one at a time, with a small delay between queries).
 - On an `403 Forbidden` from the Firecrawl-backed search endpoint, wait **~60 seconds**, then proceed (retry). Do not escalate it as a broken tool.
 - Pacing pattern: one search query → collect URLs → fetch those pages (batched, but sequentially) → then the next query. This keeps you under the rate limit while still scraping in batches of ~10.
+- **Check subtopic coverage before curating.** After a multi-subtopic collection, walk the digest against every planned subtopic — rank-prioritized URL selection can let one source family consume the entire fetch quota (a 12-page quota once produced 8 pages from a single service and zero from two other planned services). For each gap, run a targeted top-up: fetch the specific missing URLs (the official docs for that subtopic) serially with the same 60s retry discipline, append to the checkpoint `pages.json`, and rebuild the digest before authoring.

@@ -33,11 +33,26 @@ This is educational cinema. Every frame teaches. Every animation reveals structu
 
 ---
 
-## Master Teacher AI: The 60-Second Video Standard
+## Formats (pick ONE — the 60s standard is one option, not the law)
 
-For beginner explainers, every video must follow the **Fixed 60-Second Blueprint** to guarantee consistent quality and runtime across all topics:
+> **Building learning-platform content (courses, lessons, series)? Use the
+> `learning-forge` skill.** It adds the format ladder, engagement engine
+> (hooks / re-hooks / open loops), vocal prosody, music bed, no-freeze
+> alignment, SRT/chapters/quiz/metadata pack, and the research→pedagogy bridge.
+> This skill remains the Manim render engine for quick concept clips.
 
-### 1. Timing & Word Budget (Word-to-Second Formula)
+| Format | Duration | Use |
+|---|---|---|
+| **Pulse** (the 60-Second Blueprint below) | 60 s ±2 | one idea, one aha, social distribution |
+| **Lesson** | 3–6 min | course units → use learning-forge |
+| **Deep dive** | 10–20 min | flagship content → use learning-forge |
+
+The fixed blueprint applies to **Pulse only**. Never force 5×12 s scenes and a
+135–145 word budget onto a 4-minute lesson — uniform tempo is what makes longer
+videos boring (variable pacing, re-hooks, and open loops are required; see
+learning-forge `references/03-engagement.md`).
+
+### 1. Timing & Word Budget (Pulse format)
 - **Speaking Rate (Kokoro `af_bella`):** ~2.4 words per second (145 WPM).
 - **Total Duration Target:** Exactly **60 seconds ($\pm 2\text{s}$)**.
 - **Strict Word Budget:** **135 to 145 words total**, divided across 5 scenes (~27 words per scene).
@@ -369,5 +384,6 @@ Take a standard mathematical/technical visualization and transform it:
 
 ## See Also
 
+- **learning-forge** — Full learning-video pipeline (research → pedagogy → engagement → production → platform pack). Prefer it for platform content; this skill is its render-engine ancestor.
 - **kokoro-tts** — Standalone text-to-speech: generate audio from any text with configurable voice, speed, and format
 - **voice-bridge** — Voice-to-voice conversation pipeline (STT + TTS + LLM)
