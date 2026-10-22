@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System One Open LLMs — Deep Research (2026-10-23)</title>
+<style>
+:root{--bg:#0b0f17;--panel:#121826;--ink:#e8edf7;--mut:#93a0b8;--acc:#5eead4;--acc2:#818cf8;--grad:linear-gradient(90deg,#5eead4,#818cf8,#f472b6)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.deck{height:100%;display:flex;flex-direction:column}
+.slide{flex:1;display:none;padding:6vh 7vw;overflow:auto;animation:in .45s ease}
+.slide.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(30px,5.2vw,64px);margin:0 0 .2em;line-height:1.08}
+h2{font-size:clamp(22px,3.2vw,40px);margin:0 0 .5em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+h3{color:var(--acc);margin:1.1em 0 .3em;font-size:1.15em}
+p,li{color:var(--mut);font-size:clamp(14px,1.5vw,19px);line-height:1.55}
+li{margin:.25em 0}
+strong,.k{color:var(--ink)}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{display:inline-block;border:1px solid #2b3650;border-radius:999px;padding:.15em .8em;margin:.1em .25em .1em 0;color:var(--acc);font-size:.8em}
+table{border-collapse:collapse;width:100%;font-size:clamp(10.5px,1.15vw,15px);margin-top:.4em}
+th,td{border:1px solid #232d44;padding:.45em .6em;text-align:left;vertical-align:top}
+th{background:#161e30;color:var(--ink);font-weight:600;white-space:nowrap}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td code{color:var(--acc);font-size:.92em}
+tr:hover td{background:#151c2c}
+.toc td{border-color:#1c2540}
+.big{font-size:clamp(40px,7vw,96px);font-weight:800}
+.sub{color:var(--mut);font-size:1.1em;margin-top:.4em}
+.title-slide{display:flex;flex-direction:column;justify-content:center}
+.title-slide .kicker{color:var(--acc);letter-spacing:.35em;text-transform:uppercase;font-size:.85em;margin-bottom:1em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1.2em}
+@media(max-width:800px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid #232d44;border-radius:14px;padding:1em 1.2em}
+.card h3{margin-top:0}
+footer{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;gap:1em;padding:.7em 7vw;background:linear-gradient(transparent,#0b0f17f2 40%)}
+.dots{display:flex;gap:.4em}
+.dot{width:9px;height:9px;border-radius:50%;background:#2b3650;cursor:pointer;transition:all .25s}
+.dot.on{background:var(--acc);transform:scale(1.35)}
+.counter{margin-left:auto;color:var(--mut);font-size:.85em;font-variant-numeric:tabular-nums}
+.hint{color:#3d4a68;font-size:.75em}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<section class="slide title-slide">
+  <div class="kicker">Deep Research · 23 Oct 2026</div>
+  <h1>System One <span class="grad">Open-Source LLMs</span></h1>
+  <p class="sub">The fully open decision models behind TypeSafe's Jev — ranked by HuggingFace downloads.<br>
+  36 sources scraped · live HF API data · 20 models profiled</p>
+  <div style="margin-top:1.6em">
+    <span class="tag">Apache-2.0 / MIT only</span><span class="tag">30-day download counts</span>
+    <span class="tag">params · RAM · response time</span>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>What is a <span class="grad">System One</span> model?</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Kahneman's System 1, made into a model</h3>
+      <p>Fast, automatic, intuitive judgment — from <em>Thinking, Fast and Slow</em>. TypeSafe AI (ex-OpenAI) launched <strong>Jev</strong> on 15 Sep 2026 as the first model in this category.</p>
+      <p>Give it a <strong>state</strong> (text/JSON) + typed questions → it returns <strong>calibrated probabilities</strong>: <code>choice</code> (≤255 options) · <code>score</code> (levels) · <code>noul</code> (yes/no).</p>
+      <p><strong>No text is generated</strong> — one forward pass, zero structured-output errors. Jev: ~10 ms, 350+ RPS/1 vCPU, 64k context — but <strong>closed</strong> (proprietary RLCD, hosted API, undisclosed size).</p>
+    </div>
+    <div class="card">
+      <h3>How the open versions work</h3>
+      <p>The decision is written as a sentence to complete; each option is scored as that completion at one token position, then normalised (temperature / head calibration).</p>
+      <p>Three open architectures:</p>
+      <li><strong>LoRA + decision head</strong> on a frozen open LLM — JEV family, JevK5, Jev-Style, guards, OpenThai, Jeva</li>
+      <li><strong>Contrastive heads</strong> on a frozen encoder — CLM-8B (up to 9× faster than Jev)</li>
+      <li><strong>Encoder-only</strong> — von 395M (CPU, 1–2 GB), THX-01 322M (phone), open-jev-deberta</li>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Why the open ecosystem exploded</h2>
+  <p>Jev's sweet spot is agent glue — routing, tool selection, moderation, RAG relevance, verification, computer-use. A closed API for that means cost, lock-in, and data egress. So the community rebuilt it:</p>
+  <div class="cols" style="margin-top:1em">
+    <div class="card"><span class="big grad">287</span><p>open-source Jev projects by mid-Oct 2026 (community review)</p></div>
+    <div class="card"><span class="big grad">100+</span><p>models compared on S1MB — the neutral System One benchmark</p></div>
+    <div class="card"><span class="big grad">#2</span><p>JevK5's rank of 76 on JevBench: 62.04 vs Jev 1.13's 63.29 — closest open model</p></div>
+    <div class="card"><span class="big grad">9×</span><p>lower latency for CLM-8B vs Jev (computer-use / tool-calling, zero-shot on par)</p></div>
+  </div>
+  <p style="margin-top:1em">Plus a de-facto standard wire contract: Jev-compatible <code>POST /v1/systemone</code> — shipped by Ollama 0.35 and the Ollaya local runtime.</p>
+</section>
+
+<section class="slide">
+  <h2>Top 10 — fully open source, by HF downloads <span style="font-size:.5em;color:var(--mut)">(30-day, 23 Oct 2026)</span></h2>
+  <table>
+    <tr><th>#</th><th>Model</th><th>Family</th><th class="num">DL (30d)</th><th class="num">Params</th><th>RAM</th><th>Response time (per card)</th></tr>
+    <tr><td>1</td><td><code>autotrust/JEV-27B-VL</code></td><td>JEV</td><td class="num">2,171,773</td><td class="num">27.8B</td><td>56 GB bf16<br>≈17 GB Q4</td><td>~264 ms/row (RTX PRO 6000) · 1.15 s/q (16-parallel)</td></tr>
+    <tr><td>2</td><td><code>autotrust/JEV-35B</code></td><td>JEV</td><td class="num">713,162</td><td class="num">36.0B MoE</td><td>72 GB bf16</td><td>204 ms (1×B200) · 1.26 s/q (32-parallel)</td></tr>
+    <tr><td>3</td><td><code>autotrust/JEV-9B</code></td><td>JEV</td><td class="num">542,549</td><td class="num">9.0B</td><td>18.4 GB<br>≈5.6 GB Q4</td><td>~90 ms/decision (B200) vs Jev 238–301 ms · ~0.2 s/click GUI</td></tr>
+    <tr><td>4</td><td><code>autotrust/JEV-27B</code></td><td>JEV</td><td class="num">320,585</td><td class="num">26.9B</td><td>54.7 GB</td><td>137 ms (B200) · 4.2 ms batched (vLLM, 128/batch)</td></tr>
+    <tr><td>5</td><td><code>autotrust/JEV-35B-NVFP4</code></td><td>JEV</td><td class="num">184,370</td><td class="num">36.0B NVFP4</td><td>26.7 GB</td><td>215 ms text / 378 ms image (B200)</td></tr>
+    <tr><td>6</td><td><code>alibiserikbay/JevK5</code></td><td>JevK5</td><td class="num">92,289</td><td class="num">4.2B</td><td>8.4 GB</td><td>~13 ms (H100, CUDA graphs) · 30–162 ms on 1–4K docs</td></tr>
+    <tr><td>7</td><td><code>JackKozmo29/depguard-…-1.5b</code></td><td>guard</td><td class="num">66,682</td><td class="num">1.5B</td><td>6.2 GB (fp32)</td><td>~82 ms local (MPS) vs Jev API 115 ms</td></tr>
+    <tr><td>8</td><td><code>JackKozmo29/mailguard-…-1.5b</code></td><td>guard</td><td class="num">66,540</td><td class="num">1.5B</td><td>6.2 GB (fp32)</td><td>~80 ms (M2 16 GB) vs Jev 118 ms</td></tr>
+    <tr><td>9</td><td><code>JackKozmo29/sevclassifier-…-1.5b</code></td><td>guard</td><td class="num">65,293</td><td class="num">1.5B</td><td>6.2 GB (fp32)</td><td>~76 ms (M2) vs Jev 115 ms</td></tr>
+    <tr><td>10</td><td><code>JackKozmo29/codeguard-…-1.5b</code></td><td>guard</td><td class="num">65,227</td><td class="num">1.5B</td><td>6.2 GB (fp32)</td><td>~85 ms local (MPS)</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <h2>Top 11–20</h2>
+  <table>
+    <tr><th>#</th><th>Model</th><th>Family</th><th class="num">DL (30d)</th><th class="num">Params</th><th>RAM</th><th>Response time (per card)</th></tr>
+    <tr><td>11</td><td><code>autotrust/JEV-Gemma4-26B-A4B</code></td><td>JEV</td><td class="num">35,975</td><td class="num">25.8B MoE</td><td>51.8 GB</td><td>not published (≈4B active/token)</td></tr>
+    <tr><td>12</td><td><code>autotrust/AutoTrust-JEV-27B-v1.1</code></td><td>JEV</td><td class="num">27,292</td><td class="num">27.4B</td><td>54.7 GB</td><td>median 64.8 ms / p95 800 ms per request</td></tr>
+    <tr><td>13</td><td><code>alibiserikbay/JevK5-GGUF</code></td><td>JevK5</td><td class="num">22,893</td><td class="num">2/4/9B</td><td>2.6–9.5 GB by build</td><td>~13 ms GPU · 0.6–1.8 s CPU</td></tr>
+    <tr><td>14</td><td><code>prithivMLmods/JEV-27B-VL-GGUF</code></td><td>JEV quants</td><td class="num">17,398</td><td class="num">27.5B</td><td>16.5–53.8 GB</td><td>≈80–100 ms Q8 (est.)</td></tr>
+    <tr><td>15</td><td><code>Atlas3D/JEV-27B-VL-GGUF</code></td><td>JEV quants</td><td class="num">16,648</td><td class="num">27.5B</td><td>16.5–53.8 GB</td><td>~80 ms/decision (Q8, RTX PRO 6000)</td></tr>
+    <tr><td>16</td><td><code>chaoliangUNSW/Jev-Style-2B-Decision-GGUF</code></td><td>Jev-Style</td><td class="num">15,237</td><td class="num">1.88B</td><td>1.3–3.9 GB</td><td>77 ms/decision (M1 Max) · ~110 ms HTTP</td></tr>
+    <tr><td>17</td><td><code>iapp/OpenThai-SystemOne</code></td><td>OpenThai</td><td class="num">8,836</td><td class="num">0.75B</td><td>1.5 GB</td><td>~40 ms (H100, ~24/s) · 170–220 ms over internet</td></tr>
+    <tr><td>18</td><td><code>prithivMLmods/JEV-9B-GGUF</code></td><td>JEV quants</td><td class="num">8,247</td><td class="num">9.0B</td><td>5.6–17.9 GB</td><td>≈100–150 ms (est., 24 GB GPU)</td></tr>
+    <tr><td>19</td><td><code>chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF</code></td><td>Jev-Style</td><td class="num">8,107</td><td class="num">0.75B</td><td>0.53–1.5 GB</td><td>~1.4 s for 10 q on a 4K state · 2.3–2.6 s @8K · 25.6K ctx</td></tr>
+    <tr><td>20</td><td><code>chaoliangUNSW/Jev-Style-2B-Decision-MLX-bf16</code></td><td>Jev-Style</td><td class="num">7,187</td><td class="num">1.88B</td><td>3.76 GB</td><td>77 ms/decision (M1 Max, MLX)</td></tr>
+  </table>
+  <p>All 20 are Apache-2.0, except #11 whose base carries Gemma-4 terms (adapter/head Apache). RAM = shipped weights + ~15% headroom.</p>
+</section>
+
+<section class="slide">
+  <h2>Families, in one breath</h2>
+  <div class="cols">
+    <div class="card"><h3>JEV — AutoTrust</h3><p>"One decision model instead of a ranking team": frozen Qwen3.5/3.8 or Gemma-4 backbone + LoRA "Blocks of Experts" System-1 block (head seeded from <code>lm_head</code>, trained on Jev 1.13 distributions) + unmodified backbone as System 2, routed per request. Serves the Jev contract. 11 of the top-20 slots.</p></div>
+    <div class="card"><h3>JevK5 — alibiserikbay</h3><p>Single-file 4.2B on Qwen3.5-4B, CUDA-graph serving, ~13 ms/decision on H100. Best open model on JevBench v1.4: <strong>#2 of 76</strong> (62.04 vs Jev 63.29).</p></div>
+    <div class="card"><h3>Jev-Style — chaoliangUNSW</h3><p>2B / 0.8B, GGUF + MLX builds, zero-cost calibration folded into the final RMSNorm. 77 ms per decision on an M1 Max; v3: 25.6K-token states, 51 languages, 77 options, no letter cap.</p></div>
+    <div class="card"><h3>OpenThai — iApp</h3><p>Thai + English 0.8B (Qwen3.5-0.8B continued on ~5B Thai tokens), 256-way slot head, TypeSafe-compatible API. Plays Doom: ~24 decisions/s on one H100.</p></div>
+    <div class="card"><h3>1.5B guards — JackKozmo29</h3><p>Dependency / mail / severity / code guards on Qwen2.5-1.5B — each faster locally than the hosted Jev API it replaces.</p></div>
+    <div class="card"><h3>Notable just below the cut</h3><p>CLM-8B (5.1K, 9× faster than Jev) · FxAI 26B (5.6K) · Jev-alpha-26B (6.9K) · Jev-Omni (5.7K) · Laya (3.6K) · Jeva-4B NUS (1.7K) · open-jev-deberta (2.2K) · Tiny-Jev (1.0K) · systemone-lite (980).</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Hardware & speed rules of thumb</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>RAM ≈ params × bytes + ~15%</h3>
+      <li>bf16 = 2 B/param · Q8 ≈ 1 B · Q4 ≈ 0.5 B</li>
+      <li><strong>0.5–1B</strong> (OpenThai, Tiny-Jev): 1–1.8 GB — any laptop / even phone</li>
+      <li><strong>1.5–4B</strong> (guards, JevK5, Jeva): 3–10 GB — a 16 GB Mac / 8 GB GPU</li>
+      <li><strong>8–9B</strong> (JEV-9B): 6–18 GB — 24 GB GPU for bf16 comfort</li>
+      <li><strong>26–36B</strong> (JEV-27B/35B): 27–72 GB — one B200 / 48 GB GPU, or NVFP4 ~27 GB</li>
+      <li>Heads-only repos (CLM 76 MB, mini-Jev) inherit the backbone's cost</li>
+    </div>
+    <div class="card">
+      <h3>One forward pass = prefill cost</h3>
+      <p>Latency scales with <strong>state length</strong>, not answer length.</p>
+      <li>Tiny / 0.5–1B: <strong>10–50 ms</strong> (GPU or M-series)</li>
+      <li>2–4B: <strong>13–90 ms</strong> (H100/B200) · 77 ms (M1 Max)</li>
+      <li>27B class: <strong>80–400 ms</strong> (top GPU)</li>
+      <p><strong>State caching is the multiplier:</strong> Jev-Style v3: 16.2 s cold → <strong>0.17 s</strong> for the next question on the same 24.4K state. CLM reuses action embeddings: 13× faster than Jev at ~1k candidates.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>License watch — "open" ≠ one license</h2>
+  <table class="toc">
+    <tr><th>Excluded from the top-20 (open weights, not OSI open source)</th><th class="num">DL</th><th>License</th></tr>
+    <tr><td><code>startlux-models/StartLux-Decision-*</code> — 11 builds (v1 / v1.1, 4B / 9B / 27B, Instant / AutoThink)</td><td class="num">5.7K–30.4K each</td><td>CC-BY-NC-4.0 (non-commercial)</td></tr>
+    <tr><td><code>WhaletechAI/W1-JEV</code></td><td class="num">4,260</td><td>none declared</td></tr>
+    <tr><td><code>jinghao1632/bit-jev-2b-distilled</code></td><td class="num">2,764</td><td>none declared</td></tr>
+    <tr><td><code>argos1111/modernbert-ja-310m-jev</code></td><td class="num">828</td><td>CC-BY-SA-4.0</td></tr>
+    <tr><td><code>doofz/THX-01</code> (322M, phone-class)</td><td class="num">862</td><td>none on HF</td></tr>
+    <tr><td><code>pngwn/system-one-qwen3.5-4b-scorer</code></td><td class="num">370</td><td>CC-BY-NC-4.0</td></tr>
+  </table>
+  <p style="margin-top:1em">Also: #11 <code>JEV-Gemma4-26B-A4B</code> keeps Gemma-4 terms for the base weights even though its front-matter says Apache-2.0. When picking a System One model for a product, check the card body, not just the badge.</p>
+</section>
+
+<section class="slide">
+  <h2>Challenges & honest caveats</h2>
+  <div class="cols">
+    <div class="card"><h3>Calibration is still the moat</h3><p>Bekko v0 (the S1MB author's own): open models "fall far behind Jev 1.13 on S1MB benchmarks designed to measure generalization." Best open (JevK5) trails Jev by ~1.3 points on JevBench; hard tiers (adversarial, long docs) are where open models bleed.</p></div>
+    <div class="card"><h3>Is the category real?</h3><p>Univ. of Bonn's evaluation and the "glorified zero-shot classifier" critique: Jev may be a rebranded calibrated classifier. S1MB (100+ models, one harness) is the emerging neutral ground — use it, don't trust single-benchmark marketing.</p></div>
+    <div class="card"><h3>Long states are expensive</h3><p>24K-token decisions cost seconds even at 2B. The "fast" claim holds best at ≤4K tokens and with state reuse/caching.</p></div>
+    <div class="card"><h3>Ecosystem fragmentation</h3><p>287 projects, ~10 architectures, 4 wire contracts (Jev /v1/systemone is winning). Quality varies from phone-class 322M to 36B MoE — benchmark before you bet.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Where this goes</h2>
+  <ul>
+    <li><strong>MoE closes the cost gap:</strong> 26B-A4B / 35B-A3B put frontier-class decision fidelity on one 32–48 GB GPU at NVFP4.</li>
+    <li><strong>The wire contract standardises:</strong> Ollama 0.35 + Ollaya serve open System One models behind the Jev API — drop-in replacement for hosted Jev.</li>
+    <li><strong>Expect the open gap to close</strong> on standard benchmarks within ~a year; the durable open differentiators are on-prem data control, per-domain fine-tunes (guards, churn, domain NLI), and sub-10 ms tiny models in the request loop.</li>
+    <li><strong>Practical picks today:</strong> 1.5B guards / 2B Jev-Style for edge & local agents · JevK5 4B for best open fidelity-per-second · JEV-9B on a 24 GB GPU to replace hosted Jev · JEV-27B/35B (NVFP4) where you need Jev-level depth.</li>
+  </ul>
+</section>
+
+<section class="slide title-slide">
+  <div class="kicker">Key takeaways</div>
+  <h1 style="font-size:clamp(24px,3.6vw,46px)">System One, open edition</h1>
+  <ol style="color:var(--mut);font-size:clamp(15px,1.7vw,21px);line-height:1.7">
+    <li>System One = state + typed questions → calibrated probabilities, one forward pass, no text. Jev (TypeSafe) defined it — and stayed closed.</li>
+    <li>The open answer is the <strong class="k">JEV family</strong>: 5 of the top 6 HF repos, Apache-2.0, 90–264 ms on top GPUs vs Jev's 238–301 ms hosted.</li>
+    <li>Best open fidelity per second: <strong class="k">JevK5 (4.2B, ~13 ms, #2 of 76 on JevBench)</strong>; fastest class: 1.5B guards & 0.75B OpenThai under 100 ms on laptops.</li>
+    <li>RAM budget: 1.5 GB (0.8B) → 6 GB (1.5B) → 8–18 GB (4–9B) → 27–72 GB (26–36B MoE); Q4/NVFP4 halves it.</li>
+    <li>Check licenses: StartLux is NC, several repos ship unlicensed; Gemma bases keep Gemma terms. Benchmark on S1MB before deploying.</li>
+  </ol>
+  <p class="hint" style="margin-top:2em">Sources: 36 pages — TypeSafe, InfoQ, arXiv, S1MB, Jeva, CLM, awesome-jev, HF cards · deep-research run 2026-10-23</p>
+</section>
+
+</div>
+<footer>
+  <div class="dots" id="dots"></div>
+  <span class="hint">←/→ navigate</span>
+  <span class="counter" id="counter"></span>
+</footer>
+<script>
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),counter=document.getElementById('counter');
+let i=0;
+slides.forEach((_,n)=>{const d=document.createElement('div');d.className='dot';d.onclick=()=>go(n);dots.appendChild(d)});
+function go(n){i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  counter.textContent=(i+1)+' / '+slides.length}
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(i+1);
+  else if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1)});
+addEventListener('click',e=>{if(!e.target.closest('.dot')&&!e.target.closest('table'))go(i+1)});
+go(0);
+</script>
+</body>
+</html>
