@@ -106,6 +106,12 @@ node scripts/html2pdf.playwright.mjs input.html output.pdf Letter '{"top":"0.72i
 
 **Why prefer it:** WeasyPrint is great for bulk/simple conversion, but Chromium gives precise control over `@page` size, `page-break-after` per section, background colors, and running footers. Set `preferCssPageSize: true` to honor the CSS `@page` size (rather than forcing the viewport).
 
+**Page size — named keywords, then verify.** `preferCssPageSize` + a *numeric* `@page { size: 595pt 842pt }` is unreliable: Chromium can ignore it, fall back to the default US-Letter paper, and **fit-scale the content (~94%) centered** — output looks plausible but is the wrong size. Write the named keyword in CSS (`@page { size: A4; margin: 0; }`) AND pass matching paper dims + zero margins in `page.pdf()` (`width: '210mm', height: '297mm', margin: { top/bottom/left/right: '0' }` for A4). After every conversion, assert the output page rect with pymupdf (A4 ≈ 595.92×841.92pt) before trusting the result.
+
+**No-install fallback (macOS):** browser builds live in `~/Library/Caches/ms-playwright/` (not `~/.cache`), e.g. `chromium-<rev>/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`. Before running any `npx playwright-core install`, check for a resolvable playwright-core in an existing global package (e.g. `require('/opt/homebrew/lib/node_modules/@playwright/mcp/node_modules/playwright-core')`) and pass the cached binary via `executablePath` — avoids a multi-hundred-MB download.
+
+**Extraction robustness (any output a machine will parse)**: two silent killers in Chromium PDF output — letter-spaced text (tracking ≥ ~1pt) extracts as per-character spaces, and the Helvetica family renders ﬁ/ﬃ/ﬄ as single ligature glyphs. For ATS-bound or parser-bound output: keep tracking ≤ ~0.5pt, add `font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0, "dlig" 0;` on the body, then extract the rendered PDF with pdfminer/pymupdf and confirm the key phrases come back as single tokens.
+
 **See:** `references/bits-wilp-report-format.md` — a full BITS-Pilani report layout built on this method (US Letter, Times New Roman body, Calibri headings, running footers, accent numerals).
 
 ---
@@ -133,7 +139,7 @@ node scripts/html2pdf.playwright.mjs input.html output.pdf Letter '{"top":"0.72i
 
 8. **Bulk conversion via Python API** — For 50+ files, write a script that iterates with `HTML(path).write_pdf(out)` for each file, then merges with PyPDF2. The per-file conversion takes ~1-2 seconds each.
 
-9. **Vision tool hallucination** — When converting/verifying a report, the vision tool may describe a *completely different, fabricated* document (it once reported a "Cloud Computing" report, then a "Global Macro Risk Report", for a single Solvarch PDF). **Trust programmatic ground truth, not the vision tool:** verify with pymupdf text extraction (`page.get_text()`) and pixel-color counts (confirm paper/ink/accent hex are present in the right proportions). See `references/bits-wilp-report-format.md` for the verification recipe.
+9. **Vision tool hallucination** — When converting/verifying a report, the vision tool may describe a *completely different, fabricated* document (it once reported a "Cloud Computing" report, then a "Global Macro Risk Report", for a single Solvarch PDF). **Trust programmatic ground truth, not the vision tool:** verify with pymupdf text extraction (`page.get_text()`) and pixel-color counts (confirm paper/ink/accent hex are present in the right proportions). See `references/bits-wilp-report-format.md` for the verification recipe. If the vision tool is *unreachable* (repeated connection errors), that programmatic suite — span bboxes, fill rects, pixel sampling — is the complete verification on its own; proceed without blocking on vision.
 
 - [4. DESIGN.md Token Spec (design-md)](#4-designmd-token-spec-design-md)
 

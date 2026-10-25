@@ -13,6 +13,22 @@ The kanban CLI has a bug where tasks can enter an internal state that prevents m
 
 ## Recovery Playbook (try in order)
 
+### Operations That Work vs Fail on Stuck Tasks
+
+Empirically, when a task is stuck in the CLI's internal `todo` limbo:
+
+| Operation | Works on stuck task? |
+|---|---|
+| `kanban complete` | ❌ "unknown id or terminal state" |
+| `kanban reclaim` | ❌ "not running or unknown id" |
+| `kanban block` | ❌ "not blocked/scheduled?" (even though it *looks* todo) |
+| `kanban unblock` | ❌ "not blocked/scheduled?" |
+| `kanban archive` | ✅ works directly on the stuck task itself |
+| `kanban comment` | ✅ always accepted |
+| `kanban promote` | ✅ works on stuck tasks and their parents |
+
+**Key insight:** you do not need children to archive a stuck task — `kanban archive t_stuck` works on the task directly and is reliable. Prefer archiving the stuck task itself (it becomes a dead artifact) over fighting the state machine. Reserve `promote` for when you actually want to surface it; otherwise archive + comment is the clean path.
+
 ### Method 1: Archive children to unstick parent (most effective)
 
 When a parent task is stuck in `todo` and has child tasks, **archiving the children** can cause the parent to transition from `todo` → `ready`, at which point `kanban complete` succeeds:

@@ -50,6 +50,46 @@ For each phase, check:
 - **Container serving correct app:** `ssh user@vm "curl -s http://127.0.0.1:PORT/ | head -5"`
 - **Source code exists:** check local repo for frontend files
 
+### Detecting Demo Stubs and Placeholder Work (Local Code Verification)
+For locally-cloned projects, a task can be marked `done` while the code contains only a **demo stub** — surface wiring that looks complete but does nothing real. Auth/OIDC flows are the most common place this hides (easy to fake with a demo path). Before trusting a `done` task, grep the source for stub markers:
+```bash
+# Demo / placeholder patterns => "not actually done"
+grep -rnE "loginDemo|demo-token|demo_user|For the preview|here we finalize" <srcdir>
+grep -rnE "CHANGE_ME|TODO|FIXME|placeholder" <srcdir>/api
+
+# A real auth flow needs a backend route handler, not just a frontend button
+grep -rnE "@router\.(get|post)\(\"/keycloak/(login|callback|logout)\"" <srcdir>/api
+
+# Frontend callback must actually exchange the code for a token, not just loginDemo()
+grep -rnE "exchange|/auth/exchange" <srcdir>/webui/src/app
+
+# Confirm new routes are registered in the app on import
+hermes kanban ...   # see references/kanban-board-troubleshooting.md for route inspection
+```
+
+A `done` task is **NOT done** if its only evidence is: a frontend button calling `loginDemo()` or a stub callback; backend files present but with no route handlers wired into the app (`main.py`); or secrets still at default `CHANGE_ME` values. Add an audit comment and do not treat it as a valid dependency for downstream work.
+
+### Android App Tasks — Verifying Screens Are Reachable (Not Just Committed)
+
+For UI-feature tasks, "done" is often satisfied by **domain/logic code + tests** that never became a real screen. Engines, schedulers, and ledgers live in `:core`/`:domain` with unit tests but no UI; committing them does NOT fulfill a task that asks for a screen. The navigation graph is the source of truth for what is reachable, not git log or test pass count.
+
+```bash
+# 1. Count actual screens (exclude build/ — it holds compiled dex of every screen ever built)
+find . -name "*Screen*.kt" -not -path "*/build/*"
+
+# 2. Read the navigation graph — every composable() block there is a reachable screen
+cat <app>/src/main/.../navigation/AppNavHost.kt   # or any NavHost file
+# If Quiz/Profile/Rewards have no composable() route, that feature exists nowhere in the running app.
+
+# 3. Cross-reference docs screen inventory (e.g. docs/ia-and-screens.md)
+#    Spec lists S1..S9 but NavHost has only Home + Lesson => those screens were never built as UI.
+
+# 4. Empty modules produce zero screens: a feature module with build.gradle.kts but no src .kt
+find <feature-module>/src -name "*.kt"   # empty dir => the screen was never written
+```
+
+A UI task is **NOT done** when: logic exists in `:core`/`:domain` with tests but no `*Screen.kt`; NavHost has fewer routes than the spec's screen inventory; or a feature module exists on disk but contains no source. Report reachable-screen count vs spec, not git log or test counts.
+
 ## Step 3: Update Kanban Tasks
 
 For each task, categorize as:

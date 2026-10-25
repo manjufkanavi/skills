@@ -237,3 +237,37 @@ export const ProtectedRoute = ({ children }) => { useEffect(() => checkAuth(), [
 3. **Missing token refresh** — If the frontend stores JWTs but has no `refreshIfExpired()` logic, users get 401 errors after page reload. Always implement auto-refresh or use HTTP-only cookies with server-side sessions.
 4. **Auth-wrapper URL mismatch** — The auth-wrapper service runs on a specific port (9096 in the unified stack). Backend services must use the correct URL (`http://127.0.0.9:9096` for nginx proxy access, `http://auth-wrapper:9096` for Docker internal). Verify with `curl http://127.0.0.9:9096/health` before writing code that depends on it.
 5. **Nginx proxy routing for auth endpoints** — Auth endpoints (login, signup) must go to the backend directly (port 3006), not through auth-wrapper. Auth-wrapper only validates tokens on resource API calls (`/api/v1/resume/*`). Mixing these up causes 403 errors because auth-wrapper doesn't handle login/signup.
+
+## Case Study: Porting IacGenie's Backend-Led Keycloak PKCE Flow to Resume-Platform
+
+Session 2026-09-19 (resume-platform auth migration). IacGenie's proven login uses a **backend-led PKCE flow**; resume-platform's frontend was doing client-side direct OIDC with a demo fallback — broken.
+
+**IacGenie backend flow (to port):**
+1. Frontend calls `GET /api/auth/keycloak/login?redirect_uri=...&state=...`
+2. Backend generates PKCE code_verifier, sets an httpOnly cookie (`keycloak_code_verifier`, 5-min expiry), redirects (302) to Keycloak `/realms/{realm}/protocol/openid-connect/auth`
+3. Keycloak redirects back with `?code=...&state=...` to backend `/keycloak/callback`
+4. Backend validates state, retrieves code_verifier from cookie, exchanges auth_code for tokens via Keycloak token endpoint
+5. Backend issues local HS256 JWT, redirects frontend with `?token=<jwt>&provider=keycloak`
+6. Frontend callback handles token, stores it
+
+**Resume-platform gaps found:**
+- `webui/src/app/login/page.tsx` → calls `loginDemo()` (no real auth)
+- `webui/src/app/auth/callback/page.tsx` → calls `loginDemo()` (dead-end SSO)
+- Backend `api/routes/auth.py` → has `/verify` and internal n8n callbacks but NO keycloak login/callback routes
+- Backend `api/services/auth.py` → has token validation (auth-wrapper + Keycloak introspection) but no code-exchange logic
+- Frontend `webui/src/contexts/auth-context.tsx` → has `loginWithKeycloak()` but it hits Keycloak directly (no backend PKCE)
+
+**Migration approach:**
+1. Extract iacGenie's `auth_providers/keycloak` module (PKCE + token exchange) into resume-platform
+2. Add `GET /api/v1/auth/keycloak/login` and `/keycloak/callback` routes to FastAPI backend
+3. Update frontend `loginWithKeycloak()` to call the login route instead of direct Keycloak
+4. Update callback page to read `?token=&provider=` from URL and store token
+
+**Critical config (from resume-api env on VM):**
+- `KEYCLOAK_URL=http://keycloak:8080` (Docker internal)
+- `KEYCLOAK_REALM=iacgenie`
+- `KEYCLOAK_CLIENT_ID=resume-platform`
+- **Empty**: `KEYCLOAK_CLIENT_SECRET`, `AUTH_WRAPPER_URL` — source these from IacGenie's OpenBao store (key: `LIGHTSERP_KEYCLOAK_CLIENT_SECRET`) rather than hand-copying
+- **Leaked**: `KEYCLOAK_ADMIN_PASSWORD=***` in plaintext — rotate immediately
+
+**Decision point:** Backend-led PKCE (recommended, matches IacGenie) vs. minimal `/auth/exchange` endpoint for existing client-side flow. Backend-led is more secure (PKCE cookie, no token in URL/history) and reuses proven logic.

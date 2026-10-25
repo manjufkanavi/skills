@@ -1,14 +1,14 @@
 ---
 name: systematic-debugging
 description: "4-phase root cause debugging: understand bugs before fixing."
-version: 1.1.0
+version: 1.1.1
 author: Hermes Agent (adapted from obra/superpowers)
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [debugging, troubleshooting, problem-solving, root-cause, investigation]
-    related_skills: [test-driven-development, plan, subagent-driven-development]
+    related_skills: [test-driven-development, subagent-driven-development]
 ---
 
 # Systematic Debugging
@@ -172,6 +172,10 @@ search_files("function_name(", path="src/", file_glob="*.py")
 search_files("variable_name\\s*=", path="src/", file_glob="*.py")
 ```
 
+### 6. When Expected Execution Produces No Output: Verify It Exists First
+
+Silent non-execution is an *existence* question, not a logging/framework/scheduling question. If the first log line of a worker, listener, or spawned child never appears, check the runtime for the thread/process before suspecting anything else: on Android `adb shell "ls /proc/$(pidof <package>)/task"` (+ each entry's `comm` for thread names); on a desktop process `ps -M <pid>`; for spawned processes `pgrep -f`. A missing log line plus a missing thread means the work was never scheduled — go find the construction/launch site. The classic Kotlin trap: `Thread { ... }` **does not start itself** — only `thread { ... }` does; an unstarted `Thread { }` compiles, deploys, and runs never, with zero errors and zero warnings. Grep the codebase for `Thread {` and check each for a real `.start()` when the symptom is "the worker silently never runs".
+
 ### Phase 1 Completion Checklist
 
 - [ ] Error messages fully read and understood
@@ -332,6 +336,7 @@ If you catch yourself thinking:
 - Proposing solutions before tracing data flow
 - **"One more fix attempt" (when already tried 2+)**
 - **Each fix reveals a new problem in a different place**
+- **"The worker's first log never appeared — must be a framework/timing issue"** → verify the thread/process exists first (Phase 1 §6)
 
 **ALL of these mean: STOP. Return to Phase 1.**
 

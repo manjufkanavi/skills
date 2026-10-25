@@ -86,6 +86,13 @@ Response includes:
 - Response format defaults to markdown — great for summarization
 - The API is fast (~300ms for fetch), so it's suitable for real-time use
 
+## Pairing with gh CLI (ranking open-source tools)
+
+When the user asks for the "top N open source X tools": TinyFish for discovery, gh for verification.
+1. `gh search repos "<query>" --json fullName,description,stargazersCount --sort stars --order desc --limit 15` — the field is `stargazersCount` (a wrong name fails the whole call); run a few query variants and try `--topic` for taxonomy.
+2. Verify candidates in a `gh api repos/<owner>/<repo>` loop: `stargazers_count`, `archived`, `license.spdx_id` (null = public code but legally all-rights-reserved — flag it), `language`, `description`.
+3. Confirm features from the README, not the repo name (fetch `/readme`, base64-decode, grep the feature). High-star repos drift from the niche their name suggests — rank by stars within true category fit and state why near-misses were excluded.
+
 ## Known Issues
 
 - **API key truncation:** The platform strips the middle of any key containing `sk-tin...`. Use `$TINYFISH_API_KEY` from the environment. See `references/tinyfish-key-truncation.md` for the full truncation workaround guide.
@@ -101,6 +108,8 @@ python3 -u corpus-curator.py
 ```
 
 The script handles: rate limiting (1s delay), dedup by content hash, footer removal, PDF skipping, progress reporting, manifest generation. See `scripts/corpus-curator.py` for full pipeline.
+
+Coverage rule: after the run, check the digest/manifest against the intended subtopics — rank-prioritized URL selection can let one source family consume the whole fetch quota. Gaps get a targeted serial top-up: fetch the specific missing URLs (the official docs for each missing subtopic) with the same 60s retry discipline, append to the checkpoint, rebuild the digest, then curate.
 
 Templates:
 - `templates/corpus-readme.md` — reusable README template for corpus documentation. Fill in `{{variables}}` after generation.

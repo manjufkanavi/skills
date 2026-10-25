@@ -80,6 +80,23 @@ Symptom -> mechanism -> fix, for the mistakes that cost iteration building the b
 ffmpeg -y -f concat -safe 0 -i concat.txt -c:v libx264 -pix_fmt yuv420p -profile:v high -level 4.2 -movflags +faststart -c:a aac -b:a 192k final.mp4
 ```
 
+## Manim 0.21: Text.set_font() does not exist
+**Error:** `TypeError: Mobject.__getattr__.<locals>.setter() got an unexpected keyword argument 'weight'` when calling `text.set_font(weight=BOLD)`.
+
+**Cause:** 0.21's `Text` has no `set_font` method; the name falls through to `Mobject.__getattr__`'s generic single-value setter, which rejects kwargs.
+
+**Fix:** bake the weight into the constructor: `Text('x', font=MONO, weight=BOLD)` (works in 0.21).
+
+## Kokoro `speed` is nonlinear — calibrate empirically
+**Observation (kokoro_onnx, af_bella):** a 143-word script measures 54.5s @ speed=1.0, 58.6s @ 0.9, 70s @ 0.8, 35s @ 1.5 — duration-vs-speed is a steep nonlinear curve (stepped AR loops), not 1/speed.
+
+**Fix:** before building, synthesize all segments at a trial speed, measure the total, and pick the speed that lands ~58–60s (143 words -> 0.9 -> ~59.8s with padding). Do not assume 2.4 wps or linear scaling.
+
+**Voices path:** `scripts/produce.py`'s `VOICES_DEFAULT` points at `assets/kokoro/voices-v1.0.bin` — the file actually lives at `assets/voices-v1.0.bin` (one level up). Pass the correct path explicitly.
+
+## Venv location (this machine)
+Manim 0.21.0 + kokoro_onnx venv: `~/.venvs/bytesized-learning` (Python 3.12; `manim` binary inside it, no pip). Kokoro assets: `~/.hermes/skills/voice-bridge/assets/kokoro/model.onnx` + `~/.hermes/skills/voice-bridge/assets/voices-v1.0.bin`. `~/.hermes/skills` is a symlink to `~/.hermes/git_clone_dir/skills`.
+
 ## Text overflowing container boxes / cards
 **Error/Symptom:** Code or explanatory text spills horizontally or vertically outside surrounding rectangles, cards, or boxes.
 

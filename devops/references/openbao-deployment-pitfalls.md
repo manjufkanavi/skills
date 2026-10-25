@@ -103,5 +103,8 @@ The health check will transition from `sealed=true` → `sealed=false`. Give it 
 1. **Check Docker storage driver:** `docker info | grep "Storage Driver"` — if overlay2, apply 777 to OpenBao dirs
 2. **Verify data dir ownership:** `ls -la /home/mkanavi/docker/iacgenie/data/` — should show `openbao` and `openbao_raft` directories
 3. **Verify `.env` has Keycloak admin vars:** `grep KEYCLOAK_ADMIN /home/mkanavi/docker/iacgenie/.env` — must have both `KEYCLOAK_ADMIN_USER` and `KEYCLOAK_ADMIN_PASSWORD`
-4. **Check `init_keys.json` exists:** Should be at `/home/mkanavi/docker/iacgenie/data/openbao_raft/init_keys.json`
+4. **Check `init_keys.json` exists:** It is written by the bootstrap playbook, and its path depends on **which** playbook ran:
+   - `openbao-init.yml` (uses `openbao_raft_dir`) → `/home/mkanavi/docker/iacgenie/openbao_raft/init_keys.json`
+   - `bootstrap.yml` (uses `openbao_raft_data_dir`) → `/home/mkanavi/docker/iacgenie/data/openbao_raft/init_keys.json`
+   **Always grep for it, don't assume the documented path:** `find /home/mkanavi/docker/iacgenie -name init_keys.json 2>/dev/null`. Both paths can exist simultaneously (the two playbooks write to different dirs). The JSON structure is `{"unseal_keys_b64":[...], "root_token":"s.x...", "unseal_threshold":2}`.
 5. **After `docker-compose up -d`, wait 10s then check:** `curl -s http://127.0.0.1:8200/v1/sys/health` — look for `sealed: false`

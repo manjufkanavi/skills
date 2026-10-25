@@ -481,6 +481,36 @@ git commit -m "feat: add JWT-based user authentication
 
 Conventional Commits: `type(scope): description` — types: `feat`, `fix`, `refactor`, `docs`, `test`, `ci`, `chore`, `perf`
 
+### Committing Secrets-Safe (Redact Before Push)
+
+Before staging untracked files, scan them for real credentials and redact — a live key committed to even a private repo is still leaked.
+
+```bash
+# 1. Preview what will be committed (watch for secrets before git add)
+git status --short
+
+# 2. Secret scan across every untracked file (real values, not placeholders)
+grep -rniE "password *= *'|api[_-]?key *= *'?[A-Za-z0-9_-]{12,}|secret|token.*= *'|\$[0-9a-f]" --include='*.py' --include='*.js' --include='*.ts' . | \
+  grep -viE "CHANGE_ME|PLACEHOLDER|\[REDACTED"
+
+# 3. If matches are real (not placeholders), redact BEFORE committing:
+sed -i '' 's/Admin123!/[REDACTED-N8N_ADMIN_PASSWORD]/g' some_script.py   # macOS
+sed -i 's/Admin123!/[REDACTED-N8N_ADMIN_PASSWORD]/g' some_script.py       # Linux
+```
+
+**Redaction rules:**
+- Replace **live values** (real API keys, passwords, bcrypt hashes, UUIDs tied to a real user) with descriptive placeholders like `[REDACTED-N8N_API_KEY]`.
+- Keep the surrounding code working — a `password='%s'` SQL placeholder is fine; an actual hashed value on disk is not.
+- Never commit a `.env` file, `*.tsbuildinfo`, or local build artifacts — add them to `.gitignore`.
+
+**Verify on the remote, not just locally:** a local grep can miss something already pushed. After committing, diff HEAD against origin to confirm the committed blob is clean:
+
+```bash
+git show HEAD:<file> | grep -iE "Admin123|api_n8n_0yzh|\$2b\$10\$" && echo "!!! SECRET IN COMMIT !!!" || echo "clean"
+```
+
+Then `git push` and confirm the working tree is clean (`git status --short` shows nothing).
+
 ### Pushing and Creating a PR
 
 ```bash
@@ -497,6 +527,22 @@ curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
   https://api.github.com/repos/$OWNER/$REPO/pulls \
   -d "{\"title\":\"feat: add JWT auth\",\"head\":\"$BRANCH\",\"base\":\"main\"}"
 ```
+
+### Publishing Doc / Content Updates to an Existing Repo
+
+When the task is *edit a document and push it* (a README, design doc, or content file — not a code PR):
+
+1. **Work in a writable copy.** If editing fails with `Permission denied` while reads succeed, the target is owned by another user/root — don't fight OS permissions. Process the corrected copy in `/tmp` (or any dir you own); publishing is a git job, not a local-path job.
+
+2. **Clone an authenticated tree with `gh repo clone`.** A plain `git clone https://…` prompts for credentials; `gh repo clone owner/repo` carries gh's auth. Clone into a temp dir so you build on the repo's real history instead of starting fresh.
+
+3. **Swap in your fixed content and commit on top.** Copy the corrected file over `README.md` (or the target path), stage it, and commit with a message that summarizes what changed.
+
+4. **Push for a clean fast-forward — never `--force`.** Because the clone already carries the repo's commit history, your edit is a normal descendant; `git push origin main` fast-forwards. Reach for `--force-with-lease` only if you deliberately reset, otherwise it wipes the chain you cloned from.
+
+5. **Verify the remote tree after push**, not just local HEAD: confirm the pushed blob exists (`git cat-file -e origin/main:<path>`).
+
+**Pitfall — replacing an unowned file in place.** `rm` needs write+execute permission on the *containing directory*, not ownership of the file. A dir you own lets you unlink a root-owned file then recreate it with `cp` — but prefer the writable-copy approach above; in-place replacement is more surprising.
 
 ### Monitoring CI
 

@@ -588,5 +588,25 @@
     "total_queries": 15,
     "rounds": 1,
     "timestamp": "2026-10-22T18:39:21.938104+00:00"
+  },
+  "android-offline-tts-male-female-voices--google-tts-voice-data-download--install-tts-data-intent--getvoices-empty-after-oninit--android-11-queries-package-visibility--setvoice-substitution": {
+    "raw_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/raw/android-offline-tts-male-female-voices--google-tts-voice-data-download--install-tts-data-intent--getvoices-empty-after-oninit--android-11-queries-package-visibility--setvoice-substitution",
+    "synthesized_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/synthesized/android-offline-tts-male-female-voices--google-tts-voice-data-download--install-tts-data-intent--getvoices-empty-after-oninit--android-11-queries-package-visibility--setvoice-substitution",
+    "pages_count": 77,
+    "pdfs_count": 0,
+    "research_count": 11,
+    "total_queries": 60,
+    "rounds": 3,
+    "timestamp": "2026-10-23T11:43:12.570759+00:00"
+  },
+  "android-offline-tts-male-and-female-voices--google-tts-engine-voice-selection--getvoices-voice-names-gender-mapping--install-tts-data-voice-download--setvoice--superpack-voice-data": {
+    "raw_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/raw/android-offline-tts-male-and-female-voices--google-tts-engine-voice-selection--getvoices-voice-names-gender-mapping--install-tts-data-voice-download--setvoice--superpack-voice-data",
+    "synthesized_path": "/Users/manjunathkanavi/.hermes/git_clone_dir/skills/deep-research/data/synthesized/android-offline-tts-male-and-female-voices--google-tts-engine-voice-selection--getvoices-voice-names-gender-mapping--install-tts-data-voice-download--setvoice--superpack-voice-data",
+    "pages_count": 91,
+    "pdfs_count": 0,
+    "research_count": 8,
+    "total_queries": 75,
+    "rounds": 3,
+    "timestamp": "2026-10-23T13:00:01.516877+00:00"
   }
 }

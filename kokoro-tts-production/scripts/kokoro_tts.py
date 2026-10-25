@@ -397,6 +397,9 @@ def main() -> None:
         if status != 200:
             handle_error(status, audio)
         per_request.append((1, dur))
+        # Single-segment: write the raw audio bytes straight to out_path.
+        with open(out_path, "wb") as fh:
+            fh.write(audio)
     else:
         # Multi-segment: synthesize in parallel across replicas.
         print(f"[INFO] {len(segments)} segments — synthesizing with up to "

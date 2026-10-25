@@ -83,3 +83,25 @@ python3 /tmp/script.py | base64 | ssh newvm "base64 -d > /tmp/script.py && pytho
 ```
 
 This avoids all shell escaping issues with nested quotes, special characters, and heredocs.
+
+## OpenBao: Sealed vs Broken (Distinguishing the Two)
+
+An `unhealthy` OpenBao container is **usually sealed, not broken**. The healthcheck
+(`wget --spider http://127.0.0.1:8200/v1/sys/health`) returns **503 Service Unavailable**
+while sealed, so Docker marks it `unhealthy` — but the server itself is running fine.
+
+**Diagnosis order:**
+1. Check seal status, not health: `docker exec <container> sh -c 'wget -qO- http://127.0.0.1:8200/v1/sys/seal-status'`
+   - `"sealed":true` → the vault needs unsealing, not a restart. This is normal after
+     boot and means auto-unseal did NOT run successfully.
+   - `"sealed":false` → genuinely unhealthy; investigate the server logs + healthcheck command.
+2. If sealed, verify WHY auto-unseal failed — the most common cause is a **protocol
+   mismatch**: the unseal path targets `https://127.0.0.1:8200` but the listener uses
+   `tls_disable = 1` (HTTP). The unseal call returns HTTP 400 and the vault never opens.
+   See `ansible-iac-patterns` skill, "OpenBao auto-unseal protocol mismatch" pitfall.
+3. Only if `"sealed":false` AND the server won't respond should you look at startup
+   logs for FATAL errors (permission denied on data dir, bad config path, etc.).
+
+**Key insight:** A container whose logs show "OpenBao server started!" with no unseal
+errors, yet is marked `unhealthy`, should be diagnosed via seal-status FIRST. Restarting
+it will not help — it just re-seals on the next boot cycle.

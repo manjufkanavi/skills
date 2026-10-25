@@ -537,6 +537,34 @@ docker compose rm -f n8n
 docker compose up -d n8n
 ```
 
+## 9.4.2 Verifying the Queue Is Actually Connected (After Adding the Password)
+
+Adding `QUEUE_BULL_REDIS_PASSWORD` and recreating n8n does not by itself prove the queue connected. Two common traps make a healthy n8n look broken:
+
+1. **No `redis-cli` inside the n8n image** — alongside "no curl, no python3", this container also lacks `redis-cli`. A probe like
+   `docker exec n8n redis-cli -a "$PASS" ping` fails with `"redis-cli": executable file not found in $PATH`. This is a **false negative** — it does NOT mean Redis auth is broken.
+2. **n8n binds IPv6** — inside the container n8n listens on `:::5678`. Probing `127.0.0.1:5678` (IPv4) fails with "connection refused" even though n8n is healthy. The host-mapped port (e.g. `3005`) listens on IPv4 there and is what you probe from the host.
+
+**Verify instead (from the host):**
+```python
+import urllib.request, json
+
+# 1. /healthz returns {"status":"ok"} only once n8n has initialized the queue
+print(urllib.request.urlopen('http://127.0.0.1:<host-mapped-port>/healthz', timeout=3).read().decode())
+
+# 2. Confirm it's past startup by listing workflows (endpoint needs API-key auth; a 401 is fine to skip)
+r = urllib.request.urlopen('http://127.0.0.1:<host-mapped-port>/api/v2/workflows', timeout=4)
+data = json.loads(r.read().decode())
+print('workflows:', len(data))
+```
+
+**Confirm the Redis password actually matches.** The redis container DOES have `redis-cli` (unlike n8n), so verify from there:
+```bash
+docker exec <redis-container> redis-cli -a "$REDIS_PASSWORD" PING   # -> PONG (right) / NOAUTH (wrong)
+```
+
+**Check logs for the real signal:** `docker logs <n8n> --tail 50` and grep for NOAUTH or connection refused. If `/healthz` is ok, logs are clean, and the redis password matches — the queue is fine. Do **not** redeploy n8n just because an internal `redis-cli` probe failed or a `127.0.0.1:5678` IPv4 probe was refused.
+
 ## 9.4.1 n8n Postgres Compatibility
 
 **PITFALL — n8n 2.36.6 requires Postgres 17+:** n8n 2.x dropped support for Postgres 15. The CLI import (`n8n import:workflow`) fails with `null value in column "id" of relation "workflow_entity" violates not-null constraint` when running against Postgres 15.

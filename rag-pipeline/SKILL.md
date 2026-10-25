@@ -56,6 +56,36 @@ print(resp.json()["choices"][0]["message"]["content"])
 PY
 ```
 
+## Interactive Demo CLI (Live Evaluation)
+
+For demos, build a **single-entry-point** CLI that reuses the real pipeline modules so
+what runs on screen is exactly production. Pattern:
+
+```bash
+python3 demo/cli/demo.py <command> [args]      # ROOT = Path(__file__).resolve().parents[2]
+```
+
+- `health` — check oMLX reachable + corpus loaded; run before a demo.
+- `rag "<query>" --top_k N` — retrieve → rerank+gate (print pillar/service tags per
+  passage) → generate with context → grounding check + entities mentioned. Prints every
+  stage so a lecturer/evaluator sees the machinery, not just one output.
+- `vanilla "<query>" --max_tokens N` — same query with NO context, for a side-by-side
+  comparison showing what retrieval actually changes.
+- `metrics --sample N` — run the real held-out IR evaluation (5-fold CV) and print the
+  ablation table. Use a small `--sample` (10–40) to keep the cross-encoder rerank under
+  ~3 minutes.
+
+Rules that make it trustworthy:
+- Reuse `retriever_raft`, `generator_omlx`, `grader`, `grounding` directly — no demo-only
+  copies of the logic. When asked "did you build a system or just a demo?", this is the
+  answer: there is no separate demo implementation.
+- The oMLX server must already be serving on `127.0.0.1:1234` (or the configured URL);
+  `demo.py` only sends prompts — it does NOT launch oMLX. Start the server first, then
+  call `health`.
+- First retrieve is ~30s (sentence-transformers loads + FAISS index builds once); every
+  subsequent retrieve is ~3–4s. Narrate the first run as a "cold start" so silence isn't
+  mistaken for failure.
+
 ## Key Patterns
 
 ### Retriever API

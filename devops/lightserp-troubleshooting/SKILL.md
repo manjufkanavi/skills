@@ -13,8 +13,8 @@ After infra changes, deployments, or when LightSerp services appear broken. Diag
 | Service | Container | Port (internal) | External Route |
 |---------|-----------|-----------------|----------------|
 | SearXNG | `iacgenie_searxng` | 8080 | Nginx → :8082 |
-| LightSerp API | `iacgenie_lightserp_api` | 3071/8000 | Nginx → :8000 |
-| LightSerp WebUI | `iacgenie_lightserp_webui` | 3001 | Nginx → :3001 |
+| LightSerp API | `iacgenie_lightserp_api` | 3001 (HTTP) / **7805 (MCP-SSE)** | Nginx → :8000 / MCP on :7805 |
+| LightSerp WebUI (Next.js) | `iacgenie_lightserp_webui` | 3071/3001 | Nginx → :3001 |
 | Redis | `iacgenie_redis` | 6379 | Internal only |
 | NSQD | `iacgenie_nsqd` | 4150/4151 | Internal only |
 | PgBouncer | `iacgenie_pgbouncer` | 6432 | Internal only |
@@ -55,6 +55,10 @@ All configs are generated from `~/iacgenie-platform/infra/ansible/roles/docker-c
 Never make ephemeral changes — always fix the template, then redeploy.
 
 ## Known Issues & Fixes (Pitfalls)
+
+### Verify MCP Tool Calls End-to-End (Critical Pitfall)
+**Symptom**: `POST /mcp/messages?sessionId=...` returns 404 even though MCP appears "running".
+**Root cause**: The SSE session (opened by `GET /mcp`) closed before the POST, so the server deleted it. The SSE stream **must stay open during the POST**. Correct endpoints: `GET /mcp` (SSE session, returns `event: endpoint\ndata: /mcp/messages?sessionId=<id>`) then `POST /mcp/messages?sessionId=<id>` over the same open stream. Do NOT use `/sse`, `/streamable/mcp`, or the API port 3001. Use `scripts/mcp-sse-roundtrip-test.py` to hold the stream open in a background thread while posting.
 
 ### Redis Crash Loop — `dir` Path Mismatch (CRITICAL PITFALL)
 **Symptom**: `*** FATAL CONFIG FILE ERROR *** 'dir /home/mkanavi/docker/iacgenie/data/redis' — No such file or directory`
@@ -130,6 +134,8 @@ docker restart iacgenie_searxng
 ## References
 
 - `references/searxng-settings-deployment.md` — SearXNG settings.yml deployment: full template structure, proxy config, engine rate limiting
+- `references/mcp-sse-verification.md` — MCP-over-SSE verification: endpoints, round-trip test script usage, session-expiry pitfall, Redis-auth + SearXNG-proxy findings
+- `scripts/mcp-sse-roundtrip-test.py` — holds the SSE stream open while posting tools/list to prove MCP tool calls work end-to-end
 - `references/pgbouncer-config-pitfalls.md` — PgBouncer config pitfalls: invalid parameters, read_only+tmpfs, userlist.txt format, stale config redeployment
 - `references/docker-volume-dir-pitfall.md` — Docker volume mount `dir` pitfall: never use host paths in container config files
 - `references/nginx-rate-limiting-pitfalls.md` — Missing `limit_req_zone` definition causes nginx crash loop; zone sizing guide

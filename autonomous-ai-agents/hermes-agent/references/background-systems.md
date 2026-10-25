@@ -29,6 +29,12 @@ Durable scheduler — `cron/jobs.py` + `cron/scheduler.py`. Drive it via
 the `cronjob` tool, the `hermes cron` CLI (`list`, `add`, `edit`,
 `pause`, `resume`, `run`, `remove`), or the `/cron` slash command.
 
+Pitfall: when the deferred `cronjob_manage` tool is invoked through the `tool_call`
+wrapper and the call is rejected on schema validation (identical error on identical
+input — do not keep retrying the wrapper), drive the same operation via the terminal
+instead: `hermes cron list` and the other verbs hit the same scheduler with no
+wrapper layer.
+
 - **Schedules:** duration (`"30m"`, `"2h"`), "every" phrase
   (`"every monday 9am"`), 5-field cron (`"0 9 * * *"`), or ISO timestamp.
 - **Per-job knobs:** `skills`, `model`/`provider` override, `script`

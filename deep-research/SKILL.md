@@ -14,6 +14,10 @@ Use when the user asks for:
 - "deep dive into [topic]"
 - "thorough analysis of [topic]"
 
+### Artifact-deliverable variant (files, not a report)
+
+When the user says "deep research" but the deliverable is **files** (books, PDFs, datasets) rather than a report: apply the Phase 1 search discipline (multiple query variants, official-source vetting), but skip the runner, report, slideshow, and skills-repo commit. "Free" sources must be officially free (publisher/university/government/CC-licensed) — never document-scraping aggregators. Then hand off to the `free-resource-curation` skill for download → verify → store → commit.
+
 ## How to run
 
 ```bash
@@ -78,6 +82,7 @@ reports/
 
 ### Mandatory post-generation steps
 After generating both files:
+0. **Collect the slideshow.** The runner writes `data/raw/` + `data/synthesized/` to the skills-repo root, but the `.html` slideshow to a separate root (`~/.nanobot/workspace/personal_bot/deep-research/reports/`). The "Report synthesis skipped — script does not have LLM access" warning is *expected* (the script never synthesizes; the agent authors the `.md` from the synthesized data). Before committing, `cp` the `.html` from that root into `reports/<topic-slug>-<timestamp>/` next to the authored `.md`; when a newer run of the same topic supersedes it, remove the older copy from that root.
 1. **Commit and push** — run `git add`, `git commit -m "Add deep research report: <topic>"`, then `git push`.
 2. **Delete old iterations** — remove previous report directories for the same topic (keep only the latest).
 3. **Verify** — confirm both `.md` and `.html` exist in the new directory and the push succeeded.
@@ -113,6 +118,7 @@ Generic — adapt the headings to the topic, never ship another topic's structur
 - **Retention**: Keep only the latest *report* per topic; **never delete raw data** (`data/raw/<slug>/pages.json`, `pdfs.json`) — downstream consumers (e.g. the learning-forge video pipeline) re-derive scenes from it on later runs
 - **Synthesis**: Use the agent's own LLM for report synthesis, NOT Tiny Fish API
 - **New directory per run**: Every research creates a fresh `<topic-slug>-<timestamp>` subdirectory — never reuse or overwrite
+- **Keep the topic string short.** The topic is slugified (lowercase, spaces → dashes) and used as a single directory path component — an over-long topic string exceeds the 255-byte per-component path limit and the run crashes with `OSError: [Errno 63] File name too long` at save time, *after* all the scraping (the data is lost with it). Pass a compact topic (~10 words, key terms only); the nuance belongs in the generated queries, not the topic string
 - **Both files mandatory**: Every run must produce both `.md` and `.html` — no exceptions
 - **Git commit + push mandatory**: After generating files, commit and push with `git push origin HEAD` (the skills repo default branch is `main` — never origin/master)
 

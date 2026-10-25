@@ -246,6 +246,11 @@ message(content="Here's the infographic video",
 
 ## Dependencies
 
+See `references/video-assembly-pitfalls.md` for the recurring macOS + ffmpeg 8.x
+pitfalls (no `drawtext`, cairosvg DYLD path, odd-dimension libx264 errors,
+`-map` label rules, concat demuxer output path) and the kokoro-tts-production
+SSH-key dependency. Apply these before assembling any video.
+
 - `cairosvg` (SVG → PNG)
 - `ffmpeg` (video encoding)
 - `kokoro-onnx` (TTS narration via Kokoro)

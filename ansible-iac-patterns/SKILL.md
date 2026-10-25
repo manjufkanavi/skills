@@ -511,6 +511,36 @@ Within resource limits (15GB RAM), apply HA by priority:
   `OPENBAO_CLUSTER_ADDR` env var forces HTTPS — override with `OPENBAO_ADDR=http://...`
   via `docker exec -e OPENBAO_ADDR=...`.
 
+- **OpenBao auto-unseal protocol mismatch (HTTP vs HTTPS).** The OpenBao bootstrap
+  playbook (`roles/openbao/tasks/unseal.yml`) unseals via `https://127.0.0.1:8200`
+  (see `unseal.yml`, the HTTPS URI tasks). But when OpenBao runs in **HTTP mode**
+  (`tls_disable = 1` in `openbao-prod.hcl`, the common production config), every
+  unseal attempt returns `400` (HTTP server to HTTPS client) and the playbook's
+  `failed_when: false` swallows it — the vault stays **sealed** forever. The
+  healthcheck also fails: `GET /v1/sys/health` returns **503 Service Unavailable**
+  when sealed, so Docker marks the container `unhealthy` (FailingStreak grows).
+  **Fix — verify before trusting unseal:** `docker exec iacgenie_openbao sh -c 'wget
+  -qO- http://127.0.0.1:8200/v1/sys/seal-status'` → look for `"sealed":false`. If
+  `true`, the unseal protocol is wrong. Two ways to fix: (1) make the playbook match
+  the listener — use `http://` in the unseal URI when `tls_disable = 1`; or (2) enable
+  TLS in the HCL config so HTTPS unseal works. **Diagnosis tip:** a container that is
+  `unhealthy` but whose logs show "OpenBao server started!" (no unseal errors) is
+  almost always **sealed**, not broken. Check seal-status first, health status second.
+
+- **Keycloak `unhealthy` but functional (missing wget in image).** The deployed
+  Keycloak service uses the `quay.io/keycloak/keycloak:26.0-pg` image, which has **no
+  `wget`**. If the compose healthcheck uses a `wget`-based command (e.g.
+  `CMD-SHELL wget -q ... http://127.0.0.1:8080/`), the check always fails with
+  `exec: "wget": executable file not found in $PATH`, so the container is marked
+  `unhealthy` even though Keycloak is serving normally on :8080. **Fix:** use a check
+  that doesn't need wget — Keycloak's own health endpoint via `/dev/tcp` in bash:
+  `test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080; echo -e 'GET /health/ready
+  HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3; head -n 1 <&3"]`.
+  **Diagnosis tip:** if a container is `unhealthy` but its logs show successful startup
+  and the endpoint responds to manual curl from another container, the healthcheck is
+  broken (missing binary), not the service. See `devops` skill,
+  `references/docker-healthcheck-troubleshooting.md`.
+
 - **Keycloak 26 command syntax changed from 20-25.** The following flags are **invalid** in Keycloak 26.0:
   - `--hostname-keycloak` → use `--hostname <domain>` (e.g. `--hostname auth.iacgenie.com`)
   - `--db=postgres` → removed; use `--db-url-*` flags instead

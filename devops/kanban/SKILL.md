@@ -269,6 +269,13 @@ When a worker keeps crashing:
 | `kanban_unblock` | `hermes kanban unblock <task_id>` |
 | `kanban_promote` | `hermes kanban promote <task_ids...>` — list of IDs, space-separated |
 
+**Completing a child requires its parent to be done first.** `hermes kanban complete` refuses an
+unfinished task whose parents aren't done: "cannot complete <id>: unsatisfied parent dependencies:
+<parent> (<state>)". Resolve by completing the parent first, or — for a stale/dead parent (e.g.
+stuck `blocked`/archived) — break the link with `hermes kanban unlink <task_id> <parent_id>`; the
+completion error prints a ready-to-use command, and when in doubt confirm arg order from
+`kanban list --json`. Then complete the child. See also `references/kanban-stuck-task-recovery.md`.
+
 **Completing grand-tasks with done sub-tasks.** When a Phase N (or Milestone X)
 grand-task has all its sub-tasks already marked `done`, completing the
 grand-task is a formality — no actual work is needed. Check that all sub-task
@@ -305,6 +312,12 @@ Do NOT claim and execute each separately.
 
 - **`--body` single-quote trap** — When passing `--body` via CLI, single quotes inside the value break bash parsing (`unexpected EOF while looking for matching '`). Use escaped double quotes `\\\\\\\"` instead, or rewrite the text to avoid single quotes entirely (e.g., use `->` instead of `'->'`, or `don't` → `do not`). Test the command in a dry-run first if the body is long.
 - **`--body` ampersand trap** — The `&` character in heredocs or `--body` values is interpreted by bash as a backgrounding operator, causing foreground commands to fail with "Foreground command uses '&' backgrounding". When task bodies contain `&` (e.g., in URLs, commands, or text), either: (a) avoid heredocs entirely and pass `--body` directly on the command line, or (b) write the body to a temp file and use `--body "$(cat /tmp/task_body)"` — but test that the temp file approach works before using it at scale. The safest pattern: create kanban tasks one at a time with `--body` on the command line, avoiding heredocs entirely.
+
+  The guard is terminal-wide, not just for `--body`: a bare shell metacharacter (`&`, `$`, backtick,
+  or `|`) anywhere in the command string is rejected — including git commit messages and plain
+  heredocs. For multi-line or special-character content (commit bodies, task bodies), write it to a
+  temp file first and pass via `git commit -F /tmp/msg` or `--body "$(cat /tmp/body)"`. See also
+  `references/kanban-task-body-template.md`.
 - **`--body` complex text workaround** — When task bodies contain URLs with `@`, colons, parentheses, or other shell-special characters, the safest approach is to write the body to a temp file and pass it via command substitution:
   ```bash
   cat > /tmp/task_body.md << 'EOF'
@@ -362,6 +375,12 @@ Do NOT claim and execute each separately.
 - **Scope recurring monitors to active tasks, not the full board** — When scheduling a cron job to monitor kanban progress, target only the actively running tasks the user cares about (e.g., specific migration tasks). A full-board scan every 10 minutes is noisy and rarely useful. Ask the user what to monitor, or scope to the subset of tasks marked `running`. A general daily summary (e.g. morning report) is fine; real-time polling should be narrow.
 
 - **All terminal states are immutable: `done`, `blocked` too** — Not just `archived`. Once a task reaches `done` (completed) or `blocked` (blocked), you CANNOT revert it to `ready` or reset its status. `hermes kanban reclaim` refuses with "not running or unknown id", and `hermes kanban block/edit` also refuse. The only option is to create new replacement tasks and leave the old ones as dead artifacts on the board. This means **always verify actual infrastructure state before marking any infra task as `done`** — if services go down after a reboot, you can't un-mark the task. See `references/infra-drift-diagnosis.md` for the full pattern.
+
+  This immutability is about *reverting* a task, not completing it: `hermes kanban complete` accepts
+  a task straight from `blocked` (or any terminal state) — you do NOT need to reclaim/unblock first.
+  Reclaim/block/edit are what refuse on terminal states; complete does not. So a genuinely
+  finished-but-stuck `blocked` task can be completed directly (then left as-is; its link cannot later
+  be reset). See `references/kanban-stuck-task-recovery.md`.
 - **Fresh board strategy when old tasks are stuck** — When a kanban board has accumulated old tasks in terminal states (done/blocked) and you need a clean start, don't fight with immutable tasks. Create a new board (rename `default` or `project-work` to the clean name), create fresh tasks with proper verification gates, and leave old tasks alone. The old tasks will be visible but dead weight. See `references/infra-drift-diagnosis.md`.
 
 - **Manual file cleanup can cause mass rebase conflicts** — When corpus cleanup or similar manual file operations are done locally while the remote has different changes, `git pull --rebase` may produce 45+ rename/delete conflicts. See `references/research-corpus-validation.md#git-rebase-after-manual-cleanup` for the resolution pattern.

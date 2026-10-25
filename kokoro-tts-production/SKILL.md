@@ -35,8 +35,8 @@ python3 ~/.hermes/skills/kokoro-tts-production/scripts/kokoro_tts.py \
 # List all voices (fetched live from the API)
 python3 ~/.hermes/skills/kokoro-tts-production/scripts/kokoro_tts.py --list-voices
 
-# Read text from stdin
-echo "こんにちは世界。" | python3 ~/.hermes/skills/kokoro-tts-production/scripts/kokoro_tts.py -v jf_alpha
+# Read text from stdin (REQUIRES --stdin flag — piped input is ignored without it)
+echo "こんにちは世界。" | python3 ~/.hermes/skills/kokoro-tts-production/scripts/kokoro_tts.py --stdin -v jf_alpha
 ```
 
 Every call fetches the API key from the homeserver over SSH (no secret stored in the
@@ -53,6 +53,11 @@ repo or on this machine) and posts to `https://kokoro.iacgenie.com/v1/audio/spee
 | `-m` / `--model` | `kokoro` | Model family: `tts-1`, `tts-1-hd`, or `kokoro`. |
 | `-f` / `--format` | `mp3` | Output format: `mp3` or `wav`. |
 | `-l` / `--list-voices` | — | Print all voices (fetched live) and exit. |
+
+**Pitfall:** piping text via stdin **requires the `--stdin` flag**. Without it,
+the script treats piped input as empty and exits with `[ERROR] No input text`.
+For a positional argument, no flag is needed; for stdin you must append `--stdin`
+before the other flags.
 
 **Verified contract:** `/health` → 200 (no auth); `POST /v1/audio/speech` with a
 valid key → HTTP 200 + valid audio (verified: ~11 KB MP3 for short text).

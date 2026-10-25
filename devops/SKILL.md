@@ -594,6 +594,33 @@ location /realms/iacgenie/protocol/openid-connect/token/introspection {
 
 **PITFALL:** When adding a new `limit_req_zone` to the nginx config template, you MUST add BOTH the zone definition (in the http block) AND the location block (in the server block). Adding only the location block causes `nginx -t` failure with `unknown directive "limit_req"`.
 
+### Nginx Rate Limiting Behind a Tunnel (Per-Client Isolation)
+
+**Root cause of 429s on parallel requests through a Cloudflare tunnel:** `limit_req_zone $binary_remote_addr` keys the bucket on `$remote_addr`, which is **always `127.0.0.1`** (the tunnel/cloudflared endpoint) for every request — including all of one user's parallel requests. So **every client behind the tunnel shares ONE bucket**, and 5 parallel TTS calls from a single Mac get squeezed out → HTTP 429.
+
+**Fix — key the zone on `CF-Connecting-IP`:** Cloudflare tunnels populate this header with the real client egress IP, so each user gets their own bucket and parallel requests from that one client fit within it.
+
+```nginx
+# In the http {} block:
+limit_req_zone $http_cf_connecting_ip zone=kokoro_limit:10m rate=10r/s;
+
+# In the server block (location /):
+limit_req zone=kokoro_limit burst=20 nodelay;
+```
+
+**Verification:** Fire 5 concurrent requests through the tunnel with a valid bearer key and confirm all return `200` (not 429). A clean run proves the per-client isolation works.
+
+**Do NOT try an "unlimited whitelist bypass" via `map` + variable-in-zone on this nginx build (1.27-alpine):**
+- `map $http_cf_connecting_ip $kokoro_req_zone { default "kokoro_limit"; "<ip>" "kokoro_unlimited" }` + `limit_req zone=$kokoro_req_zone …` **fails to parse**: nginx treats `$kokoro_req_zone` as a literal zone name → `zero size shared memory zone "$kokoro_req_zone"`.
+- `limit_req` inside an `if {}` block is **forbidden** by nginx (parse error).
+
+So true per-IP bypass isn't achievable via config on this box. The practical equivalent of whitelisting is **per-client isolation** (keying the zone on `CF-Connecting-IP`), which gives your client its own bucket and lets parallel requests succeed.
+
+**Cloudflare-edge IP allow-rule is not a viable alternative here:**
+- A `cfut_` tunnel token **cannot call the CF zone API** — it authenticates only the cloudflared process. "No route for that URI" is expected on every API call; adding permissions to the token does not change this.
+- The user's **free Cloudflare plan has no IP Access Rules / WAF rules**, so the dashboard route is also unavailable.
+- Result: rate-limiting fixes must live in nginx/Ansible, fully under our control.
+
 ### Nginx: `proxy_pass` Trailing Slash Gotcha
 
 The **presence or absence of a trailing slash** in `proxy_pass` changes how nginx handles the request URI.
