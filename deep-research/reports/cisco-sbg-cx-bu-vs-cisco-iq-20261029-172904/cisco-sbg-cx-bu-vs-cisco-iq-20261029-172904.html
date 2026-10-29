@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cisco SBG vs CX — Mesh Policy Engine vs Cisco IQ</title>
+<style>
+:root{
+  --bg:#0b1020;--bg2:#0f1630;--card:#141d3a;--tx:#e8ecf8;--mut:#9aa5c8;
+  --acc:#4f8cff;--acc2:#9b6bff;--good:#3ddc97;--warn:#ffb454;--bad:#ff6b81;
+  --grad:linear-gradient(135deg,#4f8cff 0%,#9b6bff 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;height:100vh;overflow:hidden}
+.deck{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 8vw;opacity:0;transition:opacity .5s ease}
+.slide.active{display:flex;opacity:1}
+.slide h1{font-size:clamp(1.9rem,4.5vw,3.4rem);line-height:1.15;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.6em}
+.slide h2{font-size:clamp(1.4rem,3vw,2.3rem);margin-bottom:.5em;color:var(--tx)}
+.slide h3{font-size:clamp(1rem,1.8vw,1.3rem);color:var(--acc);margin:1em 0 .4em;text-transform:uppercase;letter-spacing:.08em}
+.slide p,.slide li{font-size:clamp(.92rem,1.55vw,1.25rem);line-height:1.55;color:var(--mut)}
+.slide .em{color:var(--tx);font-weight:600}
+.slide .good{color:var(--good);font-weight:600}
+.slide .warn{color:var(--warn);font-weight:600}
+.slide .bad{color:var(--bad);font-weight:600}
+.slide ul{padding-left:1.2em;display:grid;gap:.45em}
+.kicker{font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;color:var(--acc2);margin-bottom:1.2em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:2.2em}
+.card{background:var(--card);border:1px solid #22305c;border-radius:14px;padding:1.3em 1.5em}
+.card h3{margin-top:0}
+.tag{display:inline-block;padding:.15em .6em;border-radius:99px;font-size:.72rem;letter-spacing:.05em;margin-right:.4em}
+.tag.blue{background:rgba(79,140,255,.15);color:var(--acc)}
+.tag.purple{background:rgba(155,107,255,.15);color:var(--acc2)}
+.tag.green{background:rgba(61,220,151,.15);color:var(--good)}
+.tag.amber{background:rgba(255,180,84,.15);color:var(--warn)}
+.big{font-size:clamp(1.2rem,2.4vw,2rem);color:var(--tx)}
+table{width:100%;border-collapse:collapse;font-size:clamp(.8rem,1.35vw,1.05rem)}
+th,td{text-align:left;padding:.55em .8em;border-bottom:1px solid #22305c;color:var(--mut)}
+th{color:var(--tx);text-transform:uppercase;font-size:.78em;letter-spacing:.06em}
+td:first-child{color:var(--tx);font-weight:600}
+.stat{display:flex;gap:2.4em;flex-wrap:wrap;margin-top:1em}
+.stat div b{display:block;font-size:clamp(1.5rem,3vw,2.6rem);background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat div span{color:var(--mut);font-size:.9em}
+.footer{position:absolute;left:0;right:0;bottom:2.2vh;display:flex;align-items:center;justify-content:space-between;padding:0 8vw}
+.dots{display:flex;gap:7px}
+.dot{width:9px;height:9px;border-radius:50%;background:#2a3a6e;cursor:pointer;transition:all .3s}
+.dot.on{background:var(--acc);transform:scale(1.25)}
+.counter{color:var(--mut);font-size:.85rem;letter-spacing:.1em}
+.hint{position:absolute;top:2.4vh;right:8vw;color:#3d4c80;font-size:.75rem;letter-spacing:.15em}
+@media(max-width:720px){.cols{grid-template-columns:1fr;gap:1em}.slide{padding:8vh 6vw}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<section class="slide active">
+  <div class="kicker">Deep Research · 105 pages · Oct 2026</div>
+  <h1>Cisco SBG → Cisco CX<br>Mesh Policy Engine → Cisco IQ</h1>
+  <p class="big" style="margin-top:1em">Is it a good move for an <span class="em">AI/ML-skilled</span> engineer?</p>
+  <p style="margin-top:1.4em;max-width:46em">Grounded in: official offer descriptions, investor releases, Cisco Live 2025/2026, product docs, earnings, and third-party analyst coverage.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">The four actors</div>
+  <h2>What you're actually moving across</h2>
+  <div class="cols">
+    <div class="card"><h3><span class="tag blue">SBG</span> Security Business Group</h3>
+      <ul><li>Official name of Cisco's security unit</li>
+      <li>Revenue: <span class="em">$1.95B</span> Q4 FY25 (+9%) → <span class="em">$2.2B</span> Q4 FY26 (<span class="good">+14%</span>)</li>
+      <li>Product P&L; strategic: defends the agentic-AI era (Splunk fusion)</li></ul></div>
+    <div class="card"><h3><span class="tag purple">CX</span> Customer Experience</h3>
+      <ul><li>Services business: professional services + support + customer engagement</li>
+      <li>Led by Liz Centoni, EVP &amp; Chief Customer Experience Officer</li>
+      <li>Runs its own on-prem <span class="em">agentic-AI workloads</span> (data sovereignty + cost)</li></ul></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Current role</div>
+  <h2>Mesh Policy Engine <span style="color:var(--mut);font-weight:400">— what you QA today</span></h2>
+  <ul>
+    <li>Official Offer Description (v2.1, <span class="em">Oct 2026</span>): "an <span class="em">intent-based policy orchestration</span> cloud service accessed through Security Cloud Control and Cloud Control"</li>
+    <li>Core: intent (app A → app B, ports/protocols) → <span class="em">translated into outcome-driven rules</span> → deployed across Cisco + Palo Alto / Fortinet / Juniper firewalls</li>
+    <li>First vendor with intent-based policy management across multi-vendor firewalls; launched mid-2025</li>
+    <li>AI content: <span class="warn">adjacent</span> — the *platform* adds an agentic workforce + AI Assistant; the *engine you test* is a deterministic compiler</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <div class="kicker">Target role</div>
+  <h2>Cisco IQ <span style="color:var(--mut);font-weight:400">— what you'd join</span></h2>
+  <ul>
+    <li>Launched <span class="em">Nov 4, 2025</span>: "a breakthrough AI-powered digital interface" unifying insights, assessments, troubleshooting, learning, automation &amp; <span class="em">agents</span> across professional services + support</li>
+    <li><span class="em">Purpose-built agentic-AI foundation</span> — agents adapt to each customer's environment; GenAI + ML + deterministic data engine ("seamless digital thread": Plan → Design → Implement → Operate → Optimize)</li>
+    <li>Deployment: SaaS (GA), on-prem tethered, <span class="em">air-gapped</span>, API; included with support contracts; tiers Basic/Standard/Signature; partner delivery models</li>
+    <li>Shipping fast: file-aware AI assistant, customer APIs, 5 languages, quantum-ready assessments, peer benchmarking (Jun 2026 Cisco Live headline)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <div class="kicker">The AI supercycle</div>
+  <h2>Why both platforms exist</h2>
+  <div class="stat">
+    <div><b>75%</b><span>already deployed AI for network ops (Omdia, 1,000 leaders)</span></div>
+    <div><b>51%</b><span>run agentic AI that <i>acts</i> in production today</span></div>
+    <div><b>84%</b><span>expect an AI-led operating model within 12 months</span></div>
+    <div><b>+96%</b><span>network traffic growth expected next 12 months</span></div>
+  </div>
+  <ul style="margin-top:1.2em">
+    <li>Cisco Live 2026 (Jun 2, Las Vegas): <span class="em">Cloud Control</span> (AgenticOps — one login/inventory/topology, build agents in natural language) + <span class="em">Cisco IQ</span> resilience capabilities + Live Protect — "putting the parts together"</li>
+    <li>Jeetu Patel: "networking supercycle — the network is central to all the AI infrastructure the world is building"</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <div class="kicker">Head to head</div>
+  <h2>MPE (SBG) vs Cisco IQ (CX)</h2>
+  <table>
+    <tr><th>Dimension</th><th>MPE in SBG — current</th><th>Cisco IQ in CX — target</th></tr>
+    <tr><td>Core tech</td><td>Deterministic intent compiler</td><td>GenAI + ML agents + data engine</td></tr>
+    <tr><td>AI in the work</td><td class="warn">Feature layer being added</td><td class="good">The product exists to run AI</td></tr>
+    <tr><td>QA flavor</td><td>Policy semantics, APIs, deploy correctness</td><td>Agent/LLM evals, guardrails, personalization, air-gapped</td></tr>
+    <tr><td>Business model</td><td class="good">Product P&L, +9% → +14%</td><td class="warn">Services P&L, being re-invented</td></tr>
+    <tr><td>Maturity</td><td>Established, steady</td><td>GA ~11 months — volatility + upside</td></tr>
+    <tr><td>2028 resume</td><td>"QA for firewall policy compiler"</td><td>"Evals/QA on Cisco's flagship agentic AI platform"</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <div class="kicker">Verdict</div>
+  <h2><span class="good">Yes — it's a good move</span> for your stated goal</h2>
+  <ul>
+    <li><span class="em">Directness of AI/ML leverage is the decisive axis — and IQ wins it.</span> In IQ, your M.Tech sits at the center of the work; in MPE it sits beside it.</li>
+    <li>Agent/evals engineering is the hottest QA-adjacent skill of the decade (51% acting agents in production) — IQ puts you <span class="em">inside</span> that work.</li>
+    <li>CEO-level visibility: Liz Centoni's boldest bet, Cisco Live headline, new Jun-2026 capabilities, on-prem AI build-out.</li>
+    <li><span class="warn">Caveat:</span> you trade a growing <span class="em">product</span> P&L (security +14%) for a <span class="em">services</span> business with a &lt;1-year-GA platform.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <div class="kicker">Before you accept</div>
+  <h2>Six due-diligence checks</h2>
+  <ul>
+    <li><span class="em">1 · Scope:</span> what % of the role is AI/agent work? Which models? Do you <i>build</i> evals or only use them?</li>
+    <li><span class="em">2 · Org:</span> is IQ a standalone product org inside CX, or a feature of the support business?</li>
+    <li><span class="em">3 · Deployment mix:</span> how much air-gapped / on-prem infra QA?</li>
+    <li><span class="em">4 · Stability:</span> is investment ring-fenced? (Evidence says yes — but confirm)</li>
+    <li><span class="em">5 · The hedge:</span> your MPE is already wired into <span class="em">Cloud Control</span> (AgenticOps). Ask about an internal Cloud-Control QA seat — same AI exposure, product P&L. If none exists → take IQ.</li>
+    <li><span class="em">6 · Depth:</span> does the team genuinely need AI/ML depth (eval design, model behavior, guardrails)? Young platforms usually do.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <div class="kicker">Key takeaways</div>
+  <h2>Bottom line</h2>
+  <div class="cols">
+    <div class="card"><h3><span class="tag green">Take the move</span></h3>
+      <p>Cisco IQ = the AI-native bet: agentic foundation, GenAI/ML core, fast shipping, executive visibility. For an AI/ML M.Tech in QA, it's the strongest leverage and the strongest 2028 story.</p></div>
+    <div class="card"><h3><span class="tag amber">Know the trade</span></h3>
+      <p>You're exchanging product-P&L stability (security, +14%) for services-business AI upside. Do the 6 checks. Keep Cloud Control (AgenticOps) inside SBG as your fallback lever.</p></div>
+  </div>
+  <p style="margin-top:1.6em;color:var(--mut);font-size:.85em">Sources: 105 pages — cisco.com (offer descriptions, docs, product pages, newsroom, investor), blogs.cisco.com, networkworld, cfodive, constellationr, splunk.com, Omdia/Cisco 2026 report. Corpus: data/raw/cisco-sbg-cx-bu-vs-cisco-iq/</p>
+</section>
+
+</div>
+<div class="hint">← → NAVIGATE</div>
+<div class="footer">
+  <div class="dots" id="dots"></div>
+  <div class="counter" id="counter">1 / 9</div>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsBox=document.getElementById('dots'),counter=document.getElementById('counter');
+let i=0;
+slides.forEach((_,n)=>{const d=document.createElement('div');d.className='dot'+(n===0?' on':'');d.onclick=()=>go(n);dotsBox.appendChild(d)});
+function go(n){i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+  [...dotsBox.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  counter.textContent=(i+1)+' / '+slides.length;}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(i+1);
+  else if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);
+  else if(e.key==='Home')go(0);
+  else if(e.key==='End')go(slides.length-1);});
+document.addEventListener('click',e=>{if(!e.target.closest('.dot'))go(i+1)});
+</script>
+</body>
+</html>

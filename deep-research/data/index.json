@@ -608,5 +608,15 @@
     "total_queries": 75,
     "rounds": 3,
     "timestamp": "2026-10-23T13:00:01.516877+00:00"
+  },
+  "cisco-sbg-cx-bu-vs-cisco-iq": {
+    "raw_path": "/Users/manjunathkanavi/.hermes/skills/deep-research/data/raw/cisco-sbg-cx-bu-vs-cisco-iq",
+    "synthesized_path": "/Users/manjunathkanavi/.hermes/skills/deep-research/data/synthesized/cisco-sbg-cx-bu-vs-cisco-iq",
+    "pages_count": 70,
+    "pdfs_count": 0,
+    "research_count": 0,
+    "total_queries": 28,
+    "rounds": 1,
+    "timestamp": "2026-10-29T12:04:37.685755+00:00"
   }
 }

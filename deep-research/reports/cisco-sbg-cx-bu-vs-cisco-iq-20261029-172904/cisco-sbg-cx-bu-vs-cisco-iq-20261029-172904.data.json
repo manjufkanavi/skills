@@ -1,0 +1,310 @@
+{
+  "topic": "Cisco SBG CX BU vs Cisco IQ product move",
+  "timestamp": "20261029-172904",
+  "subtopics": {
+    "sbg": {
+      "name": "Cisco SBG (Security Business Group)",
+      "pages": [
+        {
+          "title": "Shailaja Shankar",
+          "url": "https://blogs.cisco.com/author/shailas"
+        },
+        {
+          "title": "Exploring Cisco: A Strengths-Based Approach to Discovering Who We Are",
+          "url": "https://blogs.cisco.com/wearecisco/exploring-cisco-a-strengths-based-approach-to-discovering-who-we-are"
+        },
+        {
+          "title": "Small and Medium Enterprise Solutions",
+          "url": "https://www.cisco.com/site/us/en/solutions/small-business/index.html"
+        },
+        {
+          "title": "Secure Networking in the AI Era",
+          "url": "https://www.cisco.com/site/us/en/about/why-cisco/secure-networking/index.html"
+        },
+        {
+          "title": "Cisco Security Leadership Transition",
+          "url": "https://blogs.cisco.com/news/cisco-security-leadership-transition"
+        },
+        {
+          "title": "Cisco Systems Inc. - Governance - Executive Officers",
+          "url": "https://investor.cisco.com/governance/executive-management/default.aspx"
+        },
+        {
+          "title": "Cisco Systems",
+          "url": "https://www.cisco.com/c/dam/en_us/about/annual-report/2025-cisco-full-annual-report.pdf"
+        },
+        {
+          "title": "Executive Profiles",
+          "url": "https://www.cisco.com/c/en_in/about/executive-profiles.html"
+        },
+        {
+          "title": "CISCO REPORTS FOURTH QUARTER AND FISCAL YEAR 2025 EARNINGS",
+          "url": "https://investor.cisco.com/news/news-details/2025/CISCO-REPORTS-FOURTH-QUARTER-AND-FISCAL-YEAR-2025-EARNINGS/default.aspx"
+        },
+        {
+          "title": "Cisco Systems Inc. - Financials - Quarterly Results",
+          "url": "https://investor.cisco.com/financials/quarterly-results/default.aspx"
+        },
+        {
+          "title": "Cisco's 9% security growth is misleadingly low ",
+          "url": "https://www.networkworld.com/article/4040051/ciscos-9-security-growth-is-misleadingly-low.html"
+        },
+        {
+          "title": "Cisco security revenue jumps 14% as agentic AI sharpens cyberattacks",
+          "url": "https://www.cfodive.com/news/cisco-security-revenue-surges-agentic-ai-sharpens-cyberattacks/827872/"
+        },
+        {
+          "title": "AI Infrastructure, Secure Networking, and Software Solutions",
+          "url": "https://www.cisco.com/site/us/en/index.html"
+        },
+        {
+          "title": "Security Products and Solutions for Cloud and Workforce Protection",
+          "url": "https://www.cisco.com/site/us/en/products/security/index.html"
+        },
+        {
+          "title": "Kevin Egan",
+          "url": "https://blogs.cisco.com/author/kevinegan"
+        },
+        {
+          "title": "UNC Pembroke protecting students and staff with an integrated security approach - Cisco Video Portal",
+          "url": "https://video.cisco.com/detail/video/6094818618001"
+        },
+        {
+          "title": "Cisco Cloud Control: Unified Operations for Agentic IT | Cisco",
+          "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/cisco-cloud-control/index.html"
+        },
+        {
+          "title": "Cisco Security Cloud Control AI-Native Simplified IT",
+          "url": "https://www.cisco.com/site/us/en/products/security/security-cloud-control/index.html"
+        },
+        {
+          "title": "Overview of Cisco Security Cloud Control",
+          "url": "https://securitydocs.cisco.com/docs/scc/admin/106191.dita"
+        },
+        {
+          "title": "Security Cloud Control - Cisco",
+          "url": "https://security.cisco.com/"
+        }
+      ]
+    },
+    "cx": {
+      "name": "Cisco CX BU (Customer Experience)",
+      "pages": [
+        {
+          "title": "Cisco Global Customer Experience (CX) Partner Success ALL IN at Cisco Live!",
+          "url": "https://blogs.cisco.com/partner/cisco-global-customer-experience-cx-partner-success-all-in-at-cisco-live"
+        },
+        {
+          "title": "Revolutionizing Customer Engagement and Collaborative Development",
+          "url": "https://blogs.cisco.com/customerexperience/revolutionizing-customer-engagement-and-collaborative-development"
+        },
+        {
+          "title": "Cisco Customer Experience | Cisco",
+          "url": "https://www.linkedin.com/posts/cisco_cisco-customer-experience-activity-7203914486863294465--z78"
+        },
+        {
+          "title": "Cisco Customer Experience (CX) - Explore - WWT",
+          "url": "https://www.wwt.com/product/cisco-customer-experience-cx/explore"
+        },
+        {
+          "title": "Contact Center Solutions, Customer Service Platform",
+          "url": "https://www.cisco.com/c/en/us/products/contact-center/index.html"
+        },
+        {
+          "title": "Customer Success Stories - Services (CX)",
+          "url": "https://www.cisco.com/c/m/en_us/customer-experience/customer-stories.html"
+        },
+        {
+          "title": "Great Customer Experience, our promise to partners and customers",
+          "url": "https://blogs.cisco.com/partner/great-customer-experience-our-promise-to-partners-and-customers"
+        },
+        {
+          "title": "What Is a Contact Center?",
+          "url": "https://www.cisco.com/site/us/en/learn/topics/collaboration/what-is-a-contact-center.html"
+        },
+        {
+          "title": "Cisco Customer Experience",
+          "url": "https://blogs.cisco.com/customerexperience"
+        },
+        {
+          "title": "Cisco Furthers Customer Experience Momentum with New Offerings That Extend Customer Value",
+          "url": "https://investor.cisco.com/news/news-details/2024/Cisco-Furthers-Customer-Experience-Momentum-with-New-Offerings-That-Extend-Customer-Value/default.aspx"
+        },
+        {
+          "title": "The Cisco Customer Experience: More Than Just Business",
+          "url": "https://blogs.cisco.com/security/the-cisco-customer-experience-more-than-just-business"
+        },
+        {
+          "title": "Cisco Redefines Customer Experience with New Partner Opportunities, Value to Customers",
+          "url": "https://investor.cisco.com/news/news-details/2019/Cisco-Redefines-Customer-Experience-with-New-Partner-Opportunities-Value-to-Customers/default.aspx"
+        },
+        {
+          "title": "Cisco Purpose - Power an Inclusive Future for All",
+          "url": "https://www.cisco.com/site/us/en/about/purpose/index.html"
+        },
+        {
+          "title": "Cisco CX",
+          "url": "https://blogs.cisco.com/author/ciscocx"
+        },
+        {
+          "title": "CX Cloud Release Notes May 2025",
+          "url": "https://www.cisco.com/c/en/us/support/docs/cx/cx-cloud/cx223003-cx-cloud-release-notes-may-2025.html"
+        },
+        {
+          "title": "2342: Cisco - How Customer Experience Can Drive Business Innovation",
+          "url": "https://www.youtube.com/watch?v=9ob76eRSx_I"
+        },
+        {
+          "title": "When AI meets CX: Cisco solutions for a simpler, secure future",
+          "url": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2024/m03/when-ai-meets-cx.html"
+        },
+        {
+          "title": "Cisco AI Assistant",
+          "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/ai-assistant/index.html"
+        },
+        {
+          "title": "Cisco IQ: Redefining customer experience while driving partner value",
+          "url": "https://blogs.cisco.com/news/cisco-iq-redefining-customer-experience-while-driving-partner-value"
+        },
+        {
+          "title": "How Cisco CX scaled AI without sacrificing security or cost",
+          "url": "https://blogs.cisco.com/cisco-on-cisco/cisco-cx-on-premises-ai-scaling"
+        }
+      ]
+    },
+    "mesh": {
+      "name": "Mesh Policy Engine (Cisco Security Cloud Control)",
+      "pages": [
+        {
+          "title": "Mesh-Policy-Engine",
+          "url": "https://www.cisco.com/c/dam/en_us/about/doing_business/legal/OfferDescriptions/Mesh-Policy-Engine.pdf"
+        },
+        {
+          "title": "Cisco Hybrid Mesh Firewall: Better Enforcement Points, Smarter Segmentation, and Multi-Vendor Policy",
+          "url": "https://blogs.cisco.com/security/cisco-hybrid-mesh-firewall-better-enforcement-points-smarter-segmentation-multi-vendor-policy"
+        },
+        {
+          "title": "Mesh Policy Engine Ordering Guide",
+          "url": "https://www.cisco.com/c/en/us/products/collateral/security/mesh-policy-engine-og.html"
+        },
+        {
+          "title": "Cisco Security Cloud Control: Mesh Policy Engine",
+          "url": "https://www.cisco.com/c/en/us/td/docs/security/security-cloud-control/mesh-policy-engine/mesh-policy-engine-orig/mesh-policy-engine.html"
+        },
+        {
+          "title": "Solutions - Cisco Hybrid Mesh Firewall At-a-Glance",
+          "url": "https://www.cisco.com/c/en/us/solutions/collateral/security/hybrid-mesh-firewall/hybrid-mesh-firewall-aag.html"
+        },
+        {
+          "title": "Cisco Hybrid Mesh Firewall - Hypershield - Cisco Video Portal",
+          "url": "https://video.cisco.com/detail/video/6374151888112"
+        },
+        {
+          "title": "dallas-cisco-hybrid-mesh-firewall",
+          "url": "https://www.cisco.com/c/dam/en_us/training-events/events/engage-tech-days/2025/dallas-cisco-hybrid-mesh-firewall.pdf"
+        },
+        {
+          "title": "Cisco Secure Firewall: Hybrid Mesh Firewall Overview and Demo - Cisco Community",
+          "url": "https://community.cisco.com/t5/security-videos/cisco-secure-firewall-hybrid-mesh-firewall-overview-and-demo/ba-p/5364759"
+        },
+        {
+          "title": "Achieve Transformative Network Security With Cisco Hybrid Mesh Firewall",
+          "url": "https://blogs.cisco.com/security/achieve-transformative-network-security-with-cisco-hybrid-mesh-firewall"
+        },
+        {
+          "title": "Fusing Security Into the Network Fabric: From Hybrid Mesh Firewalls to Universal ZTNA",
+          "url": "https://blogs.cisco.com/security/fusing-security-into-the-network-fabric-from-hybrid-mesh-firewalls-to-universal-ztna"
+        },
+        {
+          "title": "Cisco Hybrid Mesh Firewall & Segmentation",
+          "url": "https://www.cisco.com/c/dam/en_us/training-events/events/engage-tech-days/2026/nyc/cisco-hybrid-mesh-firewall-and-segmentation.pdf"
+        },
+        {
+          "title": "Capabilities of Mesh Policy Engine",
+          "url": "https://securitydocs.cisco.com/docs/scc/whatsnew/168296.dita"
+        },
+        {
+          "title": "Cisco Cloud Control - Cisco Cloud Control Getting Started",
+          "url": "https://www.cisco.com/c/en/us/td/docs/ai/cisco-cloud-control/articles/cisco-cloud-control-getting-started.html"
+        },
+        {
+          "title": "Cisco Cloud Control: The Secure Harness for the Agentic Era",
+          "url": "https://blogs.cisco.com/ai/cisco-cloud-control-the-secure-harness-for-the-agentic-era"
+        },
+        {
+          "title": "Cisco Security Cloud Control: Secure Firewall Threat Defense Management - Introduction to AgenticOps insights [Cisco Security Cloud Control]",
+          "url": "https://www.cisco.com/c/en/us/td/docs/security/cdo/cloud-delivered-firewall-management-center-in-cdo/managing-firewall-threat-defense-services-with-cisco-defense-orchestrator/AIops.html"
+        },
+        {
+          "title": "Cisco Security Cloud Control - Security Cloud Control Data Sheet",
+          "url": "https://www.cisco.com/c/en/us/products/collateral/security/security-cloud-control/datasheet-c78-736847.html"
+        },
+        {
+          "title": "Cisco ThousandEyes Assurance",
+          "url": "https://www.cisco.com/site/us/en/products/networking/software/internet-cloud-intelligence/index.html"
+        },
+        {
+          "title": "Cisco Secure Access - Cisco Secure Access Data Sheet",
+          "url": "https://www.cisco.com/c/en/us/products/collateral/security/secure-access/secure-access-ds.html"
+        },
+        {
+          "title": "Use the Security Cloud Control Firewall\r\n                                        Management platform navigator",
+          "url": "https://securitydocs.cisco.com/docs/scc/admin/85974.dita"
+        },
+        {
+          "title": "Secure your Applications Across Networks and Cloud with Cisco AppDynamics - Cisco Video Portal",
+          "url": "https://video.cisco.com/detail/video/6249213876001"
+        },
+        {
+          "title": "Cisco Security Cloud Control: Mesh Policy Engine - Mesh Policy Engine Overview [Cisco Security Cloud Control]",
+          "url": "https://www.cisco.com/c/en/us/td/docs/security/security-cloud-control/mesh-policy-engine/mesh-policy-engine-orig/mesh-policy-engine/g-overview-of-mesh-policy-engine.html"
+        },
+        {
+          "title": "Cisco adds intelligent policy enforcement to mesh firewall family",
+          "url": "https://www.networkworld.com/article/4124600/cisco-adds-intelligent-policy-enforcement-to-mesh-firewall-family.html"
+        },
+        {
+          "title": "Cisco Security Cloud Control: Mesh Policy Engine - Getting Started with Mesh Policy Engine [Cisco Security Cloud Control]",
+          "url": "https://www.cisco.com/c/en/us/td/docs/security/security-cloud-control/mesh-policy-engine/mesh-policy-engine-orig/mesh-policy-engine/g-overview-of-mesh-policy-engine/g-get-started.html"
+        },
+        {
+          "title": "Introducing Intent-Based Policy Management for Cisco Hybrid Mesh Firewall",
+          "url": "https://blogs.cisco.com/security/introducing-intent-based-policy-management-for-cisco-hybrid-mesh-firewall"
+        }
+      ]
+    },
+    "iq": {
+      "name": "Cisco IQ product",
+      "pages": [
+        {
+          "title": "Supported Product List - Cisco IQ Documentation",
+          "url": "https://iq.cisco.com/docs/supported-product-list.html"
+        },
+        {
+          "title": "From Tools to Intelligence: The Engineering Philosophy of Cisco IQ",
+          "url": "https://blogs.cisco.com/customerexperience/from-tools-to-intelligence-the-engineering-philosophy-of-cisco-iq"
+        },
+        {
+          "title": "Welcome to Cisco IQ - Cisco Community",
+          "url": "https://community.cisco.com/t5/cisco-iq/welcome-to-cisco-iq/td-p/5555901"
+        },
+        {
+          "title": "From Vision to Reality: Intelligence in Action with Cisco IQ",
+          "url": "https://blogs.cisco.com/customerexperience/from-vision-to-reality-intelligence-in-action-with-cisco-iq"
+        },
+        {
+          "title": "Cisco launches Cisco IQ, the unified AI-powered experience that connects the entire customer journey",
+          "url": "https://investor.cisco.com/news/news-details/2025/Cisco-launches-Cisco-IQ-the-unified-AI-powered-experience-that-connects-the-entire-customer-journey/default.aspx"
+        },
+        {
+          "title": "Support Services",
+          "url": "https://www.cisco.com/site/us/en/services/support/index.html"
+        }
+      ]
+    },
+    "ai": {
+      "name": "Cisco AI strategy comparison",
+      "pages": []
+    }
+  }
+}
