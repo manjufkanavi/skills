@@ -1,0 +1,56 @@
+# product-demo-video scenario — copy, edit, then run the pipeline.
+#
+# Everything except `scenes` is optional; defaults shown below.
+# `actions` is advisory: the agent translates each into Playwright MCP calls,
+# with judgment (it may use browser_snapshot/browser_highlight as needed).
+# Supported action keys: wait (s), navigate (url), click (text|selector),
+# fill (selector + value), hover, press (key), scroll (px or target).
+
+title: "Terra Genius — Company Overview"   # shown on the intro title card
+subtitle: "2-minute product tour"          # optional second line on the card
+url: https://terragenius.com               # default starting URL (scene url overrides)
+
+voice: im_nicola                          # Kokoro voice (see kokoro-tts skill)
+speed: 0.9                                # <1 slower/more natural
+resolution: "1280x720"
+fps: 30
+crf: 24
+captions: true                            # per-scene caption bar + intro card
+max_size_mb: 48                           # Telegram bot upload budget
+
+scenes:
+  - id: hero
+    title: "The promise"                  # caption bar text + manifest label
+    # url: https://terragenius.com        # omit to stay on the current page
+    narration: >
+      Terra Genius holds the earth to a higher standard.
+      For over twenty years, they have delivered stormwater management
+      and erosion control services across the country.
+    actions:
+      - {wait: 2.5}
+      - {click: "Learn More"}             # first CTA on the hero
+      - {wait: 2}
+
+  - id: services
+    title: "Services"
+    url: https://terragenius.com/services
+    narration: >
+      The services page breaks the offering into three areas:
+      stormwater management, erosion control monitoring,
+      and BMP management, each with its own dedicated overview.
+    actions:
+      - {wait: 2}
+      - {scroll: 500}
+      - {wait: 2}
+
+  - id: about
+    title: "About us"
+    url: https://terragenius.com/about
+    narration: >
+      The About page tells the story: since 2004,
+      Terra Genius has conducted over ten thousand site inspections,
+      which is the credibility behind every service they sell.
+    actions:
+      - {wait: 2}
+      - {scroll: 600}
+      - {wait: 2.5}
