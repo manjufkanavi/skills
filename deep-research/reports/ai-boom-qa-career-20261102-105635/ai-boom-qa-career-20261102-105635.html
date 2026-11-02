@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riding the AI Boom — Positioning a 9-Year Test Automation Engineer</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --border:#30363d;
+    --text:#e6edf3; --muted:#8b949e; --blue:#58a6ff; --purple:#bc8cff;
+    --green:#7ee787; --yellow:#e3b341; --red:#ff7b72;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,sans-serif;line-height:1.65}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+  /* hero */
+  .hero{padding:64px 20px 40px;max-width:900px;margin:0 auto;background:
+    radial-gradient(ellipse 70% 60% at 50% -10%,rgba(188,140,255,.18),transparent),
+    radial-gradient(ellipse 60% 50% at 80% 110%,rgba(88,166,255,.12),transparent)}
+  .hero .kicker{color:var(--purple);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+  .hero h1{font-size:clamp(30px,6vw,52px);line-height:1.12;font-weight:800;
+    background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{margin-top:16px;color:var(--muted);font-size:16px;max-width:640px}
+  .tags{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{display:inline-block;background:#1f2937;border:1px solid var(--border);border-radius:6px;padding:3px 12px;font-size:12.5px;color:#c9d1d9}
+  /* KPI strip */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:34px 0 0}
+  .kpi{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .kpi b{display:block;font-size:26px;font-weight:800;color:var(--green)}
+  .kpi span{font-size:12.5px;color:var(--muted);display:block;margin-top:4px;line-height:1.45}
+  /* TOC */
+  .toc{margin:34px 0;padding:18px 20px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
+  .toc a{color:var(--blue);text-decoration:none;font-size:14px;display:inline-block;margin:3px 14px 3px 0}
+  .toc a:hover{color:var(--purple)}
+  /* sections */
+  section{margin-top:56px}
+  h2{font-size:26px;font-weight:800;margin-bottom:6px;padding-left:14px;border-left:4px solid var(--purple)}
+  h2 .n{color:var(--purple);margin-right:8px}
+  .lede{color:var(--muted);font-size:15px;margin:10px 0 20px}
+  h3{font-size:18px;color:var(--blue);margin:26px 0 10px;font-weight:700}
+  p{font-size:15px;color:#c9d1d9;margin-bottom:12px}
+  ul{margin:0 0 14px 20px}li{font-size:15px;color:#c9d1d9;margin-bottom:8px}
+  strong{color:var(--text)}
+  .hl{color:var(--green);font-weight:700}
+  .hlp{color:var(--purple);font-weight:700}
+  .hlb{color:var(--blue);font-weight:700}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .card.warn{border-color:rgba(255,123,114,.4)}
+  .card.gold{border-color:rgba(227,179,65,.45)}
+  .callout{background:linear-gradient(90deg,rgba(88,166,255,.08),rgba(188,140,255,.08));border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:10px;padding:16px 20px;margin:18px 0;font-size:15px}
+  .callout p{margin:0;color:var(--text)}
+  /* tables */
+  .tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+  .tbl th{background:var(--panel);color:var(--blue);text-align:left;padding:10px 12px;border:1px solid var(--border);font-weight:600}
+  .tbl td{border:1px solid var(--border);padding:10px 12px;color:#c9d1d9;vertical-align:top}
+  .tbl td b{color:var(--text)}
+  .tbl tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  /* role cards */
+  .roles{display:grid;gap:14px;margin-top:18px}
+  .role{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;position:relative;overflow:hidden}
+  .role::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--purple))}
+  .role .rank{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700}
+  .role h3{margin:6px 0 4px;font-size:19px}
+  .role .fit{font-size:13px;color:var(--green);margin-bottom:10px;font-weight:600}
+  .role p{font-size:14px;margin-bottom:8px}
+  .role .pay{font-size:13.5px;color:var(--yellow);font-weight:600}
+  .role .gap{font-size:13.5px;color:var(--muted)}
+  .role .gap b{color:var(--text)}
+  /* roadmap layers */
+  .layer{display:grid;grid-template-columns:120px 1fr;gap:16px;margin:0 0 6px}
+  .layer .when{font-size:12px;color:var(--purple);font-weight:700;padding-top:2px;text-transform:uppercase;letter-spacing:.06em}
+  .layer .body{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:14px}
+  .layer .body h3{margin:0 0 8px;font-size:16.5px}
+  .layer .body ul{margin-bottom:0}
+  .layer .money{border-color:rgba(227,179,65,.5)}
+  .layer .money .body,.layer .money>.body{border-color:rgba(227,179,65,.5)}
+  .layer .moat .body,.layer .moat>.body{border-color:rgba(126,231,135,.5)}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;padding:2px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
+  .badge.gold{background:rgba(227,179,65,.15);color:var(--yellow);border:1px solid rgba(227,179,65,.4)}
+  .badge.green{background:rgba(126,231,135,.12);color:var(--green);border:1px solid rgba(126,231,135,.4)}
+  /* timeline 30/60/90 */
+  .step{display:grid;grid-template-columns:110px 1fr;gap:16px;margin-bottom:14px}
+  .step .when{font-size:13px;color:var(--blue);font-weight:700;padding-top:3px}
+  .step .body{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 20px}
+  .step .body h3{margin:0 0 8px;font-size:16.5px}
+  .step .body ul{margin-bottom:0}
+  /* verdict */
+  .verdict{background:linear-gradient(135deg,rgba(88,166,255,.12),rgba(188,140,255,.14));border:1px solid var(--purple);border-radius:14px;padding:26px 28px;margin-top:20px}
+  .verdict h3{margin-top:0;font-size:20px}
+  .verdict p{font-size:16px;color:var(--text)}
+  /* refs */
+  .refs{columns:2;column-gap:28px;font-size:12.5px}
+  .refs li{margin-bottom:7px;color:var(--muted);break-inside:avoid}
+  .refs b{color:#c9d1d9}
+  footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px;text-align:center}
+  @media(max-width:640px){.layer,.step{grid-template-columns:1fr}.layer .when,.step .when{margin-bottom:2px}.refs{columns:1}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kicker">Deep Research · 70 Sources · November 2026</div>
+  <h1>Riding the AI Boom<br>without losing your craft</h1>
+  <div class="sub">A positioning playbook for a <strong style="color:#e6edf3">9-year Senior QA Automation Engineer</strong> — Python · Selenium · Docker · Kubernetes · Networks &amp; Security — on what to learn, where to land, and how to get paid well.</div>
+  <div class="tags">
+    <span class="tag">BCG</span><span class="tag">WEF</span><span class="tag">PwC</span><span class="tag">LinkedIn Jobs on the Rise 2026</span><span class="tag">Forrester</span><span class="tag">KORE1</span><span class="tag">India salary data</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>+143%</b><span>YoY growth in AI-engineer job postings — the #1 fastest-growing US title in 2026 (LinkedIn)</span></div>
+    <div class="kpi"><b>3.2 : 1</b><span>Demand-to-supply gap for AI engineers — the bottleneck is <i>qualified candidates</i> (KORE1)</span></div>
+    <div class="kpi"><b>+62%</b><span>Wage premium for workers with AI skills, up from 56% a year ago (PwC 2026)</span></div>
+    <div class="kpi"><b>2.2 / 5</b><span>How users rate <i>full</i> test autonomy today — "a copilot, not a replacement" (Forrester, Apr 2026)</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="toc">
+  <strong style="font-size:13px;color:#8b949e;letter-spacing:.1em">IN THIS REPORT</strong><br>
+  <a href="#macro">1 · What's actually happening</a>
+  <a href="#assets">2 · Your asset map</a>
+  <a href="#multiplier">3 · The multiplier &amp; the trap</a>
+  <a href="#roles">4 · Your four target roles</a>
+  <a href="#roadmap">5 · The skill roadmap</a>
+  <a href="#playbook">6 · 30/60/90 playbook</a>
+  <a href="#outlook">7 · Where it's heading</a>
+  <a href="#bottomline">Bottom line</a>
+</div>
+
+<section id="macro">
+  <h2><span class="n">1</span>What's actually happening</h2>
+  <p class="lede">The AI boom is not eating QA — it is <span class="hlp">bifurcating</span> it. Execution work is being automated; judgment, governance and security work are exploding.</p>
+
+  <div class="card">
+    <h3>The job market is reshaping, not shrinking</h3>
+    <ul>
+      <li>WEF Future of Jobs 2025: <span class="hl">170M roles created, 92M displaced by 2030</span> — a net gain of 78M. AI/ML specialists rank among the fastest-growing roles through 2030.</li>
+      <li>BCG (2026): for software engineers, AI <span class="hlb">accelerates but does not substitute</span> — "it cannot replace the system-level judgment required to own the outcome end to end." Work shifts toward system-level thinking, orchestration and product decisions.</li>
+      <li>Forbes (Aug 2026): the market isn't hiring "armies with shiny new AI titles." It wants <strong>existing professionals who integrate AI into their current roles</strong> — and agentic-AI skills show the fastest growth of all.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>The QA profession is being formally renamed</h3>
+    <ul>
+      <li>Forrester renamed its entire testing category from "Continuous Automation Testing Platforms" to <span class="hlp">"Autonomous Testing Platforms"</span> in Q4 2025 — formal recognition that scripted automation is giving way to agent-driven execution.</li>
+      <li>But autonomy is still young: Forrester's April 2026 customer research found teams averaging <span class="hlb">51–60% automation coverage</span> (up from the ~25% historical ceiling) while rating <i>full</i> autonomy <strong>2.2/5</strong> — "a copilot rather than a replacement."</li>
+      <li>The professional consequence: script writing &amp; maintenance get absorbed by agents. The human role moves to <strong>coverage strategy, reviewing AI-generated tests, exploratory testing, and governing the quality program</strong> — the "Quality Intelligence Leader."</li>
+      <li>Practitioner reality check (r/QualityAssurance): what actually survives is <strong>failure triage</strong> — classifying <i>why</i> a test broke (timing, data, UI drift, real defect) before touching a line of code. That is a nine-year skill.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>The pay math</h3>
+    <ul>
+      <li>PwC: the AI-skill wage premium <span class="hl">doubled in one year — 56% → 62%</span>. Skills lift pay <i>inside the title you already hold</i>.</li>
+      <li>US anchors: AI engineer median <strong>$176K</strong> (43,480 postings since Jan 2026, Axial) · ML engineer BLS growth <strong>34% 2024–34</strong> (8× all-occupation average) · MLOps <strong>$90K–$257K</strong>, LLM-deployment experience pushing past $200K (KORE1).</li>
+      <li>India anchors: SDET average <strong>₹23.2 LPA</strong> across 3,293 verified profiles (6figr, Oct 2026); senior SDET / Quality Architect band <strong>₹85 LPA – 1.2 Cr</strong> (Instahyre); top-10% SDETs at product firms with 8+ yrs reach <strong>₹50 LPA</strong> (Recruivera).</li>
+      <li>The market has <span class="hlp">bifurcated</span>: manual testing pay grows 5–8% YoY, SDET/automation climbs <span class="hl">12–18% YoY</span>.</li>
+    </ul>
+  </div>
+
+  <div class="callout"><p>The talent gap is your leverage: AI-engineer demand is up <strong>143% YoY against a 3.2:1 supply gap</strong>, and WEF projects data/AI demand exceeding supply by 30–40% by 2027. Yet only <strong>2.5%</strong> of AI-engineer postings target juniors — this is a <strong>senior IC market</strong>, and new hires into the title have a median <strong>3.7 years</strong> of prior experience, mostly from SWE, data science and full-stack roles. <span class="hl">Nine years of engineering discipline is an asset — if it's framed as engineering, not "testing."</span></p></div>
+</section>
+
+<section id="assets">
+  <h2><span class="n">2</span>Your asset map — what you already own, at market value</h2>
+  <p class="lede">You are not a QA engineer who needs to "break into" AI. You are a software engineer with 9 years of quality, infrastructure and security experience, sitting <span class="hlp">two skill layers</span> from the premium.</p>
+
+  <table class="tbl">
+    <tr><th style="width:32%">What you have</th><th>What the 2026 market says it's worth</th></tr>
+    <tr>
+      <td><b>Python (9 yrs)</b></td>
+      <td>The single most-requested skill in AI engineering — <b>71% of AI-engineer postings</b> (365 Data Science); named in &gt;50% of AI roles alongside cloud (Axial). You're already at the table.</td>
+    </tr>
+    <tr>
+      <td><b>Docker + Kubernetes</b></td>
+      <td>CKA is the <b>#1 highest-paying DevOps skill</b> (+$15–25K / +12–20%); <b>MLOps / AI infrastructure is the #2 and highest-paying DevOps specialisation</b> (+$25–45K / +20–35%). K8s is how AI workloads actually run — you're 90% of the way to the MLOps title.</td>
+    </tr>
+    <tr>
+      <td><b>Networks + Security</b></td>
+      <td><b>AI security is one of the 11 most in-demand AI skills of 2026</b> (prompt-injection defense, data-leakage prevention, retrieval access control). US AI-safety/alignment pays <b>$170K–$300K</b>; OpenAI security engineers <b>$295K–$2.5M+</b>. The least-crowded, highest-premium quadrant in the AI job map — and your Cisco/Akamai networking background is the rare moat.</td>
+    </tr>
+    <tr>
+      <td><b>Selenium + test craft (9 yrs)</b></td>
+      <td>The irreplaceable judgment layer: risk-based coverage, exploratory testing, failure triage, flakiness discipline. "Governing the quality programme rather than operating the tools" (VirtuosoQA) — and "meaning, trust, and responsibility will always belong to people" (TestFort).</td>
+    </tr>
+    <tr>
+      <td><b>CI/CD + infra thinking</b></td>
+      <td>MLOps hiring pools are explicitly <b>sourced from DevOps/SRE backgrounds adding ML knowledge</b> (PE Collective) — that's your literal profile. Employers screen for hands-on execution first, architecture second (Axial).</td>
+    </tr>
+  </table>
+</section>
+
+<section id="multiplier">
+  <h2><span class="n">3</span>The multiplier — and the trap to avoid</h2>
+
+  <div class="card gold">
+    <h3>📈 The multiplier: applied AI work in the job you already hold</h3>
+    <p>PwC's 62% premium attaches to <strong>skills, not titles</strong>. The fastest way to bank it: start running AI inside your QA role <em>this quarter</em> — agentic test generation, self-healing suites, LLM-assisted failure triage. A 2026 industry study puts test-prep time down <span class="hl">&gt;40%</span> with agentic generation; the recommended best-practice threshold is <span class="hl">&gt;50% AI utilization in your workflow</span>. That one habit, documented on your resume, converts "SDET" into "SDET who runs an agentic quality pipeline" — a different pay band entirely.</p>
+  </div>
+
+  <div class="card warn">
+    <h3>⚠️ The trap: "Prompt Engineer"</h3>
+    <p>The loudest 2023–24 title is a mirage. A 2026 Adzuna analysis found <strong>only ~7,400 US postings mention prompt engineering vs 137,176 for Python</strong> — "valuable as an add-on, not as a primary job function." Same story for context engineering (~700 US postings, Lightcast/Stanford HAI). Put <strong>both</strong> on your resume as skills — never as the headline title.</p>
+  </div>
+</section>
+
+<section id="roles">
+  <h2><span class="n">4</span>Your four target roles — fit-ranked</h2>
+  <p class="lede">All four are reachable from where you sit. Ranked by fit-to-pay ratio for <em>your</em> profile.</p>
+
+  <div class="roles">
+    <div class="role">
+      <div class="rank">Pick ① — the natural bridge</div>
+      <h3>MLOps / AI Platform Engineer</h3>
+      <div class="fit">★★★★★ best fit for your exact profile</div>
+      <p>Make ML/LLM work in production: model serving on Kubernetes, GPU/cluster pipelines, experiment tracking, monitoring, cost engineering.</p>
+      <div class="pay">US $130K–$257K (KORE1) · $85K–$270K (PE Collective) · India: AI-engineer band ₹6L–32L, 5+ yrs ₹35L+ (Scaler) · fully-remote US infra $155K–$235K (Recruits Lab)</div>
+      <div class="gap"><b>Gap to close:</b> ML basics (your BITS M.Tech covers the theory), model serving (vLLM, Triton, KServe), GPU ops, cost engineering.</div>
+    </div>
+
+    <div class="role">
+      <div class="rank">Pick ② — the moat</div>
+      <h3>AI Security — "Security for LLM &amp; Agent Systems"</h3>
+      <div class="fit">★★★★★ least crowded · highest premium</div>
+      <p>Prompt-injection defense, agent permissioning, data-leakage controls, RAG access control, EU AI Act compliance evidence, red-teaming LLM apps.</p>
+      <div class="pay">US AI safety/alignment $170K–$300K · AI governance/compliance $110K–$200K (aimagicx) · appsec baseline $90K–$130K · frontier-lab security up to $2.5M+ (OpenAI, gitGood)</div>
+      <div class="gap"><b>Gap to close:</b> the LLM attack surface (injection, exfiltration, tool abuse), agent sandboxing, guardrail frameworks, audit evidence — EU AI Act Art. 96 wants machine-readable, continuously-updated compliance docs. That's a QA person's native discipline, and your networks+security background fuses all three of this role's skills.</div>
+    </div>
+
+    <div class="role">
+      <div class="rank">Pick ③ — the low-risk bridge</div>
+      <h3>AI Quality / Agentic Testing Engineer</h3>
+      <div class="fit">★★★★ keeps your 9 years as the asset</div>
+      <p>Own the "does the AI work?" layer: LLM evaluation (golden datasets, model-graded evals, regression suites in CI), drift &amp; hallucination monitoring, agent red-teaming, agentic test pipelines (mabl MCP, Midscene, Wopee-class).</p>
+      <div class="pay">Rides the AI-engineer band (₹35L+ India senior · $166K+ median US new-hire) with the "testing AI" niche premium</div>
+      <div class="gap"><b>Gap to close:</b> eval frameworks (LangSmith, Langfuse, DeepEval), the agent loop, RAG internals. "Evaluation &amp; observability" is repeatedly named the <b>most underrated AI skill</b> (Unico) — and evals <em>are</em> test engineering.</div>
+    </div>
+
+    <div class="role">
+      <div class="rank">Pick ④ — the biggest market, most crowded</div>
+      <h3>Applied AI Engineer (RAG + agents)</h3>
+      <div class="fit">★★★ biggest demand · most competition</div>
+      <p>Build production LLM systems: RAG (chunking, embeddings, hybrid search, reranking, citations), tool-calling agents, MCP integrations, memory, orchestration (LangGraph). The largest single AI hiring category — 43,480 US postings.</p>
+      <div class="pay">Median $176K US · 3.2:1 supply gap</div>
+      <div class="gap"><b>Gap to close:</b> the most — the full applied stack — and the most crowded. Best pursued <b>after</b> ①/②/③, not instead of them.</div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <h2><span class="n">5</span>The skill roadmap — learn in this order</h2>
+  <p class="lede">The 2026 consensus (Towards AI · Scaler · Unico · Maven): <span class="hlp">understand the loop before you touch frameworks.</span></p>
+
+  <div class="layer"><div class="when">Weeks 1–4</div><div class="body">
+    <h3>Layer 0 · Sharpen the base you already have</h3>
+    <ul>
+      <li>Python depth: async, packaging, API design, type safety. Keep K8s + networking current.</li>
+      <li>If you don't have <strong>CKA</strong>, book it — the single best signal-per-rupee you can buy (#1 paying DevOps skill).</li>
+      <li>Lean on your <strong>BITS M.Tech (AI/ML)</strong> — you already hold the formal credential most career-changers lack.</li>
+    </ul>
+  </div></div>
+
+  <div class="layer"><div class="when">Months 1–3</div><div class="body">
+    <h3>Layer 1 · LLMs &amp; RAG</h3>
+    <ul>
+      <li>How an LLM actually behaves: tokens, context windows, temperature, structured outputs.</li>
+      <li>Build <strong>one real RAG app over your own data</strong> (your test docs, your runbooks): chunking, embeddings, hybrid search, reranking, citations.</li>
+      <li>"Done" looks like: a working RAG chatbot over <em>your</em> documents — not someone else's tutorial dataset (Scaler).</li>
+    </ul>
+  </div></div>
+
+  <div class="layer"><div class="when">Months 3–6</div><div class="body">
+    <h3>Layer 2 · Agents</h3>
+    <ul>
+      <li>The agent loop: plan → act → observe → repeat; tool &amp; function calling; memory; multi-agent coordination.</li>
+      <li>Pick <strong>one</strong> framework and go deep: LangGraph (or Anthropic SDK / OpenAI Agents SDK).</li>
+      <li>Learn <strong>MCP</strong> — the "USB-C for AI," donated to the Linux Foundation Agentic AI Foundation (Dec 2025), 10,000+ servers published — the integration layer your CI/IDE ecosystem now speaks.</li>
+      <li>Learn the <strong>Agent Skills spec</strong> (standardized Dec 2025, read by VS Code, Copilot, Cursor, Codex) — your QA domain knowledge becomes a <i>skill file</i> an agent can consume.</li>
+    </ul>
+  </div></div>
+
+  <div class="layer money"><div class="when">Months 6–9</div><div class="body">
+    <h3>Layer 3 · Evaluation &amp; Observability <span class="badge gold">THE MONEY LAYER</span></h3>
+    <ul>
+      <li>Golden datasets, model-graded evaluation, <strong>regression suites for LLM output in CI</strong>, tracing (LangSmith / open-source Langfuse).</li>
+      <li>This is where 9 years of test discipline compounds: you already think in suites, flakiness and risk — just point the same machinery at AI output (drift, hallucination rate, tool abuse).</li>
+    </ul>
+  </div></div>
+
+  <div class="layer moat"><div class="when">Months 9–12</div><div class="body">
+    <h3>Layer 4 · AI Security &amp; Guardrails <span class="badge green">THE MOAT LAYER</span></h3>
+    <ul>
+      <li>Prompt injection, data exfiltration, agent permission boundaries, RAG access control, output filtering; EU AI Act compliance evidence pipelines.</li>
+      <li>Deliverable: a <strong>public red-team report on a real LLM app</strong> — a single artifact that can open interview doors the other three layers only warm up for.</li>
+    </ul>
+  </div></div>
+
+  <div class="callout"><p><strong>Portfolio rule (Scaler, emphatic):</strong> ship everything publicly — GitHub + short write-up + demo video — and <em>document why you made each design choice</em>. "A short blog post explaining a design trade-off is worth more to a hiring manager than another line on a resume." <span class="hl">Portfolio beats certificates, every time, in this field.</span></p></div>
+</section>
+
+<section id="playbook">
+  <h2><span class="n">6</span>The positioning playbook — 30 / 60 / 90 days, then 12 months</h2>
+
+  <div class="step"><div class="when">Days 0–30</div><div class="body">
+    <h3>Prove it inside your current role</h3>
+    <ul>
+      <li>Stand up an agentic testing pipeline on one project (mabl / Midscene / Wopee-class, or open-source Midscene.js on Playwright).</li>
+      <li>Measure and document: test-prep time reduction (target the <span class="hl">&gt;40%</span> industry number), flake rate, coverage.</li>
+      <li>Hit <strong>&gt;50% AI utilization in your QA workflow</strong> — the 2026 best-practice threshold. This becomes the first line of your next resume.</li>
+    </ul>
+  </div></div>
+
+  <div class="step"><div class="when">Days 31–60</div><div class="body">
+    <h3>Two public proof artifacts</h3>
+    <ul>
+      <li><strong>1 · A self-healing / autonomous E2E agent</strong> with honest failure triage — six-way classification (selectors, timing, data, visual, interaction, real defect — the QA Wolf taxonomy). Shows you're past the marketing pitch.</li>
+      <li><strong>2 · An LLM eval harness / red-team suite</strong> against an agent or RAG app — the Layer 3+4 money, made visible.</li>
+      <li>Both: public repo, write-up of design trade-offs, demo video.</li>
+    </ul>
+  </div></div>
+
+  <div class="step"><div class="when">Days 61–90</div><div class="body">
+    <h3>Rewrite the story, pick a lane</h3>
+    <ul>
+      <li>Resume headline: <span class="hlp">"9-year software engineer (quality, infrastructure, security) building trustworthy AI systems — I test what AI builds, run what it ships on, and secure what it touches."</span></li>
+      <li>Name <strong>prompt engineering <em>and</em> context engineering</strong> as skills; put RAG, LangGraph, MCP, evals, K8s/CKA and security next to — not instead of — Selenium/Playwright.</li>
+      <li>Target <strong>companies actively deploying agents</strong> (read past careers-page buzzwords), not companies "talking about AI" (Scaler).</li>
+      <li>Benchmark against <strong>₹25–35 LPA product-company SDET bands</strong> (3–6 yrs, Bengaluru) and the <strong>₹35L+ senior AI band</strong> (Scaler) — not the 12–15 LPA services-tier baseline. Remote-US angle: fully-remote US infra bands $155K–$235K, and remote global-firm roles "increasingly mirror the HQ city's salary band" (Recruivera).</li>
+    </ul>
+  </div></div>
+
+  <div class="step"><div class="when">Months 7–12</div><div class="body">
+    <h3>Negotiate from scarcity</h3>
+    <ul>
+      <li>Interview into <strong>one</strong> of the four lanes — start with <strong>① MLOps/AI Platform</strong> or <strong>③ AI Quality</strong> (least crowded for your exact profile).</li>
+      <li>Bring the leverage numbers to the table: <span class="hl">3.2:1 demand-to-supply gap · 62% AI-skill wage premium · +143% YoY posting growth</span>. "The bottleneck is qualified candidates, not open roles" (Final Round AI) — say it; it's true.</li>
+      <li>Expect: a 12–18% step at the conservative end (the documented SDET growth rate), or a <strong>full band jump (2–3×)</strong> if you land the applied-AI/infra title at a product or remote-US company.</li>
+    </ul>
+  </div></div>
+</section>
+
+<section id="outlook">
+  <h2><span class="n">7</span>Where this is heading — 12 to 36 months</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Augmentation is the base case.</strong> BCG: productivity gains + expandable demand → more, and <em>new</em>, human roles; engineers shift to orchestration and system-level judgment. QA will mirror SWE: fewer pure executors, more quality engineers who direct agent fleets.</li>
+      <li><strong>Autonomy climbs but stays supervised.</strong> Forrester's 2.2/5 full-autonomy score will rise as self-healing matures, but "meaning, trust, and responsibility will always belong to people" (TestFort). <span class="hlp">The verifier and the security auditor are the last seats to be automated — and both are your seats.</span></li>
+      <li><strong>Compliance becomes a product.</strong> EU AI Act Art. 96 demands timestamped, machine-readable, continuously-updated compliance evidence; Gartner sees 40% of gen-AI solutions multimodal by 2027. <strong>Audit-grade quality pipelines</strong> are a growing spend line — QA with a governance flavor is a compliance product, not a cost center.</li>
+      <li><strong>Infra spend keeps compounding.</strong> AI cloud infrastructure +105% YoY to $37.5B, inference now &gt;55% of it; inference-optimized chips &gt;$50B in 2026 (Hyqoo/Deloitte). Every rupee of that flows through <strong>Kubernetes, networking and security — your three home-turf skills.</strong></li>
+      <li><strong>Team shape:</strong> lean 3–5-person AI-empowered teams delivering what previously needed dozens. Senior, full-spectrum engineers — you, post-roadmap — are who they hire. Not specialists who can't own an outcome.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="bottomline">
+  <h2>Bottom line</h2>
+  <div class="verdict">
+    <h3>The AI boom does not punish a 9-year test automation engineer. It <span class="hlp">revalues</span> one.</h3>
+    <p style="margin-top:10px">If the engineer stops selling <em>"I write tests"</em> and starts selling <em>"I make AI trustworthy."</em></p>
+    <p style="margin-top:12px">Your <strong>Python</strong> is in 71% of the demand. Your <strong>Kubernetes</strong> is the #1-paying infra skill. Your <strong>security background</strong> is the scarcest AI skill. And your <strong>9 years of judgment</strong> is the layer no agent replaces this decade. Two skill layers — applied agent work, and evaluation &amp; security — separate you from the premium.</p>
+    <p style="margin-top:12px">The market gap (3.2:1) means the window to cross at maximum leverage is open <strong>now</strong> — and it is the window that opens <em>first for seniors, not students</em>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Primary sources</h2>
+  <ul class="refs" style="list-style:none;margin-left:0">
+    <li><b>BCG</b> — AI Will Reshape More Jobs Than It Replaces (2026)</li>
+    <li><b>WEF</b> — Future of Jobs Report 2025 (170M/92M by 2030)</li>
+    <li><b>PwC</b> — Global AI Jobs Barometer 2025/2026 (56%→62% premium)</li>
+    <li><b>LinkedIn</b> — Jobs on the Rise 2026 (AI engineer +143% YoY)</li>
+    <li><b>Forrester</b> — Q4 2025 Wave "Autonomous Testing Platforms"; Apr 2026 customer research (51–60% coverage, 2.2/5 autonomy)</li>
+    <li><b>Axial Search</b> — 43,500 AI-engineering postings analyzed (median $176K)</li>
+    <li><b>365 Data Science</b> — AI Engineer Outlook 2026 (903 US postings)</li>
+    <li><b>KORE1</b> — AI Engineer Demand 2026 (143% YoY, 3.2:1); MLOps salary guide</li>
+    <li><b>PE Collective · Recruits Lab · devopssalary.com</b> — MLOps/DevOps comp &amp; skill premiums</li>
+    <li><b>Unico Connect</b> — AI Engineer Roadmap 2026 (Lightcast/Stanford HAI AI Index)</li>
+    <li><b>TripleTen · RezScore · Forbes (Marr)</b> — 11 in-demand AI skills; the prompt-engineer myth</li>
+    <li><b>Scaler · Towards AI · KnowledgeHut · Maven</b> — agentic AI engineer roadmaps &amp; India pay bands</li>
+    <li><b>UiPath · mabl · TestSprite · VirtuosoQA · Wopee · TestFort · QA Wolf · Tricentis · testRigor · TestMu AI</b> — agentic &amp; self-healing testing 2026</li>
+    <li><b>Hyqoo · Cognizant</b> — agentic architecture, infra spend, EU AI Act, team shape</li>
+    <li><b>mhcognition · WETEST · A1QA · r/QualityAssurance</b> — QA profession 2026 (40% prep reduction; 36% communication premium)</li>
+    <li><b>6figr · Instahyre · ScrollTest · Payscale · Recruivera · ResumeVera</b> — India SDET/QA salary data 2026</li>
+    <li><b>Research.com · gitGood · aimagicx</b> — appsec &amp; AI-security comp (US)</li>
+    <li><b>r/mlops</b> — DevOps→MLOps India pay data</li>
+  </ul>
+</section>
+
+<footer>
+  Deep-research pipeline · 70 pages · 70 sources scraped &amp; analyzed · November 2026 · Figures as reported by cited sources — verify before external use.
+</footer>
+
+</div>
+</body>
+</html>
