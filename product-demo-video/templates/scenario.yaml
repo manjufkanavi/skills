@@ -2,55 +2,95 @@
 #
 # Everything except `scenes` is optional; defaults shown below.
 # `actions` is advisory: the agent translates each into Playwright MCP calls,
-# with judgment (it may use browser_snapshot/browser_highlight as needed).
-# Supported action keys: wait (s), navigate (url), click (text|selector),
-# fill (selector + value), hover, press (key), scroll (px or target).
+# with judgment (it may use browser_snapshot / browser_highlight / evaluate).
+# Supported action keys: wait (s), navigate (url), click (text|selector|href),
+# fill (selector + value), hover, press (key), scroll (px), evaluate (js).
+#
+# LENGTH RULE (the one that matters): the narration is generated FIRST and its
+# duration is the target for the scene's recording. Size the action list
+# (waits + hovers + scrolls) so the FULL interaction takes roughly as long as
+# the narration — 1.0–1.3× audio. The video is real motion, not a slideshow.
 
-title: "Terra Genius — Company Overview"   # shown on the intro title card
-subtitle: "2-minute product tour"          # optional second line on the card
-url: https://terragenius.com               # default starting URL (scene url overrides)
+title: "Terra Genius — Company Overview"   # intro title card
+subtitle: "2-minute product tour"          # second line on the card
+url: https://terragenius.com               # URL-bar card + default start (scene url overrides)
 
 voice: im_nicola                          # Kokoro voice (see kokoro-tts skill)
 speed: 0.9                                # <1 slower/more natural
 resolution: "1280x720"
 fps: 30
 crf: 24
-captions: true                            # per-scene caption bar + intro card
+captions: true                            # per-scene caption bar + intro card + URL bar
 max_size_mb: 48                           # Telegram bot upload budget
 
 scenes:
   - id: hero
-    title: "The promise"                  # caption bar text + manifest label
-    # url: https://terragenius.com        # omit to stay on the current page
+    title: "The promise"
+    target_duration: 16                   # ≈ the narration length (s) — record to fill it
+    # (no url — record from a fresh tab and navigate, so the load is in the footage)
     narration: >
       Terra Genius holds the earth to a higher standard.
-      For over twenty years, they have delivered stormwater management
-      and erosion control services across the country.
+      Notice the menu up top: Home, About Us, Services, and My Genius.
+      Below the headline, three cards summarize the work:
+      stormwater management, regulations,
+      and BMP and erosion control measures.
+      And the call to action is right there: a free site evaluation.
     actions:
-      - {wait: 2.5}
-      - {click: "Learn More"}             # first CTA on the hero
-      - {wait: 2}
+      - {wait: 0.8}                        # blank beat before the URL load
+      - {navigate: "https://terragenius.com"}
+      - {wait: 1.5}                        # page settles, slider moves
+      - {hover: "Home"}
+      - {wait: 1.2}
+      - {hover: "About Us"}
+      - {wait: 1.2}
+      - {hover: "Services »"}
+      - {wait: 1.2}
+      - {hover: "My Genius"}
+      - {wait: 1.2}
+      - {scroll: 500}                      # down to the cards
+      - {hover: "Stormwater Management"}
+      - {wait: 1.2}
+      - {hover: "Regulations"}
+      - {wait: 1.2}
+      - {evaluate: "href:bmp-services-2"}  # click the hero CTA (deterministic)
+      - {wait: 2.5}                        # load the destination
 
   - id: services
-    title: "Services"
-    url: https://terragenius.com/services
+    title: "BMP services"
+    target_duration: 15
+    url: https://terragenius.com/bmp-services-2/   # (agent: skip the navigate if the previous scene's click already landed here)
     narration: >
-      The services page breaks the offering into three areas:
-      stormwater management, erosion control monitoring,
-      and BMP management, each with its own dedicated overview.
+      This is where a visitor lands when they click through:
+      the BMP services page.
+      Best management practices for stormwater —
+      the core of what Terra Genius does
+      for land disturbing projects and permanent structures.
     actions:
-      - {wait: 2}
+      - {wait: 1.5}
+      - {scroll: 600}
+      - {wait: 1.5}
       - {scroll: 500}
+      - {wait: 1.5}
+      - {scroll: 400}
       - {wait: 2}
 
   - id: about
-    title: "About us"
-    url: https://terragenius.com/about
+    title: "The credentials"
+    target_duration: 17
+    url: https://terragenius.com/about-us/
     narration: >
-      The About page tells the story: since 2004,
-      Terra Genius has conducted over ten thousand site inspections,
-      which is the credibility behind every service they sell.
+      The about page makes the credentials concrete.
+      Since two thousand and four, Terra Genius has conducted
+      over ten thousand site inspections,
+      led by a certified professional in erosion and sediment control.
+      And the way to start is simple: a free site evaluation.
     actions:
       - {wait: 2}
-      - {scroll: 600}
+      - {scroll: 400}
+      - {wait: 1.5}
+      - {hover: "Mitch Maddox"}
+      - {wait: 1.5}
+      - {scroll: 500}
+      - {wait: 1.5}
+      - {highlight: "Contact Us for a Free Site Evaluation!"}
       - {wait: 2.5}

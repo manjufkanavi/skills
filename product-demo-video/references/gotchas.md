@@ -1,5 +1,20 @@
 # Gotchas & lessons
 
+## Quality: the "it looks like screenshots" failure mode
+
+- **Narration FIRST, then record to fill it.** tts-narration.py runs before
+  recording; each scene's audio duration is the target recording length
+  (aim 1.0–1.3×). If the merge log shows a >3 s freeze pad
+  ("freezing last frame for 6.5s"), the recording was too short — re-record
+  the scene with more interaction (hovers, scrolls, settle time), never ship
+  the freeze.
+- **Record the real interaction, not keyframes.** Nav hovers, card hovers,
+  full-page scrolls, CTAs, the URL load. A 15 s narration needs ~15 s of
+  actual mouse work in the footage.
+- Scene 1 must start on a blank tab and record THROUGH the navigation load;
+  the URL-bar card (concat-final `--url`) supplies the literal "entering the
+  URL" beat.
+
 ## Recording
 
 - **`--caps=vision,devtools` is mandatory.** Video tools (`browser_start_video`,
@@ -22,22 +37,28 @@
 - **Headless works for video** (Chromium new headless). No screen-recording
   permission needed on macOS. The user's default is headless; `--headed`
   (launch-mcp.sh) is available for live watching.
+- **`--fresh` (isolated in-memory profile) for public sites; the persistent
+  profile for logged-in products.** The shared profile accumulates cookies from
+  other runs and can change what a marketing page shows; `--isolated` keeps
+  re-runs reproducible.
 - **Never record via the Lightpanda/CDP-endpoint setup** (the `computer-use/browser`
   skill). `browser_start_video` drives Playwright's own browser launch; a
   `--cdp-endpoint`-attached session is a different code path and the
   `browser` skill's Lightpanda engine is for scraping, not video. This skill
   always runs its own Chrome (`--browser=chrome`).
-- **Pacing inside the recording matters less than it seems** — merge pads or
-  freezes to the narration length. But dead air at the *start* of a scene shows
-  a blank first frame when frozen; keep the scene starting on a settled page.
+- **For scenes after the first, start on a settled page:** dead air at a
+  scene's start becomes a frozen first frame when the merge pads to the audio
+  length. (Scene 1 is the exception — it records blank→load on purpose; see
+  the Quality section above.)
 
 ## Multi-client / fallback driver
 
 - **`--shared-browser-context` is required for multi-call flows.** Without it
-  every MCP client session (and every reconnection) gets its own fresh browser:
-  navigations, routes, and any active recording vanish. With it, all clients
-  share one browser+context. This applies to the HTTP fallback AND to the
-  stdio-registered server (a dropped connection = new client session).
+  every MCP client session gets its own browser. Set it on both the HTTP
+  fallback and the stdio registration. Caveat: when the last client
+  disconnects the server closes the browser, so a later reconnection still
+  gets a fresh browser — state only survives while clients remain connected
+  (hence `--script` for long flows).
 - **Video filenames must be ABSOLUTE paths.** A bare `filename: "scene.webm"`
   lands in the *server process CWD*, not `--output-dir` (output-dir only
   governs server-generated artifacts like snapshots). Use the full run-dir
@@ -51,9 +72,11 @@
   and its host-allowlist check additionally demands a literal `localhost`
   Host header. launch-mcp.sh sets both; it is loopback-only so disabling the
   check is safe.
-- Each `mcp-client.py` call performs a fresh MCP `initialize`, but the server
-  keeps the browser (and its state: cookies, tabs, routes, active recording)
-  across sessions — that's by design. Do NOT restart the server mid-run.
+- **When the last client disconnects, the server closes the browser**
+  (client count → 0). One-shot `mcp-client.py` calls therefore each get a
+  fresh browser — earlier navigations/routes/recording are gone no matter what
+  flags you pass. Multi-step flows MUST run in `--script` mode (one client,
+  one persistent session). Do NOT restart the server mid-run.
 - `mcp-client.py` exits 2 on tool `isError`, 3 on connection error. A "No video
   files were returned" text result is not an error exit — check for webm files
   on disk in the run dir (and the `-1` suffix variants).
@@ -66,12 +89,29 @@
 - ffmpeg's `concat` demuxer with `-c copy` requires identical encoding params —
   merge-scene.py enforces them (w/h/fps/pix_fmt/sar + AAC 44.1k stereo). If a
   clip came from elsewhere, re-encode it to the same params first.
-- `tpad=stop_mode=clone` freezes the **last** frame; it can't add motion. Long
-  audio over a short action is the main case; for >5 s of freeze, prefer to
-  write more narration-matching actions into the scene instead.
+- `tpad=stop_mode=clone` freezes the **last** frame; it can't add motion. A
+  freeze pad means the recording came in shorter than the narration —
+  re-record with more interaction (Quality section: >3 s freeze = defect).
 - Variable-fps webm + `-r 30` can produce tiny timestamp jitter; harmless for
   this use case (UI content). If concat complains, re-encode clips with
   `-vsync cfr` (or `-fps_mode cfr`).
+
+## QA without vision
+
+vision_analyze can be unavailable (connection errors); verify a finished video
+programmatically:
+
+- Extract one frame per segment + the title card:
+  `ffmpeg -ss T -i final.mp4 -frames:v 1 f.png`.
+- PIL grayscale stats per frame: real page content has high stdev; a
+  blank/black frame ≈ 0. The bottom 96 px (caption bar) mean settles near
+  ~120 when a dark 84%-alpha bar overlays a bright page, with stdev > 10
+  (bar text present).
+- Compare stats across scene frames — near-identical frames mean the same page
+  was recorded twice (a navigation failed).
+- Audio: `ffmpeg -i final.mp4 -af volumedetect -f null -` → `mean_volume`
+  ≈ -20 to -25 dB for narration; near -91 dB = silent track.
+- ffprobe the final file: h264 + aac + yuv420p, else Telegram won't play it inline.
 
 ## Delivery (Telegram)
 

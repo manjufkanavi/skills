@@ -9,8 +9,10 @@ usage:
 Steps:
   1. If --title: render a 2.5s intro card (render-card.py) with silent audio,
      encoded to the same normalized parameters as the scene clips.
-  2. Concatenate all clips via the concat demuxer (stream copy).
-  3. If the result exceeds --max-mb (Telegram bot upload limit ~50MB):
+  2. If --url: render a 1.5s browser-bar card (traffic lights + URL) — the
+     "entering the URL" moment — after the title card.
+  3. Concatenate all clips via the concat demuxer (stream copy).
+  4. If the result exceeds --max-mb (Telegram bot upload limit ~50MB):
      re-encode at crf 27; if still over, re-encode at 960x540 crf 27.
 
 Prints one JSON object: {"path": ..., "size_mb": ..., "duration_s": ...}
@@ -41,20 +43,23 @@ def size_mb(path: str) -> float:
     return os.path.getsize(path) / (1024 * 1024)
 
 
-def make_intro(title: str, subtitle: str, out: str, w: int, h: int, fps: int) -> bool:
-    card_png = os.path.join(os.path.dirname(os.path.abspath(out)), "intro-card.png")
-    r = subprocess.run(
-        [sys.executable, RENDER_CARD, "card", "--text", title, "--sub", subtitle,
-         "--w", str(w), "--h", str(h), "--out", card_png],
-        capture_output=True, text=True,
-    )
+def make_card_clip(kind: str, title: str, subtitle: str, out: str, w: int, h: int, fps: int, seconds: float, url: str = "") -> bool:
+    args = [sys.executable, RENDER_CARD, kind, "--w", str(w), "--h", str(h), "--out", out.replace(".mp4", ".png")]
+    if kind == "browserbar":
+        args += ["--url", url]
+    else:
+        args += ["--text", title]
+        if subtitle:
+            args += ["--sub", subtitle]
+    r = subprocess.run(args, capture_output=True, text=True)
     if r.returncode != 0:
         sys.stderr.write(r.stderr[-500:] + "\n")
         return False
+    card_png = out.replace(".mp4", ".png")
     cmd = [
         "ffmpeg", "-y", "-loop", "1", "-i", card_png,
         "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
-        "-t", "2.5",
+        "-t", str(seconds),
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
         "-pix_fmt", "yuv420p", "-r", str(fps),
         "-c:a", "aac", "-b:a", "128k",
@@ -89,6 +94,7 @@ def main():
     ap.add_argument("--inputs", nargs="+", required=True, help="scene mp4 files, in playback order")
     ap.add_argument("--title", default="")
     ap.add_argument("--subtitle", default="")
+    ap.add_argument("--url", default="", help="URL for the browser-bar 'entering the URL' card")
     ap.add_argument("--w", type=int, default=1280)
     ap.add_argument("--h", type=int, default=720)
     ap.add_argument("--fps", type=int, default=30)
@@ -103,11 +109,18 @@ def main():
     ordered = []
     if a.title:
         intro = os.path.join(tmpdir, "intro.mp4")
-        if make_intro(a.title, a.subtitle, intro, a.w, a.h, a.fps):
+        if make_card_clip("card", a.title, a.subtitle, intro, a.w, a.h, a.fps, 2.5):
             ordered.append(intro)
             print("[intro] title card added (2.5s)", file=sys.stderr)
         else:
             print("[warn] intro card failed — continuing without it", file=sys.stderr)
+    if a.url:
+        urlbar = os.path.join(tmpdir, "urlbar.mp4")
+        if make_card_clip("browserbar", "", "", urlbar, a.w, a.h, a.fps, 1.5, url=a.url):
+            ordered.append(urlbar)
+            print(f"[urlbar] entering-URL card added (1.5s, {a.url})", file=sys.stderr)
+        else:
+            print("[warn] url bar card failed — continuing without it", file=sys.stderr)
     ordered += a.inputs
 
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)

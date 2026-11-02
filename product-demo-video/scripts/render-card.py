@@ -7,6 +7,8 @@ usage:
 
 card    -> full-frame dark title card (RGB)
 caption -> translucent bottom bar; the rest of the image is transparent
+browserbar -> fake browser chrome (traffic lights + URL field) over a dark
+              page area — the "entering the URL" moment before a scene
 """
 import argparse
 import os
@@ -58,6 +60,26 @@ def caption(a):
     print(a.out)
 
 
+def browserbar(a):
+    img = Image.new("RGB", (a.w, a.h), (15, 23, 42))
+    d = ImageDraw.Draw(img)
+    bar_h = max(48, int(a.h * 0.085))
+    d.rectangle([0, 0, a.w, bar_h], fill=(30, 41, 59))
+    for i, color in enumerate(((239, 68, 68), (234, 179, 8), (34, 197, 94))):
+        c = 24 + i * 30
+        d.ellipse([c, bar_h // 2 - 7, c + 14, bar_h // 2 + 7], fill=color)
+    field_x, field_w = 120, int(a.w * 0.62)
+    d.rounded_rectangle([field_x, bar_h // 2 - 16, field_x + field_w, bar_h // 2 + 16],
+                        radius=16, fill=(11, 18, 32))
+    f = load_font(28)
+    text = "https://" + a.url if not a.url.startswith("http") else a.url
+    bbox = d.textbbox((0, 0), text, font=f)
+    d.text((field_x + 24, bar_h // 2 - (bbox[3] - bbox[1]) / 2 - bbox[1]),
+           text, font=f, fill=(203, 213, 225))
+    img.save(a.out)
+    print(a.out)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="kind", required=True)
@@ -72,9 +94,14 @@ def main():
     pcp.add_argument("--w", type=int, default=1280)
     pcp.add_argument("--h", type=int, default=96)
     pcp.add_argument("--out", required=True)
+    pbb = sub.add_parser("browserbar")
+    pbb.add_argument("--url", required=True)
+    pbb.add_argument("--w", type=int, default=1280)
+    pbb.add_argument("--h", type=int, default=720)
+    pbb.add_argument("--out", required=True)
     a = p.parse_args()
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    (card if a.kind == "card" else caption)(a)
+    {"card": card, "caption": caption, "browserbar": browserbar}[a.kind](a)
 
 
 if __name__ == "__main__":
